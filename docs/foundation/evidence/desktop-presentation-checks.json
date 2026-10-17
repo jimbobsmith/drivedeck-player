@@ -1,0 +1,67 @@
+{
+  "date": "2026-10-17",
+  "javaProcessTests": {
+    "tests": 9,
+    "failures": 0,
+    "errors": 0
+  },
+  "pythonSyncAnalysisTests": {
+    "tests": 7,
+    "failures": 0,
+    "covers": [
+      "bounded_offset",
+      "250ms_delay",
+      "whole_second_alias",
+      "drift",
+      "wrong_ids",
+      "insufficient_data",
+      "pulse_reuse"
+    ]
+  },
+  "headlessFixtureRegression": {
+    "pauseStable": true,
+    "javaVersion": "25.0.4.1",
+    "lengthMs": 20000,
+    "beforeSeekDecodedVideo": 293,
+    "avSyncProven": false,
+    "beforeSeekDecodedAudio": 469,
+    "output": "dummy_decode_only",
+    "vlcVersion": "3.0.24 Vetinari",
+    "result": "passed",
+    "postSeekPositionMs": 7000,
+    "postSeekDecodedVideo": 305,
+    "demuxPolicy": "avformat",
+    "seekWaitMs": 202,
+    "postSeekDecodedAudio": 487,
+    "seekWorked": true,
+    "resumeAdvanced": true,
+    "schemaVersion": 2,
+    "cleanShutdown": true,
+    "decodedVideo": 215,
+    "jnaVersion": "5.14.0",
+    "decodedAudio": 345,
+    "decoderPolicy": "software_avcodec",
+    "seekTargetMs": 7000,
+    "stage": "complete",
+    "seekable": true,
+    "nativeProcessIsolated": true,
+    "processExitCode": 0,
+    "positionMs": 2528
+  },
+  "testToolVersions": {
+    "SoundCard": "0.4.6",
+    "cffi": "2.1.1",
+    "numpy": "2.5.4",
+    "pycparser": "3.11"
+  },
+  "soundcardPrivateBindingSha256": {
+    "mediafoundation.py": "5ab62ea6bd3d3d2ae495241e5e7b9de5cdbd9076d4809ebbadb1ea03f463dde6",
+    "mediafoundation.py.h": "554f0a53b4f8e38556ac1513f5cc0ae0cb022a43698b980aba456f10f28a325a"
+  },
+  "javaPlaybackProfileTests": {
+    "tests": 4,
+    "failures": 0,
+    "errors": 0
+  },
+  "testedDesktopJarSha256": "edd3c1ea1b84d609ce92b840ab176b9b93c8396139827fd4bd4eb3c51a9c098e"
+}

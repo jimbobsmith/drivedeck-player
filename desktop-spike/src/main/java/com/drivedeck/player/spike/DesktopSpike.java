@@ -72,13 +72,18 @@ public final class DesktopSpike {
     }
 
     private static Void run(String[] args, JSONObject output) throws Exception {
-        if (args.length != 2 || !(args[0].equals("--youtube") || args[0].equals("--youtube-paired") || args[0].equals("--fixture"))) {
+        boolean present = args.length > 0 && args[0].equals("--present");
+        if (present) args = Arrays.copyOfRange(args, 1, args.length);
+        if (args.length < 2 || !(args[0].equals("--youtube") || args[0].equals("--youtube-paired")
+                || args[0].equals("--fixture") || args[0].equals("--fixture-paired"))
+                || args.length != (args[0].equals("--fixture-paired") ? 3 : 2)) {
             throw new IllegalArgumentException("Use --youtube VIDEO_ID or --fixture TEST_MEDIA_PATH");
         }
         String media;
         var mediaOptions = new ArrayList<String>();
         mediaOptions.add(":network-caching=1000");
         mediaOptions.add(":avcodec-hw=none");
+        mediaOptions.add(":demux=avformat");
         if (args[0].startsWith("--youtube")) {
             if (!args[1].matches("[A-Za-z0-9_-]{11}")) throw new IllegalArgumentException("Invalid video ID");
             stage("extract");
@@ -94,10 +99,12 @@ public final class DesktopSpike {
                 output.put("audioDeliveries", audio.stream().map(s -> s.getDeliveryMethod().name()).distinct().toList());
                 output.put("deliveries", video.stream().map(s -> s.getDeliveryMethod().name()).distinct().toList());
                 stage("select_stream");
-                Stream selected = video.stream().filter(DesktopSpike::canPlayDirect).findFirst().orElse(null);
+                Stream selected = present ? DesktopPlaybackProfile.select(video).orElse(null)
+                        : video.stream().filter(DesktopSpike::canPlayDirect).findFirst().orElse(null);
                 if (selected == null) {
-                    var separateVideo = videoOnly.stream().filter(DesktopSpike::canPlaySeparate)
-                            .filter(s -> s.getFormat() == MediaFormat.MPEG_4).findFirst().orElse(null);
+                    var separateVideo = present ? DesktopPlaybackProfile.select(videoOnly).orElse(null)
+                            : videoOnly.stream().filter(DesktopSpike::canPlaySeparate)
+                                    .filter(s -> s.getFormat() == MediaFormat.MPEG_4).findFirst().orElse(null);
                     var separateAudio = audio.stream().filter(DesktopSpike::canPlaySeparate)
                             .filter(s -> s.getFormat() == MediaFormat.M4A).findFirst().orElse(null);
                     if (separateVideo == null || separateAudio == null) {
@@ -111,6 +118,11 @@ public final class DesktopSpike {
                     output.put("pairedAudio", false);
                 }
                 output.put("selectedDelivery", selected.getDeliveryMethod().name());
+                if (selected instanceof org.schabi.newpipe.extractor.stream.VideoStream chosen) {
+                    output.put("selectedCodec", chosen.getCodec()).put("selectedFps", chosen.getFps())
+                            .put("selectedHeight", chosen.getHeight());
+                }
+                output.put("playbackProfile", present ? "software_avc_720p30" : "headless_probe");
                 media = selected.getContent();
             }
         } else {
@@ -118,25 +130,41 @@ public final class DesktopSpike {
             var fixture = java.nio.file.Path.of(args[1]).toAbsolutePath();
             if (!java.nio.file.Files.isRegularFile(fixture)) throw new IllegalArgumentException("Missing fixture");
             media = fixture.toString();
+            if (args[0].equals("--fixture-paired")) {
+                var audioFixture = java.nio.file.Path.of(args[2]).toAbsolutePath();
+                if (!java.nio.file.Files.isRegularFile(audioFixture)) throw new IllegalArgumentException("Missing audio fixture");
+                mediaOptions.add(":input-slave=" + audioFixture.toUri());
+                output.put("pairedAudio", true);
+            }
         }
         stage("native_discovery");
         new uk.co.caprica.vlcj.factory.discovery.NativeDiscovery().discover();
         stage("native_factory");
-        // Headless feasibility policy: explicitly select software avcodec for every media.
+        // Feasibility policy: explicitly select software avcodec for every media.
         // Automatic D3D11 decode crashed during stop after seeking on the measured host.
-        var factory = new MediaPlayerFactory("--vout=dummy", "--aout=dummy",
-                "--no-video-title-show", "--quiet", "--avcodec-hw=none", "--codec=avcodec,none");
+        var options = new ArrayList<>(List.of("--no-video-title-show", "--quiet", "--avcodec-hw=none", "--codec=avcodec,none", "--demux=avformat"));
+        if (!present) options.addAll(List.of("--vout=dummy", "--aout=dummy"));
+        var factory = new MediaPlayerFactory(options.toArray(String[]::new));
         MediaPlayer player = null;
+        PresentationWindow presentation = null;
         try {
             stage("native_player");
-            player = factory.mediaPlayers().newMediaPlayer();
+            if (present) {
+                var embedded = factory.mediaPlayers().newEmbeddedMediaPlayer();
+                player = embedded;
+                var capture = java.nio.file.Path.of(System.getenv().getOrDefault("DD_PLAYER_PRESENTATION_DIR",
+                        scratch().resolve("presentation-" + UUID.randomUUID()).toString()));
+                presentation = new PresentationWindow(factory, embedded, capture);
+            } else player = factory.mediaPlayers().newMediaPlayer();
             stage("native_play");
+            if (presentation != null) presentation.mark("start");
             if (!player.media().play(media, mediaOptions.toArray(String[]::new))) throw new IOException("Start rejected");
             stage("decode");
             long deadline = System.nanoTime() + TimeUnit.SECONDS.toNanos(30);
             MediaStatistics stats = null;
             while (System.nanoTime() < deadline) {
                 Thread.sleep(200);
+                if (presentation != null) presentation.checkOpen();
                 stats = player.media().info().statistics();
                 if (stats != null && stats.decodedVideo() > 20 && stats.decodedAudio() > 10
                         && player.status().time() > 2500) break;
@@ -148,37 +176,77 @@ public final class DesktopSpike {
                 throw new IOException("Both audio/video decoding and clock advancement required");
             }
             stage("pause_resume");
+            if (presentation != null) presentation.mark("pause");
             player.controls().setPause(true);
             Thread.sleep(500);
             long paused = player.status().time();
             Thread.sleep(700);
             boolean pauseStable = Math.abs(player.status().time() - paused) < 250;
+            if (presentation != null) presentation.mark("resume");
             player.controls().setPause(false);
             Thread.sleep(1500);
             boolean resumed = player.status().time() > paused + 500;
             boolean seekable = player.status().isSeekable();
             stage("seek");
             var beforeSeek = player.media().info().statistics();
+            output.put("beforeSeekDecodedVideo", beforeSeek.decodedVideo()).put("beforeSeekDecodedAudio", beforeSeek.decodedAudio());
             boolean seekWorked = false;
-            if (seekable && player.status().length() > 10000) {
-                player.controls().setTime(7000);
-                Thread.sleep(3000);
-                var afterSeek = player.media().info().statistics();
-                seekWorked = afterSeek != null && beforeSeek != null
-                        && player.status().time() >= 6500 && player.status().time() < 13000
-                        && afterSeek.decodedVideo() > beforeSeek.decodedVideo()
-                        && afterSeek.decodedAudio() > beforeSeek.decodedAudio();
+            long seekTarget = present ? 15000 : 7000;
+            output.put("seekTargetMs", seekTarget);
+            if (seekable && player.status().length() > seekTarget + 3000) {
+                if (presentation != null) presentation.mark("seek");
+                long beforePosition = player.status().time();
+                long seekStarted = System.nanoTime();
+                player.controls().setTime(seekTarget);
+                MediaStatistics afterSeek = null;
+                while (System.nanoTime() - seekStarted < TimeUnit.SECONDS.toNanos(10)) {
+                    Thread.sleep(200);
+                    if (presentation != null) presentation.checkOpen();
+                    afterSeek = player.media().info().statistics();
+                    long position = player.status().time();
+                    long elapsed = TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - seekStarted);
+                    seekWorked = afterSeek != null && beforeSeek != null
+                            && position >= seekTarget - 500 && position < seekTarget + 5000
+                            && position > beforePosition + elapsed + 500
+                            && afterSeek.decodedVideo() > beforeSeek.decodedVideo()
+                            && afterSeek.decodedAudio() > beforeSeek.decodedAudio();
+                    if (seekWorked) break;
+                }
+                output.put("postSeekPositionMs", player.status().time()).put("seekWaitMs", TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - seekStarted));
                 if (afterSeek != null) output.put("postSeekDecodedVideo", afterSeek.decodedVideo())
                         .put("postSeekDecodedAudio", afterSeek.decodedAudio());
             }
             output.put("pauseStable", pauseStable).put("resumeAdvanced", resumed)
                     .put("seekable", seekable).put("seekWorked", seekWorked)
-                    .put("output", "dummy_decode_only").put("avSyncProven", false)
-                    .put("decoderPolicy", "software_avcodec")
+                    .put("output", present ? "swing_video_native_audio" : "dummy_decode_only").put("avSyncProven", false)
+                    .put("decoderPolicy", "software_avcodec").put("demuxPolicy", "avformat")
                     .put("javaVersion", System.getProperty("java.version"))
                     .put("jnaVersion", com.sun.jna.Native.VERSION)
                     .put("vlcVersion", factory.application().version());
-            if (!pauseStable || !resumed || !seekWorked) throw new IOException("Transport probe failed");
+            if (!pauseStable || !resumed || !seekWorked) {
+                if (presentation != null) presentation.report(output);
+                throw new IOException("Transport probe failed");
+            }
+            if (presentation != null) {
+                stage("presentation_observe");
+                presentation.mark("steady_after_seek");
+                long observedStart = player.status().time();
+                var observedStats = player.media().info().statistics();
+                for (int i = 0; i < 100; i++) { presentation.checkOpen(); Thread.sleep(200); }
+                presentation.report(output);
+                long observedEnd = player.status().time();
+                var finalStats = player.media().info().statistics();
+                output.put("observationStartMs", observedStart).put("observationEndMs", observedEnd)
+                        .put("observationClockAdvancedMs", observedEnd - observedStart)
+                        .put("picturesDisplayed", finalStats.picturesDisplayed())
+                        .put("audioBuffersPlayed", finalStats.audioBuffersPlayed())
+                        .put("audioBuffersLost", finalStats.audioBuffersLost());
+                if (observedEnd - observedStart < 15000
+                        || finalStats.audioBuffersPlayed() <= observedStats.audioBuffersPlayed() + 100
+                        || finalStats.picturesDisplayed() <= observedStats.picturesDisplayed() + 50) {
+                    throw new IOException("Post-seek presentation did not continue");
+                }
+            }
         } finally {
             // Completion is published only after every native resource has shut down cleanly.
             String failedStage = stage;
@@ -190,6 +258,7 @@ public final class DesktopSpike {
             }
             stage("factory_release");
             factory.release();
+            if (presentation != null) presentation.close();
             output.put("cleanShutdown", true);
             stage(failedStage);
         }

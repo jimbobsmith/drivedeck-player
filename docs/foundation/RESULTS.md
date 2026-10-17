@@ -2,7 +2,7 @@
 
 Date: 2026-10-17. Work item: #1; provider/native follow-up: #2. No production release or personal-device installation.
 
-## Desktop
+## Original foundation desktop (PR #3)
 
 Windows x64, Temurin JDK 25.0.4.1+1, Gradle 9.5.1, VLCJ 4.11.0 and installed libVLC 3.0.24. Client/extractor pins are in the foundation guide.
 
@@ -32,6 +32,24 @@ A five-second deadline during real YouTube decoding returns `WorkerTimeout` at `
 
 Engine decision: retain VLCJ/libVLC as a software-decoded, isolated headless candidate for progressive separate tracks. Do not enable hardware decoding or start a finished desktop UI/packaging milestone from this evidence. Dummy outputs explicitly report `avSyncProven: false`; decode counters and one clock cannot establish visible/audible presentation or long-run A/V synchronization. Real network-loss/stall/reconnect behavior, live/adaptive/SABR/DASH delivery and the missing local JavaScript adapter remain gates. The downloader continues to refuse `api.pipepipe.dev`; no desktop local-JS adapter has been implemented, so videos requiring it must fail rather than use the hosted fallback. Issue #2 stays open until its remaining acceptance evidence is satisfied.
 
+## Issue #2: visible/audio presentation and controlled timing
+
+PR #4 is merged into `main` at `68acddb68b2670e9fd97a7336938ebc52fdf82bf` with explicit maintainer approval. The presentation follow-up is on `codex/issue-2-desktop-presentation-sync`, awaiting review and separate merge authority.
+
+The opt-in `-Present` probe adds a Swing window with software-rendered VLCJ frame callbacks and native sound output, all inside the existing supervised worker. The maintainer replied **"Video and sound both work"** during desktop validation. Automated reports keep that human observation separate from render-loopback measurements; neither is an acoustic latency certification. Curated observation: `evidence/desktop-presentation-human-observation.json`.
+
+Two actual YouTube `aqz-KE-bpKQ` runs pass visible/audio presentation, pause/resume, observed seek to 15000ms and sustained output afterwards. The conservative software profile admits AVC progressive MP4 up to 720p/30fps and selects the sample's 480p30 stream with M4A audio. Observed seeks take 200ms and 201ms. In both subsequent 20-second observations the clock advances from 15000ms to 35112ms. The runs paint 748/755 frames, report 744/751 displayed pictures and 1141/1151 played audio buffers, lose zero audio buffers, produce nonzero render-loopback sound, and shut down cleanly. The own-surface output was visually inspected. Curated reports: `evidence/desktop-presentation-youtube.json`.
+
+This probe exposed unreliable fixed-delay seek checks and intermittent long buffering in the native MP4 demux path. Two visible probes exceeded the seek check deadline; one diagnostic run recovered after 9034ms. Avformat reduced that seek wait, but a later 1080p60 repeat still failed sustained presentation: only 11078ms of clock advancement during the 20-second observation. Its one earlier passing run does not qualify that high-rate software path. The conservative profile excludes it and rejects unknown/unsupported rates, codecs and delivery methods; the actual qualified sample selection is 480p30. These are measured adapter decisions, not a complete upstream root-cause diagnosis. Seek now requires an observed jump beyond natural clock advancement and both decode counters; presentation additionally requires at least 15 seconds of media-clock advancement plus continued painted video/native audio output during observation. A native Playing state or nonzero counters alone cannot pass.
+
+Known simultaneous flash/tone events are generated as separate H.264/AAC tracks and paired through the same native input-slave adapter. Visual binary IDs and tone frequencies identify content seconds, preventing whole-period aliases and pulse reuse. Two final runs using temporary recorder-only MMCSS Audio scheduling pass with zero capture discontinuities or timestamp errors. Both match all 25 events; their steady post-seek intervals match 20 events over 19 seconds. Median audio-minus-video offsets are 30.08ms and 22.24ms, p95 absolute offsets 32.09ms and 23.26ms, and end-minus-start drift -2.99ms and 1.00ms. These fit the predeclared 80ms median / 120ms p95 / 40ms drift budgets. Reports and fixture hashes: `evidence/desktop-sync-calibration.json`.
+
+A real 250ms delayed-audio fixture correctly fails `AVSyncBudgetFailed`, with a 279.82ms steady post-seek median offset, all 20 pulses matched, and zero capture discontinuities. Report: `evidence/desktop-sync-negative.json`. Before multimedia scheduling, a repeat had nine capture discontinuities: that strict qualification failure is preserved in `evidence/desktop-presentation-diagnostics.json`; its acceptable pulse offsets did not convert it to a pass. Raw PCM is never saved, no microphone is opened, and no private output-device identifier or signed transport URL enters curated evidence.
+
+Standalone `test installDist` passes, as do nine Java process-boundary tests, four software-profile admission tests, seven Python timing-analysis tests and the original headless synthetic regression with the selected avformat/software decoder policy. Test tool/private-binding versions and hashes: `evidence/desktop-presentation-checks.json`. Reproduce and interpret the test with [DESKTOP_PRESENTATION.md](DESKTOP_PRESENTATION.md).
+
+Engine decision: retain isolated VLCJ, software avcodec and avformat for the measured experimental Windows presentation path. Controlled software presentation timing is validated; monitor scanout/physical acoustic delay, provider-specific source A/V alignment, long-run drift, arbitrary network disruption/reconnect, Bluetooth/other routes, other OS/hardware, local JavaScript/SABR/live/adaptive delivery and packaging remain gates. Worker/provider reports intentionally retain `avSyncProven: false` / `providerAVSyncProven: false`. The qualified paired-fixture timing result belongs to the external measurement harness. Issue #2 remains open. No connected-phone install, DD Android product-code change, hosted sync or release is performed.
+
 ## Native artifact and dependency boundaries
 
 Inherited unchanged `ffmpeg/ffmpeg-kit.aar` SHA-256: `19d064dd952a51dd3015007007bf7740c66ce65c09812abbe573a3ec6858f968`. This is provenance evidence, not a complete native-source/licence/page-alignment audit. Preserve upstream notices and close the documented release gate before distribution.
@@ -53,4 +71,4 @@ The inherited Android Auto integration exposes two sessions with the same tag on
 
 The headless emulator has audio output disabled. Actual decoded video is visible and the media-session controls work; audible output, Bluetooth/car routes, physical phone lock/process/background recovery, tablet matrix, long-run delivery, background-only mode and DD interruption integration remain field gates. Native artifact reproducibility/licensing, 16KiB alignment, dependency privacy and distribution signing remain separate release gates. No release or daily-driver update is authorized or claimed.
 
-Foundation PR #3 is merged with maintainer authority. Issue #2 improvements are on `codex/issue-2-desktop-youtube-playback` for review; parent DD #244, foundation field gates and the remaining #2 acceptance gates stay open. This follow-up requires separate merge authority.
+Foundation PR #3 is merged with maintainer authority. Headless issue #2 PR #4 is merged; presentation improvements are on `codex/issue-2-desktop-presentation-sync` for review; parent DD #244, foundation field gates and the remaining #2 acceptance gates stay open. This follow-up requires separate merge authority.

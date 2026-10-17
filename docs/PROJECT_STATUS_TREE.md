@@ -1,6 +1,6 @@
 # DriveDeck Player status
 
-Updated: 2026-10-17. Product line: `main`. Foundation PR #3 merged at `832a8824515e44867b3e34d770c12ac127260524`. Active implementation: issue #2, branch `codex/issue-2-desktop-youtube-playback`. No release published.
+Updated: 2026-10-17. Product line: `main`. Foundation PR #3 merged at `832a8824515e44867b3e34d770c12ac127260524`. Headless PR #4 merged at `68acddb68b2670e9fd97a7336938ebc52fdf82bf`. Active implementation: issue #2, branch `codex/issue-2-desktop-presentation-sync`. No release published. Presentation entries describe the active review branch and are not integrated into main until its PR merges.
 
 - [x] Standalone fork with PipePipe v5.4.0 client/extractor pins.
 - [x] Independent Android package/version/Test label and isolated upstream updates.
@@ -10,9 +10,11 @@ Updated: 2026-10-17. Product line: `main`. Foundation PR #3 merged at `832a88245
 - [x] Native desktop H.264/AAC decode, position, pause/resume and seek on synthetic media.
 - [x] Headless desktop YouTube MP4+M4A decode, pause/resume, post-seek decoding and clean software-decoder shutdown on the measured Windows host.
 - [x] Native child-process crash/timeout/cancellation containment tests and real-provider deadline/recovery probe.
-- [ ] Desktop A/V synchronization, presentation and long-run/network-failure qualification; #2 remains open.
+- [x] Experimental Windows video window and native sound output, with maintainer confirmation and two sustained 480p30 YouTube presentation passes.
+- [x] Controlled separate-track software presentation timing: two qualified runs plus a correctly rejected 250ms delayed-audio control; physical latency and provider alignment remain unmeasured.
+- [ ] HD/high-frame-rate playback, long-run/provider-specific A/V alignment, network-failure/reconnect and route/hardware qualification; #2 remains open.
 - [ ] Desktop local JavaScript/SABR/adaptive delivery adapter decision and proof.
-- [ ] Finished desktop UI, OS media keys, visible/audible output and packaging matrix.
+- [ ] Finished desktop UI, OS media keys and packaging matrix.
 - [ ] Hosted personal-library sync contract/service (Platform #27).
 - [ ] Android/desktop sync clients and offline convergence.
 - [ ] DD source discovery, deterministic exact-item/mode commands and interruption field checks.
