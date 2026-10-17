@@ -1,0 +1,117 @@
+{
+  "date": "2026-10-17",
+  "videoId": "aqz-KE-bpKQ",
+  "runs": [
+    {
+      "pauseStable": true,
+      "javaVersion": "25.0.4.1",
+      "lengthMs": 634567,
+      "avSyncProven": false,
+      "audioDeliveries": [
+        "PROGRESSIVE_HTTP"
+      ],
+      "output": "dummy_decode_only",
+      "vlcVersion": "3.0.24 Vetinari",
+      "result": "passed",
+      "postSeekDecodedVideo": 614,
+      "postSeekDecodedAudio": 912,
+      "seekWorked": true,
+      "resumeAdvanced": true,
+      "schemaVersion": 2,
+      "pairedAudio": true,
+      "cleanShutdown": true,
+      "decodedVideo": 412,
+      "jnaVersion": "5.14.0",
+      "decodedAudio": 424,
+      "decoderPolicy": "software_avcodec",
+      "deliveries": [],
+      "stage": "complete",
+      "seekable": true,
+      "videoStreams": 0,
+      "videoOnlyDeliveries": [
+        "PROGRESSIVE_HTTP"
+      ],
+      "nativeProcessIsolated": true,
+      "audioStreams": 5,
+      "videoResolution": "1080p60",
+      "videoOnlyStreams": 14,
+      "selectedDelivery": "PROGRESSIVE_HTTP",
+      "processExitCode": 0,
+      "positionMs": 2919
+    },
+    {
+      "pauseStable": true,
+      "javaVersion": "25.0.4.1",
+      "lengthMs": 634567,
+      "avSyncProven": false,
+      "audioDeliveries": [
+        "PROGRESSIVE_HTTP"
+      ],
+      "output": "dummy_decode_only",
+      "vlcVersion": "3.0.24 Vetinari",
+      "result": "passed",
+      "postSeekDecodedVideo": 592,
+      "postSeekDecodedAudio": 896,
+      "seekWorked": true,
+      "resumeAdvanced": true,
+      "schemaVersion": 2,
+      "pairedAudio": true,
+      "cleanShutdown": true,
+      "decodedVideo": 380,
+      "jnaVersion": "5.14.0",
+      "decodedAudio": 402,
+      "decoderPolicy": "software_avcodec",
+      "deliveries": [],
+      "stage": "complete",
+      "seekable": true,
+      "videoStreams": 0,
+      "videoOnlyDeliveries": [
+        "PROGRESSIVE_HTTP"
+      ],
+      "nativeProcessIsolated": true,
+      "audioStreams": 5,
+      "videoResolution": "1080p60",
+      "videoOnlyStreams": 14,
+      "selectedDelivery": "PROGRESSIVE_HTTP",
+      "processExitCode": 0,
+      "positionMs": 2651
+    },
+    {
+      "pauseStable": true,
+      "javaVersion": "25.0.4.1",
+      "lengthMs": 634567,
+      "avSyncProven": false,
+      "audioDeliveries": [
+        "PROGRESSIVE_HTTP"
+      ],
+      "output": "dummy_decode_only",
+      "vlcVersion": "3.0.24 Vetinari",
+      "result": "passed",
+      "postSeekDecodedVideo": 572,
+      "postSeekDecodedAudio": 540,
+      "seekWorked": true,
+      "resumeAdvanced": true,
+      "schemaVersion": 2,
+      "pairedAudio": true,
+      "cleanShutdown": true,
+      "decodedVideo": 380,
+      "jnaVersion": "5.14.0",
+      "decodedAudio": 402,
+      "decoderPolicy": "software_avcodec",
+      "deliveries": [],
+      "stage": "complete",
+      "seekable": true,
+      "videoStreams": 0,
+      "videoOnlyDeliveries": [
+        "PROGRESSIVE_HTTP"
+      ],
+      "nativeProcessIsolated": true,
+      "audioStreams": 5,
+      "videoResolution": "1080p60",
+      "videoOnlyStreams": 14,
+      "selectedDelivery": "PROGRESSIVE_HTTP",
+      "processExitCode": 0,
+      "positionMs": 2650
+    }
+  ]
+}

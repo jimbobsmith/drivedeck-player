@@ -1,0 +1,8 @@
+{
+  "result": "failed",
+  "schemaVersion": 2,
+  "stage": "decode",
+  "errorType": "WorkerTimeout",
+  "nativeProcessIsolated": true,
+  "processExitCode": 1
+}
