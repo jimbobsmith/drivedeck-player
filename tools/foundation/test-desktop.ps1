@@ -2,6 +2,8 @@ param(
     [Parameter(Mandatory, ParameterSetName='YouTube')][ValidatePattern('^[A-Za-z0-9_-]{11}$')][string]$VideoId,
     [Parameter(ParameterSetName='YouTube')][switch]$ExperimentalPairedTracks,
     [Parameter(Mandatory, ParameterSetName='Fixture')][string]$Fixture,
+    [Parameter(ParameterSetName='Fixture')][string]$AudioFixture,
+    [switch]$Present,
     [ValidateRange(1,100)][int]$TimeoutSeconds = 100
 )
 $ErrorActionPreference = 'Stop'
@@ -14,12 +16,17 @@ $previousTimeout = $env:DD_PLAYER_PROBE_TIMEOUT_SECONDS
 $env:DD_PLAYER_PROBE_TIMEOUT_SECONDS = [string]$TimeoutSeconds
 $nativeLog = Join-Path $scratch ('native-' + [guid]::NewGuid().ToString('N') + '.log')
 try {
+    $probeArgs = @()
+    if ($Present) { $probeArgs += '--present' }
     if ($PSCmdlet.ParameterSetName -eq 'YouTube') {
         $mode = if ($ExperimentalPairedTracks) { '--youtube-paired' } else { '--youtube' }
-        $resultText = & $launcher $mode $VideoId 2> $nativeLog
+        $probeArgs += @($mode, $VideoId)
+    } elseif ($AudioFixture) {
+        $probeArgs += @('--fixture-paired', (Resolve-Path -LiteralPath $Fixture).Path, (Resolve-Path -LiteralPath $AudioFixture).Path)
     } else {
-        $resultText = & $launcher --fixture (Resolve-Path -LiteralPath $Fixture).Path 2> $nativeLog
+        $probeArgs += @('--fixture', (Resolve-Path -LiteralPath $Fixture).Path)
     }
+    $resultText = & $launcher @probeArgs 2> $nativeLog
     $probeExit = $LASTEXITCODE
 } finally { $env:DD_PLAYER_PROBE_TIMEOUT_SECONDS = $previousTimeout }
 if ($resultText) { $resultText }

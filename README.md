@@ -13,7 +13,7 @@ cd drivedeck-player
 ./tools/foundation/build.ps1 -JdkHome <jdk25> -SdkRoot <android-sdk>
 ```
 
-No hosted sync or finished desktop client is implemented by this milestone. The desktop module is an executable extraction/decoding/transport feasibility harness. It uses an installed VLC 3.x runtime; it does not download or redistribute VLC.
+No hosted sync or finished desktop client is implemented by this milestone. The desktop module is an executable extraction/decoding/transport feasibility harness. It uses an installed VLC 3.x runtime; it does not download or redistribute VLC. An opt-in `-Present` validation window and controlled A/V timing tools are described in [the presentation guide](docs/foundation/DESKTOP_PRESENTATION.md).
 
 Upstream automatic update/announcement checks are disabled in this fork. Install only reviewed fork builds manually until an independently signed update channel exists. No signing key or release artifact is published here.
 

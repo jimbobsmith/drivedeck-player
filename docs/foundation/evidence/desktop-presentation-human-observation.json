@@ -1,0 +1,11 @@
+{
+  "date": "2026-10-17",
+  "source": "Maintainer reply in this Codex chat",
+  "questionScope": "Desktop validation video window and physical speaker/headphone output",
+  "answer": "Video and sound both work",
+  "visibleVideoConfirmed": true,
+  "physicalSoundConfirmed": true,
+  "subjectiveProviderAVAlignmentConfirmed": false,
+  "physicalAcousticLatencyMeasured": false,
+  "noPhoneInstallPerformed": true
+}
