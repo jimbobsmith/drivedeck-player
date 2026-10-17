@@ -6,6 +6,7 @@ import android.widget.Toast;
 import androidx.preference.Preference;
 
 import org.schabi.newpipe.NewVersionWorker;
+import org.schabi.newpipe.BuildConfig;
 import org.schabi.newpipe.R;
 
 public class UpdateSettingsFragment extends BasePreferenceFragment {
@@ -30,6 +31,15 @@ public class UpdateSettingsFragment extends BasePreferenceFragment {
     @Override
     public void onCreatePreferences(final Bundle savedInstanceState, final String rootKey) {
         addPreferencesFromResourceRegistry();
+        if (!BuildConfig.ENABLE_APP_UPDATES) {
+            getPreferenceScreen().removeAll();
+            final Preference status = new Preference(requireContext());
+            status.setTitle(R.string.player_updates_unavailable);
+            status.setSummary(R.string.player_updates_unavailable_summary);
+            status.setSelectable(false);
+            getPreferenceScreen().addPreference(status);
+            return;
+        }
 
         findPreference(getString(R.string.update_app_key))
                 .setOnPreferenceChangeListener(updatePreferenceChange);

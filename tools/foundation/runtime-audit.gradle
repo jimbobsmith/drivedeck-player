@@ -1,0 +1,18 @@
+// Materialize the resolved runtime graph and reject forbidden service/telemetry dependencies.
+tasks.register('writeFoundationRuntimeAudit') {
+    def report = layout.buildDirectory.file('reports/foundation/runtime-dependencies.txt')
+    outputs.file(report)
+    outputs.upToDateWhen { false }
+    doLast {
+        def components = configurations.debugRuntimeClasspath.resolvedConfiguration.resolvedArtifacts
+                .collect { it.moduleVersion.id.toString() }.unique().sort()
+        def forbidden = components.findAll {
+            it.startsWith('com.google.android.gms:') || it.startsWith('com.google.firebase:') ||
+            it.startsWith('com.google.android.play:') || it.toLowerCase().contains('crashlytics')
+        }
+        def target = report.get().asFile
+        target.parentFile.mkdirs()
+        target.text = components.join('\n') + '\n'
+        if (!forbidden.isEmpty()) { throw new GradleException("Forbidden runtime services: ${forbidden}") }
+    }
+}

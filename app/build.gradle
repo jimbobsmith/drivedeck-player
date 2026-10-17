@@ -6,12 +6,12 @@ plugins {
     id "org.jetbrains.kotlin.kapt"
 }
 
-def keyPath = System.getenv("KEY_PATH")
-def keyStorePassword = System.getenv("KEY_STORE_PASSWORD")
-def signingKeyAlias = System.getenv("KEY_ALIAS")
-def signingKeyPassword = System.getenv("KEY_PASSWORD")
-def baseVersionCode = 1109
-def appVersionName = "5.4.0"
+def keyPath = System.getenv("DD_PLAYER_KEY_PATH")
+def keyStorePassword = System.getenv("DD_PLAYER_KEY_STORE_PASSWORD")
+def signingKeyAlias = System.getenv("DD_PLAYER_KEY_ALIAS")
+def signingKeyPassword = System.getenv("DD_PLAYER_KEY_PASSWORD")
+def baseVersionCode = 1
+def appVersionName = "0.1.0-alpha01"
 def abiCodes = ['armeabi-v7a': 1, 'x86': 2, 'x86_64': 3, 'arm64-v8a': 4]
 def stableBuildConfigVersionCode =
         (100 * baseVersionCode) + abiCodes['armeabi-v7a']
@@ -20,7 +20,8 @@ android {
     compileSdk 37
 
     defaultConfig {
-        applicationId "InfinityLoop1309.NewPipeEnhanced"
+        applicationId "com.drivedeck.player"
+        buildConfigField "boolean", "ENABLE_APP_UPDATES", "false"
         minSdk 23
         //noinspection OldTargetApi,ExpiredTargetSdkVersion
         targetSdk 36
@@ -65,11 +66,11 @@ android {
             def normalizedWorkingBranch = workingBranch.replaceFirst("^[^A-Za-z]+", "").replaceAll("[^0-9A-Za-z]+", "")
             if (true) {
                 // default values when branch name could not be determined or is master or dev
-                applicationIdSuffix ".debug"
-                resValue "string", "app_name", "PipePipe Debug"
+                applicationIdSuffix ".test"
+                resValue "string", "app_name", "DriveDeck Player Test"
             } else {
                 applicationIdSuffix ".debug." + normalizedWorkingBranch
-                resValue "string", "app_name", "PipePipe " + workingBranch
+                resValue "string", "app_name", "DriveDeck Player " + workingBranch
             }
         }
 
@@ -79,9 +80,9 @@ android {
             }
             if (System.properties.containsKey('packageSuffix')) {
                 applicationIdSuffix System.getProperty('packageSuffix')
-                resValue "string", "app_name", "PipePipe " + System.getProperty('packageSuffix')
+                resValue "string", "app_name", "DriveDeck Player " + System.getProperty('packageSuffix')
             } else {
-                resValue "string", "app_name", "PipePipe"
+                resValue "string", "app_name", "DriveDeck Player"
             }
             minifyEnabled true
             shrinkResources false // disabled to fix F-Droid's reproducible build
@@ -156,7 +157,7 @@ androidComponents.onVariants(androidComponents.selector().all()) { variant ->
         }
         output.versionCode.set(versionCode)
         output.outputFileName.set(
-                "PipePipe_${appVersionName}-${abi ?: 'universal'}-${variant.name}.apk")
+                "DriveDeckPlayer_${appVersionName}-${abi ?: 'universal'}-${variant.name}.apk")
     }
 }
 
@@ -314,3 +315,5 @@ static String getGitWorkingBranch() {
         return ""
     }
 }
+
+apply from: rootProject.file('tools/foundation/runtime-audit.gradle')

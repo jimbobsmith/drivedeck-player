@@ -1,0 +1,14 @@
+{
+  "result": "failed",
+  "reason": "no_combined_av_stream_separate_tracks_need_adapter",
+  "schemaVersion": 1,
+  "pairedAudio": false,
+  "stage": "select_stream",
+  "errorType": "UnsupportedOperationException",
+  "videoStreams": 0,
+  "videoOnlyDeliveries": ["PROGRESSIVE_HTTP"],
+  "audioStreams": 5,
+  "audioDeliveries": ["PROGRESSIVE_HTTP"],
+  "videoOnlyStreams": 14,
+  "deliveries": []
+}
