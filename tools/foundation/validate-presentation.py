@@ -6,6 +6,7 @@ import argparse
 import ctypes
 from ctypes import wintypes
 import json
+import hashlib
 import os
 from pathlib import Path
 import subprocess
@@ -21,7 +22,21 @@ parser.add_argument("--distribution", type=Path, required=True)
 parser.add_argument("--output-directory", type=Path, required=True)
 parser.add_argument("--fixture-directory", type=Path)
 parser.add_argument("--video-id")
+parser.add_argument("--observe-seconds", type=int, default=20)
+parser.add_argument("--profile", choices=("baseline", "hd720", "hd1080"), default="baseline")
 args = parser.parse_args()
+if not 20 <= args.observe_seconds <= 300: parser.error("Observation must be 20..300 seconds")
+pulse_period_seconds = 1
+if args.fixture_directory:
+    recipe_path = args.fixture_directory / "recipe.json"
+    if recipe_path.exists():
+        recipe = json.loads(recipe_path.read_text())
+        for filename, key in (("sync-video.mp4", "videoSha256"), ("sync-audio.m4a", "audioSha256")):
+            if hashlib.sha256((args.fixture_directory / filename).read_bytes()).hexdigest() != recipe[key]:
+                parser.error("Fixture hash does not match recipe")
+        pulse_period_seconds = recipe["pulsePeriodMs"] / 1000
+        if recipe["durationSeconds"] < 15 + args.observe_seconds + 5:
+            parser.error("Fixture needs seek + observation + five seconds of headroom")
 if bool(args.video_id) == bool(args.fixture_directory): parser.error("Choose one public video ID or sync fixture directory")
 if os.name != "nt": parser.error("This probe uses Windows WASAPI")
 args.output_directory.mkdir(parents=True, exist_ok=True)
@@ -70,17 +85,17 @@ def packet(recorder, detect):
     if detect:
         peak = max(peak, value)
         if value > .0005:
-            # 20ms tones encode content-second in 100Hz steps; IDs prevent whole-period aliasing.
+            # 20ms tones encode unique pulse ID in 100Hz steps; IDs prevent whole-period aliasing.
             spectrum = np.abs(np.fft.rfft(mono * np.hanning(count), n=8192))
             frequencies = np.fft.rfftfreq(8192, 1 / 48000)
-            band = (frequencies >= 1050) & (frequencies <= 5450)
+            band = (frequencies >= 1050) & (frequencies <= 7350)
             frequency = frequencies[np.flatnonzero(band)[np.argmax(spectrum[band])]]
             identity = round((frequency - 1000) / 100)
             basis = np.exp(-2j * np.pi * (1000 + identity * 100) * np.arange(count) / 48000)
             tone = 2 * abs(np.dot(mono, basis)) / count
             rms = float(np.sqrt(np.mean(mono * mono)))
             stamp_ms = (timestamp * 100 + clock_offset) / 1e6
-            if 1 <= identity <= 44 and tone > .001 and tone > rms * .8 and stamp_ms - last_pulse > 250:
+            if 1 <= identity <= 63 and tone > .001 and tone > rms * .8 and stamp_ms - last_pulse > 250:
                 crossings = np.flatnonzero(np.abs(mono) > max(.0005, value * .08))
                 if len(crossings):
                     onset = stamp_ms + int(crossings[0]) * 1000 / 48000
@@ -116,10 +131,12 @@ try:
                    str(args.distribution / "lib" / "*"), "com.drivedeck.player.spike.DesktopSpike", "--present"]
         if args.video_id: command += ["--youtube", args.video_id]
         else: command += ["--fixture-paired", str(args.fixture_directory / "sync-video.mp4"), str(args.fixture_directory / "sync-audio.m4a")]
-        env = dict(os.environ, DD_PLAYER_PRESENTATION_DIR=str(args.output_directory))
+        env = dict(os.environ, DD_PLAYER_PRESENTATION_DIR=str(args.output_directory),
+                   DD_PLAYER_OBSERVE_SECONDS=str(args.observe_seconds), DD_PLAYER_PROFILE=args.profile,
+                   DD_PLAYER_PROBE_TIMEOUT_SECONDS=str(args.observe_seconds + 80))
         with (args.output_directory / "worker.json").open("wb") as output, (args.output_directory / "launcher.log").open("wb") as errors:
             process = subprocess.Popen(command, stdout=output, stderr=errors, env=env)
-            deadline = time.monotonic() + 110
+            deadline = time.monotonic() + args.observe_seconds + 90
             while process.poll() is None and time.monotonic() < deadline:
                 packet(recorder, True); time.sleep(.001)
             if process.poll() is None: raise TimeoutError("PresentationSupervisorDeadline")
@@ -147,8 +164,10 @@ try:
         report["startupDiscontinuitiesBeforeMeasurement"] = len(startup)
         report["transitionDiscontinuities"] = len(transitions)
         report["unexpectedCaptureDiscontinuities"] = len(unexpected)
-        report["sync"] = measure(video_events, audio_events)
-        report["steadyPostSeekSync"] = measure([event for event in video_events if event["timeMs"] >= steady], audio_events)
+        minimum_span = max(15, args.observe_seconds - 2 * pulse_period_seconds - 2)
+        minimum_pulses = max(12, int(args.observe_seconds / pulse_period_seconds) - 2)
+        report["sync"] = measure(video_events, audio_events, minimum_span, minimum_pulses)
+        report["steadyPostSeekSync"] = measure([event for event in video_events if event["timeMs"] >= steady], audio_events, minimum_span, minimum_pulses)
         if timestamp_errors or discontinuities or clock_change_ms > 5: raise RuntimeError("CaptureClockOrContinuityFailure")
         if report["sync"]["result"] != "passed" or report["steadyPostSeekSync"]["result"] != "passed": raise RuntimeError("AVSyncBudgetFailed")
         report["calibratedFixtureSyncPassed"] = True
@@ -158,7 +177,10 @@ try:
 except Exception as failure:
     report.update(result="failed", errorType=type(failure).__name__, reason=str(failure) if str(failure).isidentifier() else "ProbeFailure")
 finally:
-    if scheduling: report["multimediaSchedulingRestored"] = bool(avrt.AvRevertMmThreadCharacteristics(scheduling))
+    if scheduling:
+        restored = bool(avrt.AvRevertMmThreadCharacteristics(scheduling))
+        report["multimediaSchedulingRestored"] = restored
+        if not restored: report.update(result="failed", reason="MultimediaSchedulingRestoreFailed")
     if process is not None and process.poll() is None:
         # The child Java supervisor owns native-worker lifetime. Kill the owned tree on harness failure.
         subprocess.run(["taskkill", "/PID", str(process.pid), "/T", "/F"], capture_output=True)

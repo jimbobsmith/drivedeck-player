@@ -35,8 +35,7 @@ public final class DesktopSpike {
             command.add(DesktopSpike.class.getName());
             command.add("--worker");
             command.addAll(Arrays.asList(args));
-            int timeout = Integer.parseInt(System.getenv().getOrDefault("DD_PLAYER_PROBE_TIMEOUT_SECONDS", "100"));
-            if (timeout < 1 || timeout > 100) throw new IllegalArgumentException("Timeout must be 1..100 seconds");
+            int timeout = ProbeSettings.from(System.getenv()).timeoutSeconds();
             var outcome = WorkerSupervisor.run(command, Duration.ofSeconds(timeout),
                     scratch.resolve("native-" + UUID.randomUUID() + ".log"));
             System.out.println(outcome.report().toString(2));
@@ -72,6 +71,7 @@ public final class DesktopSpike {
     }
 
     private static Void run(String[] args, JSONObject output) throws Exception {
+        var settings = ProbeSettings.from(System.getenv());
         boolean present = args.length > 0 && args[0].equals("--present");
         if (present) args = Arrays.copyOfRange(args, 1, args.length);
         if (args.length < 2 || !(args[0].equals("--youtube") || args[0].equals("--youtube-paired")
@@ -81,7 +81,7 @@ public final class DesktopSpike {
         }
         String media;
         var mediaOptions = new ArrayList<String>();
-        mediaOptions.add(":network-caching=1000");
+        mediaOptions.add(":network-caching=" + settings.networkCacheMs());
         mediaOptions.add(":avcodec-hw=none");
         mediaOptions.add(":demux=avformat");
         if (args[0].startsWith("--youtube")) {
@@ -99,10 +99,10 @@ public final class DesktopSpike {
                 output.put("audioDeliveries", audio.stream().map(s -> s.getDeliveryMethod().name()).distinct().toList());
                 output.put("deliveries", video.stream().map(s -> s.getDeliveryMethod().name()).distinct().toList());
                 stage("select_stream");
-                Stream selected = present ? DesktopPlaybackProfile.select(video).orElse(null)
+                Stream selected = present ? DesktopPlaybackProfile.select(video, settings.profile()).orElse(null)
                         : video.stream().filter(DesktopSpike::canPlayDirect).findFirst().orElse(null);
                 if (selected == null) {
-                    var separateVideo = present ? DesktopPlaybackProfile.select(videoOnly).orElse(null)
+                    var separateVideo = present ? DesktopPlaybackProfile.select(videoOnly, settings.profile()).orElse(null)
                             : videoOnly.stream().filter(DesktopSpike::canPlaySeparate)
                                     .filter(s -> s.getFormat() == MediaFormat.MPEG_4).findFirst().orElse(null);
                     var separateAudio = audio.stream().filter(DesktopSpike::canPlaySeparate)
@@ -122,7 +122,7 @@ public final class DesktopSpike {
                     output.put("selectedCodec", chosen.getCodec()).put("selectedFps", chosen.getFps())
                             .put("selectedHeight", chosen.getHeight());
                 }
-                output.put("playbackProfile", present ? "software_avc_720p30" : "headless_probe");
+                output.put("playbackProfile", present ? settings.profile() : "headless_probe");
                 media = selected.getContent();
             }
         } else {
@@ -143,6 +143,8 @@ public final class DesktopSpike {
         // Feasibility policy: explicitly select software avcodec for every media.
         // Automatic D3D11 decode crashed during stop after seeking on the measured host.
         var options = new ArrayList<>(List.of("--no-video-title-show", "--quiet", "--avcodec-hw=none", "--codec=avcodec,none", "--demux=avformat"));
+        options.add("--network-caching=" + settings.networkCacheMs());
+        output.put("networkCacheMs", settings.networkCacheMs());
         if (!present) options.addAll(List.of("--vout=dummy", "--aout=dummy"));
         var factory = new MediaPlayerFactory(options.toArray(String[]::new));
         MediaPlayer player = null;
@@ -154,7 +156,7 @@ public final class DesktopSpike {
                 player = embedded;
                 var capture = java.nio.file.Path.of(System.getenv().getOrDefault("DD_PLAYER_PRESENTATION_DIR",
                         scratch().resolve("presentation-" + UUID.randomUUID()).toString()));
-                presentation = new PresentationWindow(factory, embedded, capture);
+                presentation = new PresentationWindow(factory, embedded, capture, settings.surfaceWidth());
             } else player = factory.mediaPlayers().newMediaPlayer();
             stage("native_play");
             if (presentation != null) presentation.mark("start");
@@ -205,14 +207,15 @@ public final class DesktopSpike {
                     afterSeek = player.media().info().statistics();
                     long position = player.status().time();
                     long elapsed = TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - seekStarted);
-                    seekWorked = afterSeek != null && beforeSeek != null
-                            && position >= seekTarget - 500 && position < seekTarget + 5000
-                            && position > beforePosition + elapsed + 500
-                            && afterSeek.decodedVideo() > beforeSeek.decodedVideo()
-                            && afterSeek.decodedAudio() > beforeSeek.decodedAudio();
+                    seekWorked = afterSeek != null && beforeSeek != null && seekReady(seekTarget, beforePosition,
+                            elapsed, position, afterSeek.decodedVideo() > beforeSeek.decodedVideo()
+                                    && afterSeek.decodedAudio() > beforeSeek.decodedAudio(),
+                            !present || (afterSeek.audioBuffersPlayed() > beforeSeek.audioBuffersPlayed()
+                                    && afterSeek.picturesDisplayed() > beforeSeek.picturesDisplayed()));
                     if (seekWorked) break;
                 }
-                output.put("postSeekPositionMs", player.status().time()).put("seekWaitMs", TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - seekStarted));
+                output.put("postSeekPositionMs", player.status().time()).put("seekWaitMs", TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - seekStarted))
+                        .put("seekReadyClockAdvancedMs", player.status().time() - seekTarget);
                 if (afterSeek != null) output.put("postSeekDecodedVideo", afterSeek.decodedVideo())
                         .put("postSeekDecodedAudio", afterSeek.decodedAudio());
             }
@@ -232,7 +235,28 @@ public final class DesktopSpike {
                 presentation.mark("steady_after_seek");
                 long observedStart = player.status().time();
                 var observedStats = player.media().info().statistics();
-                for (int i = 0; i < 100; i++) { presentation.checkOpen(); Thread.sleep(200); }
+                var samples = new org.json.JSONArray();
+                long observationWallStart = System.nanoTime();
+                long cpuStart = ProcessHandle.current().info().totalCpuDuration().orElse(Duration.ZERO).toMillis();
+                long lastPosition = observedStart, stalledMs = 0, longestStallMs = 0;
+                for (int i = 0; i < settings.observationSeconds(); i++) {
+                    for (int tick = 0; tick < 5; tick++) { presentation.checkOpen(); Thread.sleep(200); }
+                    long position = player.status().time();
+                    var sampleStats = player.media().info().statistics();
+                    stalledMs = position - lastPosition < 250 ? stalledMs + 1000 : 0;
+                    longestStallMs = Math.max(longestStallMs, stalledMs);
+                    lastPosition = position;
+                    if (settings.observationSeconds() <= 60 || (i + 1) % 5 == 0) samples.put(new JSONObject().put("wallElapsedMs", TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - observationWallStart))
+                            .put("positionMs", position).put("playing", player.status().isPlaying())
+                            .put("decodedVideo", sampleStats.decodedVideo()).put("picturesDisplayed", sampleStats.picturesDisplayed())
+                            .put("picturesLost", sampleStats.picturesLost()).put("audioBuffersPlayed", sampleStats.audioBuffersPlayed())
+                            .put("inputBytesRead", sampleStats.inputBytesRead()));
+                }
+                output.put("observationSamples", samples).put("observationRequestedSeconds", settings.observationSeconds())
+                        .put("observationWallMs", TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - observationWallStart))
+                        .put("longestStalledClockMs", longestStallMs)
+                        .put("workerCpuMsDuringObservation", ProcessHandle.current().info().totalCpuDuration().orElse(Duration.ZERO).toMillis() - cpuStart);
+                long observationWallMs = TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - observationWallStart);
                 presentation.report(output);
                 long observedEnd = player.status().time();
                 var finalStats = player.media().info().statistics();
@@ -241,7 +265,7 @@ public final class DesktopSpike {
                         .put("picturesDisplayed", finalStats.picturesDisplayed())
                         .put("audioBuffersPlayed", finalStats.audioBuffersPlayed())
                         .put("audioBuffersLost", finalStats.audioBuffersLost());
-                if (observedEnd - observedStart < 15000
+                if (observedEnd - observedStart < observationWallMs * .95 || longestStallMs > 2000
                         || finalStats.audioBuffersPlayed() <= observedStats.audioBuffersPlayed() + 100
                         || finalStats.picturesDisplayed() <= observedStats.picturesDisplayed() + 50) {
                     throw new IOException("Post-seek presentation did not continue");
@@ -263,6 +287,14 @@ public final class DesktopSpike {
             stage(failedStage);
         }
         return null;
+    }
+
+    static boolean seekReady(long target, long beforePosition, long elapsedMs, long position,
+                             boolean bothDecodersAdvanced, boolean bothOutputsAdvanced) {
+        // setTime can publish the target while native preroll still holds audio and the clock.
+        return position >= target + 500 && position < target + 5000
+                && position > beforePosition + elapsedMs + 500
+                && bothDecodersAdvanced && bothOutputsAdvanced;
     }
 
     private static boolean canPlaySeparate(Stream stream) {
