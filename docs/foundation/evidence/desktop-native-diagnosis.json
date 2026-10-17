@@ -1,0 +1,55 @@
+{
+  "date": "2026-10-17",
+  "platform": "Windows x64",
+  "javaVersion": "25.0.4.1",
+  "jnaVersion": "5.14.0",
+  "vlcjVersion": "4.11.0",
+  "vlcjNativesVersion": "4.8.3",
+  "vlcVersion": "3.0.24",
+  "automaticDecoderReproduction": {
+    "processExitCode": -1073741819,
+    "exceptionCode": "0xc0000005",
+    "lastStage": "native_stop",
+    "faultingModule": "libd3d11va_plugin.dll",
+    "moduleVersion": "3.0.24.0",
+    "faultOffset": "0x25b0e"
+  },
+  "isolation": {
+    "bothTracksDecodedBeforeStop": true,
+    "pauseResumePassed": true,
+    "noSeekRunExitedCleanly": true,
+    "globalAvcodecHwNoneAloneStillCrashed": true
+  },
+  "measuredWorkaround": {
+    "globalOptions": [
+      "--avcodec-hw=none",
+      "--codec=avcodec,none"
+    ],
+    "mediaOptions": [
+      ":avcodec-hw=none"
+    ],
+    "successfulSupervisedYouTubeRuns": 3,
+    "hardwareAccelerationQualified": false
+  },
+  "processTests": {
+    "tests": 9,
+    "failures": 0,
+    "errors": 0,
+    "covers": [
+      "fatal_exit_after_success",
+      "malformed_output",
+      "oversized_output",
+      "missing_clean_shutdown",
+      "provider_failure",
+      "timeout_kills_worker",
+      "interruption_kills_worker",
+      "clean_success",
+      "trailing_output"
+    ]
+  },
+  "limits": [
+    "No native backtrace; fault event and lifecycle markers localize the symptom, not a complete upstream root cause.",
+    "Software policy is a measured headless workaround on this host.",
+    "Actual presentation, audible output, long-run A/V synchronization and arbitrary network disruption remain unproved."
+  ]
+}

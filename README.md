@@ -17,6 +17,6 @@ No hosted sync or finished desktop client is implemented by this milestone. The 
 
 Upstream automatic update/announcement checks are disabled in this fork. Install only reviewed fork builds manually until an independently signed update channel exists. No signing key or release artifact is published here.
 
-Work queue: [foundation #1](https://github.com/jimbobsmith/drivedeck-player/issues/1), [cross-product design DD #244](https://github.com/jimbobsmith/drivedeckg/issues/244), [hosted sync Platform #27](https://github.com/jimbobsmith/drivedeck-platform/issues/27).
+Work queue: [desktop playback #2](https://github.com/jimbobsmith/drivedeck-player/issues/2), [foundation #1](https://github.com/jimbobsmith/drivedeck-player/issues/1), [cross-product design DD #244](https://github.com/jimbobsmith/drivedeckg/issues/244), [hosted sync Platform #27](https://github.com/jimbobsmith/drivedeck-platform/issues/27).
 
 Upstream: [PipePipe](https://github.com/InfinityLoop1308/PipePipe), [client](https://github.com/InfinityLoop1308/PipePipeClient), [extractor](https://github.com/InfinityLoop1308/PipePipeExtractor). Please report fork-specific problems to this repository rather than upstream.

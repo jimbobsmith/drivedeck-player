@@ -1,0 +1,8 @@
+{
+  "result": "failed",
+  "schemaVersion": 2,
+  "stage": "extract",
+  "errorType": "ExtractionException",
+  "nativeProcessIsolated": true,
+  "processExitCode": 1
+}
