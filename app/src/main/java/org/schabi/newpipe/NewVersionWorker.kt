@@ -177,6 +177,7 @@ class NewVersionWorker(
 
 
     override fun doWork(): Result {
+        if (!BuildConfig.ENABLE_APP_UPDATES) return Result.success()
         return try {
             checkNewVersion()
             Result.success()
@@ -214,6 +215,7 @@ class NewVersionWorker(
          */
         @JvmStatic
         fun enqueueNewVersionCheckingWork(context: Context, isManual: Boolean) {
+            if (!BuildConfig.ENABLE_APP_UPDATES) return
             val workRequest = OneTimeWorkRequestBuilder<NewVersionWorker>()
                 .setInputData(workDataOf(IS_MANUAL to isManual))
                 .build()

@@ -1,0 +1,13 @@
+plugins { id 'application' }
+java { toolchain { languageVersion = JavaLanguageVersion.of(25) } }
+dependencies {
+    implementation 'com.github.InfinityLoop1308.PipePipeExtractor:extractor:v5.4.0'
+    implementation 'uk.co.caprica:vlcj:4.11.0'
+    implementation 'com.squareup.okhttp3:okhttp:5.4.0'
+    implementation 'org.json:json:20260522'
+}
+application {
+    mainClass = 'com.drivedeck.player.spike.DesktopSpike'
+    applicationName = 'drivedeck-player-desktop-spike'
+    applicationDefaultJvmArgs = ['--enable-native-access=ALL-UNNAMED']
+}

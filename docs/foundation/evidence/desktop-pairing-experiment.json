@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "result": "failed",
+  "stage": "native_process",
+  "experiment": "separate_mp4_video_m4a_audio_input_slave",
+  "processExitCode": -1073741819,
+  "windowsStatus": "0xC0000005",
+  "rootCause": "unconfirmed",
+  "successfulDecodeEvidence": false
+}

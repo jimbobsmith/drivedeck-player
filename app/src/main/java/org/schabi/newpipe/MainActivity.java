@@ -196,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
         long lastShowDonationTime = prefs.getLong("last_show_donation_time", 0);
         long currentTime = System.currentTimeMillis();
 
-        if (currentVersionCode > storedVersionCode + 90) {
+        if (BuildConfig.ENABLE_APP_UPDATES && currentVersionCode > storedVersionCode + 90) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle(R.string.fragment_feed_title);
             builder.setMessage(R.string.update_log);
@@ -228,38 +228,42 @@ public class MainActivity extends AppCompatActivity {
             dialog1.show();
             prefs.edit().putInt("version_code", currentVersionCode).apply();
         }
-        String lastAnnouncementId = prefs.getString("last_announcement_id", null);
-        try {
-            NewPipe.getDownloader().getAsync("https://github.com/InfinityLoop1308/PipePipe/wiki/Announcement", resp -> {
-                AnnouncementParser.ParsedResult result = parseContentsBeforeId(resp.responseBody(), lastAnnouncementId);
-                if(result.latestId != null) {
-                    Handler handler = new Handler(Looper.getMainLooper());
-                    handler.post(() -> {
-                        AlertDialog.Builder builder3 = new AlertDialog.Builder(this);
-                        builder3.setMessage(result.contents);
-                        builder3.setTitle(R.string.announcement);
-                        builder3.setPositiveButton(R.string.ok, (dialog, which) -> {
-                            prefs.edit().putString("last_announcement_id", result.latestId).apply();
+        if (BuildConfig.ENABLE_APP_UPDATES) {
+            String lastAnnouncementId = prefs.getString("last_announcement_id", null);
+            try {
+                NewPipe.getDownloader().getAsync("https://github.com/InfinityLoop1308/PipePipe/wiki/Announcement", resp -> {
+                    AnnouncementParser.ParsedResult result = parseContentsBeforeId(resp.responseBody(), lastAnnouncementId);
+                    if(result.latestId != null) {
+                        Handler handler = new Handler(Looper.getMainLooper());
+                        handler.post(() -> {
+                            AlertDialog.Builder builder3 = new AlertDialog.Builder(this);
+                            builder3.setMessage(result.contents);
+                            builder3.setTitle(R.string.announcement);
+                            builder3.setPositiveButton(R.string.ok, (dialog, which) -> {
+                                prefs.edit().putString("last_announcement_id", result.latestId).apply();
+                            });
+                            builder3.show();
                         });
-                        builder3.show();
-                    });
-                }
-            });
-        } catch (Exception ignore) {
-        }
+                    }
+                });
+            } catch (Exception ignore) {
+            }
 
+        }
 
         int isFirstRun = prefs.getInt("isFirstRun", 0);
         if (isFirstRun == 0) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle(R.string.dialog_title_enable_update_checker);
-            builder.setMessage(R.string.dialog_message_enable_update_checker);
-            builder.setPositiveButton(R.string.ok, (dialog, which) -> {
-                prefs.edit().putBoolean(app.getString(R.string.update_app_key), true).apply();
-                NewVersionWorker.enqueueNewVersionCheckingWork(app, true);
-            });
-            builder.setNegativeButton(R.string.no, (dialog, which) -> prefs.edit().putBoolean(app.getString(R.string.update_app_key), false).apply());
-            builder.show();
+            if (BuildConfig.ENABLE_APP_UPDATES) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle(R.string.dialog_title_enable_update_checker);
+                builder.setMessage(R.string.dialog_message_enable_update_checker);
+                builder.setPositiveButton(R.string.ok, (dialog, which) -> {
+                    prefs.edit().putBoolean(app.getString(R.string.update_app_key), true).apply();
+                    NewVersionWorker.enqueueNewVersionCheckingWork(app, true);
+                });
+                builder.setNegativeButton(R.string.no, (dialog, which) -> prefs.edit().putBoolean(app.getString(R.string.update_app_key), false).apply());
+                builder.show();
+            }
             prefs.edit().putInt("isFirstRun", 1).apply();
             PermissionChecker.checkNotificationPermission(this);
         }

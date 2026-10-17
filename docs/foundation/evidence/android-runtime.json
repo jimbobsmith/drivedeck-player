@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "result": "passed",
+  "target": "emulator-5580",
+  "apiLevel": 36,
+  "webViewVersion": "133.0.6943.137",
+  "package": "com.drivedeck.player.test",
+  "unitTests": 2,
+  "unitFailures": 0,
+  "instrumentationTests": 1,
+  "instrumentationFailures": 0,
+  "instrumentationSeconds": 12.998,
+  "exactPublicMediaIdentity": true,
+  "pausePositionStable": true,
+  "resumePlaying": true,
+  "seekTargetMs": 15000,
+  "portraitInspected": true,
+  "landscapeInspected": true,
+  "audioOutput": "disabled_headless_emulator",
+  "physicalOrVehicleEvidence": false
+}

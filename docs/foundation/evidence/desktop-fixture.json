@@ -1,0 +1,14 @@
+{
+  "resumeAdvanced": true,
+  "output": "dummy_decode_only",
+  "result": "passed",
+  "schemaVersion": 1,
+  "stage": "complete",
+  "seekable": true,
+  "pauseStable": true,
+  "lengthMs": 20000,
+  "decodedVideo": 201,
+  "decodedAudio": 375,
+  "seekWorked": true,
+  "positionMs": 2653
+}

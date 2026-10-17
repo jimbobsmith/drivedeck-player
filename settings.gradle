@@ -31,9 +31,11 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "PipePipe"
+rootProject.name = "DriveDeckPlayer"
 
 include ':app'
 include ':ffmpeg'
 
-includeBuild('../PipePipeExtractor')
+includeBuild('vendor/PipePipeExtractor')
+
+include ':desktop-spike'

@@ -1118,4 +1118,6 @@
 <string name="minimize_gesture_non_fullscreen_description">Outside fullscreen only</string>
 <string name="minimize_gesture_fullscreen_description">In and outside fullscreen (disables the fullscreen and playback speed swipe gestures)</string>
 <string name="delete_filter_confirm">Do you want to delete \"%s\" from the filter list?</string>
+<string name="player_updates_unavailable">Development build</string>
+<string name="player_updates_unavailable_summary">Automatic updates are unavailable. Install a reviewed DriveDeck Player build manually. PipePipe releases cannot update this application.</string>
 </resources>

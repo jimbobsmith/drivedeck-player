@@ -1,0 +1,12 @@
+{
+  "file": "DriveDeckPlayer_0.1.0-alpha01-x86_64-debug.apk",
+  "bytes": 63733213,
+  "sha256": "c5fedf532a8b4d4325163a017870b9cf13f46307d5dccbc4876e66a01691c756",
+  "package": "com.drivedeck.player.test",
+  "label": "DriveDeck Player Test",
+  "allowBackup": false,
+  "allowedAndroidAutoMetadata": [
+    "com.google.android.gms.car.application",
+    "com.google.android.gms.car.notification.SmallIcon"
+  ]
+}

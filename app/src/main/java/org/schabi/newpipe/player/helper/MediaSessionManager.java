@@ -186,6 +186,15 @@ public class MediaSessionManager {
                 .putString(MediaMetadataCompat.METADATA_KEY_TITLE, player.getVideoTitle())
                 .putString(MediaMetadataCompat.METADATA_KEY_ARTIST, player.getUploaderName());
 
+        player.getCurrentStreamInfo().ifPresent(info -> {
+            final String publicUrl = PublicYouTubeIdentity.canonicalWatchUrl(
+                    info.getServiceId(), info.getId());
+            if (publicUrl != null) {
+                builder.putString(MediaMetadataCompat.METADATA_KEY_MEDIA_ID, publicUrl);
+                builder.putString(MediaMetadataCompat.METADATA_KEY_MEDIA_URI, publicUrl);
+            }
+        });
+
         // set duration (-1 for livestreams or if unknown, see the METADATA_KEY_DURATION docs)
         final long duration = player.getCurrentStreamInfo()
                 .filter(info -> !StreamTypeUtil.isLiveStream(info.getStreamType()))

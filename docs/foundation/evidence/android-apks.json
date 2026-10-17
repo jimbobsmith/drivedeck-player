@@ -1,0 +1,22 @@
+[
+  {
+    "file": "DriveDeckPlayer_0.1.0-alpha01-arm64-v8a-debug.apk",
+    "bytes": 62915481,
+    "sha256": "163372199a3e963bdf90b2ba57a5d055687f659b1c14f13e29912fccf8b8bfc2"
+  },
+  {
+    "file": "DriveDeckPlayer_0.1.0-alpha01-armeabi-v7a-debug.apk",
+    "bytes": 62776012,
+    "sha256": "4f52186c33fd5df84621340a873aba75154c36b9ec561c4eef71d28f722ecc63"
+  },
+  {
+    "file": "DriveDeckPlayer_0.1.0-alpha01-x86_64-debug.apk",
+    "bytes": 63733213,
+    "sha256": "c5fedf532a8b4d4325163a017870b9cf13f46307d5dccbc4876e66a01691c756"
+  },
+  {
+    "file": "DriveDeckPlayer_0.1.0-alpha01-x86-debug.apk",
+    "bytes": 63178027,
+    "sha256": "1ceafa26c09307c65312b77f5d59e70927e1f0edf8958e2f6f6c37e6d9bd70a5"
+  }
+]
