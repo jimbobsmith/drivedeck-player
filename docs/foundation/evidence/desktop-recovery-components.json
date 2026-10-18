@@ -1,0 +1,5933 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-17",
+  "issue": "https://github.com/jimbobsmith/drivedeck-player/issues/2",
+  "baselineMain": "f28680c9e7295b1563a3e33b495adcb8d6748cf3",
+  "environment": {
+    "os": "Windows x64",
+    "java": "25.0.4.1+1",
+    "vlc": "3.0.24 x64",
+    "vlcj": "4.11.0",
+    "jna": "5.14.0",
+    "extractorPin": "c68e10e2e97495877832d8df6cbac55478083019",
+    "publicVideoId": "aqz-KE-bpKQ",
+    "profile": "hd1080",
+    "networkCacheMs": 3000
+  },
+  "conclusions": {
+    "historicalFailedComponentCaptured": true,
+    "originalCadenceRootCauseFullyProven": false,
+    "lateTerminalInstabilityFalsePassFixed": true,
+    "providerSourceAVSyncProven": false,
+    "strictProgressPredicateUnchanged": true,
+    "issueRemainsOpen": true
+  },
+  "runs": [
+    {
+      "id": "component-caller-long-1",
+      "workerJarSha256": "8af78b14c0c14d1fc9accff06693dc710039548e7be371437f0df28066371f79",
+      "description": "historical caller observer; original gate/render/relay class bytes preserved; disconnect",
+      "reportedHarnessResult": "passed",
+      "reportedHarnessReason": null,
+      "worker": {
+        "result": "passed",
+        "stage": "complete",
+        "selectedHeight": 1080,
+        "selectedFps": 60,
+        "selectedCodec": "avc1.64002A",
+        "selectedDelivery": "PROGRESSIVE_HTTP",
+        "pairedAudio": true,
+        "networkCacheMs": 3000,
+        "seekWaitMs": 6231,
+        "seekReadyClockAdvancedMs": 767,
+        "seekWorked": true,
+        "pauseStable": true,
+        "resumeAdvanced": true,
+        "observationRequestedSeconds": 300,
+        "observationWallMs": 303090,
+        "observationClockAdvancedMs": 267978,
+        "longestStalledClockMs": 24000,
+        "positionMs": 2528,
+        "decodedVideo": 368,
+        "decodedAudio": 346,
+        "picturesDisplayed": 14721,
+        "audioBuffersPlayed": 10615,
+        "audioBuffersLost": 0,
+        "videoCallbacks": 16644,
+        "paintedVideoFrames": 16629,
+        "cleanShutdown": true,
+        "processExitCode": 0,
+        "nativeProcessIsolated": true,
+        "workerCpuMsDuringObservation": 241984,
+        "decoderPolicy": "software_avcodec",
+        "demuxPolicy": "avformat"
+      },
+      "network": {
+        "blockedBytesAfterSettling": 0,
+        "recoveryLatencyMs": 20986,
+        "paintedFramesAtCut": 1295,
+        "resumeCheckpointMs": 40734,
+        "outageRequestedSeconds": 25,
+        "paintedFramesAtRecovery": 2127,
+        "cutPositionMs": 30828,
+        "mode": "disconnect",
+        "longestConsecutiveRecoveredSeconds": 241,
+        "terminalReason": "",
+        "recovered": true,
+        "steadyRecoveredSeconds": 241,
+        "stallObserved": true,
+        "faultInjected": true,
+        "explicitRestartAttempts": 1,
+        "restored": true,
+        "lastObservationElapsedMs": 303090,
+        "events": [
+          {
+            "event": "network_down",
+            "elapsedMs": 15061,
+            "positionMs": 30828
+          },
+          {
+            "event": "output_stall_observed",
+            "elapsedMs": 26107,
+            "positionMs": -1
+          },
+          {
+            "event": "network_up",
+            "elapsedMs": 40169,
+            "positionMs": -1
+          },
+          {
+            "event": "explicit_recovery_restart",
+            "elapsedMs": 50202,
+            "positionMs": 40734
+          },
+          {
+            "event": "output_recovered",
+            "elapsedMs": 61155,
+            "positionMs": 41577
+          }
+        ]
+      },
+      "relay": {
+        "bytesForwarded": 149695392,
+        "closed": true,
+        "requests": 6,
+        "streamFailures": 4,
+        "loopbackOnly": true,
+        "upstreamHttpStatuses": {
+          "206": 6
+        },
+        "rejectedRequests": 1,
+        "activeRequests": 0
+      },
+      "decisionAnalysis": {
+        "schemaVersion": 1,
+        "source": "no_per_decision_evidence",
+        "workerResult": "passed",
+        "terminalReason": "",
+        "decisionSampleCount": 0,
+        "failedDecisionCount": null,
+        "recomputedLongestStableSamples": null,
+        "recomputedTerminalStableSamples": null,
+        "reportedLongestStableSamples": 241,
+        "reportedTerminalStableSamples": 241,
+        "terminalStabilityQualified": true,
+        "rootCauseProven": false,
+        "interpretation": "Predicate failures identify observed components, not native/transport cause or source A/V alignment.",
+        "selectedFailures": [],
+        "failedComponentCounts": {}
+      },
+      "capture": {
+        "captureDiscontinuities": 0,
+        "timestampErrors": 0,
+        "capturedPackets": 32279,
+        "peakLoopbackAmplitude": 0.55168,
+        "multimediaCaptureScheduling": true,
+        "multimediaSchedulingRestored": true,
+        "physicalMicrophoneOpened": false,
+        "rawAudioSaved": false,
+        "wallClockMappingChangeMs": 1.254
+      },
+      "numericArtifactSha256": {
+        "phases.csv": "df862ba79c4665c5dc35529042ed149b223f284854c7e6bdba73d5165396fb39",
+        "flash-events.csv": "14c1fddfd8bb54b4cd1e360c66776fee25da5f008ca3cdfb42ffa57126814289",
+        "audio-pulse-events.json": "4374f1e7facc01db40f85bc8700512cf6ed0b054b9195b128ce996ef835bbcf9",
+        "audio-activity.json": "ba80d672038eac29df8a0443b725bf60ba9b51c5a13f219124ff219156d16faa",
+        "capture-gaps.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "timingMeasurements": {}
+    },
+    {
+      "id": "component-current-long-1",
+      "workerJarSha256": "1cc58be65285a059baa1da9b0fffe712e2108b8be08b206d0a4ffb402e7d2142",
+      "description": "integrated PR #9 worker; disconnect; retained reported pass with terminal stability audit",
+      "reportedHarnessResult": "passed",
+      "reportedHarnessReason": null,
+      "worker": {
+        "result": "passed",
+        "stage": "complete",
+        "selectedHeight": 1080,
+        "selectedFps": 60,
+        "selectedCodec": "avc1.64002A",
+        "selectedDelivery": "PROGRESSIVE_HTTP",
+        "pairedAudio": true,
+        "networkCacheMs": 3000,
+        "seekWaitMs": 5822,
+        "seekReadyClockAdvancedMs": 645,
+        "seekWorked": true,
+        "pauseStable": true,
+        "resumeAdvanced": true,
+        "observationRequestedSeconds": 300,
+        "observationWallMs": 302986,
+        "observationClockAdvancedMs": 258718,
+        "longestStalledClockMs": 37000,
+        "positionMs": 2527,
+        "decodedVideo": 368,
+        "decodedAudio": 344,
+        "picturesDisplayed": 14900,
+        "audioBuffersPlayed": 10795,
+        "audioBuffersLost": 0,
+        "videoCallbacks": 16172,
+        "paintedVideoFrames": 11241,
+        "framePoolCapacity": 3,
+        "framePoolDroppedCallbacks": 0,
+        "cleanShutdown": true,
+        "processExitCode": 0,
+        "nativeProcessIsolated": true,
+        "workerCpuMsDuringObservation": 206312,
+        "decoderPolicy": "software_avcodec",
+        "demuxPolicy": "avformat"
+      },
+      "network": {
+        "blockedBytesAfterSettling": 0,
+        "recoveryLatencyMs": 17587,
+        "paintedFramesAtCut": 1261,
+        "resumeCheckpointMs": 27679,
+        "outageRequestedSeconds": 25,
+        "diagnosticSamples": 300,
+        "paintedFramesAtRecovery": 1461,
+        "recoverySampleColumns": [
+          "elapsedMs",
+          "positionMs",
+          "clockDeltaMs",
+          "audioBufferDelta",
+          "pictureDelta",
+          "paintDelta",
+          "relayByteDelta",
+          "wallDeltaMs"
+        ],
+        "cutPositionMs": 27679,
+        "mode": "disconnect",
+        "longestConsecutiveRecoveredSeconds": 150,
+        "terminalReason": "",
+        "recovered": true,
+        "steadyRecoveredSeconds": 0,
+        "stallObserved": true,
+        "faultInjected": true,
+        "explicitRestartAttempts": 1,
+        "restored": true,
+        "lastObservationElapsedMs": 302985,
+        "events": [
+          {
+            "event": "network_down",
+            "elapsedMs": 15095,
+            "positionMs": 27679
+          },
+          {
+            "event": "output_stall_observed",
+            "elapsedMs": 17115,
+            "positionMs": -1
+          },
+          {
+            "event": "network_up",
+            "elapsedMs": 40249,
+            "positionMs": -1
+          },
+          {
+            "event": "explicit_recovery_restart",
+            "elapsedMs": 50293,
+            "positionMs": 27679
+          },
+          {
+            "event": "output_recovered",
+            "elapsedMs": 57836,
+            "positionMs": 29161
+          }
+        ],
+        "first140ObservationPrefixAudit": {
+          "endElapsedMs": 142227,
+          "longest": 84,
+          "terminal": 84,
+          "failedDecisions": 0,
+          "notAnAdditionalProbe": true
+        },
+        "retainedDecisionRows": [
+          [
+            58841,
+            29927,
+            766,
+            43,
+            46,
+            61,
+            786416,
+            1005
+          ],
+          [
+            78940,
+            50120,
+            1042,
+            44,
+            62,
+            61,
+            802800,
+            1007
+          ],
+          [
+            99030,
+            70278,
+            1016,
+            43,
+            61,
+            60,
+            868352,
+            1006
+          ],
+          [
+            119122,
+            90221,
+            764,
+            44,
+            45,
+            60,
+            0,
+            1003
+          ],
+          [
+            139213,
+            110378,
+            1016,
+            43,
+            61,
+            60,
+            262144,
+            1004
+          ],
+          [
+            159309,
+            130560,
+            1003,
+            43,
+            61,
+            61,
+            0,
+            1006
+          ],
+          [
+            179398,
+            150501,
+            767,
+            43,
+            46,
+            60,
+            516096,
+            1003
+          ],
+          [
+            199491,
+            170660,
+            1001,
+            43,
+            61,
+            61,
+            262144,
+            1003
+          ],
+          [
+            209542,
+            180641,
+            780,
+            0,
+            46,
+            61,
+            262144,
+            1006
+          ],
+          [
+            219579,
+            190856,
+            1020,
+            44,
+            61,
+            60,
+            253952,
+            1004
+          ],
+          [
+            222587,
+            193922,
+            1044,
+            44,
+            61,
+            0,
+            524288,
+            1002
+          ],
+          [
+            223591,
+            194688,
+            766,
+            0,
+            46,
+            0,
+            786432,
+            1004
+          ],
+          [
+            224594,
+            195695,
+            1007,
+            43,
+            62,
+            0,
+            262144,
+            1003
+          ],
+          [
+            225599,
+            196711,
+            1016,
+            43,
+            61,
+            0,
+            270320,
+            1005
+          ],
+          [
+            226604,
+            197754,
+            1043,
+            44,
+            61,
+            0,
+            532480,
+            1005
+          ],
+          [
+            227608,
+            198760,
+            1006,
+            86,
+            62,
+            0,
+            761856,
+            1004
+          ],
+          [
+            228612,
+            199779,
+            1019,
+            44,
+            61,
+            0,
+            0,
+            1004
+          ],
+          [
+            229618,
+            200819,
+            1040,
+            43,
+            61,
+            0,
+            262144,
+            1006
+          ],
+          [
+            230622,
+            201839,
+            1020,
+            43,
+            61,
+            0,
+            262144,
+            1004
+          ],
+          [
+            231627,
+            202845,
+            1006,
+            44,
+            62,
+            0,
+            524272,
+            1005
+          ],
+          [
+            232629,
+            203861,
+            1016,
+            43,
+            61,
+            0,
+            0,
+            1002
+          ],
+          [
+            233633,
+            204906,
+            1045,
+            43,
+            62,
+            0,
+            262144,
+            1004
+          ],
+          [
+            234637,
+            205911,
+            1005,
+            43,
+            61,
+            0,
+            0,
+            1004
+          ],
+          [
+            235641,
+            206927,
+            1016,
+            44,
+            61,
+            0,
+            262144,
+            1004
+          ],
+          [
+            236645,
+            207971,
+            1044,
+            43,
+            61,
+            0,
+            262144,
+            1004
+          ],
+          [
+            237651,
+            208977,
+            1006,
+            44,
+            62,
+            0,
+            524288,
+            1006
+          ],
+          [
+            238658,
+            209744,
+            767,
+            0,
+            46,
+            0,
+            0,
+            1007
+          ],
+          [
+            239662,
+            210761,
+            1017,
+            43,
+            61,
+            0,
+            786416,
+            1004
+          ],
+          [
+            240665,
+            211802,
+            1041,
+            43,
+            61,
+            0,
+            524288,
+            1003
+          ],
+          [
+            241670,
+            212823,
+            1021,
+            44,
+            62,
+            0,
+            786432,
+            1005
+          ],
+          [
+            242674,
+            213829,
+            1006,
+            43,
+            61,
+            0,
+            1048560,
+            1004
+          ],
+          [
+            243678,
+            214845,
+            1016,
+            43,
+            61,
+            0,
+            786432,
+            1004
+          ],
+          [
+            244683,
+            215889,
+            1044,
+            87,
+            61,
+            0,
+            262144,
+            1005
+          ],
+          [
+            245687,
+            216894,
+            1005,
+            43,
+            62,
+            0,
+            262144,
+            1004
+          ],
+          [
+            246691,
+            217911,
+            1017,
+            44,
+            61,
+            0,
+            270320,
+            1004
+          ],
+          [
+            247697,
+            218955,
+            1044,
+            43,
+            61,
+            0,
+            253952,
+            1006
+          ],
+          [
+            248703,
+            219961,
+            1006,
+            43,
+            62,
+            0,
+            262144,
+            1006
+          ],
+          [
+            249709,
+            220978,
+            1017,
+            44,
+            61,
+            0,
+            262144,
+            1006
+          ],
+          [
+            250713,
+            222018,
+            1040,
+            43,
+            61,
+            0,
+            262144,
+            1004
+          ],
+          [
+            251722,
+            223039,
+            1021,
+            43,
+            61,
+            0,
+            253952,
+            1009
+          ],
+          [
+            252726,
+            224044,
+            1005,
+            44,
+            62,
+            0,
+            0,
+            1004
+          ],
+          [
+            253732,
+            224811,
+            767,
+            0,
+            46,
+            0,
+            262144,
+            1006
+          ],
+          [
+            254736,
+            225829,
+            1018,
+            43,
+            61,
+            0,
+            532464,
+            1004
+          ],
+          [
+            255740,
+            226872,
+            1043,
+            43,
+            61,
+            0,
+            253952,
+            1004
+          ],
+          [
+            256747,
+            227877,
+            1005,
+            44,
+            62,
+            0,
+            16384,
+            1007
+          ],
+          [
+            257751,
+            228895,
+            1018,
+            43,
+            61,
+            0,
+            720896,
+            1004
+          ],
+          [
+            258756,
+            229938,
+            1043,
+            43,
+            61,
+            0,
+            770048,
+            1005
+          ],
+          [
+            259762,
+            230944,
+            1006,
+            44,
+            62,
+            0,
+            270320,
+            1006
+          ],
+          [
+            260767,
+            231961,
+            1017,
+            47,
+            61,
+            0,
+            253952,
+            1005
+          ],
+          [
+            261772,
+            233001,
+            1040,
+            83,
+            61,
+            0,
+            0,
+            1005
+          ],
+          [
+            262775,
+            234022,
+            1021,
+            44,
+            61,
+            0,
+            262144,
+            1003
+          ],
+          [
+            263781,
+            235027,
+            1005,
+            43,
+            62,
+            0,
+            262144,
+            1006
+          ],
+          [
+            264785,
+            236046,
+            1019,
+            43,
+            61,
+            0,
+            262144,
+            1004
+          ],
+          [
+            265789,
+            237088,
+            1042,
+            44,
+            61,
+            0,
+            262144,
+            1004
+          ],
+          [
+            266793,
+            238094,
+            1006,
+            43,
+            62,
+            0,
+            0,
+            1004
+          ],
+          [
+            267796,
+            239112,
+            1018,
+            44,
+            61,
+            0,
+            262144,
+            1003
+          ],
+          [
+            268801,
+            239882,
+            770,
+            0,
+            38,
+            0,
+            0,
+            1005
+          ],
+          [
+            269806,
+            240919,
+            1037,
+            43,
+            59,
+            0,
+            262144,
+            1005
+          ],
+          [
+            270809,
+            241927,
+            1008,
+            44,
+            61,
+            0,
+            0,
+            1003
+          ],
+          [
+            271814,
+            242944,
+            1017,
+            43,
+            61,
+            0,
+            270320,
+            1005
+          ],
+          [
+            272826,
+            243985,
+            1041,
+            43,
+            61,
+            0,
+            729088,
+            1012
+          ],
+          [
+            273831,
+            245006,
+            1021,
+            44,
+            62,
+            0,
+            0,
+            1005
+          ],
+          [
+            274838,
+            246011,
+            1005,
+            43,
+            61,
+            0,
+            0,
+            1007
+          ],
+          [
+            275841,
+            247029,
+            1018,
+            44,
+            61,
+            0,
+            0,
+            1003
+          ],
+          [
+            276844,
+            248071,
+            1042,
+            43,
+            61,
+            0,
+            0,
+            1003
+          ],
+          [
+            277850,
+            249077,
+            1006,
+            44,
+            62,
+            0,
+            0,
+            1006
+          ],
+          [
+            278855,
+            250094,
+            1017,
+            43,
+            61,
+            0,
+            0,
+            1005
+          ],
+          [
+            279882,
+            251136,
+            1042,
+            44,
+            61,
+            0,
+            0,
+            1027
+          ],
+          [
+            280886,
+            252145,
+            1009,
+            58,
+            61,
+            0,
+            0,
+            1004
+          ],
+          [
+            281892,
+            253162,
+            1017,
+            72,
+            62,
+            0,
+            0,
+            1006
+          ],
+          [
+            282896,
+            254200,
+            1038,
+            44,
+            61,
+            0,
+            0,
+            1004
+          ],
+          [
+            283900,
+            255222,
+            1022,
+            43,
+            61,
+            0,
+            0,
+            1004
+          ],
+          [
+            284906,
+            256227,
+            1005,
+            44,
+            62,
+            0,
+            0,
+            1006
+          ],
+          [
+            285910,
+            256995,
+            768,
+            0,
+            46,
+            0,
+            0,
+            1004
+          ],
+          [
+            286915,
+            258012,
+            1017,
+            43,
+            61,
+            0,
+            0,
+            1005
+          ],
+          [
+            287918,
+            259053,
+            1041,
+            43,
+            61,
+            0,
+            16384,
+            1003
+          ],
+          [
+            288924,
+            260060,
+            1007,
+            44,
+            62,
+            0,
+            294912,
+            1006
+          ],
+          [
+            289929,
+            261078,
+            1018,
+            43,
+            61,
+            0,
+            1474544,
+            1005
+          ],
+          [
+            290931,
+            262119,
+            1041,
+            43,
+            61,
+            0,
+            819200,
+            1002
+          ],
+          [
+            291937,
+            263128,
+            1009,
+            44,
+            62,
+            0,
+            802800,
+            1006
+          ],
+          [
+            292942,
+            264145,
+            1017,
+            43,
+            61,
+            0,
+            737280,
+            1005
+          ],
+          [
+            293947,
+            265184,
+            1039,
+            43,
+            61,
+            0,
+            819200,
+            1005
+          ],
+          [
+            294950,
+            266205,
+            1021,
+            44,
+            61,
+            0,
+            770032,
+            1003
+          ],
+          [
+            295953,
+            267212,
+            1007,
+            43,
+            62,
+            0,
+            819200,
+            1003
+          ],
+          [
+            296958,
+            268230,
+            1018,
+            43,
+            61,
+            0,
+            770048,
+            1005
+          ],
+          [
+            297963,
+            269271,
+            1041,
+            44,
+            61,
+            0,
+            802800,
+            1005
+          ],
+          [
+            298968,
+            270277,
+            1006,
+            43,
+            62,
+            0,
+            835584,
+            1005
+          ],
+          [
+            299972,
+            271295,
+            1018,
+            87,
+            61,
+            0,
+            737264,
+            1004
+          ],
+          [
+            300976,
+            272062,
+            767,
+            0,
+            46,
+            0,
+            786432,
+            1004
+          ],
+          [
+            301981,
+            273103,
+            1041,
+            43,
+            61,
+            0,
+            819200,
+            1005
+          ],
+          [
+            302985,
+            274124,
+            1021,
+            43,
+            62,
+            0,
+            786416,
+            1004
+          ]
+        ]
+      },
+      "relay": {
+        "bytesForwarded": 140600495,
+        "closed": true,
+        "requests": 7,
+        "streamFailures": 5,
+        "loopbackOnly": true,
+        "upstreamHttpStatuses": {
+          "206": 7
+        },
+        "rejectedRequests": 1,
+        "activeRequests": 0,
+        "tracks": {
+          "video": {
+            "failures": 5,
+            "bytes": 120057503,
+            "pendingWriteMs": 0,
+            "readMs": 115920,
+            "requests": 5,
+            "writeMs": 158795,
+            "pendingReadMs": 0
+          },
+          "audio": {
+            "failures": 0,
+            "bytes": 20542992,
+            "pendingWriteMs": 0,
+            "readMs": 10753,
+            "requests": 2,
+            "writeMs": 108,
+            "pendingReadMs": 0
+          }
+        }
+      },
+      "decisionAnalysis": {
+        "schemaVersion": 1,
+        "source": "worker_recovery_decisions",
+        "workerResult": "passed",
+        "terminalReason": "",
+        "decisionSampleCount": 244,
+        "failedDecisionCount": 82,
+        "recomputedLongestStableSamples": 150,
+        "recomputedTerminalStableSamples": 0,
+        "reportedLongestStableSamples": 150,
+        "reportedTerminalStableSamples": 0,
+        "terminalStabilityQualified": false,
+        "rootCauseProven": false,
+        "interpretation": "Predicate failures identify observed components, not native/transport cause or source A/V alignment.",
+        "selectedFailures": [
+          {
+            "elapsedMs": 209542,
+            "failedComponents": [
+              "audio_not_advanced"
+            ],
+            "clockDeltaMs": 780,
+            "audioDelta": 0,
+            "pictureDelta": 46,
+            "paintDelta": 61,
+            "epochMs": 1792290769969,
+            "sameTickTrackContext": {
+              "decodedVideo": 18579,
+              "decodedAudio": 13436,
+              "callbacks": 10564,
+              "painted": 10564,
+              "videoBytes": 85487535,
+              "audioBytes": 20542992,
+              "videoPendingReadMs": 0,
+              "audioPendingReadMs": 0,
+              "videoPendingWriteMs": 200,
+              "audioPendingWriteMs": 0
+            },
+            "previousTraceDeltas": {
+              "decodedVideo": 92,
+              "decodedAudio": 0,
+              "callbacks": 61,
+              "painted": 61,
+              "videoBytes": 262144,
+              "audioBytes": 0
+            },
+            "traceWindowMs": 1006,
+            "nearbyEndpointEnergyBins": [
+              {
+                "epochSecond": 1792290768,
+                "frames": 48000,
+                "nonSilentFrames": 48000,
+                "rmsAbove0005PacketFrames": 21120,
+                "peak": 0.038227
+              },
+              {
+                "epochSecond": 1792290769,
+                "frames": 48000,
+                "nonSilentFrames": 48000,
+                "rmsAbove0005PacketFrames": 38400,
+                "peak": 0.03934
+              },
+              {
+                "epochSecond": 1792290770,
+                "frames": 48000,
+                "nonSilentFrames": 48000,
+                "rmsAbove0005PacketFrames": 42720,
+                "peak": 0.011278
+              }
+            ],
+            "endpointEnergyIsMixedAndBinsPartiallyOverlap": true
+          },
+          {
+            "elapsedMs": 222587,
+            "failedComponents": [
+              "paint_not_advanced"
+            ],
+            "clockDeltaMs": 1044,
+            "audioDelta": 44,
+            "pictureDelta": 61,
+            "paintDelta": 0,
+            "epochMs": 1792290783014,
+            "sameTickTrackContext": {
+              "decodedVideo": 20171,
+              "decodedAudio": 14650,
+              "callbacks": 11346,
+              "painted": 11241,
+              "videoBytes": 90992511,
+              "audioBytes": 20542992,
+              "videoPendingReadMs": 0,
+              "audioPendingReadMs": 0,
+              "videoPendingWriteMs": 218,
+              "audioPendingWriteMs": 0
+            },
+            "previousTraceDeltas": {
+              "decodedVideo": 122,
+              "decodedAudio": 88,
+              "callbacks": 60,
+              "painted": 0,
+              "videoBytes": 524288,
+              "audioBytes": 0
+            },
+            "traceWindowMs": 1002,
+            "nearbyEndpointEnergyBins": [
+              {
+                "epochSecond": 1792290782,
+                "frames": 48000,
+                "nonSilentFrames": 48000,
+                "rmsAbove0005PacketFrames": 46560,
+                "peak": 0.007756
+              },
+              {
+                "epochSecond": 1792290783,
+                "frames": 48000,
+                "nonSilentFrames": 48000,
+                "rmsAbove0005PacketFrames": 48000,
+                "peak": 0.005257
+              },
+              {
+                "epochSecond": 1792290784,
+                "frames": 48000,
+                "nonSilentFrames": 48000,
+                "rmsAbove0005PacketFrames": 48000,
+                "peak": 0.004233
+              }
+            ],
+            "endpointEnergyIsMixedAndBinsPartiallyOverlap": true
+          },
+          {
+            "elapsedMs": 223591,
+            "failedComponents": [
+              "audio_not_advanced",
+              "paint_not_advanced"
+            ],
+            "clockDeltaMs": 766,
+            "audioDelta": 0,
+            "pictureDelta": 46,
+            "paintDelta": 0,
+            "epochMs": 1792290784018,
+            "sameTickTrackContext": {
+              "decodedVideo": 20263,
+              "decodedAudio": 14650,
+              "callbacks": 11407,
+              "painted": 11241,
+              "videoBytes": 91778943,
+              "audioBytes": 20542992,
+              "videoPendingReadMs": 0,
+              "audioPendingReadMs": 0,
+              "videoPendingWriteMs": 155,
+              "audioPendingWriteMs": 0
+            },
+            "previousTraceDeltas": {
+              "decodedVideo": 92,
+              "decodedAudio": 0,
+              "callbacks": 61,
+              "painted": 0,
+              "videoBytes": 786432,
+              "audioBytes": 0
+            },
+            "traceWindowMs": 1004,
+            "nearbyEndpointEnergyBins": [
+              {
+                "epochSecond": 1792290783,
+                "frames": 48000,
+                "nonSilentFrames": 48000,
+                "rmsAbove0005PacketFrames": 48000,
+                "peak": 0.005257
+              },
+              {
+                "epochSecond": 1792290784,
+                "frames": 48000,
+                "nonSilentFrames": 48000,
+                "rmsAbove0005PacketFrames": 48000,
+                "peak": 0.004233
+              },
+              {
+                "epochSecond": 1792290785,
+                "frames": 48000,
+                "nonSilentFrames": 48000,
+                "rmsAbove0005PacketFrames": 48000,
+                "peak": 0.004347
+              }
+            ],
+            "endpointEnergyIsMixedAndBinsPartiallyOverlap": true
+          },
+          {
+            "elapsedMs": 224594,
+            "failedComponents": [
+              "paint_not_advanced"
+            ],
+            "clockDeltaMs": 1007,
+            "audioDelta": 43,
+            "pictureDelta": 62,
+            "paintDelta": 0,
+            "epochMs": 1792290785021,
+            "sameTickTrackContext": {
+              "decodedVideo": 20387,
+              "decodedAudio": 14736,
+              "callbacks": 11467,
+              "painted": 11241,
+              "videoBytes": 92041087,
+              "audioBytes": 20542992,
+              "videoPendingReadMs": 0,
+              "audioPendingReadMs": 0,
+              "videoPendingWriteMs": 439,
+              "audioPendingWriteMs": 0
+            },
+            "previousTraceDeltas": {
+              "decodedVideo": 124,
+              "decodedAudio": 86,
+              "callbacks": 60,
+              "painted": 0,
+              "videoBytes": 262144,
+              "audioBytes": 0
+            },
+            "traceWindowMs": 1003,
+            "nearbyEndpointEnergyBins": [
+              {
+                "epochSecond": 1792290784,
+                "frames": 48000,
+                "nonSilentFrames": 48000,
+                "rmsAbove0005PacketFrames": 48000,
+                "peak": 0.004233
+              },
+              {
+                "epochSecond": 1792290785,
+                "frames": 48000,
+                "nonSilentFrames": 48000,
+                "rmsAbove0005PacketFrames": 48000,
+                "peak": 0.004347
+              },
+              {
+                "epochSecond": 1792290786,
+                "frames": 48000,
+                "nonSilentFrames": 48000,
+                "rmsAbove0005PacketFrames": 48000,
+                "peak": 0.00552
+              }
+            ],
+            "endpointEnergyIsMixedAndBinsPartiallyOverlap": true
+          },
+          {
+            "elapsedMs": 300976,
+            "failedComponents": [
+              "audio_not_advanced",
+              "paint_not_advanced"
+            ],
+            "clockDeltaMs": 767,
+            "audioDelta": 0,
+            "pictureDelta": 46,
+            "paintDelta": 0,
+            "epochMs": 1792290861404,
+            "sameTickTrackContext": {
+              "decodedVideo": 29551,
+              "decodedAudio": 21330,
+              "callbacks": 16039,
+              "painted": 11241,
+              "videoBytes": 118124207,
+              "audioBytes": 20542992,
+              "videoPendingReadMs": 5,
+              "audioPendingReadMs": 0,
+              "videoPendingWriteMs": 0,
+              "audioPendingWriteMs": 0
+            },
+            "previousTraceDeltas": {
+              "decodedVideo": 92,
+              "decodedAudio": 0,
+              "callbacks": 60,
+              "painted": 0,
+              "videoBytes": 786432,
+              "audioBytes": 0
+            },
+            "traceWindowMs": 1004,
+            "nearbyEndpointEnergyBins": [
+              {
+                "epochSecond": 1792290860,
+                "frames": 48000,
+                "nonSilentFrames": 48000,
+                "rmsAbove0005PacketFrames": 48000,
+                "peak": 0.030012
+              },
+              {
+                "epochSecond": 1792290861,
+                "frames": 48000,
+                "nonSilentFrames": 48000,
+                "rmsAbove0005PacketFrames": 48000,
+                "peak": 0.023763
+              },
+              {
+                "epochSecond": 1792290862,
+                "frames": 48000,
+                "nonSilentFrames": 48000,
+                "rmsAbove0005PacketFrames": 48000,
+                "peak": 0.035345
+              }
+            ],
+            "endpointEnergyIsMixedAndBinsPartiallyOverlap": true
+          },
+          {
+            "elapsedMs": 301981,
+            "failedComponents": [
+              "paint_not_advanced"
+            ],
+            "clockDeltaMs": 1041,
+            "audioDelta": 43,
+            "pictureDelta": 61,
+            "paintDelta": 0,
+            "epochMs": 1792290862408,
+            "sameTickTrackContext": {
+              "decodedVideo": 29673,
+              "decodedAudio": 21416,
+              "callbacks": 16099,
+              "painted": 11241,
+              "videoBytes": 118927023,
+              "audioBytes": 20542992,
+              "videoPendingReadMs": 21,
+              "audioPendingReadMs": 0,
+              "videoPendingWriteMs": 0,
+              "audioPendingWriteMs": 0
+            },
+            "previousTraceDeltas": {
+              "decodedVideo": 122,
+              "decodedAudio": 86,
+              "callbacks": 60,
+              "painted": 0,
+              "videoBytes": 802816,
+              "audioBytes": 0
+            },
+            "traceWindowMs": 1005,
+            "nearbyEndpointEnergyBins": [
+              {
+                "epochSecond": 1792290861,
+                "frames": 48000,
+                "nonSilentFrames": 48000,
+                "rmsAbove0005PacketFrames": 48000,
+                "peak": 0.023763
+              },
+              {
+                "epochSecond": 1792290862,
+                "frames": 48000,
+                "nonSilentFrames": 48000,
+                "rmsAbove0005PacketFrames": 48000,
+                "peak": 0.035345
+              },
+              {
+                "epochSecond": 1792290863,
+                "frames": 48000,
+                "nonSilentFrames": 48000,
+                "rmsAbove0005PacketFrames": 48000,
+                "peak": 0.03384
+              }
+            ],
+            "endpointEnergyIsMixedAndBinsPartiallyOverlap": true
+          },
+          {
+            "elapsedMs": 302985,
+            "failedComponents": [
+              "paint_not_advanced"
+            ],
+            "clockDeltaMs": 1021,
+            "audioDelta": 43,
+            "pictureDelta": 62,
+            "paintDelta": 0,
+            "epochMs": 1792290863412,
+            "sameTickTrackContext": {
+              "decodedVideo": 29797,
+              "decodedAudio": 21502,
+              "callbacks": 16159,
+              "painted": 11241,
+              "videoBytes": 119729823,
+              "audioBytes": 20542992,
+              "videoPendingReadMs": 11,
+              "audioPendingReadMs": 0,
+              "videoPendingWriteMs": 0,
+              "audioPendingWriteMs": 0
+            },
+            "previousTraceDeltas": {
+              "decodedVideo": 124,
+              "decodedAudio": 86,
+              "callbacks": 60,
+              "painted": 0,
+              "videoBytes": 802800,
+              "audioBytes": 0
+            },
+            "traceWindowMs": 1004,
+            "nearbyEndpointEnergyBins": [
+              {
+                "epochSecond": 1792290862,
+                "frames": 48000,
+                "nonSilentFrames": 48000,
+                "rmsAbove0005PacketFrames": 48000,
+                "peak": 0.035345
+              },
+              {
+                "epochSecond": 1792290863,
+                "frames": 48000,
+                "nonSilentFrames": 48000,
+                "rmsAbove0005PacketFrames": 48000,
+                "peak": 0.03384
+              },
+              {
+                "epochSecond": 1792290864,
+                "frames": 35040,
+                "nonSilentFrames": 35040,
+                "rmsAbove0005PacketFrames": 21120,
+                "peak": 0.020129
+              }
+            ],
+            "endpointEnergyIsMixedAndBinsPartiallyOverlap": true
+          }
+        ],
+        "failedComponentCounts": {
+          "audio_not_advanced": 7,
+          "paint_not_advanced": 81
+        }
+      },
+      "capture": {
+        "captureDiscontinuities": 0,
+        "timestampErrors": 0,
+        "capturedPackets": 32055,
+        "peakLoopbackAmplitude": 0.045521,
+        "multimediaCaptureScheduling": true,
+        "multimediaSchedulingRestored": true,
+        "physicalMicrophoneOpened": false,
+        "rawAudioSaved": false,
+        "wallClockMappingChangeMs": 0.65
+      },
+      "numericTrace": {
+        "sha256": "563a9d1d740de4eec3d0b6c76c0f0d0f95ea42e8aac92a000fb683d6d3146819",
+        "rows": 300,
+        "selectedRows": [
+          {
+            "epochMs": 1792290561439,
+            "elapsedMs": 1003,
+            "phase": 0,
+            "clockMs": 16684,
+            "decodedVideo": 929,
+            "decodedAudio": 744,
+            "pictures": 433,
+            "audioBuffers": 372,
+            "painted": 440,
+            "callbacks": 440,
+            "videoBytes": 9612936,
+            "audioBytes": 10271496,
+            "videoReadMs": 11919,
+            "audioReadMs": 6059,
+            "videoWriteMs": 1074,
+            "audioWriteMs": 61,
+            "videoPendingReadMs": 12,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 0,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 2,
+            "audioRequests": 1,
+            "videoFailures": 1,
+            "audioFailures": 0,
+            "gcMs": 47,
+            "gcCollections": 20,
+            "cpuMs": 14875
+          },
+          {
+            "epochMs": 1792290768963,
+            "elapsedMs": 208536,
+            "phase": 3,
+            "clockMs": 179861,
+            "decodedVideo": 18487,
+            "decodedAudio": 13436,
+            "pictures": 9241,
+            "audioBuffers": 6718,
+            "painted": 10503,
+            "callbacks": 10503,
+            "videoBytes": 85225391,
+            "audioBytes": 20542992,
+            "videoReadMs": 86090,
+            "audioReadMs": 10753,
+            "videoWriteMs": 98628,
+            "audioWriteMs": 108,
+            "videoPendingReadMs": 0,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 543,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 4,
+            "audioRequests": 2,
+            "videoFailures": 3,
+            "audioFailures": 0,
+            "gcMs": 158,
+            "gcCollections": 123,
+            "cpuMs": 152187
+          },
+          {
+            "epochMs": 1792290769969,
+            "elapsedMs": 209542,
+            "phase": 3,
+            "clockMs": 180641,
+            "decodedVideo": 18579,
+            "decodedAudio": 13436,
+            "pictures": 9287,
+            "audioBuffers": 6718,
+            "painted": 10564,
+            "callbacks": 10564,
+            "videoBytes": 85487535,
+            "audioBytes": 20542992,
+            "videoReadMs": 86090,
+            "audioReadMs": 10753,
+            "videoWriteMs": 99976,
+            "audioWriteMs": 108,
+            "videoPendingReadMs": 0,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 200,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 4,
+            "audioRequests": 2,
+            "videoFailures": 3,
+            "audioFailures": 0,
+            "gcMs": 158,
+            "gcCollections": 123,
+            "cpuMs": 152984
+          },
+          {
+            "epochMs": 1792290770972,
+            "elapsedMs": 210545,
+            "phase": 3,
+            "clockMs": 181645,
+            "decodedVideo": 18701,
+            "decodedAudio": 13522,
+            "pictures": 9348,
+            "audioBuffers": 6761,
+            "painted": 10624,
+            "callbacks": 10624,
+            "videoBytes": 86019999,
+            "audioBytes": 20542992,
+            "videoReadMs": 86091,
+            "audioReadMs": 10753,
+            "videoWriteMs": 101089,
+            "audioWriteMs": 108,
+            "videoPendingReadMs": 0,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 89,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 4,
+            "audioRequests": 2,
+            "videoFailures": 3,
+            "audioFailures": 0,
+            "gcMs": 159,
+            "gcCollections": 124,
+            "cpuMs": 153765
+          },
+          {
+            "epochMs": 1792290782012,
+            "elapsedMs": 221585,
+            "phase": 3,
+            "clockMs": 192878,
+            "decodedVideo": 20049,
+            "decodedAudio": 14562,
+            "pictures": 10022,
+            "audioBuffers": 7281,
+            "painted": 11241,
+            "callbacks": 11286,
+            "videoBytes": 90468223,
+            "audioBytes": 20542992,
+            "videoReadMs": 86098,
+            "audioReadMs": 10753,
+            "videoWriteMs": 109883,
+            "audioWriteMs": 108,
+            "videoPendingReadMs": 0,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 2328,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 4,
+            "audioRequests": 2,
+            "videoFailures": 3,
+            "audioFailures": 0,
+            "gcMs": 165,
+            "gcCollections": 131,
+            "cpuMs": 161843
+          },
+          {
+            "epochMs": 1792290783014,
+            "elapsedMs": 222587,
+            "phase": 3,
+            "clockMs": 193922,
+            "decodedVideo": 20171,
+            "decodedAudio": 14650,
+            "pictures": 10083,
+            "audioBuffers": 7325,
+            "painted": 11241,
+            "callbacks": 11346,
+            "videoBytes": 90992511,
+            "audioBytes": 20542992,
+            "videoReadMs": 86099,
+            "audioReadMs": 10753,
+            "videoWriteMs": 112995,
+            "audioWriteMs": 108,
+            "videoPendingReadMs": 0,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 218,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 4,
+            "audioRequests": 2,
+            "videoFailures": 3,
+            "audioFailures": 0,
+            "gcMs": 165,
+            "gcCollections": 131,
+            "cpuMs": 162484
+          },
+          {
+            "epochMs": 1792290784018,
+            "elapsedMs": 223591,
+            "phase": 3,
+            "clockMs": 194688,
+            "decodedVideo": 20263,
+            "decodedAudio": 14650,
+            "pictures": 10129,
+            "audioBuffers": 7325,
+            "painted": 11241,
+            "callbacks": 11407,
+            "videoBytes": 91778943,
+            "audioBytes": 20542992,
+            "videoReadMs": 86100,
+            "audioReadMs": 10753,
+            "videoWriteMs": 114060,
+            "audioWriteMs": 108,
+            "videoPendingReadMs": 0,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 155,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 4,
+            "audioRequests": 2,
+            "videoFailures": 3,
+            "audioFailures": 0,
+            "gcMs": 166,
+            "gcCollections": 132,
+            "cpuMs": 163046
+          },
+          {
+            "epochMs": 1792290785021,
+            "elapsedMs": 224594,
+            "phase": 3,
+            "clockMs": 195695,
+            "decodedVideo": 20387,
+            "decodedAudio": 14736,
+            "pictures": 10191,
+            "audioBuffers": 7368,
+            "painted": 11241,
+            "callbacks": 11467,
+            "videoBytes": 92041087,
+            "audioBytes": 20542992,
+            "videoReadMs": 86100,
+            "audioReadMs": 10753,
+            "videoWriteMs": 114779,
+            "audioWriteMs": 108,
+            "videoPendingReadMs": 0,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 439,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 4,
+            "audioRequests": 2,
+            "videoFailures": 3,
+            "audioFailures": 0,
+            "gcMs": 166,
+            "gcCollections": 132,
+            "cpuMs": 163578
+          },
+          {
+            "epochMs": 1792290786026,
+            "elapsedMs": 225599,
+            "phase": 3,
+            "clockMs": 196711,
+            "decodedVideo": 20509,
+            "decodedAudio": 14822,
+            "pictures": 10252,
+            "audioBuffers": 7411,
+            "painted": 11241,
+            "callbacks": 11527,
+            "videoBytes": 92311407,
+            "audioBytes": 20542992,
+            "videoReadMs": 86101,
+            "audioReadMs": 10753,
+            "videoWriteMs": 115614,
+            "audioWriteMs": 108,
+            "videoPendingReadMs": 0,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 609,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 4,
+            "audioRequests": 2,
+            "videoFailures": 3,
+            "audioFailures": 0,
+            "gcMs": 167,
+            "gcCollections": 133,
+            "cpuMs": 164343
+          },
+          {
+            "epochMs": 1792290860399,
+            "elapsedMs": 299972,
+            "phase": 3,
+            "clockMs": 271295,
+            "decodedVideo": 29459,
+            "decodedAudio": 21330,
+            "pictures": 14716,
+            "audioBuffers": 10665,
+            "painted": 11241,
+            "callbacks": 15979,
+            "videoBytes": 117337775,
+            "audioBytes": 20542992,
+            "videoReadMs": 112508,
+            "audioReadMs": 10753,
+            "videoWriteMs": 158779,
+            "audioWriteMs": 108,
+            "videoPendingReadMs": 10,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 0,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 5,
+            "audioRequests": 2,
+            "videoFailures": 4,
+            "audioFailures": 0,
+            "gcMs": 226,
+            "gcCollections": 194,
+            "cpuMs": 218140
+          },
+          {
+            "epochMs": 1792290861404,
+            "elapsedMs": 300976,
+            "phase": 3,
+            "clockMs": 272062,
+            "decodedVideo": 29551,
+            "decodedAudio": 21330,
+            "pictures": 14762,
+            "audioBuffers": 10665,
+            "painted": 11241,
+            "callbacks": 16039,
+            "videoBytes": 118124207,
+            "audioBytes": 20542992,
+            "videoReadMs": 113512,
+            "audioReadMs": 10753,
+            "videoWriteMs": 158784,
+            "audioWriteMs": 108,
+            "videoPendingReadMs": 5,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 0,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 5,
+            "audioRequests": 2,
+            "videoFailures": 4,
+            "audioFailures": 0,
+            "gcMs": 226,
+            "gcCollections": 194,
+            "cpuMs": 218859
+          },
+          {
+            "epochMs": 1792290862408,
+            "elapsedMs": 301981,
+            "phase": 3,
+            "clockMs": 273103,
+            "decodedVideo": 29673,
+            "decodedAudio": 21416,
+            "pictures": 14823,
+            "audioBuffers": 10708,
+            "painted": 11241,
+            "callbacks": 16099,
+            "videoBytes": 118927023,
+            "audioBytes": 20542992,
+            "videoReadMs": 114496,
+            "audioReadMs": 10753,
+            "videoWriteMs": 158788,
+            "audioWriteMs": 108,
+            "videoPendingReadMs": 21,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 0,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 5,
+            "audioRequests": 2,
+            "videoFailures": 4,
+            "audioFailures": 0,
+            "gcMs": 227,
+            "gcCollections": 195,
+            "cpuMs": 219578
+          },
+          {
+            "epochMs": 1792290863412,
+            "elapsedMs": 302985,
+            "phase": 3,
+            "clockMs": 274124,
+            "decodedVideo": 29797,
+            "decodedAudio": 21502,
+            "pictures": 14885,
+            "audioBuffers": 10751,
+            "painted": 11241,
+            "callbacks": 16159,
+            "videoBytes": 119729823,
+            "audioBytes": 20542992,
+            "videoReadMs": 115505,
+            "audioReadMs": 10753,
+            "videoWriteMs": 158793,
+            "audioWriteMs": 108,
+            "videoPendingReadMs": 11,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 0,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 5,
+            "audioRequests": 2,
+            "videoFailures": 4,
+            "audioFailures": 0,
+            "gcMs": 228,
+            "gcCollections": 196,
+            "cpuMs": 220390
+          }
+        ]
+      },
+      "numericArtifactSha256": {
+        "phases.csv": "c789a93d62da6b682c1524d305a22324742518e83a0698bf9c7642062465c337",
+        "flash-events.csv": "d2208af6b7f667793a9cf29913b8d578822ec8d7eeba328b2054a286a69dfd92",
+        "audio-pulse-events.json": "43649e1202fe47e3e33315d0a4d8a00d24635d7189db29682e1944bdbe20e3ba",
+        "audio-activity.json": "0393cdb09210b0faca52eede32386fe45a5187a1057afcbbd6678beff4c302ca",
+        "capture-gaps.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "timingMeasurements": {}
+    },
+    {
+      "id": "component-minimal-window-long-1",
+      "workerJarSha256": "8bb70415ee966946be0d809dd0a49d4fde845c20482219ca4b4ffa19c0a6fe72",
+      "description": "historical failure-only observer; no added work until first failed decision; passive window logging; disconnect",
+      "reportedHarnessResult": "passed",
+      "reportedHarnessReason": null,
+      "worker": {
+        "result": "passed",
+        "stage": "complete",
+        "selectedHeight": 1080,
+        "selectedFps": 60,
+        "selectedCodec": "avc1.64002A",
+        "selectedDelivery": "PROGRESSIVE_HTTP",
+        "pairedAudio": true,
+        "networkCacheMs": 3000,
+        "seekWaitMs": 6024,
+        "seekReadyClockAdvancedMs": 524,
+        "seekWorked": true,
+        "pauseStable": true,
+        "resumeAdvanced": true,
+        "observationRequestedSeconds": 300,
+        "observationWallMs": 303767,
+        "observationClockAdvancedMs": 266454,
+        "longestStalledClockMs": 28000,
+        "positionMs": 2594,
+        "decodedVideo": 376,
+        "decodedAudio": 344,
+        "picturesDisplayed": 14902,
+        "audioBuffersPlayed": 10785,
+        "audioBuffersLost": 0,
+        "videoCallbacks": 16558,
+        "paintedVideoFrames": 16546,
+        "cleanShutdown": true,
+        "processExitCode": 0,
+        "nativeProcessIsolated": true,
+        "workerCpuMsDuringObservation": 220921,
+        "decoderPolicy": "software_avcodec",
+        "demuxPolicy": "avformat"
+      },
+      "network": {
+        "blockedBytesAfterSettling": 0,
+        "recoveryLatencyMs": 18681,
+        "paintedFramesAtCut": 1286,
+        "resumeCheckpointMs": 35480,
+        "outageRequestedSeconds": 25,
+        "paintedFramesAtRecovery": 1850,
+        "cutPositionMs": 30578,
+        "mode": "disconnect",
+        "longestConsecutiveRecoveredSeconds": 89,
+        "terminalReason": "",
+        "recovered": true,
+        "steadyRecoveredSeconds": 53,
+        "stallObserved": true,
+        "faultInjected": true,
+        "explicitRestartAttempts": 1,
+        "restored": true,
+        "lastObservationElapsedMs": 303767,
+        "events": [
+          {
+            "event": "network_down",
+            "elapsedMs": 15050,
+            "positionMs": 30578
+          },
+          {
+            "event": "output_stall_observed",
+            "elapsedMs": 22083,
+            "positionMs": -1
+          },
+          {
+            "event": "network_up",
+            "elapsedMs": 40162,
+            "positionMs": -1
+          },
+          {
+            "event": "explicit_recovery_restart",
+            "elapsedMs": 50200,
+            "positionMs": 35480
+          },
+          {
+            "event": "output_recovered",
+            "elapsedMs": 58843,
+            "positionMs": 36767
+          }
+        ]
+      },
+      "relay": {
+        "bytesForwarded": 146975664,
+        "closed": true,
+        "requests": 6,
+        "streamFailures": 4,
+        "loopbackOnly": true,
+        "upstreamHttpStatuses": {
+          "206": 6
+        },
+        "rejectedRequests": 1,
+        "activeRequests": 0
+      },
+      "decisionAnalysis": {
+        "schemaVersion": 1,
+        "source": "historical_failed_decisions",
+        "workerResult": "passed",
+        "terminalReason": "",
+        "decisionSampleCount": 0,
+        "failedDecisionCount": 8,
+        "recomputedLongestStableSamples": null,
+        "recomputedTerminalStableSamples": null,
+        "reportedLongestStableSamples": 89,
+        "reportedTerminalStableSamples": 53,
+        "terminalStabilityQualified": true,
+        "rootCauseProven": false,
+        "interpretation": "Predicate failures identify observed components, not native/transport cause or source A/V alignment.",
+        "selectedFailures": [
+          {
+            "elapsedMs": 149168,
+            "epochMs": 1792291221921,
+            "failedComponents": [
+              "audio_not_advanced"
+            ],
+            "clockDeltaMs": 765,
+            "audioDelta": 0,
+            "pictureDelta": 45,
+            "paintDeltaAfterPredicate": 60,
+            "paintWasReadAfterPredicate": true,
+            "windowContext": {
+              "windowFound": 1,
+              "windowVisible": 1,
+              "windowMinimized": 0,
+              "windowCloaked": 0,
+              "foregroundOwned": 1,
+              "foregroundCoveragePercent": 0,
+              "displayState": 1
+            },
+            "windowSampleOffsetMs": 317,
+            "nearbyEndpointEnergyBins": [
+              {
+                "epochSecond": 1792291220,
+                "frames": 48000,
+                "nonSilentFrames": 48000,
+                "rmsAbove0005PacketFrames": 6240,
+                "peak": 0.004578
+              },
+              {
+                "epochSecond": 1792291221,
+                "frames": 48000,
+                "nonSilentFrames": 48000,
+                "rmsAbove0005PacketFrames": 2400,
+                "peak": 0.006172
+              },
+              {
+                "epochSecond": 1792291222,
+                "frames": 48000,
+                "nonSilentFrames": 48000,
+                "rmsAbove0005PacketFrames": 0,
+                "peak": 0.000729
+              }
+            ],
+            "endpointEnergyIsMixedAndBinsPartiallyOverlap": true
+          },
+          {
+            "elapsedMs": 163229,
+            "epochMs": 1792291235980,
+            "failedComponents": [
+              "audio_not_advanced"
+            ],
+            "clockDeltaMs": 766,
+            "audioDelta": 0,
+            "pictureDelta": 46,
+            "paintDeltaAfterPredicate": 61,
+            "paintWasReadAfterPredicate": true,
+            "windowContext": {
+              "windowFound": 1,
+              "windowVisible": 1,
+              "windowMinimized": 0,
+              "windowCloaked": 0,
+              "foregroundOwned": 1,
+              "foregroundCoveragePercent": 0,
+              "displayState": 1
+            },
+            "windowSampleOffsetMs": 274,
+            "nearbyEndpointEnergyBins": [
+              {
+                "epochSecond": 1792291234,
+                "frames": 48000,
+                "nonSilentFrames": 48000,
+                "rmsAbove0005PacketFrames": 0,
+                "peak": 0.000404
+              },
+              {
+                "epochSecond": 1792291235,
+                "frames": 48000,
+                "nonSilentFrames": 48000,
+                "rmsAbove0005PacketFrames": 0,
+                "peak": 0.000258
+              },
+              {
+                "epochSecond": 1792291236,
+                "frames": 48000,
+                "nonSilentFrames": 48000,
+                "rmsAbove0005PacketFrames": 2400,
+                "peak": 0.004823
+              }
+            ],
+            "endpointEnergyIsMixedAndBinsPartiallyOverlap": true
+          },
+          {
+            "elapsedMs": 178285,
+            "epochMs": 1792291251037,
+            "failedComponents": [
+              "audio_not_advanced"
+            ],
+            "clockDeltaMs": 766,
+            "audioDelta": 0,
+            "pictureDelta": 46,
+            "paintDeltaAfterPredicate": 60,
+            "paintWasReadAfterPredicate": true,
+            "windowContext": {
+              "windowFound": 1,
+              "windowVisible": 1,
+              "windowMinimized": 0,
+              "windowCloaked": 0,
+              "foregroundOwned": 1,
+              "foregroundCoveragePercent": 0,
+              "displayState": 1
+            },
+            "windowSampleOffsetMs": 222,
+            "nearbyEndpointEnergyBins": [
+              {
+                "epochSecond": 1792291250,
+                "frames": 48000,
+                "nonSilentFrames": 48000,
+                "rmsAbove0005PacketFrames": 2400,
+                "peak": 0.009989
+              },
+              {
+                "epochSecond": 1792291251,
+                "frames": 48000,
+                "nonSilentFrames": 48000,
+                "rmsAbove0005PacketFrames": 11040,
+                "peak": 0.005465
+              },
+              {
+                "epochSecond": 1792291252,
+                "frames": 48000,
+                "nonSilentFrames": 48000,
+                "rmsAbove0005PacketFrames": 16320,
+                "peak": 0.013321
+              }
+            ],
+            "endpointEnergyIsMixedAndBinsPartiallyOverlap": true
+          },
+          {
+            "elapsedMs": 192337,
+            "epochMs": 1792291265089,
+            "failedComponents": [
+              "audio_not_advanced"
+            ],
+            "clockDeltaMs": 766,
+            "audioDelta": 0,
+            "pictureDelta": 46,
+            "paintDeltaAfterPredicate": 60,
+            "paintWasReadAfterPredicate": true,
+            "windowContext": {
+              "windowFound": 1,
+              "windowVisible": 1,
+              "windowMinimized": 0,
+              "windowCloaked": 0,
+              "foregroundOwned": 1,
+              "foregroundCoveragePercent": 0,
+              "displayState": 1
+            },
+            "windowSampleOffsetMs": 149,
+            "nearbyEndpointEnergyBins": [
+              {
+                "epochSecond": 1792291264,
+                "frames": 48000,
+                "nonSilentFrames": 48000,
+                "rmsAbove0005PacketFrames": 0,
+                "peak": 0.000787
+              },
+              {
+                "epochSecond": 1792291265,
+                "frames": 48000,
+                "nonSilentFrames": 48000,
+                "rmsAbove0005PacketFrames": 0,
+                "peak": 0.000448
+              },
+              {
+                "epochSecond": 1792291266,
+                "frames": 48000,
+                "nonSilentFrames": 48000,
+                "rmsAbove0005PacketFrames": 0,
+                "peak": 0.000588
+              }
+            ],
+            "endpointEnergyIsMixedAndBinsPartiallyOverlap": true
+          },
+          {
+            "elapsedMs": 221448,
+            "epochMs": 1792291294199,
+            "failedComponents": [
+              "audio_not_advanced"
+            ],
+            "clockDeltaMs": 766,
+            "audioDelta": 0,
+            "pictureDelta": 45,
+            "paintDeltaAfterPredicate": 60,
+            "paintWasReadAfterPredicate": true,
+            "windowContext": {
+              "windowFound": 1,
+              "windowVisible": 1,
+              "windowMinimized": 0,
+              "windowCloaked": 0,
+              "foregroundOwned": 1,
+              "foregroundCoveragePercent": 0,
+              "displayState": 1
+            },
+            "windowSampleOffsetMs": 83,
+            "nearbyEndpointEnergyBins": [
+              {
+                "epochSecond": 1792291293,
+                "frames": 48000,
+                "nonSilentFrames": 48000,
+                "rmsAbove0005PacketFrames": 48000,
+                "peak": 0.012036
+              },
+              {
+                "epochSecond": 1792291294,
+                "frames": 48000,
+                "nonSilentFrames": 48000,
+                "rmsAbove0005PacketFrames": 48000,
+                "peak": 0.022325
+              },
+              {
+                "epochSecond": 1792291295,
+                "frames": 48000,
+                "nonSilentFrames": 48000,
+                "rmsAbove0005PacketFrames": 48000,
+                "peak": 0.045309
+              }
+            ],
+            "endpointEnergyIsMixedAndBinsPartiallyOverlap": true
+          },
+          {
+            "elapsedMs": 235508,
+            "epochMs": 1792291308259,
+            "failedComponents": [
+              "audio_not_advanced"
+            ],
+            "clockDeltaMs": 766,
+            "audioDelta": 0,
+            "pictureDelta": 46,
+            "paintDeltaAfterPredicate": 61,
+            "paintWasReadAfterPredicate": true,
+            "windowContext": {
+              "windowFound": 1,
+              "windowVisible": 1,
+              "windowMinimized": 0,
+              "windowCloaked": 0,
+              "foregroundOwned": 1,
+              "foregroundCoveragePercent": 0,
+              "displayState": 1
+            },
+            "windowSampleOffsetMs": -47,
+            "nearbyEndpointEnergyBins": [
+              {
+                "epochSecond": 1792291307,
+                "frames": 48000,
+                "nonSilentFrames": 48000,
+                "rmsAbove0005PacketFrames": 13920,
+                "peak": 0.003418
+              },
+              {
+                "epochSecond": 1792291308,
+                "frames": 48000,
+                "nonSilentFrames": 48000,
+                "rmsAbove0005PacketFrames": 45600,
+                "peak": 0.005496
+              },
+              {
+                "epochSecond": 1792291309,
+                "frames": 48000,
+                "nonSilentFrames": 48000,
+                "rmsAbove0005PacketFrames": 47520,
+                "peak": 0.004709
+              }
+            ],
+            "endpointEnergyIsMixedAndBinsPartiallyOverlap": true
+          },
+          {
+            "elapsedMs": 250565,
+            "epochMs": 1792291323317,
+            "failedComponents": [
+              "audio_not_advanced"
+            ],
+            "clockDeltaMs": 779,
+            "audioDelta": 0,
+            "pictureDelta": 46,
+            "paintDeltaAfterPredicate": 60,
+            "paintWasReadAfterPredicate": true,
+            "windowContext": {
+              "windowFound": 1,
+              "windowVisible": 1,
+              "windowMinimized": 0,
+              "windowCloaked": 0,
+              "foregroundOwned": 1,
+              "foregroundCoveragePercent": 0,
+              "displayState": 1
+            },
+            "windowSampleOffsetMs": -53,
+            "nearbyEndpointEnergyBins": [
+              {
+                "epochSecond": 1792291322,
+                "frames": 48000,
+                "nonSilentFrames": 48000,
+                "rmsAbove0005PacketFrames": 28320,
+                "peak": 0.005038
+              },
+              {
+                "epochSecond": 1792291323,
+                "frames": 48000,
+                "nonSilentFrames": 48000,
+                "rmsAbove0005PacketFrames": 48000,
+                "peak": 0.010443
+              },
+              {
+                "epochSecond": 1792291324,
+                "frames": 48000,
+                "nonSilentFrames": 48000,
+                "rmsAbove0005PacketFrames": 48000,
+                "peak": 0.009531
+              }
+            ],
+            "endpointEnergyIsMixedAndBinsPartiallyOverlap": true
+          }
+        ],
+        "failedComponentCounts": {
+          "audio_not_advanced": 8
+        },
+        "historicalAudioHoldIntervalsMs": [
+          14061,
+          15056,
+          14052,
+          14054,
+          15057,
+          14060,
+          15057
+        ]
+      },
+      "capture": {
+        "captureDiscontinuities": 0,
+        "timestampErrors": 0,
+        "capturedPackets": 32360,
+        "peakLoopbackAmplitude": 0.326891,
+        "multimediaCaptureScheduling": true,
+        "multimediaSchedulingRestored": true,
+        "physicalMicrophoneOpened": false,
+        "rawAudioSaved": false,
+        "wallClockMappingChangeMs": 0.664
+      },
+      "windowState": {
+        "sha256": "ddfda2348696d1017b0d661fb5c647ce2e6ceac5165313dc10b4597111c564d8",
+        "rows": 325,
+        "ownedWindowSamples": 318,
+        "minimizedSamples": 0,
+        "cloakedSamples": 0,
+        "displayStates": [
+          1
+        ],
+        "foregroundCoveredAtLeast95PercentSamples": 0,
+        "transitions": [
+          {
+            "epochMs": 1792291053220,
+            "elapsedMs": 7,
+            "windowFound": 0,
+            "windowVisible": -1,
+            "windowMinimized": -1,
+            "windowCloaked": -1,
+            "foregroundOwned": -1,
+            "foregroundCoveragePercent": -1,
+            "displayState": 1
+          },
+          {
+            "epochMs": 1792291060219,
+            "elapsedMs": 7008,
+            "windowFound": 1,
+            "windowVisible": 1,
+            "windowMinimized": 0,
+            "windowCloaked": 0,
+            "foregroundOwned": 1,
+            "foregroundCoveragePercent": 0,
+            "displayState": 1
+          }
+        ],
+        "coverageIsGeometryEstimateNotOcclusionProof": true
+      },
+      "windowObserver": {
+        "schemaVersion": 1,
+        "result": "completed",
+        "harnessExit": 0,
+        "keepDisplayAwake": false,
+        "windowSamples": 325
+      },
+      "numericArtifactSha256": {
+        "phases.csv": "8d32816b16ee0f1372d91cc5a218a47df241c3713c286e9b13f0467a9ab5ecbe",
+        "flash-events.csv": "b826798ff53783ddb2d58686982566e9e591aad51d1d2b08af6a9343a6b59c94",
+        "audio-pulse-events.json": "3a0ad9a5313b9315e461a4b8dddc180b32135f95a192256209eb7b999b3df2d3",
+        "audio-activity.json": "5896f2a60a0eead8a48d7be420cddf331ff85ab63ae2f5ae291aff50a3b6c510",
+        "capture-gaps.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "timingMeasurements": {}
+    },
+    {
+      "id": "component-final-youtube-awake",
+      "workerJarSha256": "19d94a853353299b068a4e4e95b8844c03e2e8aa1d98ac0d7b3eb1c305ec9b63",
+      "description": "final terminal-stability/audio-format worker; actual YouTube disconnect; temporary awake request and passive window logging",
+      "reportedHarnessResult": "passed",
+      "reportedHarnessReason": null,
+      "worker": {
+        "result": "passed",
+        "stage": "complete",
+        "selectedHeight": 1080,
+        "selectedFps": 60,
+        "selectedCodec": "avc1.64002A",
+        "selectedAudioFormat": "M4A",
+        "selectedAudioCodec": "mp4a.40.2",
+        "selectedAudioItag": 140,
+        "selectedAudioBitrate": 130992,
+        "selectedAudioSampleRate": 44100,
+        "selectedAudioChannels": 2,
+        "providerDeclaredAudioBytes": 10271496,
+        "selectedDelivery": "PROGRESSIVE_HTTP",
+        "pairedAudio": true,
+        "networkCacheMs": 3000,
+        "seekWaitMs": 5823,
+        "seekReadyClockAdvancedMs": 756,
+        "seekWorked": true,
+        "pauseStable": true,
+        "resumeAdvanced": true,
+        "observationRequestedSeconds": 300,
+        "observationWallMs": 304360,
+        "observationClockAdvancedMs": 267755,
+        "longestStalledClockMs": 24000,
+        "positionMs": 2545,
+        "decodedVideo": 370,
+        "decodedAudio": 346,
+        "picturesDisplayed": 14674,
+        "audioBuffersPlayed": 10615,
+        "audioBuffersLost": 0,
+        "videoCallbacks": 16589,
+        "paintedVideoFrames": 16574,
+        "framePoolCapacity": 3,
+        "framePoolDroppedCallbacks": 0,
+        "cleanShutdown": true,
+        "processExitCode": 0,
+        "nativeProcessIsolated": true,
+        "workerCpuMsDuringObservation": 210359,
+        "decoderPolicy": "software_avcodec",
+        "demuxPolicy": "avformat"
+      },
+      "network": {
+        "blockedBytesAfterSettling": 0,
+        "recoveryLatencyMs": 22998,
+        "paintedFramesAtCut": 1299,
+        "resumeCheckpointMs": 40937,
+        "outageRequestedSeconds": 25,
+        "diagnosticSamples": 300,
+        "paintedFramesAtRecovery": 2149,
+        "recoverySampleColumns": [
+          "elapsedMs",
+          "positionMs",
+          "clockDeltaMs",
+          "audioBufferDelta",
+          "pictureDelta",
+          "paintDelta",
+          "relayByteDelta",
+          "wallDeltaMs"
+        ],
+        "cutPositionMs": 30811,
+        "mode": "disconnect",
+        "longestConsecutiveRecoveredSeconds": 118,
+        "terminalReason": "",
+        "recovered": true,
+        "steadyRecoveredSeconds": 118,
+        "stallObserved": true,
+        "faultInjected": true,
+        "explicitRestartAttempts": 1,
+        "restored": true,
+        "lastObservationElapsedMs": 304359,
+        "events": [
+          {
+            "event": "network_down",
+            "elapsedMs": 15076,
+            "positionMs": 30811
+          },
+          {
+            "event": "output_stall_observed",
+            "elapsedMs": 26129,
+            "positionMs": -1
+          },
+          {
+            "event": "network_up",
+            "elapsedMs": 40197,
+            "positionMs": -1
+          },
+          {
+            "event": "explicit_recovery_restart",
+            "elapsedMs": 50602,
+            "positionMs": 40937
+          },
+          {
+            "event": "output_recovered",
+            "elapsedMs": 63195,
+            "positionMs": 42045
+          }
+        ],
+        "first140ObservationPrefixAudit": {
+          "endElapsedMs": 143560,
+          "longest": 14,
+          "terminal": 1,
+          "failedDecisions": 6,
+          "notAnAdditionalProbe": true
+        },
+        "retainedDecisionRows": [
+          [
+            64199,
+            43086,
+            1041,
+            43,
+            61,
+            60,
+            1097728,
+            1004
+          ],
+          [
+            67212,
+            45879,
+            769,
+            0,
+            46,
+            60,
+            729072,
+            1003
+          ],
+          [
+            82279,
+            60945,
+            768,
+            0,
+            46,
+            60,
+            835584,
+            1004
+          ],
+          [
+            84290,
+            62995,
+            1008,
+            43,
+            62,
+            60,
+            851968,
+            1005
+          ],
+          [
+            97351,
+            76035,
+            766,
+            0,
+            46,
+            60,
+            720896,
+            1006
+          ],
+          [
+            104381,
+            83187,
+            1043,
+            46,
+            60,
+            61,
+            417792,
+            1002
+          ],
+          [
+            112416,
+            91105,
+            767,
+            0,
+            46,
+            60,
+            393216,
+            1003
+          ],
+          [
+            124474,
+            103344,
+            1016,
+            43,
+            61,
+            60,
+            393216,
+            1004
+          ],
+          [
+            127488,
+            106175,
+            780,
+            0,
+            45,
+            60,
+            253952,
+            1006
+          ],
+          [
+            142555,
+            121228,
+            766,
+            0,
+            46,
+            60,
+            778240,
+            1004
+          ],
+          [
+            144564,
+            123288,
+            1043,
+            43,
+            61,
+            60,
+            262144,
+            1004
+          ],
+          [
+            156613,
+            135279,
+            768,
+            0,
+            46,
+            60,
+            262144,
+            1004
+          ],
+          [
+            164643,
+            143445,
+            1017,
+            43,
+            61,
+            60,
+            262144,
+            1003
+          ],
+          [
+            171672,
+            150346,
+            769,
+            0,
+            46,
+            60,
+            516096,
+            1003
+          ],
+          [
+            184729,
+            163628,
+            1007,
+            87,
+            62,
+            60,
+            262144,
+            1004
+          ],
+          [
+            185734,
+            164394,
+            766,
+            0,
+            46,
+            60,
+            524288,
+            1005
+          ],
+          [
+            204828,
+            183545,
+            1018,
+            43,
+            61,
+            60,
+            524288,
+            1003
+          ],
+          [
+            224910,
+            203728,
+            1005,
+            43,
+            62,
+            60,
+            229376,
+            1002
+          ],
+          [
+            244996,
+            223922,
+            1045,
+            43,
+            61,
+            61,
+            0,
+            1004
+          ],
+          [
+            265146,
+            243869,
+            1040,
+            44,
+            61,
+            61,
+            786432,
+            1005
+          ],
+          [
+            285229,
+            264029,
+            1019,
+            43,
+            61,
+            60,
+            73728,
+            1003
+          ],
+          [
+            304359,
+            283273,
+            1022,
+            43,
+            62,
+            61,
+            262144,
+            1003
+          ]
+        ]
+      },
+      "relay": {
+        "bytesForwarded": 149498784,
+        "closed": true,
+        "requests": 6,
+        "streamFailures": 4,
+        "loopbackOnly": true,
+        "upstreamHttpStatuses": {
+          "206": 6
+        },
+        "rejectedRequests": 1,
+        "activeRequests": 0,
+        "tracks": {
+          "audio": {
+            "failures": 0,
+            "bytes": 20542992,
+            "pendingWriteMs": 0,
+            "readMs": 10286,
+            "requests": 2,
+            "writeMs": 94,
+            "pendingReadMs": 0
+          },
+          "video": {
+            "failures": 4,
+            "bytes": 128955792,
+            "pendingWriteMs": 0,
+            "readMs": 88335,
+            "requests": 4,
+            "writeMs": 192448,
+            "pendingReadMs": 0
+          }
+        }
+      },
+      "decisionAnalysis": {
+        "schemaVersion": 1,
+        "source": "worker_recovery_decisions",
+        "workerResult": "passed",
+        "terminalReason": "",
+        "decisionSampleCount": 240,
+        "failedDecisionCount": 9,
+        "recomputedLongestStableSamples": 118,
+        "recomputedTerminalStableSamples": 118,
+        "reportedLongestStableSamples": 118,
+        "reportedTerminalStableSamples": 118,
+        "terminalStabilityQualified": true,
+        "rootCauseProven": false,
+        "interpretation": "Predicate failures identify observed components, not native/transport cause or source A/V alignment.",
+        "selectedFailures": [
+          {
+            "elapsedMs": 67212,
+            "failedComponents": [
+              "audio_not_advanced"
+            ],
+            "clockDeltaMs": 769,
+            "audioDelta": 0,
+            "pictureDelta": 46,
+            "paintDelta": 60,
+            "epochMs": 1792291566222,
+            "sameTickTrackContext": {
+              "decodedVideo": 1188,
+              "decodedAudio": 692,
+              "callbacks": 2390,
+              "painted": 2390,
+              "videoBytes": 32749664,
+              "audioBytes": 20542992,
+              "videoPendingReadMs": 20,
+              "audioPendingReadMs": 0,
+              "videoPendingWriteMs": 0,
+              "audioPendingWriteMs": 0
+            },
+            "previousTraceDeltas": {
+              "decodedVideo": 92,
+              "decodedAudio": 0,
+              "callbacks": 60,
+              "painted": 60,
+              "videoBytes": 720880,
+              "audioBytes": 0
+            },
+            "traceWindowMs": 1003,
+            "windowContext": {
+              "windowFound": 1,
+              "windowVisible": 1,
+              "windowMinimized": 0,
+              "windowCloaked": 0,
+              "foregroundOwned": 0,
+              "foregroundCoveragePercent": 100,
+              "displayState": 1
+            },
+            "windowSampleOffsetMs": 94,
+            "nearbyEndpointEnergyBins": [
+              {
+                "epochSecond": 1792291565,
+                "frames": 48000,
+                "nonSilentFrames": 48000,
+                "rmsAbove0005PacketFrames": 480,
+                "peak": 0.001353
+              },
+              {
+                "epochSecond": 1792291566,
+                "frames": 48000,
+                "nonSilentFrames": 48000,
+                "rmsAbove0005PacketFrames": 0,
+                "peak": 0.001097
+              },
+              {
+                "epochSecond": 1792291567,
+                "frames": 48000,
+                "nonSilentFrames": 48000,
+                "rmsAbove0005PacketFrames": 0,
+                "peak": 0.0012
+              }
+            ],
+            "endpointEnergyIsMixedAndBinsPartiallyOverlap": true
+          },
+          {
+            "elapsedMs": 82279,
+            "failedComponents": [
+              "audio_not_advanced"
+            ],
+            "clockDeltaMs": 768,
+            "audioDelta": 0,
+            "pictureDelta": 46,
+            "paintDelta": 60,
+            "epochMs": 1792291581290,
+            "sameTickTrackContext": {
+              "decodedVideo": 2996,
+              "decodedAudio": 1992,
+              "callbacks": 3294,
+              "painted": 3294,
+              "videoBytes": 44546064,
+              "audioBytes": 20542992,
+              "videoPendingReadMs": 10,
+              "audioPendingReadMs": 0,
+              "videoPendingWriteMs": 0,
+              "audioPendingWriteMs": 0
+            },
+            "previousTraceDeltas": {
+              "decodedVideo": 92,
+              "decodedAudio": 0,
+              "callbacks": 60,
+              "painted": 60,
+              "videoBytes": 835584,
+              "audioBytes": 0
+            },
+            "traceWindowMs": 1004,
+            "windowContext": {
+              "windowFound": 1,
+              "windowVisible": 1,
+              "windowMinimized": 0,
+              "windowCloaked": 0,
+              "foregroundOwned": 0,
+              "foregroundCoveragePercent": 100,
+              "displayState": 1
+            },
+            "windowSampleOffsetMs": 11,
+            "nearbyEndpointEnergyBins": [
+              {
+                "epochSecond": 1792291580,
+                "frames": 48000,
+                "nonSilentFrames": 48000,
+                "rmsAbove0005PacketFrames": 4800,
+                "peak": 0.008081
+              },
+              {
+                "epochSecond": 1792291581,
+                "frames": 48000,
+                "nonSilentFrames": 48000,
+                "rmsAbove0005PacketFrames": 25920,
+                "peak": 0.00559
+              },
+              {
+                "epochSecond": 1792291582,
+                "frames": 48000,
+                "nonSilentFrames": 48000,
+                "rmsAbove0005PacketFrames": 15840,
+                "peak": 0.004262
+              }
+            ],
+            "endpointEnergyIsMixedAndBinsPartiallyOverlap": true
+          },
+          {
+            "elapsedMs": 97351,
+            "failedComponents": [
+              "audio_not_advanced"
+            ],
+            "clockDeltaMs": 766,
+            "audioDelta": 0,
+            "pictureDelta": 46,
+            "paintDelta": 60,
+            "epochMs": 1792291596361,
+            "sameTickTrackContext": {
+              "decodedVideo": 4804,
+              "decodedAudio": 3292,
+              "callbacks": 4198,
+              "painted": 4198,
+              "videoBytes": 53524432,
+              "audioBytes": 20542992,
+              "videoPendingReadMs": 10,
+              "audioPendingReadMs": 0,
+              "videoPendingWriteMs": 0,
+              "audioPendingWriteMs": 0
+            },
+            "previousTraceDeltas": {
+              "decodedVideo": 92,
+              "decodedAudio": 0,
+              "callbacks": 60,
+              "painted": 60,
+              "videoBytes": 720896,
+              "audioBytes": 0
+            },
+            "traceWindowMs": 1006,
+            "windowContext": {
+              "windowFound": 1,
+              "windowVisible": 1,
+              "windowMinimized": 0,
+              "windowCloaked": 0,
+              "foregroundOwned": 0,
+              "foregroundCoveragePercent": 100,
+              "displayState": 1
+            },
+            "windowSampleOffsetMs": -98,
+            "nearbyEndpointEnergyBins": [
+              {
+                "epochSecond": 1792291595,
+                "frames": 48000,
+                "nonSilentFrames": 48000,
+                "rmsAbove0005PacketFrames": 32640,
+                "peak": 0.003111
+              },
+              {
+                "epochSecond": 1792291596,
+                "frames": 48000,
+                "nonSilentFrames": 48000,
+                "rmsAbove0005PacketFrames": 42240,
+                "peak": 0.005992
+              },
+              {
+                "epochSecond": 1792291597,
+                "frames": 48000,
+                "nonSilentFrames": 48000,
+                "rmsAbove0005PacketFrames": 47520,
+                "peak": 0.003589
+              }
+            ],
+            "endpointEnergyIsMixedAndBinsPartiallyOverlap": true
+          },
+          {
+            "elapsedMs": 112416,
+            "failedComponents": [
+              "audio_not_advanced"
+            ],
+            "clockDeltaMs": 767,
+            "audioDelta": 0,
+            "pictureDelta": 46,
+            "paintDelta": 60,
+            "epochMs": 1792291611427,
+            "sameTickTrackContext": {
+              "decodedVideo": 6612,
+              "decodedAudio": 4590,
+              "callbacks": 5101,
+              "painted": 5101,
+              "videoBytes": 62920576,
+              "audioBytes": 20542992,
+              "videoPendingReadMs": 0,
+              "audioPendingReadMs": 0,
+              "videoPendingWriteMs": 171,
+              "audioPendingWriteMs": 0
+            },
+            "previousTraceDeltas": {
+              "decodedVideo": 92,
+              "decodedAudio": 0,
+              "callbacks": 60,
+              "painted": 60,
+              "videoBytes": 393216,
+              "audioBytes": 0
+            },
+            "traceWindowMs": 1003,
+            "windowContext": {
+              "windowFound": 1,
+              "windowVisible": 1,
+              "windowMinimized": 0,
+              "windowCloaked": 0,
+              "foregroundOwned": 0,
+              "foregroundCoveragePercent": 100,
+              "displayState": 1
+            },
+            "windowSampleOffsetMs": -165,
+            "nearbyEndpointEnergyBins": [
+              {
+                "epochSecond": 1792291610,
+                "frames": 48000,
+                "nonSilentFrames": 48000,
+                "rmsAbove0005PacketFrames": 0,
+                "peak": 5.1e-05
+              },
+              {
+                "epochSecond": 1792291611,
+                "frames": 48000,
+                "nonSilentFrames": 48000,
+                "rmsAbove0005PacketFrames": 1440,
+                "peak": 0.003039
+              },
+              {
+                "epochSecond": 1792291612,
+                "frames": 48000,
+                "nonSilentFrames": 48000,
+                "rmsAbove0005PacketFrames": 0,
+                "peak": 0.000317
+              }
+            ],
+            "endpointEnergyIsMixedAndBinsPartiallyOverlap": true
+          },
+          {
+            "elapsedMs": 156613,
+            "failedComponents": [
+              "audio_not_advanced"
+            ],
+            "clockDeltaMs": 768,
+            "audioDelta": 0,
+            "pictureDelta": 46,
+            "paintDelta": 60,
+            "epochMs": 1792291655624,
+            "sameTickTrackContext": {
+              "decodedVideo": 11916,
+              "decodedAudio": 8402,
+              "callbacks": 7752,
+              "painted": 7752,
+              "videoBytes": 75478816,
+              "audioBytes": 20542992,
+              "videoPendingReadMs": 0,
+              "audioPendingReadMs": 0,
+              "videoPendingWriteMs": 390,
+              "audioPendingWriteMs": 0
+            },
+            "previousTraceDeltas": {
+              "decodedVideo": 92,
+              "decodedAudio": 0,
+              "callbacks": 60,
+              "painted": 60,
+              "videoBytes": 262144,
+              "audioBytes": 0
+            },
+            "traceWindowMs": 1004,
+            "windowContext": {
+              "windowFound": 1,
+              "windowVisible": 1,
+              "windowMinimized": 0,
+              "windowCloaked": 0,
+              "foregroundOwned": 0,
+              "foregroundCoveragePercent": 100,
+              "displayState": 1
+            },
+            "windowSampleOffsetMs": -334,
+            "nearbyEndpointEnergyBins": [
+              {
+                "epochSecond": 1792291654,
+                "frames": 48000,
+                "nonSilentFrames": 48000,
+                "rmsAbove0005PacketFrames": 15840,
+                "peak": 0.002939
+              },
+              {
+                "epochSecond": 1792291655,
+                "frames": 48000,
+                "nonSilentFrames": 48000,
+                "rmsAbove0005PacketFrames": 8160,
+                "peak": 0.003768
+              },
+              {
+                "epochSecond": 1792291656,
+                "frames": 48000,
+                "nonSilentFrames": 48000,
+                "rmsAbove0005PacketFrames": 24000,
+                "peak": 0.002052
+              }
+            ],
+            "endpointEnergyIsMixedAndBinsPartiallyOverlap": true
+          },
+          {
+            "elapsedMs": 171672,
+            "failedComponents": [
+              "audio_not_advanced"
+            ],
+            "clockDeltaMs": 769,
+            "audioDelta": 0,
+            "pictureDelta": 46,
+            "paintDelta": 60,
+            "epochMs": 1792291670684,
+            "sameTickTrackContext": {
+              "decodedVideo": 13724,
+              "decodedAudio": 9702,
+              "callbacks": 8656,
+              "painted": 8655,
+              "videoBytes": 80705280,
+              "audioBytes": 20542992,
+              "videoPendingReadMs": 0,
+              "audioPendingReadMs": 0,
+              "videoPendingWriteMs": 30,
+              "audioPendingWriteMs": 0
+            },
+            "previousTraceDeltas": {
+              "decodedVideo": 92,
+              "decodedAudio": 0,
+              "callbacks": 61,
+              "painted": 60,
+              "videoBytes": 516096,
+              "audioBytes": 0
+            },
+            "traceWindowMs": 1003,
+            "windowContext": {
+              "windowFound": 1,
+              "windowVisible": 1,
+              "windowMinimized": 0,
+              "windowCloaked": 0,
+              "foregroundOwned": 0,
+              "foregroundCoveragePercent": 100,
+              "displayState": 1
+            },
+            "windowSampleOffsetMs": -382,
+            "nearbyEndpointEnergyBins": [
+              {
+                "epochSecond": 1792291669,
+                "frames": 48000,
+                "nonSilentFrames": 48000,
+                "rmsAbove0005PacketFrames": 8640,
+                "peak": 0.002284
+              },
+              {
+                "epochSecond": 1792291670,
+                "frames": 48000,
+                "nonSilentFrames": 48000,
+                "rmsAbove0005PacketFrames": 35520,
+                "peak": 0.003718
+              },
+              {
+                "epochSecond": 1792291671,
+                "frames": 48000,
+                "nonSilentFrames": 48000,
+                "rmsAbove0005PacketFrames": 48000,
+                "peak": 0.008685
+              }
+            ],
+            "endpointEnergyIsMixedAndBinsPartiallyOverlap": true
+          },
+          {
+            "elapsedMs": 185734,
+            "failedComponents": [
+              "audio_not_advanced"
+            ],
+            "clockDeltaMs": 766,
+            "audioDelta": 0,
+            "pictureDelta": 46,
+            "paintDelta": 60,
+            "epochMs": 1792291684745,
+            "sameTickTrackContext": {
+              "decodedVideo": 15410,
+              "decodedAudio": 10914,
+              "callbacks": 9499,
+              "painted": 9499,
+              "videoBytes": 84637408,
+              "audioBytes": 20542992,
+              "videoPendingReadMs": 0,
+              "audioPendingReadMs": 0,
+              "videoPendingWriteMs": 91,
+              "audioPendingWriteMs": 0
+            },
+            "previousTraceDeltas": {
+              "decodedVideo": 92,
+              "decodedAudio": 0,
+              "callbacks": 60,
+              "painted": 60,
+              "videoBytes": 524288,
+              "audioBytes": 0
+            },
+            "traceWindowMs": 1005,
+            "windowContext": {
+              "windowFound": 1,
+              "windowVisible": 1,
+              "windowMinimized": 0,
+              "windowCloaked": 0,
+              "foregroundOwned": 0,
+              "foregroundCoveragePercent": 100,
+              "displayState": 1
+            },
+            "windowSampleOffsetMs": -473,
+            "nearbyEndpointEnergyBins": [
+              {
+                "epochSecond": 1792291683,
+                "frames": 48000,
+                "nonSilentFrames": 48000,
+                "rmsAbove0005PacketFrames": 1440,
+                "peak": 0.005396
+              },
+              {
+                "epochSecond": 1792291684,
+                "frames": 48000,
+                "nonSilentFrames": 48000,
+                "rmsAbove0005PacketFrames": 0,
+                "peak": 0.001057
+              },
+              {
+                "epochSecond": 1792291685,
+                "frames": 48000,
+                "nonSilentFrames": 48000,
+                "rmsAbove0005PacketFrames": 10560,
+                "peak": 0.004002
+              }
+            ],
+            "endpointEnergyIsMixedAndBinsPartiallyOverlap": true
+          }
+        ],
+        "failedComponentCounts": {
+          "audio_not_advanced": 9
+        }
+      },
+      "capture": {
+        "captureDiscontinuities": 0,
+        "timestampErrors": 0,
+        "capturedPackets": 32420,
+        "peakLoopbackAmplitude": 0.553573,
+        "multimediaCaptureScheduling": true,
+        "multimediaSchedulingRestored": true,
+        "physicalMicrophoneOpened": false,
+        "rawAudioSaved": false,
+        "wallClockMappingChangeMs": 0.709
+      },
+      "numericTrace": {
+        "sha256": "e846c7a0a1806a0ed805c7dc5c0172072a6c51b134250d926ebe405e1ecc2636",
+        "rows": 300,
+        "selectedRows": [
+          {
+            "epochMs": 1792291500024,
+            "elapsedMs": 1004,
+            "phase": 0,
+            "clockMs": 16762,
+            "decodedVideo": 953,
+            "decodedAudio": 750,
+            "pictures": 445,
+            "audioBuffers": 375,
+            "painted": 455,
+            "callbacks": 455,
+            "videoBytes": 9965192,
+            "audioBytes": 10271496,
+            "videoReadMs": 11988,
+            "audioReadMs": 4232,
+            "videoWriteMs": 1059,
+            "audioWriteMs": 46,
+            "videoPendingReadMs": 4,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 0,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 2,
+            "audioRequests": 1,
+            "videoFailures": 1,
+            "audioFailures": 0,
+            "gcMs": 42,
+            "gcCollections": 16,
+            "cpuMs": 13484
+          },
+          {
+            "epochMs": 1792291565220,
+            "elapsedMs": 66209,
+            "phase": 3,
+            "clockMs": 45110,
+            "decodedVideo": 1096,
+            "decodedAudio": 692,
+            "pictures": 416,
+            "audioBuffers": 346,
+            "painted": 2330,
+            "callbacks": 2330,
+            "videoBytes": 32028784,
+            "audioBytes": 20542992,
+            "videoReadMs": 39610,
+            "audioReadMs": 10286,
+            "videoWriteMs": 2456,
+            "audioWriteMs": 94,
+            "videoPendingReadMs": 12,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 0,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 4,
+            "audioRequests": 2,
+            "videoFailures": 3,
+            "audioFailures": 0,
+            "gcMs": 68,
+            "gcCollections": 35,
+            "cpuMs": 41343
+          },
+          {
+            "epochMs": 1792291566222,
+            "elapsedMs": 67212,
+            "phase": 3,
+            "clockMs": 45879,
+            "decodedVideo": 1188,
+            "decodedAudio": 692,
+            "pictures": 462,
+            "audioBuffers": 346,
+            "painted": 2390,
+            "callbacks": 2390,
+            "videoBytes": 32749664,
+            "audioBytes": 20542992,
+            "videoReadMs": 40602,
+            "audioReadMs": 10286,
+            "videoWriteMs": 2459,
+            "audioWriteMs": 94,
+            "videoPendingReadMs": 20,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 0,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 4,
+            "audioRequests": 2,
+            "videoFailures": 3,
+            "audioFailures": 0,
+            "gcMs": 70,
+            "gcCollections": 36,
+            "cpuMs": 42234
+          },
+          {
+            "epochMs": 1792291567226,
+            "elapsedMs": 68215,
+            "phase": 3,
+            "clockMs": 46894,
+            "decodedVideo": 1310,
+            "decodedAudio": 780,
+            "pictures": 523,
+            "audioBuffers": 390,
+            "painted": 2450,
+            "callbacks": 2450,
+            "videoBytes": 33552480,
+            "audioBytes": 20542992,
+            "videoReadMs": 41603,
+            "audioReadMs": 10286,
+            "videoWriteMs": 2464,
+            "audioWriteMs": 94,
+            "videoPendingReadMs": 17,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 0,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 4,
+            "audioRequests": 2,
+            "videoFailures": 3,
+            "audioFailures": 0,
+            "gcMs": 70,
+            "gcCollections": 36,
+            "cpuMs": 43015
+          },
+          {
+            "epochMs": 1792291580286,
+            "elapsedMs": 81275,
+            "phase": 3,
+            "clockMs": 60177,
+            "decodedVideo": 2904,
+            "decodedAudio": 1992,
+            "pictures": 1320,
+            "audioBuffers": 996,
+            "painted": 3234,
+            "callbacks": 3234,
+            "videoBytes": 43710480,
+            "audioBytes": 20542992,
+            "videoReadMs": 54617,
+            "audioReadMs": 10286,
+            "videoWriteMs": 2517,
+            "audioWriteMs": 94,
+            "videoPendingReadMs": 3,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 0,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 4,
+            "audioRequests": 2,
+            "videoFailures": 3,
+            "audioFailures": 0,
+            "gcMs": 78,
+            "gcCollections": 44,
+            "cpuMs": 53890
+          },
+          {
+            "epochMs": 1792291581290,
+            "elapsedMs": 82279,
+            "phase": 3,
+            "clockMs": 60945,
+            "decodedVideo": 2996,
+            "decodedAudio": 1992,
+            "pictures": 1366,
+            "audioBuffers": 996,
+            "painted": 3294,
+            "callbacks": 3294,
+            "videoBytes": 44546064,
+            "audioBytes": 20542992,
+            "videoReadMs": 55610,
+            "audioReadMs": 10286,
+            "videoWriteMs": 2521,
+            "audioWriteMs": 94,
+            "videoPendingReadMs": 10,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 0,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 4,
+            "audioRequests": 2,
+            "videoFailures": 3,
+            "audioFailures": 0,
+            "gcMs": 78,
+            "gcCollections": 44,
+            "cpuMs": 54531
+          },
+          {
+            "epochMs": 1792291582295,
+            "elapsedMs": 83285,
+            "phase": 3,
+            "clockMs": 61987,
+            "decodedVideo": 3118,
+            "decodedAudio": 2080,
+            "pictures": 1427,
+            "audioBuffers": 1040,
+            "painted": 3354,
+            "callbacks": 3354,
+            "videoBytes": 45316096,
+            "audioBytes": 20542992,
+            "videoReadMs": 56620,
+            "audioReadMs": 10286,
+            "videoWriteMs": 2525,
+            "audioWriteMs": 94,
+            "videoPendingReadMs": 1,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 0,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 4,
+            "audioRequests": 2,
+            "videoFailures": 3,
+            "audioFailures": 0,
+            "gcMs": 79,
+            "gcCollections": 45,
+            "cpuMs": 55343
+          },
+          {
+            "epochMs": 1792291595356,
+            "elapsedMs": 96345,
+            "phase": 3,
+            "clockMs": 75269,
+            "decodedVideo": 4712,
+            "decodedAudio": 3292,
+            "pictures": 2224,
+            "audioBuffers": 1646,
+            "painted": 4138,
+            "callbacks": 4138,
+            "videoBytes": 52803536,
+            "audioBytes": 20542992,
+            "videoReadMs": 69440,
+            "audioReadMs": 10286,
+            "videoWriteMs": 2565,
+            "audioWriteMs": 94,
+            "videoPendingReadMs": 198,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 0,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 4,
+            "audioRequests": 2,
+            "videoFailures": 3,
+            "audioFailures": 0,
+            "gcMs": 86,
+            "gcCollections": 53,
+            "cpuMs": 65390
+          },
+          {
+            "epochMs": 1792291596361,
+            "elapsedMs": 97351,
+            "phase": 3,
+            "clockMs": 76035,
+            "decodedVideo": 4804,
+            "decodedAudio": 3292,
+            "pictures": 2270,
+            "audioBuffers": 1646,
+            "painted": 4198,
+            "callbacks": 4198,
+            "videoBytes": 53524432,
+            "audioBytes": 20542992,
+            "videoReadMs": 70630,
+            "audioReadMs": 10286,
+            "videoWriteMs": 2568,
+            "audioWriteMs": 94,
+            "videoPendingReadMs": 10,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 0,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 4,
+            "audioRequests": 2,
+            "videoFailures": 3,
+            "audioFailures": 0,
+            "gcMs": 87,
+            "gcCollections": 54,
+            "cpuMs": 66000
+          },
+          {
+            "epochMs": 1792291597368,
+            "elapsedMs": 98357,
+            "phase": 3,
+            "clockMs": 77057,
+            "decodedVideo": 4926,
+            "decodedAudio": 3378,
+            "pictures": 2331,
+            "audioBuffers": 1689,
+            "painted": 4258,
+            "callbacks": 4259,
+            "videoBytes": 55244736,
+            "audioBytes": 20542992,
+            "videoReadMs": 71634,
+            "audioReadMs": 10286,
+            "videoWriteMs": 2575,
+            "audioWriteMs": 94,
+            "videoPendingReadMs": 4,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 0,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 4,
+            "audioRequests": 2,
+            "videoFailures": 3,
+            "audioFailures": 0,
+            "gcMs": 88,
+            "gcCollections": 55,
+            "cpuMs": 66640
+          },
+          {
+            "epochMs": 1792291610424,
+            "elapsedMs": 111413,
+            "phase": 3,
+            "clockMs": 90338,
+            "decodedVideo": 6520,
+            "decodedAudio": 4590,
+            "pictures": 3127,
+            "audioBuffers": 2295,
+            "painted": 5041,
+            "callbacks": 5041,
+            "videoBytes": 62527360,
+            "audioBytes": 20542992,
+            "videoReadMs": 76854,
+            "audioReadMs": 10286,
+            "videoWriteMs": 8805,
+            "audioWriteMs": 94,
+            "videoPendingReadMs": 0,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 1606,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 4,
+            "audioRequests": 2,
+            "videoFailures": 3,
+            "audioFailures": 0,
+            "gcMs": 95,
+            "gcCollections": 63,
+            "cpuMs": 77250
+          },
+          {
+            "epochMs": 1792291611427,
+            "elapsedMs": 112416,
+            "phase": 3,
+            "clockMs": 91105,
+            "decodedVideo": 6612,
+            "decodedAudio": 4590,
+            "pictures": 3173,
+            "audioBuffers": 2295,
+            "painted": 5101,
+            "callbacks": 5101,
+            "videoBytes": 62920576,
+            "audioBytes": 20542992,
+            "videoReadMs": 76855,
+            "audioReadMs": 10286,
+            "videoWriteMs": 11243,
+            "audioWriteMs": 94,
+            "videoPendingReadMs": 0,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 171,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 4,
+            "audioRequests": 2,
+            "videoFailures": 3,
+            "audioFailures": 0,
+            "gcMs": 95,
+            "gcCollections": 63,
+            "cpuMs": 78062
+          },
+          {
+            "epochMs": 1792291612430,
+            "elapsedMs": 113419,
+            "phase": 3,
+            "clockMs": 92112,
+            "decodedVideo": 6736,
+            "decodedAudio": 4676,
+            "pictures": 3235,
+            "audioBuffers": 2338,
+            "painted": 5161,
+            "callbacks": 5161,
+            "videoBytes": 63182720,
+            "audioBytes": 20542992,
+            "videoReadMs": 76855,
+            "audioReadMs": 10286,
+            "videoWriteMs": 12103,
+            "audioWriteMs": 94,
+            "videoPendingReadMs": 0,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 314,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 4,
+            "audioRequests": 2,
+            "videoFailures": 3,
+            "audioFailures": 0,
+            "gcMs": 97,
+            "gcCollections": 64,
+            "cpuMs": 78734
+          },
+          {
+            "epochMs": 1792291654620,
+            "elapsedMs": 155609,
+            "phase": 3,
+            "clockMs": 134511,
+            "decodedVideo": 11824,
+            "decodedAudio": 8402,
+            "pictures": 5778,
+            "audioBuffers": 4201,
+            "painted": 7692,
+            "callbacks": 7692,
+            "videoBytes": 75216672,
+            "audioBytes": 20542992,
+            "videoReadMs": 76876,
+            "audioReadMs": 10286,
+            "videoWriteMs": 54340,
+            "audioWriteMs": 94,
+            "videoPendingReadMs": 0,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 244,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 4,
+            "audioRequests": 2,
+            "videoFailures": 3,
+            "audioFailures": 0,
+            "gcMs": 123,
+            "gcCollections": 90,
+            "cpuMs": 109359
+          },
+          {
+            "epochMs": 1792291655624,
+            "elapsedMs": 156613,
+            "phase": 3,
+            "clockMs": 135279,
+            "decodedVideo": 11916,
+            "decodedAudio": 8402,
+            "pictures": 5824,
+            "audioBuffers": 4201,
+            "painted": 7752,
+            "callbacks": 7752,
+            "videoBytes": 75478816,
+            "audioBytes": 20542992,
+            "videoReadMs": 76877,
+            "audioReadMs": 10286,
+            "videoWriteMs": 55197,
+            "audioWriteMs": 94,
+            "videoPendingReadMs": 0,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 390,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 4,
+            "audioRequests": 2,
+            "videoFailures": 3,
+            "audioFailures": 0,
+            "gcMs": 123,
+            "gcCollections": 91,
+            "cpuMs": 110078
+          },
+          {
+            "epochMs": 1792291656626,
+            "elapsedMs": 157615,
+            "phase": 3,
+            "clockMs": 136294,
+            "decodedVideo": 12038,
+            "decodedAudio": 8488,
+            "pictures": 5885,
+            "audioBuffers": 4244,
+            "painted": 7812,
+            "callbacks": 7812,
+            "videoBytes": 76003104,
+            "audioBytes": 20542992,
+            "videoReadMs": 76878,
+            "audioReadMs": 10286,
+            "videoWriteMs": 56567,
+            "audioWriteMs": 94,
+            "videoPendingReadMs": 0,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 21,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 4,
+            "audioRequests": 2,
+            "videoFailures": 3,
+            "audioFailures": 0,
+            "gcMs": 124,
+            "gcCollections": 92,
+            "cpuMs": 110687
+          },
+          {
+            "epochMs": 1792291669680,
+            "elapsedMs": 170669,
+            "phase": 3,
+            "clockMs": 149577,
+            "decodedVideo": 13632,
+            "decodedAudio": 9702,
+            "pictures": 6682,
+            "audioBuffers": 4851,
+            "painted": 8595,
+            "callbacks": 8595,
+            "videoBytes": 80189184,
+            "audioBytes": 20542992,
+            "videoReadMs": 76884,
+            "audioReadMs": 10286,
+            "videoWriteMs": 67684,
+            "audioWriteMs": 94,
+            "videoPendingReadMs": 0,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 1951,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 4,
+            "audioRequests": 2,
+            "videoFailures": 3,
+            "audioFailures": 0,
+            "gcMs": 131,
+            "gcCollections": 100,
+            "cpuMs": 120375
+          },
+          {
+            "epochMs": 1792291670684,
+            "elapsedMs": 171672,
+            "phase": 3,
+            "clockMs": 150346,
+            "decodedVideo": 13724,
+            "decodedAudio": 9702,
+            "pictures": 6728,
+            "audioBuffers": 4851,
+            "painted": 8655,
+            "callbacks": 8656,
+            "videoBytes": 80705280,
+            "audioBytes": 20542992,
+            "videoReadMs": 76885,
+            "audioReadMs": 10286,
+            "videoWriteMs": 70608,
+            "audioWriteMs": 94,
+            "videoPendingReadMs": 0,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 30,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 4,
+            "audioRequests": 2,
+            "videoFailures": 3,
+            "audioFailures": 0,
+            "gcMs": 132,
+            "gcCollections": 101,
+            "cpuMs": 121031
+          },
+          {
+            "epochMs": 1792291671688,
+            "elapsedMs": 172677,
+            "phase": 3,
+            "clockMs": 151362,
+            "decodedVideo": 13846,
+            "decodedAudio": 9788,
+            "pictures": 6789,
+            "audioBuffers": 4894,
+            "painted": 8716,
+            "callbacks": 8716,
+            "videoBytes": 80705280,
+            "audioBytes": 20542992,
+            "videoReadMs": 76885,
+            "audioReadMs": 10286,
+            "videoWriteMs": 70608,
+            "audioWriteMs": 94,
+            "videoPendingReadMs": 0,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 1035,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 4,
+            "audioRequests": 2,
+            "videoFailures": 3,
+            "audioFailures": 0,
+            "gcMs": 132,
+            "gcCollections": 101,
+            "cpuMs": 121812
+          },
+          {
+            "epochMs": 1792291683740,
+            "elapsedMs": 184729,
+            "phase": 3,
+            "clockMs": 163628,
+            "decodedVideo": 15318,
+            "decodedAudio": 10914,
+            "pictures": 7525,
+            "audioBuffers": 5457,
+            "painted": 9439,
+            "callbacks": 9439,
+            "videoBytes": 84113120,
+            "audioBytes": 20542992,
+            "videoReadMs": 76890,
+            "audioReadMs": 10286,
+            "videoWriteMs": 83046,
+            "audioWriteMs": 94,
+            "videoPendingReadMs": 0,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 643,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 4,
+            "audioRequests": 2,
+            "videoFailures": 3,
+            "audioFailures": 0,
+            "gcMs": 139,
+            "gcCollections": 109,
+            "cpuMs": 130375
+          },
+          {
+            "epochMs": 1792291684745,
+            "elapsedMs": 185734,
+            "phase": 3,
+            "clockMs": 164394,
+            "decodedVideo": 15410,
+            "decodedAudio": 10914,
+            "pictures": 7571,
+            "audioBuffers": 5457,
+            "painted": 9499,
+            "callbacks": 9499,
+            "videoBytes": 84637408,
+            "audioBytes": 20542992,
+            "videoReadMs": 76891,
+            "audioReadMs": 10286,
+            "videoWriteMs": 84602,
+            "audioWriteMs": 94,
+            "videoPendingReadMs": 0,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 91,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 4,
+            "audioRequests": 2,
+            "videoFailures": 3,
+            "audioFailures": 0,
+            "gcMs": 139,
+            "gcCollections": 109,
+            "cpuMs": 131062
+          },
+          {
+            "epochMs": 1792291685749,
+            "elapsedMs": 186738,
+            "phase": 3,
+            "clockMs": 165412,
+            "decodedVideo": 15532,
+            "decodedAudio": 11000,
+            "pictures": 7632,
+            "audioBuffers": 5500,
+            "painted": 9559,
+            "callbacks": 9559,
+            "videoBytes": 84899552,
+            "audioBytes": 20542992,
+            "videoReadMs": 76891,
+            "audioReadMs": 10286,
+            "videoWriteMs": 85299,
+            "audioWriteMs": 94,
+            "videoPendingReadMs": 0,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 398,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 4,
+            "audioRequests": 2,
+            "videoFailures": 3,
+            "audioFailures": 0,
+            "gcMs": 140,
+            "gcCollections": 110,
+            "cpuMs": 131812
+          },
+          {
+            "epochMs": 1792291803370,
+            "elapsedMs": 304359,
+            "phase": 3,
+            "clockMs": 283273,
+            "decodedVideo": 29674,
+            "decodedAudio": 21142,
+            "pictures": 14659,
+            "audioBuffers": 10571,
+            "painted": 16573,
+            "callbacks": 16573,
+            "videoBytes": 128693648,
+            "audioBytes": 20542992,
+            "videoReadMs": 88335,
+            "audioReadMs": 10286,
+            "videoWriteMs": 191248,
+            "audioWriteMs": 94,
+            "videoPendingReadMs": 0,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 620,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 4,
+            "audioRequests": 2,
+            "videoFailures": 3,
+            "audioFailures": 0,
+            "gcMs": 211,
+            "gcCollections": 183,
+            "cpuMs": 223171
+          }
+        ]
+      },
+      "windowState": {
+        "sha256": "6e465b33c9e9bfcf42b9c9725489ee17d057a4a4ddde0ee83c7c5a88ecef64b6",
+        "rows": 326,
+        "ownedWindowSamples": 318,
+        "minimizedSamples": 0,
+        "cloakedSamples": 0,
+        "displayStates": [
+          1
+        ],
+        "foregroundCoveredAtLeast95PercentSamples": 282,
+        "transitions": [
+          {
+            "epochMs": 1792291479267,
+            "elapsedMs": 6,
+            "windowFound": 0,
+            "windowVisible": -1,
+            "windowMinimized": -1,
+            "windowCloaked": -1,
+            "foregroundOwned": -1,
+            "foregroundCoveragePercent": -1,
+            "displayState": 1
+          },
+          {
+            "epochMs": 1792291487273,
+            "elapsedMs": 8013,
+            "windowFound": 1,
+            "windowVisible": 1,
+            "windowMinimized": 0,
+            "windowCloaked": 0,
+            "foregroundOwned": 1,
+            "foregroundCoveragePercent": 0,
+            "displayState": 1
+          },
+          {
+            "epochMs": 1792291523293,
+            "elapsedMs": 44033,
+            "windowFound": 1,
+            "windowVisible": 1,
+            "windowMinimized": 0,
+            "windowCloaked": 0,
+            "foregroundOwned": 0,
+            "foregroundCoveragePercent": 100,
+            "displayState": 1
+          }
+        ],
+        "coverageIsGeometryEstimateNotOcclusionProof": true
+      },
+      "windowObserver": {
+        "schemaVersion": 1,
+        "result": "completed",
+        "harnessExit": 0,
+        "keepDisplayAwake": true,
+        "windowSamples": 326
+      },
+      "numericArtifactSha256": {
+        "phases.csv": "e04951410d823874035b8d370a20735ff1af5b515788612d3045f3f7d7b9ab59",
+        "flash-events.csv": "84f901652b04dbcf389f846354319b686bdaf3a2c95bd556f949845b7da50aeb",
+        "audio-pulse-events.json": "8a4c05a357de4297f721a7f76d92bf2e8f1b041743faa54f1d26fa1464eb9648",
+        "audio-activity.json": "d4c30cd301d8db839ca8b72c01bae1bc1692ffa4ad7094b6d8fe4654eb7ac212",
+        "capture-gaps.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "timingMeasurements": {}
+    },
+    {
+      "id": "component-final-44100-fixture",
+      "workerJarSha256": "19d94a853353299b068a4e4e95b8844c03e2e8aa1d98ac0d7b3eb1c305ec9b63",
+      "description": "final worker; controlled 44.1kHz constant-carrier flash/beep fixture; no-fault relay; passive window logging and temporary awake request",
+      "reportedHarnessResult": "failed",
+      "reportedHarnessReason": "AVSyncBudgetFailed",
+      "worker": {
+        "result": "passed",
+        "stage": "complete",
+        "pairedAudio": true,
+        "networkCacheMs": 3000,
+        "seekWaitMs": 2412,
+        "seekReadyClockAdvancedMs": 755,
+        "seekWorked": true,
+        "pauseStable": true,
+        "resumeAdvanced": true,
+        "observationRequestedSeconds": 180,
+        "observationWallMs": 181119,
+        "observationClockAdvancedMs": 181256,
+        "longestStalledClockMs": 0,
+        "positionMs": 2527,
+        "decodedVideo": 369,
+        "decodedAudio": 347,
+        "picturesDisplayed": 11085,
+        "audioBuffersPlayed": 8131,
+        "audioBuffersLost": 0,
+        "videoCallbacks": 11079,
+        "paintedVideoFrames": 10995,
+        "framePoolCapacity": 3,
+        "framePoolDroppedCallbacks": 13,
+        "cleanShutdown": true,
+        "processExitCode": 0,
+        "nativeProcessIsolated": true,
+        "workerCpuMsDuringObservation": 143906,
+        "decoderPolicy": "software_avcodec",
+        "demuxPolicy": "avformat"
+      },
+      "network": {},
+      "relay": {
+        "bytesForwarded": 9839493,
+        "closed": true,
+        "requests": 6,
+        "streamFailures": 2,
+        "loopbackOnly": true,
+        "upstreamHttpStatuses": {},
+        "rejectedRequests": 0,
+        "activeRequests": 0,
+        "tracks": {
+          "video": {
+            "failures": 1,
+            "bytes": 8434279,
+            "pendingWriteMs": 0,
+            "readMs": 67,
+            "requests": 3,
+            "writeMs": 107,
+            "pendingReadMs": 0
+          },
+          "audio": {
+            "failures": 1,
+            "bytes": 1405214,
+            "pendingWriteMs": 0,
+            "readMs": 7,
+            "requests": 3,
+            "writeMs": 14,
+            "pendingReadMs": 0
+          }
+        }
+      },
+      "decisionAnalysis": {
+        "schemaVersion": 1,
+        "source": "no_per_decision_evidence",
+        "workerResult": "passed",
+        "terminalReason": null,
+        "decisionSampleCount": 0,
+        "failedDecisionCount": null,
+        "recomputedLongestStableSamples": null,
+        "recomputedTerminalStableSamples": null,
+        "reportedLongestStableSamples": null,
+        "reportedTerminalStableSamples": null,
+        "terminalStabilityQualified": null,
+        "rootCauseProven": false,
+        "interpretation": "Predicate failures identify observed components, not native/transport cause or source A/V alignment.",
+        "selectedFailures": [],
+        "failedComponentCounts": {}
+      },
+      "capture": {
+        "captureDiscontinuities": 0,
+        "timestampErrors": 0,
+        "capturedPackets": 19259,
+        "peakLoopbackAmplitude": 0.34351,
+        "multimediaCaptureScheduling": true,
+        "multimediaSchedulingRestored": true,
+        "physicalMicrophoneOpened": false,
+        "rawAudioSaved": false,
+        "wallClockMappingChangeMs": 0.38
+      },
+      "noFaultCounterDiagnostic": {
+        "schemaVersion": 1,
+        "source": "derived_no_fault_trace_not_recovery_decisions",
+        "workerResult": null,
+        "terminalReason": null,
+        "decisionSampleCount": 179,
+        "failedDecisionCount": 0,
+        "recomputedLongestStableSamples": 179,
+        "recomputedTerminalStableSamples": 179,
+        "reportedLongestStableSamples": null,
+        "reportedTerminalStableSamples": null,
+        "terminalStabilityQualified": null,
+        "failures": [],
+        "rootCauseProven": false,
+        "interpretation": "Predicate failures identify observed components, not native/transport cause or source A/V alignment."
+      },
+      "numericTrace": {
+        "sha256": "71186aeb1f99139914e2e977c7671d8e9a7b6e0636d111dc62ffbecf4c68f461",
+        "rows": 180,
+        "selectedRows": [
+          {
+            "epochMs": 1792291819373,
+            "elapsedMs": 1005,
+            "phase": 0,
+            "clockMs": 16761,
+            "decodedVideo": 988,
+            "decodedAudio": 741,
+            "pictures": 393,
+            "audioBuffers": 370,
+            "painted": 396,
+            "callbacks": 396,
+            "videoBytes": 952619,
+            "audioBytes": 708702,
+            "videoReadMs": 5,
+            "audioReadMs": 4,
+            "videoWriteMs": 9,
+            "audioWriteMs": 7,
+            "videoPendingReadMs": 0,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 0,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 3,
+            "audioRequests": 3,
+            "videoFailures": 1,
+            "audioFailures": 1,
+            "gcMs": 16,
+            "gcCollections": 4,
+            "cpuMs": 9109
+          },
+          {
+            "epochMs": 1792291999472,
+            "elapsedMs": 181117,
+            "phase": 0,
+            "clockMs": 196762,
+            "decodedVideo": 22588,
+            "decodedAudio": 16263,
+            "pictures": 11070,
+            "audioBuffers": 8131,
+            "painted": 10995,
+            "callbacks": 11079,
+            "videoBytes": 8434279,
+            "audioBytes": 1405214,
+            "videoReadMs": 67,
+            "audioReadMs": 7,
+            "videoWriteMs": 107,
+            "audioWriteMs": 14,
+            "videoPendingReadMs": 0,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 0,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 3,
+            "audioRequests": 3,
+            "videoFailures": 1,
+            "audioFailures": 1,
+            "gcMs": 190,
+            "gcCollections": 142,
+            "cpuMs": 152281
+          }
+        ]
+      },
+      "windowState": {
+        "sha256": "81186f969c38fa510567e739b9a3480f5ef259190179de0f67fc34e0b71432fc",
+        "rows": 195,
+        "ownedWindowSamples": 191,
+        "minimizedSamples": 0,
+        "cloakedSamples": 0,
+        "displayStates": [
+          1
+        ],
+        "foregroundCoveredAtLeast95PercentSamples": 186,
+        "transitions": [
+          {
+            "epochMs": 1792291805985,
+            "elapsedMs": 10,
+            "windowFound": 0,
+            "windowVisible": -1,
+            "windowMinimized": -1,
+            "windowCloaked": -1,
+            "foregroundOwned": -1,
+            "foregroundCoveragePercent": -1,
+            "displayState": 1
+          },
+          {
+            "epochMs": 1792291809014,
+            "elapsedMs": 3042,
+            "windowFound": 1,
+            "windowVisible": 1,
+            "windowMinimized": 0,
+            "windowCloaked": 0,
+            "foregroundOwned": 1,
+            "foregroundCoveragePercent": 0,
+            "displayState": 1
+          },
+          {
+            "epochMs": 1792291814026,
+            "elapsedMs": 8055,
+            "windowFound": 1,
+            "windowVisible": 1,
+            "windowMinimized": 0,
+            "windowCloaked": 0,
+            "foregroundOwned": 0,
+            "foregroundCoveragePercent": 100,
+            "displayState": 1
+          },
+          {
+            "epochMs": 1792291999978,
+            "elapsedMs": 194007,
+            "windowFound": 0,
+            "windowVisible": -1,
+            "windowMinimized": -1,
+            "windowCloaked": -1,
+            "foregroundOwned": -1,
+            "foregroundCoveragePercent": -1,
+            "displayState": 1
+          }
+        ],
+        "coverageIsGeometryEstimateNotOcclusionProof": true
+      },
+      "windowObserver": {
+        "schemaVersion": 1,
+        "result": "completed",
+        "harnessExit": 1,
+        "keepDisplayAwake": true,
+        "networkFault": "relay",
+        "windowSamples": 195
+      },
+      "numericArtifactSha256": {
+        "phases.csv": "16c111d033341eef1b98053fcfbf90ee2c13d60d4eb071e461611e247007b9ad",
+        "flash-events.csv": "174a1cd09564cb01baa0d5d1223949d54e06b571ebb5e3263c1d6f19e2182c9c",
+        "audio-pulse-events.json": "704d13a71e84e7a261a88712a0978da47b63d22324b0e8c92f5f8deab0af40d0",
+        "audio-activity.json": "13f03c75c475ed74447f39c3a3280419c8e86b82f56b9f017af9a9bab2191e52",
+        "capture-gaps.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "timingMeasurements": {
+        "sync": {
+          "result": "failed",
+          "matchedPulses": 45,
+          "medianAudioMinusVideoMs": 53.75,
+          "p95AbsoluteOffsetMs": 56.74,
+          "maxAbsoluteOffsetMs": 408.84,
+          "endMinusStartDriftMs": -1.01,
+          "measuredSpanSeconds": 182.68,
+          "matchCoverage": 0.978,
+          "medianBudgetMs": 80,
+          "p95BudgetMs": 120,
+          "driftBudgetMs": 40,
+          "maximumOffsetBudgetMs": 150,
+          "windowMedianExcursionMs": 3.0,
+          "windowExcursionBudgetMs": 40,
+          "minimumSpanSeconds": 170.0,
+          "minimumMatchedPulses": 43
+        },
+        "steadyPostSeekSync": {
+          "result": "passed",
+          "matchedPulses": 44,
+          "medianAudioMinusVideoMs": 54.24,
+          "p95AbsoluteOffsetMs": 55.75,
+          "maxAbsoluteOffsetMs": 56.74,
+          "endMinusStartDriftMs": -2.01,
+          "measuredSpanSeconds": 180.0,
+          "matchCoverage": 0.978,
+          "medianBudgetMs": 80,
+          "p95BudgetMs": 120,
+          "driftBudgetMs": 40,
+          "maximumOffsetBudgetMs": 150,
+          "windowMedianExcursionMs": 3.0,
+          "windowExcursionBudgetMs": 40,
+          "minimumSpanSeconds": 170.0,
+          "minimumMatchedPulses": 43
+        }
+      }
+    },
+    {
+      "id": "component-final-44100-disconnect",
+      "workerJarSha256": "19d94a853353299b068a4e4e95b8844c03e2e8aa1d98ac0d7b3eb1c305ec9b63",
+      "description": "matched 44.1kHz fixture with disconnect, scoped post-recovery timing, passive window logging and temporary awake request",
+      "reportedHarnessResult": "passed",
+      "reportedHarnessReason": null,
+      "worker": {
+        "result": "passed",
+        "stage": "complete",
+        "pairedAudio": true,
+        "networkCacheMs": 3000,
+        "seekWaitMs": 2413,
+        "seekReadyClockAdvancedMs": 757,
+        "seekWorked": true,
+        "pauseStable": true,
+        "resumeAdvanced": true,
+        "observationRequestedSeconds": 180,
+        "observationWallMs": 182416,
+        "observationClockAdvancedMs": 166881,
+        "longestStalledClockMs": 12000,
+        "positionMs": 2527,
+        "decodedVideo": 369,
+        "decodedAudio": 347,
+        "picturesDisplayed": 7786,
+        "audioBuffersPlayed": 5768,
+        "audioBuffersLost": 0,
+        "videoCallbacks": 10373,
+        "paintedVideoFrames": 10359,
+        "framePoolCapacity": 3,
+        "framePoolDroppedCallbacks": 0,
+        "cleanShutdown": true,
+        "processExitCode": 0,
+        "nativeProcessIsolated": true,
+        "workerCpuMsDuringObservation": 133172,
+        "decoderPolicy": "software_avcodec",
+        "demuxPolicy": "avformat"
+      },
+      "network": {
+        "blockedBytesAfterSettling": 0,
+        "recoveryLatencyMs": 11979,
+        "paintedFramesAtCut": 1243,
+        "resumeCheckpointMs": 51818,
+        "outageRequestedSeconds": 25,
+        "diagnosticSamples": 180,
+        "paintedFramesAtRecovery": 2660,
+        "recoverySampleColumns": [
+          "elapsedMs",
+          "positionMs",
+          "clockDeltaMs",
+          "audioBufferDelta",
+          "pictureDelta",
+          "paintDelta",
+          "relayByteDelta",
+          "wallDeltaMs"
+        ],
+        "cutPositionMs": 30811,
+        "mode": "disconnect",
+        "longestConsecutiveRecoveredSeconds": 129,
+        "terminalReason": "",
+        "recovered": true,
+        "steadyRecoveredSeconds": 129,
+        "stallObserved": true,
+        "faultInjected": true,
+        "explicitRestartAttempts": 1,
+        "restored": true,
+        "lastObservationElapsedMs": 182415,
+        "events": [
+          {
+            "event": "network_down",
+            "elapsedMs": 15095,
+            "positionMs": 30811
+          },
+          {
+            "event": "output_stall_observed",
+            "elapsedMs": 38203,
+            "positionMs": -1
+          },
+          {
+            "event": "network_up",
+            "elapsedMs": 40212,
+            "positionMs": -1
+          },
+          {
+            "event": "explicit_recovery_restart",
+            "elapsedMs": 50267,
+            "positionMs": 51818
+          },
+          {
+            "event": "output_recovered",
+            "elapsedMs": 52191,
+            "positionMs": 52329
+          }
+        ],
+        "first140ObservationPrefixAudit": {
+          "endElapsedMs": 142179,
+          "longest": 89,
+          "terminal": 89,
+          "failedDecisions": 0,
+          "notAnAdditionalProbe": true
+        },
+        "retainedDecisionRows": [
+          [
+            53198,
+            53371,
+            1042,
+            44,
+            62,
+            61,
+            0,
+            1007
+          ],
+          [
+            73304,
+            73527,
+            1015,
+            43,
+            61,
+            60,
+            0,
+            1003
+          ],
+          [
+            93415,
+            93477,
+            1027,
+            44,
+            63,
+            60,
+            0,
+            1010
+          ],
+          [
+            113580,
+            113742,
+            1020,
+            43,
+            62,
+            60,
+            0,
+            1006
+          ],
+          [
+            134047,
+            134271,
+            1059,
+            44,
+            44,
+            48,
+            0,
+            1086
+          ],
+          [
+            154262,
+            154518,
+            1038,
+            43,
+            61,
+            60,
+            0,
+            1006
+          ],
+          [
+            174377,
+            174444,
+            1016,
+            43,
+            61,
+            60,
+            0,
+            1005
+          ],
+          [
+            182415,
+            182638,
+            1044,
+            43,
+            61,
+            60,
+            0,
+            1004
+          ]
+        ]
+      },
+      "relay": {
+        "bytesForwarded": 20541020,
+        "closed": true,
+        "requests": 11,
+        "streamFailures": 4,
+        "loopbackOnly": true,
+        "upstreamHttpStatuses": {},
+        "rejectedRequests": 1,
+        "activeRequests": 0,
+        "tracks": {
+          "audio": {
+            "failures": 1,
+            "bytes": 4043466,
+            "pendingWriteMs": 0,
+            "readMs": 7,
+            "requests": 5,
+            "writeMs": 16,
+            "pendingReadMs": 0
+          },
+          "video": {
+            "failures": 3,
+            "bytes": 16497554,
+            "pendingWriteMs": 0,
+            "readMs": 18,
+            "requests": 6,
+            "writeMs": 57,
+            "pendingReadMs": 0
+          }
+        }
+      },
+      "decisionAnalysis": {
+        "schemaVersion": 1,
+        "source": "worker_recovery_decisions",
+        "workerResult": "passed",
+        "terminalReason": "",
+        "decisionSampleCount": 129,
+        "failedDecisionCount": 0,
+        "recomputedLongestStableSamples": 129,
+        "recomputedTerminalStableSamples": 129,
+        "reportedLongestStableSamples": 129,
+        "reportedTerminalStableSamples": 129,
+        "terminalStabilityQualified": true,
+        "rootCauseProven": false,
+        "interpretation": "Predicate failures identify observed components, not native/transport cause or source A/V alignment.",
+        "selectedFailures": [],
+        "failedComponentCounts": {}
+      },
+      "capture": {
+        "captureDiscontinuities": 0,
+        "timestampErrors": 0,
+        "capturedPackets": 19473,
+        "peakLoopbackAmplitude": 0.553441,
+        "multimediaCaptureScheduling": true,
+        "multimediaSchedulingRestored": true,
+        "physicalMicrophoneOpened": false,
+        "rawAudioSaved": false,
+        "wallClockMappingChangeMs": 1.425
+      },
+      "numericTrace": {
+        "sha256": "d470142b658735343c7fc29e83eda10f2462a655c8546e276014f3203abaf78d",
+        "rows": 180,
+        "selectedRows": [
+          {
+            "epochMs": 1792292127693,
+            "elapsedMs": 1004,
+            "phase": 0,
+            "clockMs": 16762,
+            "decodedVideo": 990,
+            "decodedAudio": 745,
+            "pictures": 394,
+            "audioBuffers": 372,
+            "painted": 398,
+            "callbacks": 398,
+            "videoBytes": 952619,
+            "audioBytes": 708702,
+            "videoReadMs": 4,
+            "audioReadMs": 3,
+            "videoWriteMs": 8,
+            "audioWriteMs": 6,
+            "videoPendingReadMs": 0,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 0,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 3,
+            "audioRequests": 3,
+            "videoFailures": 1,
+            "audioFailures": 1,
+            "gcMs": 17,
+            "gcCollections": 4,
+            "cpuMs": 9718
+          },
+          {
+            "epochMs": 1792292309095,
+            "elapsedMs": 182415,
+            "phase": 3,
+            "clockMs": 182638,
+            "decodedVideo": 16022,
+            "decodedAudio": 11537,
+            "pictures": 7786,
+            "audioBuffers": 5768,
+            "painted": 10357,
+            "callbacks": 10367,
+            "videoBytes": 16497554,
+            "audioBytes": 4043466,
+            "videoReadMs": 18,
+            "audioReadMs": 7,
+            "videoWriteMs": 57,
+            "audioWriteMs": 16,
+            "videoPendingReadMs": 0,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 0,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 6,
+            "audioRequests": 5,
+            "videoFailures": 3,
+            "audioFailures": 1,
+            "gcMs": 171,
+            "gcCollections": 99,
+            "cpuMs": 141937
+          }
+        ]
+      },
+      "windowState": {
+        "sha256": "d9fb57f7ebf7cedf18ce2da33083badf5d00a3fa53db2292e35203e985754999",
+        "rows": 197,
+        "ownedWindowSamples": 193,
+        "minimizedSamples": 0,
+        "cloakedSamples": 0,
+        "displayStates": [
+          1
+        ],
+        "foregroundCoveredAtLeast95PercentSamples": 193,
+        "transitions": [
+          {
+            "epochMs": 1792292114345,
+            "elapsedMs": 5,
+            "windowFound": 0,
+            "windowVisible": -1,
+            "windowMinimized": -1,
+            "windowCloaked": -1,
+            "foregroundOwned": -1,
+            "foregroundCoveragePercent": -1,
+            "displayState": 1
+          },
+          {
+            "epochMs": 1792292117369,
+            "elapsedMs": 3029,
+            "windowFound": 1,
+            "windowVisible": 1,
+            "windowMinimized": 0,
+            "windowCloaked": 0,
+            "foregroundOwned": 0,
+            "foregroundCoveragePercent": 100,
+            "displayState": 1
+          },
+          {
+            "epochMs": 1792292310388,
+            "elapsedMs": 196049,
+            "windowFound": 0,
+            "windowVisible": -1,
+            "windowMinimized": -1,
+            "windowCloaked": -1,
+            "foregroundOwned": -1,
+            "foregroundCoveragePercent": -1,
+            "displayState": 1
+          }
+        ],
+        "coverageIsGeometryEstimateNotOcclusionProof": true
+      },
+      "windowObserver": {
+        "schemaVersion": 1,
+        "result": "completed",
+        "harnessExit": 0,
+        "keepDisplayAwake": true,
+        "networkFault": "disconnect",
+        "windowSamples": 197
+      },
+      "numericArtifactSha256": {
+        "phases.csv": "b29d477a6212eee01a5ec2b14203cfb5f37c8d746d3b30aaa048bac71e083530",
+        "flash-events.csv": "de45ff22f8e6fc17595ea3cd2b8ca9b8aaecdd963e17adfb7b90ca366b3a0f3a",
+        "audio-pulse-events.json": "46ad3004e64baa5c7f923c4ee364554db940af44c075f8a463d43731de506178",
+        "audio-activity.json": "40130bf5e7f7a1711f02ac291eca599b5348f5f4d3a6d0fc7f88551c39434807",
+        "capture-gaps.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "timingMeasurements": {
+        "postRecoverySync": {
+          "result": "passed",
+          "matchedPulses": 32,
+          "medianAudioMinusVideoMs": 57.08,
+          "p95AbsoluteOffsetMs": 59.58,
+          "maxAbsoluteOffsetMs": 59.58,
+          "endMinusStartDriftMs": -1.0,
+          "measuredSpanSeconds": 124.0,
+          "matchCoverage": 1.0,
+          "medianBudgetMs": 80,
+          "p95BudgetMs": 120,
+          "driftBudgetMs": 40,
+          "maximumOffsetBudgetMs": 150,
+          "windowMedianExcursionMs": 13.0,
+          "windowExcursionBudgetMs": 40,
+          "minimumSpanSeconds": 30,
+          "minimumMatchedPulses": 12
+        },
+        "calibratedPostRecoverySyncPassed": true
+      }
+    },
+    {
+      "id": "component-fragmented-relay-control-1",
+      "workerJarSha256": "19d94a853353299b068a4e4e95b8844c03e2e8aa1d98ac0d7b3eb1c305ec9b63",
+      "description": "no-fault fragmented MP4 audio control: identical AAC payloads, packet timestamps and video to the unfragmented control",
+      "reportedHarnessResult": "failed",
+      "reportedHarnessReason": "AVSyncBudgetFailed",
+      "worker": {
+        "result": "passed",
+        "stage": "complete",
+        "pairedAudio": true,
+        "networkCacheMs": 3000,
+        "seekWaitMs": 1415,
+        "seekReadyClockAdvancedMs": 755,
+        "seekWorked": true,
+        "pauseStable": true,
+        "resumeAdvanced": true,
+        "observationRequestedSeconds": 180,
+        "observationWallMs": 181027,
+        "observationClockAdvancedMs": 181172,
+        "longestStalledClockMs": 0,
+        "positionMs": 2521,
+        "decodedVideo": 367,
+        "decodedAudio": 347,
+        "picturesDisplayed": 11137,
+        "audioBuffersPlayed": 8134,
+        "audioBuffersLost": 0,
+        "videoCallbacks": 11136,
+        "paintedVideoFrames": 11125,
+        "framePoolCapacity": 3,
+        "framePoolDroppedCallbacks": 0,
+        "cleanShutdown": true,
+        "processExitCode": 0,
+        "nativeProcessIsolated": true,
+        "workerCpuMsDuringObservation": 131953,
+        "decoderPolicy": "software_avcodec",
+        "demuxPolicy": "avformat"
+      },
+      "network": {},
+      "relay": {
+        "bytesForwarded": 9806176,
+        "closed": true,
+        "requests": 6,
+        "streamFailures": 2,
+        "loopbackOnly": true,
+        "upstreamHttpStatuses": {},
+        "rejectedRequests": 0,
+        "activeRequests": 0,
+        "tracks": {
+          "video": {
+            "failures": 1,
+            "bytes": 8434279,
+            "pendingWriteMs": 0,
+            "readMs": 46,
+            "requests": 3,
+            "writeMs": 102,
+            "pendingReadMs": 0
+          },
+          "audio": {
+            "failures": 1,
+            "bytes": 1371897,
+            "pendingWriteMs": 0,
+            "readMs": 9,
+            "requests": 3,
+            "writeMs": 18,
+            "pendingReadMs": 0
+          }
+        }
+      },
+      "decisionAnalysis": {
+        "schemaVersion": 1,
+        "source": "no_per_decision_evidence",
+        "workerResult": "passed",
+        "terminalReason": null,
+        "decisionSampleCount": 0,
+        "failedDecisionCount": null,
+        "recomputedLongestStableSamples": null,
+        "recomputedTerminalStableSamples": null,
+        "reportedLongestStableSamples": null,
+        "reportedTerminalStableSamples": null,
+        "terminalStabilityQualified": null,
+        "rootCauseProven": false,
+        "interpretation": "Predicate failures identify observed components, not native/transport cause or source A/V alignment.",
+        "selectedFailures": [],
+        "failedComponentCounts": {}
+      },
+      "capture": {
+        "captureDiscontinuities": 0,
+        "timestampErrors": 0,
+        "capturedPackets": 19383,
+        "peakLoopbackAmplitude": 0.006715,
+        "multimediaCaptureScheduling": true,
+        "multimediaSchedulingRestored": true,
+        "physicalMicrophoneOpened": false,
+        "rawAudioSaved": false,
+        "wallClockMappingChangeMs": 0.561
+      },
+      "noFaultCounterDiagnostic": {
+        "schemaVersion": 1,
+        "source": "derived_no_fault_trace_not_recovery_decisions",
+        "workerResult": null,
+        "terminalReason": null,
+        "decisionSampleCount": 179,
+        "failedDecisionCount": 0,
+        "recomputedLongestStableSamples": 179,
+        "recomputedTerminalStableSamples": 179,
+        "reportedLongestStableSamples": null,
+        "reportedTerminalStableSamples": null,
+        "terminalStabilityQualified": null,
+        "failures": [],
+        "rootCauseProven": false,
+        "interpretation": "Predicate failures identify observed components, not native/transport cause or source A/V alignment."
+      },
+      "numericTrace": {
+        "sha256": "a7ba1be0382bf4b0995f03cdb3b433b354e30b6c5b5711e9d0b146ab35667b7a",
+        "rows": 180,
+        "selectedRows": [
+          {
+            "epochMs": 1792292473300,
+            "elapsedMs": 1008,
+            "phase": 0,
+            "clockMs": 16761,
+            "decodedVideo": 1002,
+            "decodedAudio": 755,
+            "pictures": 366,
+            "audioBuffers": 376,
+            "painted": 374,
+            "callbacks": 374,
+            "videoBytes": 985387,
+            "audioBytes": 704516,
+            "videoReadMs": 13,
+            "audioReadMs": 5,
+            "videoWriteMs": 29,
+            "audioWriteMs": 10,
+            "videoPendingReadMs": 0,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 0,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 3,
+            "audioRequests": 3,
+            "videoFailures": 1,
+            "audioFailures": 1,
+            "gcMs": 18,
+            "gcCollections": 4,
+            "cpuMs": 12171
+          },
+          {
+            "epochMs": 1792292653304,
+            "elapsedMs": 181026,
+            "phase": 0,
+            "clockMs": 196685,
+            "decodedVideo": 22590,
+            "decodedAudio": 16271,
+            "pictures": 11121,
+            "audioBuffers": 8134,
+            "painted": 11124,
+            "callbacks": 11136,
+            "videoBytes": 8434279,
+            "audioBytes": 1371897,
+            "videoReadMs": 46,
+            "audioReadMs": 9,
+            "videoWriteMs": 102,
+            "audioWriteMs": 18,
+            "videoPendingReadMs": 0,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 0,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 3,
+            "audioRequests": 3,
+            "videoFailures": 1,
+            "audioFailures": 1,
+            "gcMs": 192,
+            "gcCollections": 144,
+            "cpuMs": 143187
+          }
+        ]
+      },
+      "windowState": {
+        "sha256": "2cb3ca522b93f42dd8ed23742678238f733e96232b00c4108a6ba431a4593094",
+        "rows": 196,
+        "ownedWindowSamples": 192,
+        "minimizedSamples": 0,
+        "cloakedSamples": 0,
+        "displayStates": [
+          1
+        ],
+        "foregroundCoveredAtLeast95PercentSamples": 192,
+        "transitions": [
+          {
+            "epochMs": 1792292458526,
+            "elapsedMs": 9,
+            "windowFound": 0,
+            "windowVisible": -1,
+            "windowMinimized": -1,
+            "windowCloaked": -1,
+            "foregroundOwned": -1,
+            "foregroundCoveragePercent": -1,
+            "displayState": 1
+          },
+          {
+            "epochMs": 1792292462561,
+            "elapsedMs": 4046,
+            "windowFound": 1,
+            "windowVisible": 1,
+            "windowMinimized": 0,
+            "windowCloaked": 0,
+            "foregroundOwned": 0,
+            "foregroundCoveragePercent": 100,
+            "displayState": 1
+          }
+        ],
+        "coverageIsGeometryEstimateNotOcclusionProof": true
+      },
+      "windowObserver": {
+        "schemaVersion": 1,
+        "result": "completed",
+        "harnessExit": 1,
+        "keepDisplayAwake": true,
+        "networkFault": "relay",
+        "windowSamples": 196
+      },
+      "numericArtifactSha256": {
+        "phases.csv": "704b220c14e1c071addceb199a243add9f8e829e6e8b1e65c262ab119d1ca36d",
+        "flash-events.csv": "73cec8a1d019ddc6c080bb0c896256aa82342d0826bc9550d24068f4089f203b",
+        "audio-pulse-events.json": "229388e1a85d0c5bbfd906adb88c9955f09369423d3255d21b43bd810f9390fa",
+        "audio-activity.json": "22c650f189d57fb71de37d7576241f329f5d412cb6d9f1a711338ec01f313b30",
+        "capture-gaps.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "timingMeasurements": {
+        "sync": {
+          "result": "failed",
+          "matchedPulses": 47,
+          "medianAudioMinusVideoMs": 44.57,
+          "p95AbsoluteOffsetMs": 46.58,
+          "maxAbsoluteOffsetMs": 308.0,
+          "endMinusStartDriftMs": 6.0,
+          "measuredSpanSeconds": 181.71,
+          "matchCoverage": 1.0,
+          "medianBudgetMs": 80,
+          "p95BudgetMs": 120,
+          "driftBudgetMs": 40,
+          "maximumOffsetBudgetMs": 150,
+          "windowMedianExcursionMs": 7.01,
+          "windowExcursionBudgetMs": 40,
+          "minimumSpanSeconds": 170.0,
+          "minimumMatchedPulses": 43
+        },
+        "steadyPostSeekSync": {
+          "result": "passed",
+          "matchedPulses": 46,
+          "medianAudioMinusVideoMs": 44.57,
+          "p95AbsoluteOffsetMs": 46.57,
+          "maxAbsoluteOffsetMs": 46.58,
+          "endMinusStartDriftMs": 1.0,
+          "measuredSpanSeconds": 180.0,
+          "matchCoverage": 1.0,
+          "medianBudgetMs": 80,
+          "p95BudgetMs": 120,
+          "driftBudgetMs": 40,
+          "maximumOffsetBudgetMs": 150,
+          "windowMedianExcursionMs": 7.01,
+          "windowExcursionBudgetMs": 40,
+          "minimumSpanSeconds": 170.0,
+          "minimumMatchedPulses": 43
+        }
+      }
+    },
+    {
+      "id": "component-both-fragmented-relay-control",
+      "workerJarSha256": "19d94a853353299b068a4e4e95b8844c03e2e8aa1d98ac0d7b3eb1c305ec9b63",
+      "description": "no-fault fragmented master video and audio: identical encoded packet payloads and packet timelines in both tracks",
+      "reportedHarnessResult": "passed",
+      "reportedHarnessReason": null,
+      "worker": {
+        "result": "passed",
+        "stage": "complete",
+        "pairedAudio": true,
+        "networkCacheMs": 3000,
+        "seekWaitMs": 2627,
+        "seekReadyClockAdvancedMs": 756,
+        "seekWorked": true,
+        "pauseStable": true,
+        "resumeAdvanced": true,
+        "observationRequestedSeconds": 180,
+        "observationWallMs": 181099,
+        "observationClockAdvancedMs": 181162,
+        "longestStalledClockMs": 0,
+        "positionMs": 2528,
+        "decodedVideo": 369,
+        "decodedAudio": 345,
+        "picturesDisplayed": 11189,
+        "audioBuffersPlayed": 8124,
+        "audioBuffersLost": 0,
+        "videoCallbacks": 11194,
+        "paintedVideoFrames": 11193,
+        "framePoolCapacity": 3,
+        "framePoolDroppedCallbacks": 1,
+        "cleanShutdown": true,
+        "processExitCode": 0,
+        "nativeProcessIsolated": true,
+        "workerCpuMsDuringObservation": 117672,
+        "decoderPolicy": "software_avcodec",
+        "demuxPolicy": "avformat"
+      },
+      "network": {},
+      "relay": {
+        "bytesForwarded": 9806697,
+        "closed": true,
+        "requests": 6,
+        "streamFailures": 2,
+        "loopbackOnly": true,
+        "upstreamHttpStatuses": {},
+        "rejectedRequests": 0,
+        "activeRequests": 0,
+        "tracks": {
+          "video": {
+            "failures": 1,
+            "bytes": 8434800,
+            "pendingWriteMs": 0,
+            "readMs": 31,
+            "requests": 3,
+            "writeMs": 73,
+            "pendingReadMs": 0
+          },
+          "audio": {
+            "failures": 1,
+            "bytes": 1371897,
+            "pendingWriteMs": 0,
+            "readMs": 8,
+            "requests": 3,
+            "writeMs": 13,
+            "pendingReadMs": 0
+          }
+        }
+      },
+      "decisionAnalysis": {
+        "schemaVersion": 1,
+        "source": "no_per_decision_evidence",
+        "workerResult": "passed",
+        "terminalReason": null,
+        "decisionSampleCount": 0,
+        "failedDecisionCount": null,
+        "recomputedLongestStableSamples": null,
+        "recomputedTerminalStableSamples": null,
+        "reportedLongestStableSamples": null,
+        "reportedTerminalStableSamples": null,
+        "terminalStabilityQualified": null,
+        "rootCauseProven": false,
+        "interpretation": "Predicate failures identify observed components, not native/transport cause or source A/V alignment.",
+        "selectedFailures": [],
+        "failedComponentCounts": {}
+      },
+      "capture": {
+        "captureDiscontinuities": 0,
+        "timestampErrors": 0,
+        "capturedPackets": 19356,
+        "peakLoopbackAmplitude": 0.007059,
+        "multimediaCaptureScheduling": true,
+        "multimediaSchedulingRestored": true,
+        "physicalMicrophoneOpened": false,
+        "rawAudioSaved": false,
+        "wallClockMappingChangeMs": 0.267
+      },
+      "noFaultCounterDiagnostic": {
+        "schemaVersion": 1,
+        "source": "derived_no_fault_trace_not_recovery_decisions",
+        "workerResult": null,
+        "terminalReason": null,
+        "decisionSampleCount": 179,
+        "failedDecisionCount": 0,
+        "recomputedLongestStableSamples": 179,
+        "recomputedTerminalStableSamples": 179,
+        "reportedLongestStableSamples": null,
+        "reportedTerminalStableSamples": null,
+        "terminalStabilityQualified": null,
+        "failures": [],
+        "rootCauseProven": false,
+        "interpretation": "Predicate failures identify observed components, not native/transport cause or source A/V alignment."
+      },
+      "numericTrace": {
+        "sha256": "179b78f4de13783e13f3cd23a26286ebcc6fa4cd48849269cc3ff62a73fbe24c",
+        "rows": 180,
+        "selectedRows": [
+          {
+            "epochMs": 1792292748699,
+            "elapsedMs": 1006,
+            "phase": 0,
+            "clockMs": 16766,
+            "decodedVideo": 990,
+            "decodedAudio": 747,
+            "pictures": 398,
+            "audioBuffers": 372,
+            "painted": 406,
+            "callbacks": 406,
+            "videoBytes": 917508,
+            "audioBytes": 688132,
+            "videoReadMs": 5,
+            "audioReadMs": 4,
+            "videoWriteMs": 11,
+            "audioWriteMs": 6,
+            "videoPendingReadMs": 0,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 0,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 3,
+            "audioRequests": 3,
+            "videoFailures": 1,
+            "audioFailures": 1,
+            "gcMs": 19,
+            "gcCollections": 5,
+            "cpuMs": 10843
+          },
+          {
+            "epochMs": 1792292928779,
+            "elapsedMs": 181098,
+            "phase": 0,
+            "clockMs": 196918,
+            "decodedVideo": 22606,
+            "decodedAudio": 16251,
+            "pictures": 11189,
+            "audioBuffers": 8124,
+            "painted": 11193,
+            "callbacks": 11194,
+            "videoBytes": 8434800,
+            "audioBytes": 1371897,
+            "videoReadMs": 31,
+            "audioReadMs": 8,
+            "videoWriteMs": 73,
+            "audioWriteMs": 13,
+            "videoPendingReadMs": 0,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 0,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 3,
+            "audioRequests": 3,
+            "videoFailures": 1,
+            "audioFailures": 1,
+            "gcMs": 210,
+            "gcCollections": 181,
+            "cpuMs": 127578
+          }
+        ]
+      },
+      "windowState": {
+        "sha256": "acb8cdb2309f51b649019ab72a133146a79d98afefd3b54f428290007897c776",
+        "rows": 195,
+        "ownedWindowSamples": 192,
+        "minimizedSamples": 0,
+        "cloakedSamples": 0,
+        "displayStates": [
+          1
+        ],
+        "foregroundCoveredAtLeast95PercentSamples": 192,
+        "transitions": [
+          {
+            "epochMs": 1792292735142,
+            "elapsedMs": 6,
+            "windowFound": 0,
+            "windowVisible": -1,
+            "windowMinimized": -1,
+            "windowCloaked": -1,
+            "foregroundOwned": -1,
+            "foregroundCoveragePercent": -1,
+            "displayState": 1
+          },
+          {
+            "epochMs": 1792292738154,
+            "elapsedMs": 3020,
+            "windowFound": 1,
+            "windowVisible": 1,
+            "windowMinimized": 0,
+            "windowCloaked": 0,
+            "foregroundOwned": 0,
+            "foregroundCoveragePercent": 100,
+            "displayState": 1
+          }
+        ],
+        "coverageIsGeometryEstimateNotOcclusionProof": true
+      },
+      "windowObserver": {
+        "schemaVersion": 1,
+        "result": "completed",
+        "harnessExit": 0,
+        "keepDisplayAwake": true,
+        "networkFault": "relay",
+        "windowSamples": 195
+      },
+      "numericArtifactSha256": {
+        "phases.csv": "9415b29eb17c4b3945704c48e1498ce6f2b527831fbe1989f08d13faae309f01",
+        "flash-events.csv": "f512bda1bbebbe1f8ccc25ac0babf0beb882af92789403ba6944863dbb7f7c9a",
+        "audio-pulse-events.json": "c3ab937c08215c033770624338f4ec80839aa99061e75a77b418011a1cd7d80f",
+        "audio-activity.json": "2ed47c92528e214c8a31f0075153ae3b5cca3744852e7cdcaffef06d5d2f2f2a",
+        "capture-gaps.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "timingMeasurements": {
+        "sync": {
+          "result": "passed",
+          "matchedPulses": 47,
+          "medianAudioMinusVideoMs": 49.92,
+          "p95AbsoluteOffsetMs": 51.92,
+          "maxAbsoluteOffsetMs": 52.9,
+          "endMinusStartDriftMs": 1.0,
+          "measuredSpanSeconds": 182.83,
+          "matchCoverage": 1.0,
+          "medianBudgetMs": 80,
+          "p95BudgetMs": 120,
+          "driftBudgetMs": 40,
+          "maximumOffsetBudgetMs": 150,
+          "windowMedianExcursionMs": 4.0,
+          "windowExcursionBudgetMs": 40,
+          "minimumSpanSeconds": 170.0,
+          "minimumMatchedPulses": 43
+        },
+        "steadyPostSeekSync": {
+          "result": "passed",
+          "matchedPulses": 46,
+          "medianAudioMinusVideoMs": 50.41,
+          "p95AbsoluteOffsetMs": 51.92,
+          "maxAbsoluteOffsetMs": 52.9,
+          "endMinusStartDriftMs": -0.0,
+          "measuredSpanSeconds": 180.0,
+          "matchCoverage": 1.0,
+          "medianBudgetMs": 80,
+          "p95BudgetMs": 120,
+          "driftBudgetMs": 40,
+          "maximumOffsetBudgetMs": 150,
+          "windowMedianExcursionMs": 3.0,
+          "windowExcursionBudgetMs": 40,
+          "minimumSpanSeconds": 170.0,
+          "minimumMatchedPulses": 43
+        },
+        "calibratedFixtureSyncPassed": true
+      }
+    },
+    {
+      "id": "component-youtube-relay-300",
+      "workerJarSha256": "19d94a853353299b068a4e4e95b8844c03e2e8aa1d98ac0d7b3eb1c305ec9b63",
+      "description": "five-minute no-fault actual YouTube relay control; tests whether counter holds require recovery",
+      "reportedHarnessResult": "passed",
+      "reportedHarnessReason": null,
+      "worker": {
+        "result": "passed",
+        "stage": "complete",
+        "selectedHeight": 1080,
+        "selectedFps": 60,
+        "selectedCodec": "avc1.64002A",
+        "selectedAudioFormat": "M4A",
+        "selectedAudioCodec": "mp4a.40.2",
+        "selectedAudioItag": 140,
+        "selectedAudioBitrate": 130992,
+        "selectedAudioSampleRate": 44100,
+        "selectedAudioChannels": 2,
+        "providerDeclaredAudioBytes": 10271496,
+        "selectedDelivery": "PROGRESSIVE_HTTP",
+        "pairedAudio": true,
+        "networkCacheMs": 3000,
+        "seekWaitMs": 5824,
+        "seekReadyClockAdvancedMs": 695,
+        "seekWorked": true,
+        "pauseStable": true,
+        "resumeAdvanced": true,
+        "observationRequestedSeconds": 300,
+        "observationWallMs": 301408,
+        "observationClockAdvancedMs": 301666,
+        "longestStalledClockMs": 0,
+        "positionMs": 2645,
+        "decodedVideo": 382,
+        "decodedAudio": 346,
+        "picturesDisplayed": 18473,
+        "audioBuffersPlayed": 13326,
+        "audioBuffersLost": 0,
+        "videoCallbacks": 18464,
+        "paintedVideoFrames": 18464,
+        "framePoolCapacity": 3,
+        "framePoolDroppedCallbacks": 0,
+        "cleanShutdown": true,
+        "processExitCode": 0,
+        "nativeProcessIsolated": true,
+        "workerCpuMsDuringObservation": 232625,
+        "decoderPolicy": "software_avcodec",
+        "demuxPolicy": "avformat"
+      },
+      "network": {},
+      "relay": {
+        "bytesForwarded": 148497872,
+        "closed": true,
+        "requests": 4,
+        "streamFailures": 3,
+        "loopbackOnly": true,
+        "upstreamHttpStatuses": {
+          "206": 4
+        },
+        "rejectedRequests": 0,
+        "activeRequests": 0,
+        "tracks": {
+          "video": {
+            "failures": 3,
+            "bytes": 138226376,
+            "pendingWriteMs": 0,
+            "readMs": 77586,
+            "requests": 3,
+            "writeMs": 227975,
+            "pendingReadMs": 0
+          },
+          "audio": {
+            "failures": 0,
+            "bytes": 10271496,
+            "pendingWriteMs": 0,
+            "readMs": 9551,
+            "requests": 1,
+            "writeMs": 54,
+            "pendingReadMs": 0
+          }
+        }
+      },
+      "decisionAnalysis": {
+        "schemaVersion": 1,
+        "source": "no_per_decision_evidence",
+        "workerResult": "passed",
+        "terminalReason": null,
+        "decisionSampleCount": 0,
+        "failedDecisionCount": null,
+        "recomputedLongestStableSamples": null,
+        "recomputedTerminalStableSamples": null,
+        "reportedLongestStableSamples": null,
+        "reportedTerminalStableSamples": null,
+        "terminalStabilityQualified": null,
+        "rootCauseProven": false,
+        "interpretation": "Predicate failures identify observed components, not native/transport cause or source A/V alignment.",
+        "selectedFailures": [],
+        "failedComponentCounts": {}
+      },
+      "capture": {
+        "captureDiscontinuities": 0,
+        "timestampErrors": 0,
+        "capturedPackets": 32073,
+        "peakLoopbackAmplitude": 0.398159,
+        "multimediaCaptureScheduling": true,
+        "multimediaSchedulingRestored": true,
+        "physicalMicrophoneOpened": false,
+        "rawAudioSaved": false,
+        "wallClockMappingChangeMs": 1.503
+      },
+      "noFaultCounterDiagnostic": {
+        "schemaVersion": 1,
+        "source": "derived_no_fault_trace_not_recovery_decisions",
+        "workerResult": null,
+        "terminalReason": null,
+        "decisionSampleCount": 299,
+        "failedDecisionCount": 0,
+        "recomputedLongestStableSamples": 299,
+        "recomputedTerminalStableSamples": 299,
+        "reportedLongestStableSamples": null,
+        "reportedTerminalStableSamples": null,
+        "terminalStabilityQualified": null,
+        "failures": [],
+        "rootCauseProven": false,
+        "interpretation": "Predicate failures identify observed components, not native/transport cause or source A/V alignment."
+      },
+      "numericTrace": {
+        "sha256": "9d2d7cf8dcdc0a25c151df75aa4a4dc616454272d298f123fd670ad5bd0dcb21",
+        "rows": 300,
+        "selectedRows": [
+          {
+            "epochMs": 1792292964976,
+            "elapsedMs": 1006,
+            "phase": 0,
+            "clockMs": 16710,
+            "decodedVideo": 947,
+            "decodedAudio": 752,
+            "pictures": 441,
+            "audioBuffers": 376,
+            "painted": 447,
+            "callbacks": 447,
+            "videoBytes": 11218568,
+            "audioBytes": 10271496,
+            "videoReadMs": 13016,
+            "audioReadMs": 9551,
+            "videoWriteMs": 958,
+            "audioWriteMs": 54,
+            "videoPendingReadMs": 23,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 0,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 2,
+            "audioRequests": 1,
+            "videoFailures": 1,
+            "audioFailures": 0,
+            "gcMs": 50,
+            "gcCollections": 23,
+            "cpuMs": 15531
+          },
+          {
+            "epochMs": 1792293265370,
+            "elapsedMs": 301407,
+            "phase": 0,
+            "clockMs": 317112,
+            "decodedVideo": 36995,
+            "decodedAudio": 26652,
+            "pictures": 18458,
+            "audioBuffers": 13326,
+            "painted": 18464,
+            "callbacks": 18464,
+            "videoBytes": 137964232,
+            "audioBytes": 10271496,
+            "videoReadMs": 77585,
+            "audioReadMs": 9551,
+            "videoWriteMs": 227495,
+            "audioWriteMs": 54,
+            "videoPendingReadMs": 0,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 233,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 3,
+            "audioRequests": 1,
+            "videoFailures": 2,
+            "audioFailures": 0,
+            "gcMs": 271,
+            "gcCollections": 286,
+            "cpuMs": 247515
+          }
+        ]
+      },
+      "windowState": {
+        "sha256": "4fe24d73b29ce2ba60ef534bd396e44bd96e4a4252258dc090821f694d0a7117",
+        "rows": 323,
+        "ownedWindowSamples": 316,
+        "minimizedSamples": 0,
+        "cloakedSamples": 0,
+        "displayStates": [
+          1
+        ],
+        "foregroundCoveredAtLeast95PercentSamples": 316,
+        "transitions": [
+          {
+            "epochMs": 1792292943688,
+            "elapsedMs": 6,
+            "windowFound": 0,
+            "windowVisible": -1,
+            "windowMinimized": -1,
+            "windowCloaked": -1,
+            "foregroundOwned": -1,
+            "foregroundCoveragePercent": -1,
+            "displayState": 1
+          },
+          {
+            "epochMs": 1792292950701,
+            "elapsedMs": 7021,
+            "windowFound": 1,
+            "windowVisible": 1,
+            "windowMinimized": 0,
+            "windowCloaked": 0,
+            "foregroundOwned": 0,
+            "foregroundCoveragePercent": 100,
+            "displayState": 1
+          }
+        ],
+        "coverageIsGeometryEstimateNotOcclusionProof": true
+      },
+      "windowObserver": {
+        "schemaVersion": 1,
+        "result": "completed",
+        "harnessExit": 0,
+        "keepDisplayAwake": true,
+        "networkFault": "relay",
+        "windowSamples": 323
+      },
+      "numericArtifactSha256": {
+        "phases.csv": "5464ce64d79e9edb6501dea5538ab9d67418fb65c1df8b7ff541a805515308d4",
+        "flash-events.csv": "b44e7b2c42ac90f4363f8d252fb504d6785adae1d0775965826c2e9460dc34d4",
+        "audio-pulse-events.json": "a1ec99a4ca133e15ee87aa531aa47207050820e3469cb2ead3b32e7617c9ee96",
+        "audio-activity.json": "3e285e5af10afce207763343626a4a71c4dad6295aadd8fe29514da0563e4dd3",
+        "capture-gaps.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "timingMeasurements": {}
+    }
+  ],
+  "sourceAudioBoundaryCheck": {
+    "result": "completed",
+    "schemaVersion": 1,
+    "sourceHasRangeQuery": false,
+    "mediaBodySaved": false,
+    "responses": [
+      {
+        "requestedStart": 0,
+        "responseEnd": 1023,
+        "requestedStartMatched": true,
+        "requestedEnd": 1023,
+        "responseTotal": 10271496,
+        "acceptRangesBytes": true,
+        "responseStart": 0,
+        "bodyLength": 1024,
+        "status": 206
+      },
+      {
+        "requestedStart": 65536,
+        "responseEnd": 66559,
+        "requestedStartMatched": true,
+        "requestedEnd": 66559,
+        "responseTotal": 10271496,
+        "acceptRangesBytes": true,
+        "responseStart": 65536,
+        "bodyLength": 1024,
+        "status": 206
+      }
+    ],
+    "selectedAudioItag": 140,
+    "publicVideoId": "aqz-KE-bpKQ",
+    "probeSourceSha256": "801e1f448a73d976a2931b3f5730f60b410592cc13371564ca978292a16e93d2",
+    "limitation": "Two current requests only; no claim about earlier resolved URLs or native seek behavior. Probe source remains parked in scratch under this open issue."
+  },
+  "sourceAudioContainerCheck": {
+    "result": "completed",
+    "mp4PrefixStatus": 206,
+    "moovHasMvex": true,
+    "schemaVersion": 1,
+    "sourceHasRangeQuery": false,
+    "mediaBodySaved": false,
+    "topLevelPrefixBoxes": [
+      {
+        "offset": 0,
+        "size": 24,
+        "type": "ftyp"
+      },
+      {
+        "offset": 24,
+        "size": 699,
+        "type": "moov"
+      },
+      {
+        "offset": 723,
+        "size": 800,
+        "type": "sidx"
+      },
+      {
+        "offset": 1523,
+        "size": 1816,
+        "type": "moof"
+      },
+      {
+        "offset": 3339,
+        "size": 160156,
+        "type": "mdat"
+      }
+    ],
+    "responses": [
+      {
+        "requestedStart": 0,
+        "responseEnd": 1023,
+        "requestedStartMatched": true,
+        "requestedEnd": 1023,
+        "responseTotal": 10271496,
+        "acceptRangesBytes": true,
+        "responseStart": 0,
+        "bodyLength": 1024,
+        "status": 206
+      },
+      {
+        "requestedStart": 65536,
+        "responseEnd": 66559,
+        "requestedStartMatched": true,
+        "requestedEnd": 66559,
+        "responseTotal": 10271496,
+        "acceptRangesBytes": true,
+        "responseStart": 65536,
+        "bodyLength": 1024,
+        "status": 206
+      }
+    ],
+    "selectedAudioItag": 140,
+    "publicVideoId": "aqz-KE-bpKQ",
+    "parsedPrefixBytes": 8192,
+    "probeSourceSha256": "12b9eacb2d2078a6b172c49ccc274078ac89fbcb2a83767f7b174ae0bc54aa62"
+  },
+  "sourceVideoContainerCheck": {
+    "result": "completed",
+    "mp4PrefixStatus": 206,
+    "moovHasMvex": true,
+    "schemaVersion": 1,
+    "selectedVideoItag": 299,
+    "sourceHasRangeQuery": false,
+    "mediaBodySaved": false,
+    "topLevelPrefixBoxes": [
+      {
+        "offset": 0,
+        "size": 28,
+        "type": "ftyp"
+      },
+      {
+        "offset": 28,
+        "size": 714,
+        "type": "moov"
+      },
+      {
+        "offset": 742,
+        "size": 1508,
+        "type": "sidx"
+      },
+      {
+        "offset": 2250,
+        "size": 2996,
+        "type": "moof"
+      },
+      {
+        "offset": 5246,
+        "size": 148541,
+        "type": "mdat"
+      }
+    ],
+    "responses": [
+      {
+        "requestedStart": 0,
+        "responseEnd": 1023,
+        "requestedStartMatched": true,
+        "requestedEnd": 1023,
+        "responseTotal": 257619653,
+        "acceptRangesBytes": true,
+        "responseStart": 0,
+        "bodyLength": 1024,
+        "status": 206
+      },
+      {
+        "requestedStart": 65536,
+        "responseEnd": 66559,
+        "requestedStartMatched": true,
+        "requestedEnd": 66559,
+        "responseTotal": 257619653,
+        "acceptRangesBytes": true,
+        "responseStart": 65536,
+        "bodyLength": 1024,
+        "status": 206
+      }
+    ],
+    "publicVideoId": "aqz-KE-bpKQ",
+    "parsedPrefixBytes": 8192,
+    "probeSourceSha256": "78e880d0d1f4d11a7ea135b194c7752dbc85a68874127bef9087a41cf3c110d9"
+  },
+  "bothFragmentedFixtureRecipe": {
+    "durationSeconds": 210,
+    "fps": 60,
+    "width": 1920,
+    "height": 1080,
+    "sampleRate": 44100,
+    "pulsePeriodMs": 4000,
+    "flashDurationMs": 66.66666666666667,
+    "toneDurationMs": 20,
+    "continuousCarrierHz": 300,
+    "continuousCarrierAmplitude": 0.005,
+    "toneBaseHz": 1000,
+    "toneStepPerIdHz": 100,
+    "maximumPulseId": 52,
+    "audioDelayMs": 0,
+    "videoSha256": "6937dde237b90c370ec97a07b5bd80834338feaa3d6fbd3dbe55c5d9be3e67cd",
+    "audioSha256": "5d33fc20c93e75ca6f8319b3091411813ee848e5d97f581092069d673b3bbdb0",
+    "sourceAudioSha256": "6aace8dcf4a76489bf75c4e9279861dcd9d47600ddb5b522bb3bae77e65cfffe",
+    "sourceSampleRate": 48000,
+    "generator": "fragment-sync-fixture.py",
+    "pyavVersion": "19.0.1",
+    "audioEncoderBitrate": 128000,
+    "unfragmentedVideoSha256": "3e0fb4cd4bbd331bb7d1bcb3103c3bda63c065a1594fb7cdd303721148268f7e",
+    "videoPacketIdentity": {
+      "payloadSha256": "829ee4be9523b4cadf4363c943b6d8af4c21a56f728d784582d8480d263a000d",
+      "timelineSha256": "bcab1c10a502902f11879e530a51ce886c380200d48af94df3c8da47405ae275",
+      "packetCount": 12600,
+      "first": [
+        0,
+        0,
+        256,
+        "1/15360"
+      ],
+      "last": [
+        3225344,
+        3225344,
+        256,
+        "1/15360"
+      ]
+    },
+    "unfragmentedAudioSha256": "7a9e8468a1e4286302419f0933f1fdecf9cd56e6fa7aaa31565af1ef22795295",
+    "fragmentDurationMs": 10000,
+    "fragmentVideo": true,
+    "muxOptions": {
+      "movflags": "delay_moov+default_base_moof+global_sidx",
+      "frag_duration": "10000000"
+    },
+    "packetIdentity": {
+      "payloadSha256": "62d9236fcdd4cebdecc11fcaf6eaf9898430fe2f067d19505efacfe54717947a",
+      "timelineSha256": "12fa35aaa4316b0aaa60a233f9e0e2b336bd83e702100d9e9260aa30ab148302",
+      "packetCount": 9045,
+      "first": [
+        -1024,
+        -1024,
+        1024,
+        "1/44100"
+      ],
+      "last": [
+        9260032,
+        9260032,
+        968,
+        "1/44100"
+      ]
+    },
+    "encodedPacketsAndTimelineIdentical": true
+  },
+  "fragmentedFixtureRecipe": {
+    "durationSeconds": 210,
+    "fps": 60,
+    "width": 1920,
+    "height": 1080,
+    "sampleRate": 44100,
+    "pulsePeriodMs": 4000,
+    "flashDurationMs": 66.66666666666667,
+    "toneDurationMs": 20,
+    "continuousCarrierHz": 300,
+    "continuousCarrierAmplitude": 0.005,
+    "toneBaseHz": 1000,
+    "toneStepPerIdHz": 100,
+    "maximumPulseId": 52,
+    "audioDelayMs": 0,
+    "videoSha256": "3e0fb4cd4bbd331bb7d1bcb3103c3bda63c065a1594fb7cdd303721148268f7e",
+    "audioSha256": "5d33fc20c93e75ca6f8319b3091411813ee848e5d97f581092069d673b3bbdb0",
+    "sourceAudioSha256": "6aace8dcf4a76489bf75c4e9279861dcd9d47600ddb5b522bb3bae77e65cfffe",
+    "sourceSampleRate": 48000,
+    "generator": "fragment-sync-fixture.py",
+    "pyavVersion": "19.0.1",
+    "audioEncoderBitrate": 128000,
+    "unfragmentedAudioSha256": "7a9e8468a1e4286302419f0933f1fdecf9cd56e6fa7aaa31565af1ef22795295",
+    "fragmentDurationMs": 10000,
+    "muxOptions": {
+      "movflags": "delay_moov+default_base_moof+global_sidx",
+      "frag_duration": "10000000"
+    },
+    "packetIdentity": {
+      "payloadSha256": "62d9236fcdd4cebdecc11fcaf6eaf9898430fe2f067d19505efacfe54717947a",
+      "timelineSha256": "12fa35aaa4316b0aaa60a233f9e0e2b336bd83e702100d9e9260aa30ab148302",
+      "packetCount": 9045,
+      "first": [
+        -1024,
+        -1024,
+        1024,
+        "1/44100"
+      ],
+      "last": [
+        9260032,
+        9260032,
+        968,
+        "1/44100"
+      ]
+    },
+    "encodedPacketsAndTimelineIdentical": true
+  },
+  "controlledFixtureRecipe": {
+    "durationSeconds": 210,
+    "fps": 60,
+    "width": 1920,
+    "height": 1080,
+    "sampleRate": 44100,
+    "pulsePeriodMs": 4000,
+    "flashDurationMs": 66.66666666666667,
+    "toneDurationMs": 20,
+    "continuousCarrierHz": 300,
+    "continuousCarrierAmplitude": 0.005,
+    "toneBaseHz": 1000,
+    "toneStepPerIdHz": 100,
+    "maximumPulseId": 52,
+    "audioDelayMs": 0,
+    "videoSha256": "3e0fb4cd4bbd331bb7d1bcb3103c3bda63c065a1594fb7cdd303721148268f7e",
+    "audioSha256": "7a9e8468a1e4286302419f0933f1fdecf9cd56e6fa7aaa31565af1ef22795295",
+    "sourceAudioSha256": "6aace8dcf4a76489bf75c4e9279861dcd9d47600ddb5b522bb3bae77e65cfffe",
+    "sourceSampleRate": 48000,
+    "generator": "resample-sync-fixture.py",
+    "pyavVersion": "19.0.1",
+    "audioEncoderBitrate": 128000
+  },
+  "toolSources": {
+    "validate-presentation.py": "88a327bf5092016896cc7ad117eabcf0be0ca609eb681ace99dcf16f16507ea9",
+    "recovery_diagnostics.py": "f92743844fba93021e4bb8f2fe09b9351f14602f018513f92e21afa15d0a5a36",
+    "observe-presentation.ps1": "d5775cfdc4d4ca8ec3e6e3f0fa66ba4e58b7cba8a7c7c09f293d4af3ccac93b1",
+    "resample-sync-fixture.py": "2e6ba1cb48a433220782e179b943f6de55ea128a7844811aadbbb526ecc61060",
+    "fragment-sync-fixture.py": "db619aa8d0b5640252bcf4f79427d42bd9d475c8c4fa9fa146949fd3dc310940"
+  },
+  "observerProvenance": {
+    "collectorCSharpSourceSha256": "800d80313206fbe91adfe784c90e9f5a44ef39667b87d9e98b50f5fc1ff24411",
+    "note": "Collector source is identical across measured observer runs. Early runs precede compiler-TEMP wrapping, early path validation and fixture-mode parameters; actual YouTube mode is disconnect, final fixture is relay. Observer writes numeric state only, never foreground titles/pixels/identifiers. Awake requests are temporary and restored in finally; no focus, input, lock or persistent power policy changes."
+  },
+  "sourceReview": [
+    {
+      "url": "https://raw.githubusercontent.com/videolan/vlc/3.0.24/lib/media.c",
+      "finding": "Statistics getter copies the stored input statistics."
+    },
+    {
+      "url": "https://raw.githubusercontent.com/videolan/vlc/3.0.24/src/input/input.c",
+      "finding": "Input-loop statistics refresh is scheduled after demux, with a 250000-microsecond next-update target. This is not a guaranteed independent wall-clock refresh."
+    },
+    {
+      "url": "https://raw.githubusercontent.com/caprica/vlcj/vlcj-4.11.0/src/main/java/uk/co/caprica/vlcj/media/InfoApi.java",
+      "finding": "VLCJ creates a Java statistics snapshot from the native structure. Source behavior motivates a publication/cadence hypothesis, not proof of the observed root cause."
+    },
+    {
+      "url": "https://raw.githubusercontent.com/videolan/vlc/3.0.24/src/audio_output/dec.c",
+      "finding": "buffers_played increments after aout_OutputPlay. Its value is not an independent audio-device consumption timestamp; buffered output or publication timing can make a zero delta ambiguous.",
+      "inferenceFromSource": true
+    }
+  ],
+  "checks": {
+    "javaTests": 41,
+    "javaFailures": 0,
+    "pythonTests": 22,
+    "distributionBuild": "passed",
+    "finalWorkerJarSha256": "19d94a853353299b068a4e4e95b8844c03e2e8aa1d98ac0d7b3eb1c305ec9b63",
+    "completionRegression": {
+      "longest": 150,
+      "terminal": 0,
+      "expected": false
+    },
+    "headlessRegression": {
+      "result": "passed",
+      "stage": "complete",
+      "seekWorked": true,
+      "pauseStable": true,
+      "resumeAdvanced": true,
+      "cleanShutdown": true,
+      "processExitCode": 0
+    }
+  }
+}
