@@ -23,6 +23,8 @@ parser.add_argument("--output-directory", type=Path, required=True)
 parser.add_argument("--fixture-directory", type=Path)
 parser.add_argument("--video-id")
 parser.add_argument("--observe-seconds", type=int, default=20)
+parser.add_argument("--network-fault", choices=("none","relay","hold","disconnect","permanent","cancel"), default="none")
+parser.add_argument("--network-down-seconds", type=int, default=25)
 parser.add_argument("--profile", choices=("baseline", "hd720", "hd1080"), default="baseline")
 args = parser.parse_args()
 if not 20 <= args.observe_seconds <= 300: parser.error("Observation must be 20..300 seconds")
@@ -48,6 +50,7 @@ report = {"schemaVersion": 1, "capture": "WASAPI_default_render_loopback", "phys
     "rawAudioSaved": False, "sampleRate": 48000, "silentPacketFlagsChecked": True, "physicalSpeakerConfirmation": "not_measured_by_harness"}
 audio_events = []
 discontinuity_events = []
+timestamp_error_events = []
 peak = 0.0
 last_pulse = -1e9
 packet_count = timestamp_errors = discontinuities = 0
@@ -74,7 +77,9 @@ def packet(recorder, detect):
     if not count: return 0.0
     if detect:
         # Flags on silent packets count too. The first packet's startup discontinuity is expected.
-        if flags & 4: timestamp_errors += 1
+        if flags & 4:
+            timestamp_errors += 1
+            timestamp_error_events.append((timestamp * 100 + clock_offset) / 1e6)
         if packet_count > 0 and flags & 1:
             discontinuities += 1
             discontinuity_events.append((timestamp * 100 + clock_offset) / 1e6)
@@ -133,7 +138,8 @@ try:
         else: command += ["--fixture-paired", str(args.fixture_directory / "sync-video.mp4"), str(args.fixture_directory / "sync-audio.m4a")]
         env = dict(os.environ, DD_PLAYER_PRESENTATION_DIR=str(args.output_directory),
                    DD_PLAYER_OBSERVE_SECONDS=str(args.observe_seconds), DD_PLAYER_PROFILE=args.profile,
-                   DD_PLAYER_PROBE_TIMEOUT_SECONDS=str(args.observe_seconds + 80))
+                   DD_PLAYER_PROBE_TIMEOUT_SECONDS=str(args.observe_seconds + 80),
+                   DD_PLAYER_NETWORK_FAULT=args.network_fault, DD_PLAYER_NETWORK_DOWN_SECONDS=str(args.network_down_seconds))
         with (args.output_directory / "worker.json").open("wb") as output, (args.output_directory / "launcher.log").open("wb") as errors:
             process = subprocess.Popen(command, stdout=output, stderr=errors, env=env)
             deadline = time.monotonic() + args.observe_seconds + 90
@@ -164,13 +170,28 @@ try:
         report["startupDiscontinuitiesBeforeMeasurement"] = len(startup)
         report["transitionDiscontinuities"] = len(transitions)
         report["unexpectedCaptureDiscontinuities"] = len(unexpected)
-        minimum_span = max(15, args.observe_seconds - 2 * pulse_period_seconds - 2)
-        minimum_pulses = max(12, int(args.observe_seconds / pulse_period_seconds) - 2)
-        report["sync"] = measure(video_events, audio_events, minimum_span, minimum_pulses)
-        report["steadyPostSeekSync"] = measure([event for event in video_events if event["timeMs"] >= steady], audio_events, minimum_span, minimum_pulses)
-        if timestamp_errors or discontinuities or clock_change_ms > 5: raise RuntimeError("CaptureClockOrContinuityFailure")
-        if report["sync"]["result"] != "passed" or report["steadyPostSeekSync"]["result"] != "passed": raise RuntimeError("AVSyncBudgetFailed")
-        report["calibratedFixtureSyncPassed"] = True
+        if args.network_fault in ("none","relay"):
+            minimum_span = max(15, args.observe_seconds - 2 * pulse_period_seconds - 2)
+            minimum_pulses = max(12, int(args.observe_seconds / pulse_period_seconds) - 2)
+            report["sync"] = measure(video_events, audio_events, minimum_span, minimum_pulses)
+            report["steadyPostSeekSync"] = measure([event for event in video_events if event["timeMs"] >= steady], audio_events, minimum_span, minimum_pulses)
+            if timestamp_errors or discontinuities or clock_change_ms > 5: raise RuntimeError("CaptureClockOrContinuityFailure")
+            if report["sync"]["result"] != "passed" or report["steadyPostSeekSync"]["result"] != "passed": raise RuntimeError("AVSyncBudgetFailed")
+            report["calibratedFixtureSyncPassed"] = True
+        else:
+            recovered = next(float(stamp) for stamp, name in phases if name == "network_recovered")
+            segment = recovered + 2000
+            post_video = [event for event in video_events if event["timeMs"] >= segment]
+            post_audio = [event for event in audio_events if event["timeMs"] >= segment]
+            report["postRecoverySync"] = measure(post_video,post_audio,30,12)
+            report["wholeCaptureContinuityPassed"] = not (timestamp_errors or discontinuities)
+            report["postRecoveryCaptureDiscontinuities"] = sum(stamp>=segment for stamp in discontinuity_events)
+            report["postRecoveryTimestampErrors"] = sum(stamp>=segment for stamp in timestamp_error_events)
+            report["postRecoveryMeasurementStartsMsAfterRecovery"] = 2000
+            if report["postRecoveryCaptureDiscontinuities"] or report["postRecoveryTimestampErrors"] or clock_change_ms>5:
+                raise RuntimeError("PostRecoveryCaptureFailure")
+            if report["postRecoverySync"]["result"]!="passed": raise RuntimeError("PostRecoveryAVSyncBudgetFailed")
+            report["calibratedPostRecoverySyncPassed"] = True
     else:
         report["providerAVSyncProven"] = False
     report["result"] = "passed"
@@ -186,6 +207,7 @@ finally:
         subprocess.run(["taskkill", "/PID", str(process.pid), "/T", "/F"], capture_output=True)
     (args.output_directory / "audio-pulse-events.json").write_text(json.dumps(audio_events))
     (args.output_directory / "capture-gaps.json").write_text(json.dumps(discontinuity_events))
+    (args.output_directory / "timestamp-error-events.json").write_text(json.dumps(timestamp_error_events))
     (args.output_directory / "presentation-result.json").write_text(json.dumps(report, indent=2) + "\n")
     print(json.dumps(report, indent=2))
 raise SystemExit(0 if report["result"] == "passed" else 1)

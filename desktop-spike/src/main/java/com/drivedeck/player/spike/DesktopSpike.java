@@ -79,7 +79,10 @@ public final class DesktopSpike {
                 || args.length != (args[0].equals("--fixture-paired") ? 3 : 2)) {
             throw new IllegalArgumentException("Use --youtube VIDEO_ID or --fixture TEST_MEDIA_PATH");
         }
+        var network = new NetworkScenario(System.getenv(), settings.observationSeconds());
+        if (network.enabled() && !present) throw new IllegalArgumentException("Network fault needs presentation");
         String media;
+        String audioMedia = null;
         var mediaOptions = new ArrayList<String>();
         mediaOptions.add(":network-caching=" + settings.networkCacheMs());
         mediaOptions.add(":avcodec-hw=none");
@@ -112,7 +115,7 @@ public final class DesktopSpike {
                         throw new UnsupportedOperationException("Unsupported delivery; SABR needs an adapter");
                     }
                     selected = separateVideo;
-                    mediaOptions.add(":input-slave=" + separateAudio.getContent());
+                    audioMedia = separateAudio.getContent();
                     output.put("pairedAudio", true).put("videoResolution", separateVideo.getResolution());
                 } else {
                     output.put("pairedAudio", false);
@@ -133,10 +136,18 @@ public final class DesktopSpike {
             if (args[0].equals("--fixture-paired")) {
                 var audioFixture = java.nio.file.Path.of(args[2]).toAbsolutePath();
                 if (!java.nio.file.Files.isRegularFile(audioFixture)) throw new IllegalArgumentException("Missing audio fixture");
-                mediaOptions.add(":input-slave=" + audioFixture.toUri());
+                audioMedia = audioFixture.toUri().toString();
                 output.put("pairedAudio", true);
             }
         }
+        ProbeRelay relay = null;
+        if (network.usesRelay()) {
+            relay = new ProbeRelay();
+            String relaySource = media.startsWith("https:") || media.startsWith("http:") ? media : java.nio.file.Path.of(media).toUri().toString();
+            media = relay.add("video",relaySource);
+            if (audioMedia != null) audioMedia = relay.add("audio",audioMedia);
+        }
+        if (audioMedia != null) mediaOptions.add(":input-slave=" + audioMedia);
         stage("native_discovery");
         new uk.co.caprica.vlcj.factory.discovery.NativeDiscovery().discover();
         stage("native_factory");
@@ -241,6 +252,7 @@ public final class DesktopSpike {
                 long lastPosition = observedStart, stalledMs = 0, longestStallMs = 0;
                 for (int i = 0; i < settings.observationSeconds(); i++) {
                     for (int tick = 0; tick < 5; tick++) { presentation.checkOpen(); Thread.sleep(200); }
+                    if (network.enabled()) network.tick(TimeUnit.NANOSECONDS.toMillis(System.nanoTime()-observationWallStart),player,relay,presentation,media,mediaOptions.toArray(String[]::new));
                     long position = player.status().time();
                     var sampleStats = player.media().info().statistics();
                     stalledMs = position - lastPosition < 250 ? stalledMs + 1000 : 0;
@@ -265,15 +277,23 @@ public final class DesktopSpike {
                         .put("picturesDisplayed", finalStats.picturesDisplayed())
                         .put("audioBuffersPlayed", finalStats.audioBuffersPlayed())
                         .put("audioBuffersLost", finalStats.audioBuffersLost());
-                if (observedEnd - observedStart < observationWallMs * .95 || longestStallMs > 2000
+                if (network.enabled()) network.requireSuccess();
+                if (!network.enabled() && (observedEnd - observedStart < observationWallMs * .95 || longestStallMs > 2000
                         || finalStats.audioBuffersPlayed() <= observedStats.audioBuffersPlayed() + 100
-                        || finalStats.picturesDisplayed() <= observedStats.picturesDisplayed() + 50) {
+                        || finalStats.picturesDisplayed() <= observedStats.picturesDisplayed() + 50)) {
                     throw new IOException("Post-seek presentation did not continue");
                 }
             }
         } finally {
             // Completion is published only after every native resource has shut down cleanly.
             String failedStage = stage;
+            if (network.enabled()) {
+                network.finishRelayBytes(relay.bytes());
+                output.put("networkScenario",network.report());
+                if (presentation != null) try { presentation.report(output); } catch (Exception reportFailure) { output.put("presentationReportError",reportFailure.getClass().getSimpleName()); }
+            }
+            // Close the relay first: release any held reads before stopping native playback.
+            if (relay != null) { relay.close(); output.put("relay",relay.report()); }
             stage("native_stop");
             if (player != null) {
                 player.controls().stop();

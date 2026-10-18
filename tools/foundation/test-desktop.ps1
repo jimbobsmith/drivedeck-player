@@ -4,6 +4,8 @@ param(
     [Parameter(Mandatory, ParameterSetName='Fixture')][string]$Fixture,
     [Parameter(ParameterSetName='Fixture')][string]$AudioFixture,
     [switch]$Present,
+    [ValidateSet('none','relay','hold','disconnect','permanent','cancel')][string]$NetworkFault = 'none',
+    [ValidateRange(5,45)][int]$NetworkDownSeconds = 25,
     [ValidateRange(20,300)][int]$ObserveSeconds = 20,
     [ValidateSet('baseline','hd720','hd1080')][string]$Profile = 'baseline',
     [ValidateRange(1,600)][int]$TimeoutSeconds = ($ObserveSeconds + 80)
@@ -15,6 +17,10 @@ if (!(Test-Path $launcher)) { throw 'Build/install the desktop-spike distributio
 $scratch = 'D:\tmp\dd\player-desktop-spike'
 New-Item -ItemType Directory -Path $scratch -Force | Out-Null
 $previousTimeout = $env:DD_PLAYER_PROBE_TIMEOUT_SECONDS
+$previousFault = $env:DD_PLAYER_NETWORK_FAULT
+$previousDown = $env:DD_PLAYER_NETWORK_DOWN_SECONDS
+$env:DD_PLAYER_NETWORK_FAULT = $NetworkFault
+$env:DD_PLAYER_NETWORK_DOWN_SECONDS = [string]$NetworkDownSeconds
 $previousObserve = $env:DD_PLAYER_OBSERVE_SECONDS
 $previousProfile = $env:DD_PLAYER_PROFILE
 $env:DD_PLAYER_PROBE_TIMEOUT_SECONDS = [string]$TimeoutSeconds
@@ -36,6 +42,8 @@ try {
     $probeExit = $LASTEXITCODE
 } finally {
     $env:DD_PLAYER_PROBE_TIMEOUT_SECONDS = $previousTimeout
+    $env:DD_PLAYER_NETWORK_FAULT = $previousFault
+    $env:DD_PLAYER_NETWORK_DOWN_SECONDS = $previousDown
     $env:DD_PLAYER_OBSERVE_SECONDS = $previousObserve
     $env:DD_PLAYER_PROFILE = $previousProfile
 }
