@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-17",
+  "testedDesktopJarSha256": "1188afd94927263d5ff8921b19858d920a32b3b0cc224d628103568109d2066c",
+  "scopedBuild": "test installDist passed",
+  "javaTests": [
+    {
+      "name": "com.drivedeck.player.spike.DesktopPlaybackProfileTest",
+      "tests": "5",
+      "failures": "0",
+      "errors": "0"
+    },
+    {
+      "name": "com.drivedeck.player.spike.ProbeSettingsTest",
+      "tests": "4",
+      "failures": "0",
+      "errors": "0"
+    },
+    {
+      "name": "com.drivedeck.player.spike.SeekReadinessTest",
+      "tests": "4",
+      "failures": "0",
+      "errors": "0"
+    },
+    {
+      "name": "com.drivedeck.player.spike.WorkerSupervisorTest",
+      "tests": "9",
+      "failures": "0",
+      "errors": "0"
+    }
+  ],
+  "pythonTimingAnalysisTests": 11,
+  "pythonTimingAnalysisResult": "passed",
+  "inheritedPinnedToolchainEvidence": "desktop-presentation-checks.json",
+  "sourceToolSha256": {
+    "tools/foundation/av_sync_metrics.py": "75d520ce2208a5ec2a6e7e0c1a89fb8ed125abaeb2d0d7d5dcda14510c2282e9",
+    "tools/foundation/make-sync-fixture.py": "537155fe003638acaf2c521befc1f3876a95751e24e3dee83d0e2b975fb6e7c4",
+    "tools/foundation/test_av_sync_metrics.py": "e9b402b9aceb5b7acb28ff49e3b90381b118ccdc95460f9ead2b4e1af1ce10e9",
+    "tools/foundation/validate-presentation.py": "5f4b2c682616be7c3fb6f27041da901f6f80516d5bdd1840d919b57908cfb27a"
+  },
+  "headlessFixtureRegression": {
+    "pauseStable": true,
+    "javaVersion": "25.0.4.1",
+    "lengthMs": 20000,
+    "beforeSeekDecodedVideo": 309,
+    "avSyncProven": false,
+    "beforeSeekDecodedAudio": 493,
+    "output": "dummy_decode_only",
+    "vlcVersion": "3.0.24 Vetinari",
+    "result": "passed",
+    "postSeekPositionMs": 7649,
+    "postSeekDecodedVideo": 642,
+    "demuxPolicy": "avformat",
+    "networkCacheMs": 1000,
+    "seekWaitMs": 807,
+    "postSeekDecodedAudio": 1336,
+    "seekWorked": true,
+    "resumeAdvanced": true,
+    "schemaVersion": 2,
+    "seekReadyClockAdvancedMs": 649,
+    "cleanShutdown": true,
+    "decodedVideo": 223,
+    "jnaVersion": "5.14.0",
+    "decodedAudio": 357,
+    "decoderPolicy": "software_avcodec",
+    "seekTargetMs": 7000,
+    "stage": "complete",
+    "seekable": true,
+    "nativeProcessIsolated": true,
+    "processExitCode": 0,
+    "positionMs": 2656
+  },
+  "ownSurfaceVisualInspection": {
+    "720pSource": "inspected",
+    "1080pSource": "inspected",
+    "desktopOrOtherWindowsCaptured": false
+  }
+}

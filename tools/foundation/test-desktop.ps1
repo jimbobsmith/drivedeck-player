@@ -4,7 +4,9 @@ param(
     [Parameter(Mandatory, ParameterSetName='Fixture')][string]$Fixture,
     [Parameter(ParameterSetName='Fixture')][string]$AudioFixture,
     [switch]$Present,
-    [ValidateRange(1,100)][int]$TimeoutSeconds = 100
+    [ValidateRange(20,300)][int]$ObserveSeconds = 20,
+    [ValidateSet('baseline','hd720','hd1080')][string]$Profile = 'baseline',
+    [ValidateRange(1,600)][int]$TimeoutSeconds = ($ObserveSeconds + 80)
 )
 $ErrorActionPreference = 'Stop'
 $playerRoot = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..\..'))
@@ -13,7 +15,11 @@ if (!(Test-Path $launcher)) { throw 'Build/install the desktop-spike distributio
 $scratch = 'D:\tmp\dd\player-desktop-spike'
 New-Item -ItemType Directory -Path $scratch -Force | Out-Null
 $previousTimeout = $env:DD_PLAYER_PROBE_TIMEOUT_SECONDS
+$previousObserve = $env:DD_PLAYER_OBSERVE_SECONDS
+$previousProfile = $env:DD_PLAYER_PROFILE
 $env:DD_PLAYER_PROBE_TIMEOUT_SECONDS = [string]$TimeoutSeconds
+$env:DD_PLAYER_OBSERVE_SECONDS = [string]$ObserveSeconds
+$env:DD_PLAYER_PROFILE = $Profile
 $nativeLog = Join-Path $scratch ('native-' + [guid]::NewGuid().ToString('N') + '.log')
 try {
     $probeArgs = @()
@@ -28,7 +34,11 @@ try {
     }
     $resultText = & $launcher @probeArgs 2> $nativeLog
     $probeExit = $LASTEXITCODE
-} finally { $env:DD_PLAYER_PROBE_TIMEOUT_SECONDS = $previousTimeout }
+} finally {
+    $env:DD_PLAYER_PROBE_TIMEOUT_SECONDS = $previousTimeout
+    $env:DD_PLAYER_OBSERVE_SECONDS = $previousObserve
+    $env:DD_PLAYER_PROFILE = $previousProfile
+}
 if ($resultText) { $resultText }
 else {
     [ordered]@{schemaVersion=2; result='failed'; stage='native_process'; errorType='NativeProcessFailure'; processExitCode=$probeExit} | ConvertTo-Json

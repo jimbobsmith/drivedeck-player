@@ -40,7 +40,7 @@ final class PresentationWindow implements AutoCloseable {
     };
     private int width, height;
 
-    PresentationWindow(MediaPlayerFactory factory, EmbeddedMediaPlayer player, Path directory) throws Exception {
+    PresentationWindow(MediaPlayerFactory factory, EmbeddedMediaPlayer player, Path directory, int maxSurfaceWidth) throws Exception {
         this.directory = directory;
         Files.createDirectories(directory);
         SwingUtilities.invokeAndWait(() -> {
@@ -88,7 +88,7 @@ final class PresentationWindow implements AutoCloseable {
         });
         var format = new BufferFormatCallbackAdapter() {
             @Override public BufferFormat getBufferFormat(int sourceWidth, int sourceHeight) {
-                width = Math.min(sourceWidth, 640);
+                width = Math.min(sourceWidth, maxSurfaceWidth);
                 height = Math.max(1, sourceHeight * width / sourceWidth);
                 renderer.setBuffer(new int[width * height]);
                 return new RV32BufferFormat(width, height);
@@ -111,6 +111,7 @@ final class PresentationWindow implements AutoCloseable {
         checkOpen();
         SwingUtilities.invokeAndWait(() -> {
             output.put("paintedVideoFrames", painted.get()).put("videoCallbacks", delivered.get())
+                    .put("renderWidth", width).put("renderHeight", height)
                     .put("windowShowing", window.isShowing()).put("playerVolumePercent", 35);
             var frame = shown;
             try {

@@ -23,6 +23,14 @@ public class DesktopPlaybackProfileTest {
     @Test public void rejectsManifestAndNonUrlDelivery() {
         assertTrue(DesktopPlaybackProfile.select(List.of(track(720,30,"avc1",DeliveryMethod.HLS,true), track(720,30,"avc1",DeliveryMethod.PROGRESSIVE_HTTP,false))).isEmpty());
     }
+    @Test public void hdProfilesAreExplicitAndBounded() {
+        var hd = avc(720,60); var full = avc(1080,60);
+        var tracks = List.of(avc(2160,60), avc(1080,120), full, hd, avc(480,30));
+        assertSame(hd, DesktopPlaybackProfile.select(tracks, "hd720").orElseThrow());
+        assertSame(full, DesktopPlaybackProfile.select(tracks, "hd1080").orElseThrow());
+        assertEquals(480, DesktopPlaybackProfile.select(tracks).orElseThrow().getHeight());
+        assertThrows(IllegalArgumentException.class, () -> DesktopPlaybackProfile.select(tracks, "auto"));
+    }
     @Test public void admitsLowerResolutionFallback() {
         var low = avc(360,24);
         assertSame(low, DesktopPlaybackProfile.select(List.of(avc(1080,60),low)).orElseThrow());
