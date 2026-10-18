@@ -10,8 +10,8 @@ public class RecoveryTraceTest {
    var trace=new RecoveryTrace(dir);var values=new long[27];values[0]=123;
    trace.append(values);assertEquals(2,Files.readAllLines(file).size());
    assertThrows(IllegalArgumentException.class,()->trace.append(1,2,3));
-   for(int i=0;i<500;i++) trace.append(values);
-   var rows=Files.readAllLines(file);assertEquals(301,rows.size());assertEquals(300,trace.samples());
+   for(int i=0;i<700;i++) trace.append(values);
+   var rows=Files.readAllLines(file);assertEquals(602,rows.size());assertEquals(601,trace.samples());
    assertEquals(27,rows.get(0).split(",").length);assertEquals(27,rows.get(1).split(",").length);
    new RecoveryTrace(dir);assertEquals(1,Files.readAllLines(file).size());
   } finally { Files.deleteIfExists(file);Files.deleteIfExists(dir); }

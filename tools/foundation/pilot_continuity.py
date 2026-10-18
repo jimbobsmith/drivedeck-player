@@ -4,7 +4,7 @@ import math
 
 
 class PilotPackets:
-    def __init__(self, frequency, sample_rate=48000, limit=40000):
+    def __init__(self, frequency, sample_rate=48000, limit=70000):
         if not math.isfinite(frequency) or not 0<frequency<sample_rate/2 or limit<=0:
             raise ValueError("InvalidPilotConfiguration")
         self.frequency=frequency

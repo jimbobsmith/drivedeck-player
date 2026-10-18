@@ -11,7 +11,7 @@ import uk.co.caprica.vlcj.player.base.MediaPlayer;
 
 /** Opt-in bounded observation. Never calls VLC or performs IO on a native log callback. */
 final class AudioTimeline {
-    static final int SAMPLE_LIMIT=1600, EVENT_LIMIT=2000;
+    static final int SAMPLE_LIMIT=3100, EVENT_LIMIT=2000;
     private static final String SAMPLE_HEADER="epochMs,monotonicMs,clockMs,decodedAudio,audioBuffers,audioLost,decodedVideo,pictures,inputBytes,demuxBytes";
     private static final String EVENT_HEADER="epochMs,monotonicMs,event,value";
     private static final Map<String,Pattern> NUMERIC_EVENTS = Map.ofEntries(

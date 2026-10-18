@@ -37,10 +37,21 @@ def replay_batches(columns, samples):
                 audibleContinuityProven=False)
 
 
-def analyze(worker, original_failures=None, track_rows=None, window_rows=None, audio_activity=None):
+def analyze(worker, original_failures=None, track_rows=None, window_rows=None, audio_activity=None, decision_rows=None):
     network = worker.get("networkScenario", {})
     columns = network.get("recoverySampleColumns", [])
     samples = network.get("recoverySamples", [])
+    decision_source="inline_json"
+    if decision_rows is not None:
+        try: full=[[int(row[key]) for key in columns] for row in decision_rows]
+        except (KeyError,ValueError) as failure: raise ValueError("InvalidRecoveryDecisionSidecar") from failure
+        if not columns or len(full)!=network.get("totalRecoveryDecisionSamples",len(full)):
+            raise ValueError("RecoveryDecisionSidecarCount")
+        if full[:len(samples)]!=samples: raise ValueError("RecoveryDecisionPreviewMismatch")
+        samples=full;decision_source="full_numeric_sidecar"
+    elif (network.get("recoverySamplesComplete") is False
+          or network.get("totalRecoveryDecisionSamples",len(samples))!=len(samples)):
+        raise ValueError("FullRecoveryDecisionSidecarRequired")
     required = ["elapsedMs", "clockDeltaMs", "audioBufferDelta", "pictureDelta", "paintDelta"]
     ordered_tracks = sorted(track_rows or [], key=lambda row: int(row["elapsedMs"]))
     trace = {int(row["elapsedMs"]): row for row in ordered_tracks}
@@ -113,7 +124,7 @@ def analyze(worker, original_failures=None, track_rows=None, window_rows=None, a
                                          and batch["pendingMs"]==network.get("pendingAudioBatchMs"))
     return {"schemaVersion": 2, "recoveryValidation":version,"counterBatchAudit":batch,
             "strictPerTickAuditOnly":version!="strict_per_tick_v1", "source": source, "workerResult": worker.get("result"),
-            "terminalReason": network.get("terminalReason"), "decisionSampleCount": len(samples),
+            "terminalReason": network.get("terminalReason"), "decisionSampleCount": len(samples), "decisionSource":decision_source,
             "failedDecisionCount": len(failures) if source != "no_per_decision_evidence" else None,
             "recomputedLongestStableSamples": longest if samples else None,
             "recomputedTerminalStableSamples": steady if samples else None,
@@ -139,10 +150,12 @@ def main():
             return list(csv.DictReader(stream))
     windows = args.directory / "window-state.csv"
     energy = args.directory / "audio-activity.json"
+    decisions = args.directory / "recovery-decisions.csv"
     print(json.dumps(analyze(worker, rows(legacy) if legacy is not None else None,
                              rows(tracks) if tracks.exists() else None,
                              rows(windows) if windows.exists() else None,
-                             json.loads(energy.read_text(encoding="utf-8-sig")) if energy.exists() else None), indent=2))
+                             json.loads(energy.read_text(encoding="utf-8-sig")) if energy.exists() else None,
+                             rows(decisions) if decisions.exists() else None), indent=2))
 
 
 if __name__ == "__main__":

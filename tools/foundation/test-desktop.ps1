@@ -6,9 +6,9 @@ param(
     [switch]$Present,
     [ValidateSet('none','relay','hold','disconnect','permanent','cancel')][string]$NetworkFault = 'none',
     [ValidateRange(5,45)][int]$NetworkDownSeconds = 25,
-    [ValidateRange(20,300)][int]$ObserveSeconds = 20,
+    [ValidateRange(20,600)][int]$ObserveSeconds = 20,
     [ValidateSet('baseline','hd720','hd1080')][string]$Profile = 'baseline',
-    [ValidateRange(1,600)][int]$TimeoutSeconds = ($ObserveSeconds + 80)
+    [ValidateRange(1,720)][int]$TimeoutSeconds = ($ObserveSeconds + 80)
 )
 $ErrorActionPreference = 'Stop'
 $playerRoot = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..\..'))
