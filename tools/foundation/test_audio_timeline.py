@@ -1,5 +1,5 @@
 import unittest
-from audio_timeline import analyze
+from audio_timeline import analyze, counter_cadence, phase_segments
 
 
 def row(t, audio=10, video=None, pictures=None):
@@ -36,6 +36,30 @@ class AudioTimelineTests(unittest.TestCase):
         hold=analyze([row(t) for t in range(0,1201,200)],events)['audioCounterPlateaus'][0]
         self.assertEqual([100000,101450],[e['epochMs'] for e in hold['nearbyNativeEvents']])
         self.assertEqual(-1234,hold['nearbyNativeEvents'][0]['value'])
+
+    def test_batched_counter_cadence_does_not_imply_output_silence(self):
+        rows=[row(t,audio=10+43*(t//1000)) for t in range(0,3201,200)]
+        cadence=counter_cadence(rows)
+        self.assertEqual({43:3},cadence['positiveBufferDeltaHistogram'])
+        self.assertEqual(1000,cadence['medianPositiveUpdateIntervalMs'])
+        self.assertEqual([1000,1000],cadence['intervalsBetweenPositiveUpdatesMs'])
+
+    def test_cadence_resets_or_sampling_gaps_do_not_create_false_update_intervals(self):
+        rows=[row(0,1),row(200,2),row(400,1),row(600,2),row(5000,3),row(5200,4)]
+        cadence=counter_cadence(rows)
+        self.assertEqual(1,cadence['counterResets'])
+        self.assertEqual([],cadence['intervalsBetweenPositiveUpdatesMs'])
+
+    def test_holds_are_not_merged_across_fault_phase_boundaries(self):
+        rows=[row(t) for t in range(0,1401,200)]
+        segments=phase_segments(rows,[],[(100000,'steady_after_seek'),(100800,'network_down')])
+        self.assertEqual(['steady_after_seek','network_down'],[s['phase'] for s in segments])
+        self.assertTrue(all(not s['analysis']['audioCounterPlateaus'] for s in segments))
+        self.assertEqual(1,len(analyze(rows,[])['audioCounterPlateaus']))
+
+    def test_phase_labels_cannot_import_arbitrary_log_content(self):
+        with self.assertRaises(ValueError): phase_segments([],[],[(100000,'https://private')])
+        with self.assertRaises(ValueError): phase_segments([],[],[(100000,'seek'),(100000,'resume')])
 
     def test_empty_trace_and_monotonic_order(self):
         self.assertEqual(0,analyze([],[])['sampleCount'])

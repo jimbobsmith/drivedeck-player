@@ -79,6 +79,10 @@ public final class DesktopSpike {
                 || args.length != (args[0].equals("--fixture-paired") ? 3 : 2)) {
             throw new IllegalArgumentException("Use --youtube VIDEO_ID or --fixture TEST_MEDIA_PATH");
         }
+        var audioOutputPolicy = AudioOutputPolicy.from(System.getenv(),present);
+        output.put("audioOutputRequested",present ? audioOutputPolicy.requested() : "dummy");
+        boolean audioTimelineRequested = "1".equals(System.getenv("DD_PLAYER_AUDIO_TIMELINE"));
+        if (audioTimelineRequested && !present) throw new IllegalArgumentException("Audio timeline needs presentation");
         var network = new NetworkScenario(System.getenv(), settings.observationSeconds());
         if (network.enabled() && !present) throw new IllegalArgumentException("Network fault needs presentation");
         String media;
@@ -161,9 +165,8 @@ public final class DesktopSpike {
         stage("native_factory");
         // Feasibility policy: explicitly select software avcodec for every media.
         // Automatic D3D11 decode crashed during stop after seeking on the measured host.
-        boolean audioTimelineRequested = "1".equals(System.getenv("DD_PLAYER_AUDIO_TIMELINE"));
-        if (audioTimelineRequested && !present) throw new IllegalArgumentException("Audio timeline needs presentation");
         var options = new ArrayList<>(List.of("--no-video-title-show", audioTimelineRequested ? "--verbose=2" : "--quiet", "--avcodec-hw=none", "--codec=avcodec,none", "--demux=avformat"));
+        options.addAll(audioOutputPolicy.options());
         options.add("--network-caching=" + settings.networkCacheMs());
         output.put("networkCacheMs", settings.networkCacheMs());
         if (!present) options.addAll(List.of("--vout=dummy", "--aout=dummy"));

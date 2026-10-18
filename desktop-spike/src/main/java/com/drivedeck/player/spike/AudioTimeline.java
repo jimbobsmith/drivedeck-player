@@ -25,13 +25,18 @@ final class AudioTimeline {
         Map.entry("late_drop",Pattern.compile("buffer too late \\((-?[0-9]+) us\\): dropped")),
         Map.entry("early_drop",Pattern.compile("buffer too early \\((-?[0-9]+) us\\): dropped")),
         Map.entry("output_buffer_frames",Pattern.compile("buffer size    : ([0-9]+) frames")),
+        Map.entry("mixer_sample_rate",Pattern.compile("output '[A-Za-z0-9 ]{4}' ([0-9]+) Hz (?:Mono|Stereo) frame=[0-9]+ samples/[0-9]+ bytes")),
         Map.entry("output_sample_rate",Pattern.compile("nSamplesPerSec ([0-9]+)")));
     private static final Map<String,String> FIXED_EVENTS=Map.of(
+        "using audio output module \"mmdevice\"","selected_mmdevice",
+        "using audio output module \"directsound\"","selected_directsound",
+        "using aout stream module \"wasapi\"","selected_wasapi",
         "reset","output_reset", "end of audio preroll","audio_preroll_end",
         "discarded audio buffer","audio_discard", "non-dated audio buffer received","audio_undated");
     record Event(String name,long value) {}
     static Event parse(String module,String message) {
-        if (module==null || !Set.of("main","wasapi","mmdevice").contains(module) || message==null || message.length()>160) return null;
+        if (module==null || !Set.of("main","wasapi","mmdevice","directsound").contains(module) || message==null || message.length()>160) return null;
+        if (module.equals("directsound")) return "Opening DirectSound Audio Output".equals(message) ? new Event("directsound_open",0) : null;
         // The generic 'reset' is accepted only from the WASAPI output module.
         if (message.equals("reset")) return module.equals("wasapi") ? new Event("output_reset",0) : null;
         var fixed=FIXED_EVENTS.get(message);
