@@ -36,4 +36,13 @@ public class NetworkScenarioTest {
    assertFalse(NetworkScenario.progressing(1000,43,61,0));
    assertFalse(NetworkScenario.progressing(1000,-43,61,60)); // Counter reset is not progress.
  }
+ @Test public void deadlineTakesPrecedenceOverReadyOutputAndAnUnusedRestart() {
+   assertEquals(NetworkScenario.RecoveryAction.DEADLINE,NetworkScenario.recoveryAction(30304,true,true)); // Observed late historical pass.
+   assertEquals(NetworkScenario.RecoveryAction.DEADLINE,NetworkScenario.recoveryAction(30000,true,false));
+   assertEquals(NetworkScenario.RecoveryAction.DEADLINE,NetworkScenario.recoveryAction(30001,false,false));
+   assertEquals(NetworkScenario.RecoveryAction.ACCEPT,NetworkScenario.recoveryAction(29999,true,true));
+   assertEquals(NetworkScenario.RecoveryAction.WAIT,NetworkScenario.recoveryAction(9999,false,false));
+   assertEquals(NetworkScenario.RecoveryAction.RESTART,NetworkScenario.recoveryAction(10000,false,false));
+   assertEquals(NetworkScenario.RecoveryAction.WAIT,NetworkScenario.recoveryAction(10000,false,true));
+ }
 }

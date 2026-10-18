@@ -87,10 +87,12 @@ def packet(recorder, detect):
         packet_count += 1
     if detect:
         second = int((timestamp * 100 + clock_offset) / 1e9)
-        activity = audio_activity.setdefault(second, {"epochSecond": second, "frames": 0, "nonSilentFrames": 0, "peak": 0.0})
+        activity = audio_activity.setdefault(second, {"epochSecond": second, "frames": 0, "nonSilentFrames": 0, "rmsAbove0005PacketFrames": 0, "peak": 0.0})
         activity["frames"] += count
         if samples is not None:
             activity["nonSilentFrames"] += count
+            if float(np.mean(samples * samples)) > .0005 ** 2:
+                activity["rmsAbove0005PacketFrames"] += count
             activity["peak"] = round(max(activity["peak"], float(np.max(np.abs(samples)))), 6)
     if samples is None: return 0.0
     mono = samples.mean(axis=1)

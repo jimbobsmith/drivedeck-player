@@ -1,0 +1,5216 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-17",
+  "issue": "https://github.com/jimbobsmith/drivedeck-player/issues/2",
+  "baselineMain": "033aec46b8563c9637b4adb4dd06599b6b7075bf",
+  "historicalHead": "2169186fa5da940b51a3dca342ce2b0d72d3a795",
+  "environment": {
+    "os": "Windows x64",
+    "java": "25.0.4.1+1",
+    "vlc": "3.0.24 x64",
+    "vlcj": "4.11.0",
+    "jna": "5.14.0",
+    "extractorPin": "c68e10e2e97495877832d8df6cbac55478083019",
+    "videoId": "aqz-KE-bpKQ",
+    "profile": "hd1080",
+    "networkCacheMs": 3000,
+    "decoderPolicy": "software",
+    "faultScope": "loopback relay only; host adapters/firewall unchanged"
+  },
+  "conclusion": {
+    "originalFailureReproduced": true,
+    "originalCadenceRootCauseProven": false,
+    "deadlineOrderingBugFixed": true,
+    "providerSourceAVSyncProven": false,
+    "issueRemainsOpen": true,
+    "limits": [
+      "Passing instrumented variants do not prove an observer effect: provider delivery, startup and host timing also vary.",
+      "Native audio/picture counts and loopback energy do not establish provider source alignment or physical output latency.",
+      "Read/write times measure body I/O waits, include scheduling, and can sum overlapping requests. Header/connect waits are not included. Fault/seek cancellation can increment failures.",
+      "Full per-track trace is sampled before the gate decision; the original progress predicate still decides stability. A phase-3 trace row may lag the recovery event by one tick.",
+      "Thirty seconds is an observed recovery acceptance deadline; the process supervisor separately bounds blocking native calls."
+    ]
+  },
+  "runs": [
+    {
+      "id": "repro-exact-pr7-a1",
+      "workerJarSha256": "a8841f5c8a0968eece83760a094fa4705cee3f94a68f31f69de6e7fe40bcb3a0",
+      "harnessSha256": "71b4eaff2d69695930a3ab256898cb9ee68cee339cf4812086bc39822f9da17c",
+      "description": "Exact historical PR #7 worker; no added observation code; original failure reproduced.",
+      "result": "failed",
+      "reason": "PlaybackProbeFailed",
+      "worker": {
+        "result": "failed",
+        "stage": "presentation_observe",
+        "errorType": "IOException",
+        "selectedHeight": 1080,
+        "selectedFps": 60,
+        "selectedCodec": "avc1.64002A",
+        "selectedDelivery": "PROGRESSIVE_HTTP",
+        "pairedAudio": true,
+        "networkCacheMs": 3000,
+        "seekWaitMs": 6246,
+        "seekReadyClockAdvancedMs": 644,
+        "seekTargetMs": 15000,
+        "postSeekPositionMs": 15644,
+        "beforeSeekDecodedVideo": 534,
+        "beforeSeekDecodedAudio": 486,
+        "postSeekDecodedVideo": 813,
+        "postSeekDecodedAudio": 660,
+        "observationRequestedSeconds": 140,
+        "observationWallMs": 143662,
+        "observationClockAdvancedMs": 100634,
+        "longestStalledClockMs": 26000,
+        "observationSamples": [
+          {
+            "inputBytesRead": 21860752,
+            "picturesDisplayed": 688,
+            "wallElapsedMs": 5020,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 1425,
+            "audioBuffersPlayed": 548,
+            "positionMs": 20772
+          },
+          {
+            "inputBytesRead": 25694576,
+            "picturesDisplayed": 980,
+            "wallElapsedMs": 10041,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 2009,
+            "audioBuffersPlayed": 764,
+            "positionMs": 25625
+          },
+          {
+            "inputBytesRead": 28889424,
+            "picturesDisplayed": 1286,
+            "wallElapsedMs": 15062,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 2621,
+            "audioBuffersPlayed": 981,
+            "positionMs": 30711
+          },
+          {
+            "inputBytesRead": 28922192,
+            "picturesDisplayed": 1593,
+            "wallElapsedMs": 20078,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 3235,
+            "audioBuffersPlayed": 1197,
+            "positionMs": 35840
+          },
+          {
+            "inputBytesRead": 28922192,
+            "picturesDisplayed": 1756,
+            "wallElapsedMs": 25101,
+            "picturesLost": 0,
+            "playing": false,
+            "decodedVideo": 3566,
+            "audioBuffersPlayed": 1284,
+            "positionMs": -1
+          },
+          {
+            "inputBytesRead": 28922192,
+            "picturesDisplayed": 1756,
+            "wallElapsedMs": 30122,
+            "picturesLost": 0,
+            "playing": false,
+            "decodedVideo": 3566,
+            "audioBuffersPlayed": 1284,
+            "positionMs": -1
+          },
+          {
+            "inputBytesRead": 28922192,
+            "picturesDisplayed": 1756,
+            "wallElapsedMs": 35140,
+            "picturesLost": 0,
+            "playing": false,
+            "decodedVideo": 3566,
+            "audioBuffersPlayed": 1284,
+            "positionMs": -1
+          },
+          {
+            "inputBytesRead": 28922192,
+            "picturesDisplayed": 1756,
+            "wallElapsedMs": 40165,
+            "picturesLost": 0,
+            "playing": false,
+            "decodedVideo": 3566,
+            "audioBuffersPlayed": 1284,
+            "positionMs": -1
+          },
+          {
+            "inputBytesRead": 28922192,
+            "picturesDisplayed": 1756,
+            "wallElapsedMs": 45209,
+            "picturesLost": 0,
+            "playing": false,
+            "decodedVideo": 3566,
+            "audioBuffersPlayed": 1284,
+            "positionMs": -1
+          },
+          {
+            "inputBytesRead": 3063808,
+            "picturesDisplayed": 32,
+            "wallElapsedMs": 53307,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 126,
+            "audioBuffersPlayed": 86,
+            "positionMs": 37620
+          },
+          {
+            "inputBytesRead": 9441864,
+            "picturesDisplayed": 107,
+            "wallElapsedMs": 58338,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 224,
+            "audioBuffersPlayed": 87,
+            "positionMs": 37620
+          },
+          {
+            "inputBytesRead": 12522024,
+            "picturesDisplayed": 152,
+            "wallElapsedMs": 63356,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 328,
+            "audioBuffersPlayed": 87,
+            "positionMs": 37620
+          },
+          {
+            "inputBytesRead": 17584648,
+            "picturesDisplayed": 386,
+            "wallElapsedMs": 68378,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 754,
+            "audioBuffersPlayed": 304,
+            "positionMs": 40677
+          },
+          {
+            "inputBytesRead": 25218336,
+            "picturesDisplayed": 692,
+            "wallElapsedMs": 73396,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 1366,
+            "audioBuffersPlayed": 521,
+            "positionMs": 45801
+          },
+          {
+            "inputBytesRead": 26725648,
+            "picturesDisplayed": 983,
+            "wallElapsedMs": 78418,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 1948,
+            "audioBuffersPlayed": 694,
+            "positionMs": 50655
+          },
+          {
+            "inputBytesRead": 29478144,
+            "picturesDisplayed": 1290,
+            "wallElapsedMs": 83436,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 2562,
+            "audioBuffersPlayed": 954,
+            "positionMs": 55744
+          },
+          {
+            "inputBytesRead": 33557728,
+            "picturesDisplayed": 1596,
+            "wallElapsedMs": 88455,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 3174,
+            "audioBuffersPlayed": 1170,
+            "positionMs": 60872
+          },
+          {
+            "inputBytesRead": 37457088,
+            "picturesDisplayed": 1888,
+            "wallElapsedMs": 93474,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 3758,
+            "audioBuffersPlayed": 1344,
+            "positionMs": 65712
+          },
+          {
+            "inputBytesRead": 41487520,
+            "picturesDisplayed": 2194,
+            "wallElapsedMs": 98491,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 4370,
+            "audioBuffersPlayed": 1560,
+            "positionMs": 70812
+          },
+          {
+            "inputBytesRead": 45517952,
+            "picturesDisplayed": 2501,
+            "wallElapsedMs": 103514,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 4984,
+            "audioBuffersPlayed": 1821,
+            "positionMs": 75927
+          },
+          {
+            "inputBytesRead": 49302640,
+            "picturesDisplayed": 2792,
+            "wallElapsedMs": 108529,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 5566,
+            "audioBuffersPlayed": 1993,
+            "positionMs": 80777
+          },
+          {
+            "inputBytesRead": 51231840,
+            "picturesDisplayed": 3098,
+            "wallElapsedMs": 113551,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 6178,
+            "audioBuffersPlayed": 2211,
+            "positionMs": 85902
+          },
+          {
+            "inputBytesRead": 51930208,
+            "picturesDisplayed": 3405,
+            "wallElapsedMs": 118569,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 6792,
+            "audioBuffersPlayed": 2471,
+            "positionMs": 90994
+          },
+          {
+            "inputBytesRead": 52692064,
+            "picturesDisplayed": 3696,
+            "wallElapsedMs": 123585,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 7374,
+            "audioBuffersPlayed": 2643,
+            "positionMs": 95845
+          },
+          {
+            "inputBytesRead": 53361760,
+            "picturesDisplayed": 4002,
+            "wallElapsedMs": 128600,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 7986,
+            "audioBuffersPlayed": 2860,
+            "positionMs": 100972
+          },
+          {
+            "inputBytesRead": 54674528,
+            "picturesDisplayed": 4309,
+            "wallElapsedMs": 133620,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 8600,
+            "audioBuffersPlayed": 3120,
+            "positionMs": 106062
+          },
+          {
+            "inputBytesRead": 55919712,
+            "picturesDisplayed": 4600,
+            "wallElapsedMs": 138641,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 9182,
+            "audioBuffersPlayed": 3294,
+            "positionMs": 110911
+          },
+          {
+            "inputBytesRead": 57576544,
+            "picturesDisplayed": 4907,
+            "wallElapsedMs": 143662,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 9796,
+            "audioBuffersPlayed": 3510,
+            "positionMs": 116029
+          }
+        ],
+        "positionMs": 2595,
+        "decodedVideo": 376,
+        "decodedAudio": 346,
+        "picturesDisplayed": 4922,
+        "audioBuffersPlayed": 3553,
+        "audioBuffersLost": 0,
+        "videoCallbacks": 6714,
+        "paintedVideoFrames": 6704,
+        "cleanShutdown": true,
+        "processExitCode": 1,
+        "nativeProcessIsolated": true,
+        "workerCpuMsDuringObservation": 96985,
+        "decoderPolicy": "software_avcodec",
+        "demuxPolicy": "avformat"
+      },
+      "network": {
+        "blockedBytesAfterSettling": 0,
+        "recoveryLatencyMs": 26203,
+        "paintedFramesAtCut": 1294,
+        "resumeCheckpointMs": 37620,
+        "outageRequestedSeconds": 25,
+        "paintedFramesAtRecovery": 2065,
+        "cutPositionMs": 30711,
+        "mode": "disconnect",
+        "longestConsecutiveRecoveredSeconds": 14,
+        "terminalReason": "recovery_not_proven",
+        "recovered": true,
+        "steadyRecoveredSeconds": 8,
+        "stallObserved": true,
+        "faultInjected": true,
+        "explicitRestartAttempts": 1,
+        "restored": true,
+        "lastObservationElapsedMs": 143662,
+        "events": [
+          {
+            "event": "network_down",
+            "elapsedMs": 15060,
+            "positionMs": 30711
+          },
+          {
+            "event": "output_stall_observed",
+            "elapsedMs": 24096,
+            "positionMs": -1
+          },
+          {
+            "event": "network_up",
+            "elapsedMs": 40165,
+            "positionMs": -1
+          },
+          {
+            "event": "explicit_recovery_restart",
+            "elapsedMs": 50415,
+            "positionMs": 37620
+          },
+          {
+            "event": "output_recovered",
+            "elapsedMs": 66368,
+            "positionMs": 38628
+          }
+        ]
+      },
+      "relay": {
+        "bytesForwarded": 87666016,
+        "closed": true,
+        "requests": 6,
+        "streamFailures": 4,
+        "loopbackOnly": true,
+        "upstreamHttpStatuses": {
+          "206": 6
+        },
+        "rejectedRequests": 1,
+        "activeRequests": 0
+      },
+      "capture": {
+        "captureDiscontinuities": 0,
+        "timestampErrors": 0,
+        "capturedPackets": 16236,
+        "peakLoopbackAmplitude": 0.323854,
+        "multimediaCaptureScheduling": true,
+        "multimediaSchedulingRestored": true,
+        "physicalMicrophoneOpened": false,
+        "rawAudioSaved": false
+      },
+      "deadlineAudit": {
+        "limitMs": 30000,
+        "lateAcceptance": false
+      },
+      "historical-failed-decisions.csv": {
+        "exists": false
+      },
+      "original-gate-failures.csv": {
+        "exists": false
+      },
+      "endpointActivity": {
+        "sha256": "e290f4e72d9e263d21d289cbfdf14758fee984787530de10d48a7123cb5ed8e1",
+        "binCount": 163,
+        "binsWithPeakAbove001": 104,
+        "binsWithRmsAbove0005Packets": null,
+        "interpretation": "Activity only; natural silence and application content are not distinguished."
+      }
+    },
+    {
+      "id": "repro-pr7-decision-a1",
+      "workerJarSha256": "788ecfa24a4e1412f8f152e937d1ea98d1f6642752c4714f17c3628855c20044",
+      "harnessSha256": "71b4eaff2d69695930a3ab256898cb9ee68cee339cf4812086bc39822f9da17c",
+      "description": "Historical gate plus per-second logging after each original decision/reference update; original allocating renderer.",
+      "result": "passed",
+      "reason": null,
+      "worker": {
+        "result": "passed",
+        "stage": "complete",
+        "selectedHeight": 1080,
+        "selectedFps": 60,
+        "selectedCodec": "avc1.64002A",
+        "selectedDelivery": "PROGRESSIVE_HTTP",
+        "pairedAudio": true,
+        "networkCacheMs": 3000,
+        "seekWaitMs": 5624,
+        "seekReadyClockAdvancedMs": 579,
+        "seekTargetMs": 15000,
+        "postSeekPositionMs": 15579,
+        "beforeSeekDecodedVideo": 538,
+        "beforeSeekDecodedAudio": 490,
+        "postSeekDecodedVideo": 809,
+        "postSeekDecodedAudio": 664,
+        "observationRequestedSeconds": 140,
+        "observationWallMs": 142888,
+        "observationClockAdvancedMs": 106175,
+        "longestStalledClockMs": 26000,
+        "observationSamples": [
+          {
+            "inputBytesRead": 23433600,
+            "picturesDisplayed": 667,
+            "wallElapsedMs": 5018,
+            "picturesLost": 3,
+            "playing": true,
+            "decodedVideo": 1403,
+            "audioBuffersPlayed": 549,
+            "positionMs": 20538
+          },
+          {
+            "inputBytesRead": 27218272,
+            "picturesDisplayed": 958,
+            "wallElapsedMs": 10036,
+            "picturesLost": 3,
+            "playing": true,
+            "decodedVideo": 1985,
+            "audioBuffersPlayed": 765,
+            "positionMs": 25378
+          },
+          {
+            "inputBytesRead": 31068496,
+            "picturesDisplayed": 1264,
+            "wallElapsedMs": 15057,
+            "picturesLost": 3,
+            "playing": true,
+            "decodedVideo": 2597,
+            "audioBuffersPlayed": 982,
+            "positionMs": 30478
+          },
+          {
+            "inputBytesRead": 31150400,
+            "picturesDisplayed": 1571,
+            "wallElapsedMs": 20078,
+            "picturesLost": 3,
+            "playing": true,
+            "decodedVideo": 3211,
+            "audioBuffersPlayed": 1199,
+            "positionMs": 35595
+          },
+          {
+            "inputBytesRead": 31150400,
+            "picturesDisplayed": 1727,
+            "wallElapsedMs": 25095,
+            "picturesLost": 3,
+            "playing": false,
+            "decodedVideo": 3528,
+            "audioBuffersPlayed": 1271,
+            "positionMs": -1
+          },
+          {
+            "inputBytesRead": 31150400,
+            "picturesDisplayed": 1727,
+            "wallElapsedMs": 30110,
+            "picturesLost": 3,
+            "playing": false,
+            "decodedVideo": 3528,
+            "audioBuffersPlayed": 1271,
+            "positionMs": -1
+          },
+          {
+            "inputBytesRead": 31150400,
+            "picturesDisplayed": 1727,
+            "wallElapsedMs": 35132,
+            "picturesLost": 3,
+            "playing": false,
+            "decodedVideo": 3528,
+            "audioBuffersPlayed": 1271,
+            "positionMs": -1
+          },
+          {
+            "inputBytesRead": 31150400,
+            "picturesDisplayed": 1727,
+            "wallElapsedMs": 40152,
+            "picturesLost": 3,
+            "playing": false,
+            "decodedVideo": 3528,
+            "audioBuffersPlayed": 1271,
+            "positionMs": -1
+          },
+          {
+            "inputBytesRead": 31150400,
+            "picturesDisplayed": 1727,
+            "wallElapsedMs": 45233,
+            "picturesLost": 3,
+            "playing": false,
+            "decodedVideo": 3528,
+            "audioBuffersPlayed": 1271,
+            "positionMs": -1
+          },
+          {
+            "inputBytesRead": 2670592,
+            "picturesDisplayed": 46,
+            "wallElapsedMs": 52500,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 154,
+            "audioBuffersPlayed": 86,
+            "positionMs": 37467
+          },
+          {
+            "inputBytesRead": 14880112,
+            "picturesDisplayed": 102,
+            "wallElapsedMs": 57519,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 345,
+            "audioBuffersPlayed": 87,
+            "positionMs": 37467
+          },
+          {
+            "inputBytesRead": 18812240,
+            "picturesDisplayed": 350,
+            "wallElapsedMs": 62541,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 827,
+            "audioBuffersPlayed": 303,
+            "positionMs": 41019
+          },
+          {
+            "inputBytesRead": 22842672,
+            "picturesDisplayed": 657,
+            "wallElapsedMs": 67561,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 1441,
+            "audioBuffersPlayed": 519,
+            "positionMs": 46111
+          },
+          {
+            "inputBytesRead": 25251104,
+            "picturesDisplayed": 963,
+            "wallElapsedMs": 72583,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 2053,
+            "audioBuffersPlayed": 736,
+            "positionMs": 51235
+          },
+          {
+            "inputBytesRead": 25693456,
+            "picturesDisplayed": 1254,
+            "wallElapsedMs": 77606,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 2635,
+            "audioBuffersPlayed": 953,
+            "positionMs": 56089
+          },
+          {
+            "inputBytesRead": 30002416,
+            "picturesDisplayed": 1561,
+            "wallElapsedMs": 82626,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 3249,
+            "audioBuffersPlayed": 1169,
+            "positionMs": 61177
+          },
+          {
+            "inputBytesRead": 38587568,
+            "picturesDisplayed": 1867,
+            "wallElapsedMs": 87645,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 3861,
+            "audioBuffersPlayed": 1386,
+            "positionMs": 66306
+          },
+          {
+            "inputBytesRead": 41569440,
+            "picturesDisplayed": 2159,
+            "wallElapsedMs": 92668,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 4445,
+            "audioBuffersPlayed": 1602,
+            "positionMs": 71145
+          },
+          {
+            "inputBytesRead": 45307008,
+            "picturesDisplayed": 2465,
+            "wallElapsedMs": 97687,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 5057,
+            "audioBuffersPlayed": 1819,
+            "positionMs": 76245
+          },
+          {
+            "inputBytesRead": 48970880,
+            "picturesDisplayed": 2772,
+            "wallElapsedMs": 102708,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 5671,
+            "audioBuffersPlayed": 2035,
+            "positionMs": 81361
+          },
+          {
+            "inputBytesRead": 50281600,
+            "picturesDisplayed": 3063,
+            "wallElapsedMs": 107731,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 6253,
+            "audioBuffersPlayed": 2251,
+            "positionMs": 86210
+          },
+          {
+            "inputBytesRead": 51078272,
+            "picturesDisplayed": 3369,
+            "wallElapsedMs": 112755,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 6865,
+            "audioBuffersPlayed": 2468,
+            "positionMs": 91337
+          },
+          {
+            "inputBytesRead": 51774592,
+            "picturesDisplayed": 3667,
+            "wallElapsedMs": 117784,
+            "picturesLost": 10,
+            "playing": true,
+            "decodedVideo": 7481,
+            "audioBuffersPlayed": 2685,
+            "positionMs": 96468
+          },
+          {
+            "inputBytesRead": 52706432,
+            "picturesDisplayed": 3958,
+            "wallElapsedMs": 122803,
+            "picturesLost": 10,
+            "playing": true,
+            "decodedVideo": 8063,
+            "audioBuffersPlayed": 2902,
+            "positionMs": 101321
+          },
+          {
+            "inputBytesRead": 53789824,
+            "picturesDisplayed": 4265,
+            "wallElapsedMs": 127825,
+            "picturesLost": 10,
+            "playing": true,
+            "decodedVideo": 8677,
+            "audioBuffersPlayed": 3118,
+            "positionMs": 106412
+          },
+          {
+            "inputBytesRead": 55166080,
+            "picturesDisplayed": 4571,
+            "wallElapsedMs": 132845,
+            "picturesLost": 10,
+            "playing": true,
+            "decodedVideo": 9289,
+            "audioBuffersPlayed": 3335,
+            "positionMs": 111538
+          },
+          {
+            "inputBytesRead": 56691840,
+            "picturesDisplayed": 4863,
+            "wallElapsedMs": 137866,
+            "picturesLost": 10,
+            "playing": true,
+            "decodedVideo": 9873,
+            "audioBuffersPlayed": 3552,
+            "positionMs": 116378
+          },
+          {
+            "inputBytesRead": 59157632,
+            "picturesDisplayed": 5169,
+            "wallElapsedMs": 142888,
+            "picturesLost": 10,
+            "playing": true,
+            "decodedVideo": 10485,
+            "audioBuffersPlayed": 3768,
+            "positionMs": 121477
+          }
+        ],
+        "positionMs": 2595,
+        "decodedVideo": 376,
+        "decodedAudio": 344,
+        "picturesDisplayed": 5184,
+        "audioBuffersPlayed": 3768,
+        "audioBuffersLost": 0,
+        "videoCallbacks": 6950,
+        "paintedVideoFrames": 6938,
+        "cleanShutdown": true,
+        "processExitCode": 0,
+        "nativeProcessIsolated": true,
+        "workerCpuMsDuringObservation": 96875,
+        "decoderPolicy": "software_avcodec",
+        "demuxPolicy": "avformat"
+      },
+      "network": {
+        "blockedBytesAfterSettling": 0,
+        "recoveryLatencyMs": 19375,
+        "paintedFramesAtCut": 1273,
+        "resumeCheckpointMs": 37467,
+        "outageRequestedSeconds": 25,
+        "paintedFramesAtRecovery": 1945,
+        "cutPositionMs": 30478,
+        "mode": "disconnect",
+        "longestConsecutiveRecoveredSeconds": 83,
+        "terminalReason": "",
+        "recovered": true,
+        "steadyRecoveredSeconds": 83,
+        "stallObserved": true,
+        "faultInjected": true,
+        "explicitRestartAttempts": 1,
+        "restored": true,
+        "lastObservationElapsedMs": 142888,
+        "events": [
+          {
+            "event": "network_down",
+            "elapsedMs": 15053,
+            "positionMs": 30478
+          },
+          {
+            "event": "output_stall_observed",
+            "elapsedMs": 24094,
+            "positionMs": -1
+          },
+          {
+            "event": "network_up",
+            "elapsedMs": 40152,
+            "positionMs": -1
+          },
+          {
+            "event": "explicit_recovery_restart",
+            "elapsedMs": 50496,
+            "positionMs": 37467
+          },
+          {
+            "event": "output_recovered",
+            "elapsedMs": 59527,
+            "positionMs": 38194
+          }
+        ]
+      },
+      "relay": {
+        "bytesForwarded": 91450704,
+        "closed": true,
+        "requests": 6,
+        "streamFailures": 4,
+        "loopbackOnly": true,
+        "upstreamHttpStatuses": {
+          "206": 6
+        },
+        "rejectedRequests": 1,
+        "activeRequests": 0
+      },
+      "capture": {
+        "captureDiscontinuities": 0,
+        "timestampErrors": 0,
+        "capturedPackets": 16319,
+        "peakLoopbackAmplitude": 0.04155,
+        "multimediaCaptureScheduling": true,
+        "multimediaSchedulingRestored": true,
+        "physicalMicrophoneOpened": false,
+        "rawAudioSaved": false
+      },
+      "deadlineAudit": {
+        "limitMs": 30000,
+        "lateAcceptance": false
+      },
+      "historical-decision.csv": {
+        "rows": 83,
+        "selectedRows": [
+          {
+            "epochMs": 1792287886515,
+            "elapsedMs": 60532,
+            "clockDelta": 1743,
+            "audioDelta": 131,
+            "pictureDelta": 197,
+            "paintDeltaAtReference": 198,
+            "steady": 1
+          },
+          {
+            "epochMs": 1792287896555,
+            "elapsedMs": 70572,
+            "clockDelta": 1007,
+            "audioDelta": 44,
+            "pictureDelta": 62,
+            "paintDeltaAtReference": 60,
+            "steady": 11
+          },
+          {
+            "epochMs": 1792287906599,
+            "elapsedMs": 80617,
+            "clockDelta": 1043,
+            "audioDelta": 44,
+            "pictureDelta": 61,
+            "paintDeltaAtReference": 60,
+            "steady": 21
+          },
+          {
+            "epochMs": 1792287916640,
+            "elapsedMs": 90657,
+            "clockDelta": 1042,
+            "audioDelta": 43,
+            "pictureDelta": 61,
+            "paintDeltaAtReference": 60,
+            "steady": 31
+          },
+          {
+            "epochMs": 1792287926682,
+            "elapsedMs": 100699,
+            "clockDelta": 1017,
+            "audioDelta": 44,
+            "pictureDelta": 61,
+            "paintDeltaAtReference": 60,
+            "steady": 41
+          },
+          {
+            "epochMs": 1792287936726,
+            "elapsedMs": 110744,
+            "clockDelta": 1004,
+            "audioDelta": 44,
+            "pictureDelta": 61,
+            "paintDeltaAtReference": 61,
+            "steady": 51
+          },
+          {
+            "epochMs": 1792287946778,
+            "elapsedMs": 120795,
+            "clockDelta": 1004,
+            "audioDelta": 43,
+            "pictureDelta": 61,
+            "paintDeltaAtReference": 61,
+            "steady": 61
+          },
+          {
+            "epochMs": 1792287956818,
+            "elapsedMs": 130836,
+            "clockDelta": 1006,
+            "audioDelta": 43,
+            "pictureDelta": 62,
+            "paintDeltaAtReference": 60,
+            "steady": 71
+          },
+          {
+            "epochMs": 1792287966860,
+            "elapsedMs": 140878,
+            "clockDelta": 1051,
+            "audioDelta": 44,
+            "pictureDelta": 62,
+            "paintDeltaAtReference": 60,
+            "steady": 81
+          },
+          {
+            "epochMs": 1792287968870,
+            "elapsedMs": 142888,
+            "clockDelta": 1015,
+            "audioDelta": 43,
+            "pictureDelta": 61,
+            "paintDeltaAtReference": 60,
+            "steady": 83
+          }
+        ]
+      },
+      "historical-failed-decisions.csv": {
+        "exists": false
+      },
+      "original-gate-failures.csv": {
+        "exists": false
+      },
+      "endpointActivity": {
+        "sha256": "b5652c5757b84b6c9a92749f737d133cc8f8e66f18e86d49fb3a3c20072a7236",
+        "binCount": 164,
+        "binsWithPeakAbove001": 108,
+        "binsWithRmsAbove0005Packets": null,
+        "interpretation": "Activity only; natural silence and application content are not distinguished."
+      }
+    },
+    {
+      "id": "repro-track-current-b1",
+      "workerJarSha256": "ef1ca6376bebc142193c1e4c4710265855e622ef8e29657af8948bf8b164b673",
+      "harnessSha256": "71b4eaff2d69695930a3ab256898cb9ee68cee339cf4812086bc39822f9da17c",
+      "description": "PR #8 renderer plus per-track diagnostics; predates control trace and deadline fix.",
+      "result": "passed",
+      "reason": null,
+      "worker": {
+        "result": "passed",
+        "stage": "complete",
+        "selectedHeight": 1080,
+        "selectedFps": 60,
+        "selectedCodec": "avc1.64002A",
+        "selectedDelivery": "PROGRESSIVE_HTTP",
+        "pairedAudio": true,
+        "networkCacheMs": 3000,
+        "seekWaitMs": 5628,
+        "seekReadyClockAdvancedMs": 640,
+        "seekTargetMs": 15000,
+        "postSeekPositionMs": 15640,
+        "beforeSeekDecodedVideo": 548,
+        "beforeSeekDecodedAudio": 496,
+        "postSeekDecodedVideo": 825,
+        "postSeekDecodedAudio": 670,
+        "observationRequestedSeconds": 140,
+        "observationWallMs": 143895,
+        "observationClockAdvancedMs": 107298,
+        "longestStalledClockMs": 24000,
+        "observationSamples": [
+          {
+            "inputBytesRead": 24492712,
+            "picturesDisplayed": 684,
+            "wallElapsedMs": 5033,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 1437,
+            "audioBuffersPlayed": 552,
+            "positionMs": 20727
+          },
+          {
+            "inputBytesRead": 28392072,
+            "picturesDisplayed": 975,
+            "wallElapsedMs": 10053,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 2019,
+            "audioBuffersPlayed": 768,
+            "positionMs": 25578
+          },
+          {
+            "inputBytesRead": 32422504,
+            "picturesDisplayed": 1282,
+            "wallElapsedMs": 15077,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 2633,
+            "audioBuffersPlayed": 985,
+            "positionMs": 30694
+          },
+          {
+            "inputBytesRead": 32537192,
+            "picturesDisplayed": 1588,
+            "wallElapsedMs": 20104,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 3245,
+            "audioBuffersPlayed": 1202,
+            "positionMs": 35796
+          },
+          {
+            "inputBytesRead": 32537192,
+            "picturesDisplayed": 1880,
+            "wallElapsedMs": 25127,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 3834,
+            "audioBuffersPlayed": 1381,
+            "positionMs": 40833
+          },
+          {
+            "inputBytesRead": 32537192,
+            "picturesDisplayed": 1880,
+            "wallElapsedMs": 30155,
+            "picturesLost": 0,
+            "playing": false,
+            "decodedVideo": 3834,
+            "audioBuffersPlayed": 1381,
+            "positionMs": -1
+          },
+          {
+            "inputBytesRead": 32537192,
+            "picturesDisplayed": 1880,
+            "wallElapsedMs": 35188,
+            "picturesLost": 0,
+            "playing": false,
+            "decodedVideo": 3834,
+            "audioBuffersPlayed": 1381,
+            "positionMs": -1
+          },
+          {
+            "inputBytesRead": 32537192,
+            "picturesDisplayed": 1880,
+            "wallElapsedMs": 40217,
+            "picturesLost": 0,
+            "playing": false,
+            "decodedVideo": 3834,
+            "audioBuffersPlayed": 1381,
+            "positionMs": -1
+          },
+          {
+            "inputBytesRead": 32537192,
+            "picturesDisplayed": 1880,
+            "wallElapsedMs": 45239,
+            "picturesLost": 0,
+            "playing": false,
+            "decodedVideo": 3834,
+            "audioBuffersPlayed": 1381,
+            "positionMs": -1
+          },
+          {
+            "inputBytesRead": 4390896,
+            "picturesDisplayed": 46,
+            "wallElapsedMs": 53458,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 154,
+            "audioBuffersPlayed": 86,
+            "positionMs": 40833
+          },
+          {
+            "inputBytesRead": 15355232,
+            "picturesDisplayed": 121,
+            "wallElapsedMs": 58480,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 336,
+            "audioBuffersPlayed": 87,
+            "positionMs": 40833
+          },
+          {
+            "inputBytesRead": 19696960,
+            "picturesDisplayed": 254,
+            "wallElapsedMs": 63504,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 774,
+            "audioBuffersPlayed": 216,
+            "positionMs": 42211
+          },
+          {
+            "inputBytesRead": 23711008,
+            "picturesDisplayed": 560,
+            "wallElapsedMs": 68524,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 1386,
+            "audioBuffersPlayed": 433,
+            "positionMs": 47335
+          },
+          {
+            "inputBytesRead": 27610368,
+            "picturesDisplayed": 851,
+            "wallElapsedMs": 73552,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 1968,
+            "audioBuffersPlayed": 650,
+            "positionMs": 52187
+          },
+          {
+            "inputBytesRead": 31542496,
+            "picturesDisplayed": 1158,
+            "wallElapsedMs": 78572,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 2582,
+            "audioBuffersPlayed": 866,
+            "positionMs": 57277
+          },
+          {
+            "inputBytesRead": 35638464,
+            "picturesDisplayed": 1464,
+            "wallElapsedMs": 83596,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 3194,
+            "audioBuffersPlayed": 1083,
+            "positionMs": 62404
+          },
+          {
+            "inputBytesRead": 39554208,
+            "picturesDisplayed": 1756,
+            "wallElapsedMs": 88620,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 3778,
+            "audioBuffersPlayed": 1299,
+            "positionMs": 67257
+          },
+          {
+            "inputBytesRead": 43617408,
+            "picturesDisplayed": 2062,
+            "wallElapsedMs": 93644,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 4390,
+            "audioBuffersPlayed": 1516,
+            "positionMs": 72345
+          },
+          {
+            "inputBytesRead": 47357040,
+            "picturesDisplayed": 2369,
+            "wallElapsedMs": 98666,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 5004,
+            "audioBuffersPlayed": 1733,
+            "positionMs": 77461
+          },
+          {
+            "inputBytesRead": 50756720,
+            "picturesDisplayed": 2660,
+            "wallElapsedMs": 103692,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 5586,
+            "audioBuffersPlayed": 1949,
+            "positionMs": 82310
+          },
+          {
+            "inputBytesRead": 51772528,
+            "picturesDisplayed": 2966,
+            "wallElapsedMs": 108715,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 6198,
+            "audioBuffersPlayed": 2167,
+            "positionMs": 87436
+          },
+          {
+            "inputBytesRead": 52831344,
+            "picturesDisplayed": 3273,
+            "wallElapsedMs": 113743,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 6812,
+            "audioBuffersPlayed": 2384,
+            "positionMs": 92528
+          },
+          {
+            "inputBytesRead": 53331056,
+            "picturesDisplayed": 3564,
+            "wallElapsedMs": 118769,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 7394,
+            "audioBuffersPlayed": 2600,
+            "positionMs": 97377
+          },
+          {
+            "inputBytesRead": 54295664,
+            "picturesDisplayed": 3870,
+            "wallElapsedMs": 123795,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 8006,
+            "audioBuffersPlayed": 2816,
+            "positionMs": 102506
+          },
+          {
+            "inputBytesRead": 55542896,
+            "picturesDisplayed": 4177,
+            "wallElapsedMs": 128821,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 8620,
+            "audioBuffersPlayed": 3033,
+            "positionMs": 107596
+          },
+          {
+            "inputBytesRead": 56755312,
+            "picturesDisplayed": 4468,
+            "wallElapsedMs": 133849,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 9202,
+            "audioBuffersPlayed": 3250,
+            "positionMs": 112445
+          },
+          {
+            "inputBytesRead": 58477680,
+            "picturesDisplayed": 4775,
+            "wallElapsedMs": 138874,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 9816,
+            "audioBuffersPlayed": 3466,
+            "positionMs": 117561
+          },
+          {
+            "inputBytesRead": 61068400,
+            "picturesDisplayed": 5081,
+            "wallElapsedMs": 143895,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 10428,
+            "audioBuffersPlayed": 3683,
+            "positionMs": 122662
+          }
+        ],
+        "positionMs": 2637,
+        "decodedVideo": 378,
+        "decodedAudio": 344,
+        "picturesDisplayed": 5096,
+        "audioBuffersPlayed": 3683,
+        "audioBuffersLost": 0,
+        "videoCallbacks": 7017,
+        "paintedVideoFrames": 7001,
+        "framePoolCapacity": 3,
+        "framePoolDroppedCallbacks": 0,
+        "cleanShutdown": true,
+        "processExitCode": 0,
+        "nativeProcessIsolated": true,
+        "workerCpuMsDuringObservation": 100453,
+        "decoderPolicy": "software_avcodec",
+        "demuxPolicy": "avformat"
+      },
+      "network": {
+        "blockedBytesAfterSettling": 0,
+        "recoveryLatencyMs": 23287,
+        "paintedFramesAtCut": 1290,
+        "resumeCheckpointMs": 40833,
+        "outageRequestedSeconds": 25,
+        "diagnosticSamples": 140,
+        "paintedFramesAtRecovery": 2176,
+        "recoverySampleColumns": [
+          "elapsedMs",
+          "positionMs",
+          "clockDeltaMs",
+          "audioBufferDelta",
+          "pictureDelta",
+          "paintDelta",
+          "relayByteDelta",
+          "wallDeltaMs"
+        ],
+        "cutPositionMs": 30694,
+        "mode": "disconnect",
+        "longestConsecutiveRecoveredSeconds": 80,
+        "terminalReason": "",
+        "recovered": true,
+        "steadyRecoveredSeconds": 80,
+        "stallObserved": true,
+        "faultInjected": true,
+        "explicitRestartAttempts": 1,
+        "restored": true,
+        "lastObservationElapsedMs": 143894,
+        "events": [
+          {
+            "event": "network_down",
+            "elapsedMs": 15072,
+            "positionMs": 30694
+          },
+          {
+            "event": "output_stall_observed",
+            "elapsedMs": 26131,
+            "positionMs": -1
+          },
+          {
+            "event": "network_up",
+            "elapsedMs": 40216,
+            "positionMs": -1
+          },
+          {
+            "event": "explicit_recovery_restart",
+            "elapsedMs": 50377,
+            "positionMs": 40833
+          },
+          {
+            "event": "output_recovered",
+            "elapsedMs": 63503,
+            "positionMs": 42211
+          }
+        ]
+      },
+      "relay": {
+        "bytesForwarded": 94821992,
+        "closed": true,
+        "requests": 5,
+        "streamFailures": 3,
+        "loopbackOnly": true,
+        "upstreamHttpStatuses": {
+          "206": 5
+        },
+        "rejectedRequests": 1,
+        "activeRequests": 0,
+        "tracks": {
+          "audio": {
+            "failures": 0,
+            "bytes": 20542992,
+            "pendingWriteMs": 0,
+            "readMs": 7877,
+            "requests": 2,
+            "writeMs": 103,
+            "pendingReadMs": 0
+          },
+          "video": {
+            "failures": 3,
+            "bytes": 74279000,
+            "pendingWriteMs": 0,
+            "readMs": 78949,
+            "requests": 3,
+            "writeMs": 43000,
+            "pendingReadMs": 0
+          }
+        }
+      },
+      "capture": {
+        "captureDiscontinuities": 0,
+        "timestampErrors": 0,
+        "capturedPackets": 16357,
+        "peakLoopbackAmplitude": 0.553798,
+        "multimediaCaptureScheduling": true,
+        "multimediaSchedulingRestored": true,
+        "physicalMicrophoneOpened": false,
+        "rawAudioSaved": false
+      },
+      "deadlineAudit": {
+        "limitMs": 30000,
+        "lateAcceptance": false
+      },
+      "componentSamples": {
+        "total": 80,
+        "failedPredicateSamples": [],
+        "selectedRows": [
+          [
+            64508,
+            43228,
+            1017,
+            44,
+            61,
+            61,
+            770032,
+            1005
+          ],
+          [
+            69529,
+            48356,
+            1021,
+            43,
+            61,
+            60,
+            802816,
+            1006
+          ],
+          [
+            74556,
+            53195,
+            1008,
+            43,
+            62,
+            61,
+            835584,
+            1006
+          ],
+          [
+            79575,
+            58319,
+            1042,
+            43,
+            61,
+            60,
+            966656,
+            1004
+          ],
+          [
+            84600,
+            63411,
+            1007,
+            43,
+            62,
+            60,
+            835584,
+            1005
+          ],
+          [
+            89623,
+            68260,
+            1003,
+            43,
+            61,
+            61,
+            802816,
+            1004
+          ],
+          [
+            94648,
+            73387,
+            1042,
+            43,
+            61,
+            60,
+            802816,
+            1005
+          ],
+          [
+            99671,
+            78477,
+            1016,
+            43,
+            61,
+            60,
+            819184,
+            1006
+          ],
+          [
+            104698,
+            83329,
+            1019,
+            44,
+            61,
+            60,
+            262144,
+            1007
+          ],
+          [
+            109718,
+            88456,
+            1020,
+            43,
+            62,
+            60,
+            262144,
+            1004
+          ],
+          [
+            114746,
+            93545,
+            1017,
+            43,
+            61,
+            60,
+            262144,
+            1004
+          ],
+          [
+            119774,
+            98419,
+            1042,
+            43,
+            61,
+            61,
+            270320,
+            1007
+          ],
+          [
+            124799,
+            103512,
+            1006,
+            44,
+            62,
+            60,
+            524288,
+            1006
+          ],
+          [
+            129828,
+            108636,
+            1040,
+            44,
+            61,
+            61,
+            253952,
+            1008
+          ],
+          [
+            134851,
+            113489,
+            1044,
+            43,
+            61,
+            60,
+            262144,
+            1003
+          ],
+          [
+            139878,
+            118578,
+            1017,
+            44,
+            61,
+            60,
+            262144,
+            1005
+          ],
+          [
+            143894,
+            122662,
+            1018,
+            44,
+            61,
+            60,
+            524288,
+            1004
+          ]
+        ]
+      },
+      "historical-failed-decisions.csv": {
+        "exists": false
+      },
+      "original-gate-failures.csv": {
+        "exists": false
+      },
+      "trackDiagnostics": {
+        "sha256": "6af7a365b027609cc70aca4010fda91246ec1866935529dcd54081c6767fc70e",
+        "rowCount": 140,
+        "columns": [
+          "epochMs",
+          "elapsedMs",
+          "phase",
+          "clockMs",
+          "decodedVideo",
+          "decodedAudio",
+          "pictures",
+          "audioBuffers",
+          "painted",
+          "callbacks",
+          "videoBytes",
+          "audioBytes",
+          "videoReadMs",
+          "audioReadMs",
+          "videoWriteMs",
+          "audioWriteMs",
+          "videoPendingReadMs",
+          "audioPendingReadMs",
+          "videoPendingWriteMs",
+          "audioPendingWriteMs",
+          "videoRequests",
+          "audioRequests",
+          "videoFailures",
+          "audioFailures",
+          "gcMs",
+          "gcCollections",
+          "cpuMs"
+        ],
+        "selectedRows": [
+          {
+            "epochMs": 1792287990830,
+            "elapsedMs": 1003,
+            "phase": 0,
+            "clockMs": 16645,
+            "decodedVideo": 947,
+            "decodedAudio": 758,
+            "pictures": 439,
+            "audioBuffers": 379,
+            "painted": 446,
+            "callbacks": 446,
+            "videoBytes": 11124656,
+            "audioBytes": 10271496,
+            "videoReadMs": 12852,
+            "audioReadMs": 3637,
+            "videoWriteMs": 1062,
+            "audioWriteMs": 50,
+            "videoPendingReadMs": 0,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 0,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 1,
+            "audioRequests": 1,
+            "videoFailures": 0,
+            "audioFailures": 0,
+            "gcMs": 62,
+            "gcCollections": 19,
+            "cpuMs": 15390
+          },
+          {
+            "epochMs": 1792288005898,
+            "elapsedMs": 16079,
+            "phase": 1,
+            "clockMs": 31710,
+            "decodedVideo": 2755,
+            "decodedAudio": 2056,
+            "pictures": 1343,
+            "audioBuffers": 1028,
+            "painted": 1350,
+            "callbacks": 1350,
+            "videoBytes": 22265696,
+            "audioBytes": 10271496,
+            "videoReadMs": 26848,
+            "audioReadMs": 3637,
+            "videoWriteMs": 1130,
+            "audioWriteMs": 50,
+            "videoPendingReadMs": 0,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 0,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 1,
+            "audioRequests": 1,
+            "videoFailures": 1,
+            "audioFailures": 0,
+            "gcMs": 73,
+            "gcCollections": 25,
+            "cpuMs": 28687
+          },
+          {
+            "epochMs": 1792288010926,
+            "elapsedMs": 21107,
+            "phase": 1,
+            "clockMs": 36839,
+            "decodedVideo": 3367,
+            "decodedAudio": 2490,
+            "pictures": 1649,
+            "audioBuffers": 1245,
+            "painted": 1652,
+            "callbacks": 1652,
+            "videoBytes": 22265696,
+            "audioBytes": 10271496,
+            "videoReadMs": 26848,
+            "audioReadMs": 3637,
+            "videoWriteMs": 1130,
+            "audioWriteMs": 50,
+            "videoPendingReadMs": 0,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 0,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 1,
+            "audioRequests": 1,
+            "videoFailures": 1,
+            "audioFailures": 0,
+            "gcMs": 76,
+            "gcCollections": 27,
+            "cpuMs": 33031
+          },
+          {
+            "epochMs": 1792288031039,
+            "elapsedMs": 41220,
+            "phase": 2,
+            "clockMs": -1,
+            "decodedVideo": 3834,
+            "decodedAudio": 2763,
+            "pictures": 1880,
+            "audioBuffers": 1381,
+            "painted": 1914,
+            "callbacks": 1914,
+            "videoBytes": 22265696,
+            "audioBytes": 10271496,
+            "videoReadMs": 26848,
+            "audioReadMs": 3637,
+            "videoWriteMs": 1130,
+            "audioWriteMs": 50,
+            "videoPendingReadMs": 0,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 0,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 1,
+            "audioRequests": 1,
+            "videoFailures": 1,
+            "audioFailures": 0,
+            "gcMs": 79,
+            "gcCollections": 30,
+            "cpuMs": 36609
+          },
+          {
+            "epochMs": 1792288054327,
+            "elapsedMs": 64508,
+            "phase": 3,
+            "clockMs": 43228,
+            "decodedVideo": 896,
+            "decodedAudio": 520,
+            "pictures": 315,
+            "audioBuffers": 260,
+            "painted": 2237,
+            "callbacks": 2237,
+            "videoBytes": 32737672,
+            "audioBytes": 20542992,
+            "videoReadMs": 40582,
+            "audioReadMs": 7877,
+            "videoWriteMs": 1408,
+            "audioWriteMs": 103,
+            "videoPendingReadMs": 65,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 0,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 3,
+            "audioRequests": 2,
+            "videoFailures": 2,
+            "audioFailures": 0,
+            "gcMs": 87,
+            "gcCollections": 32,
+            "cpuMs": 44578
+          },
+          {
+            "epochMs": 1792288074419,
+            "elapsedMs": 84600,
+            "phase": 3,
+            "clockMs": 63411,
+            "decodedVideo": 3318,
+            "decodedAudio": 2252,
+            "pictures": 1526,
+            "audioBuffers": 1126,
+            "painted": 3442,
+            "callbacks": 3442,
+            "videoBytes": 48777496,
+            "audioBytes": 20542992,
+            "videoReadMs": 60633,
+            "audioReadMs": 7877,
+            "videoWriteMs": 1493,
+            "audioWriteMs": 103,
+            "videoPendingReadMs": 10,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 0,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 3,
+            "audioRequests": 2,
+            "videoFailures": 2,
+            "audioFailures": 0,
+            "gcMs": 96,
+            "gcCollections": 40,
+            "cpuMs": 61656
+          },
+          {
+            "epochMs": 1792288094517,
+            "elapsedMs": 104698,
+            "phase": 3,
+            "clockMs": 83329,
+            "decodedVideo": 5708,
+            "decodedAudio": 3986,
+            "pictures": 2721,
+            "audioBuffers": 1993,
+            "painted": 4648,
+            "callbacks": 4648,
+            "videoBytes": 64063656,
+            "audioBytes": 20542992,
+            "videoReadMs": 78928,
+            "audioReadMs": 7877,
+            "videoWriteMs": 2758,
+            "audioWriteMs": 103,
+            "videoPendingReadMs": 0,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 537,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 3,
+            "audioRequests": 2,
+            "videoFailures": 2,
+            "audioFailures": 0,
+            "gcMs": 105,
+            "gcCollections": 49,
+            "cpuMs": 82843
+          },
+          {
+            "epochMs": 1792288114618,
+            "elapsedMs": 124799,
+            "phase": 3,
+            "clockMs": 103512,
+            "decodedVideo": 8130,
+            "decodedAudio": 5720,
+            "pictures": 3932,
+            "audioBuffers": 2860,
+            "painted": 5854,
+            "callbacks": 5854,
+            "videoBytes": 67733640,
+            "audioBytes": 20542992,
+            "videoReadMs": 78935,
+            "audioReadMs": 7877,
+            "videoWriteMs": 23043,
+            "audioWriteMs": 103,
+            "videoPendingReadMs": 0,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 345,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 3,
+            "audioRequests": 2,
+            "videoFailures": 2,
+            "audioFailures": 0,
+            "gcMs": 114,
+            "gcCollections": 58,
+            "cpuMs": 99046
+          },
+          {
+            "epochMs": 1792288133713,
+            "elapsedMs": 143894,
+            "phase": 3,
+            "clockMs": 122662,
+            "decodedVideo": 10428,
+            "decodedAudio": 7366,
+            "pictures": 5081,
+            "audioBuffers": 3683,
+            "painted": 7000,
+            "callbacks": 7000,
+            "videoBytes": 74016856,
+            "audioBytes": 20542992,
+            "videoReadMs": 78948,
+            "audioReadMs": 7877,
+            "videoWriteMs": 42232,
+            "audioWriteMs": 103,
+            "videoPendingReadMs": 0,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 238,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 3,
+            "audioRequests": 2,
+            "videoFailures": 2,
+            "audioFailures": 0,
+            "gcMs": 123,
+            "gcCollections": 67,
+            "cpuMs": 115093
+          }
+        ],
+        "postRecoveryAudioByteValues": [
+          20542992
+        ],
+        "postRecoveryMaxAudioPendingReadMs": 0,
+        "postRecoveryMaxAudioPendingWriteMs": 0
+      },
+      "endpointActivity": {
+        "sha256": "059d40ef90e418a229c65ddce952746c557512e8c7141830f42e1d282b8d1440",
+        "binCount": 164,
+        "binsWithPeakAbove001": 108,
+        "binsWithRmsAbove0005Packets": null,
+        "interpretation": "Activity only; natural silence and application content are not distinguished."
+      }
+    },
+    {
+      "id": "repro-pr7-failure-only-a2",
+      "workerJarSha256": "8bb70415ee966946be0d809dd0a49d4fde845c20482219ca4b4ffa19c0a6fe72",
+      "harnessSha256": "71b4eaff2d69695930a3ab256898cb9ee68cee339cf4812086bc39822f9da17c",
+      "description": "Historical gate logs only failed decisions; no failed-decision file was created. Reported pass violates documented recovery deadline.",
+      "result": "passed",
+      "reason": null,
+      "worker": {
+        "result": "passed",
+        "stage": "complete",
+        "selectedHeight": 1080,
+        "selectedFps": 60,
+        "selectedCodec": "avc1.64002A",
+        "selectedDelivery": "PROGRESSIVE_HTTP",
+        "pairedAudio": true,
+        "networkCacheMs": 3000,
+        "seekWaitMs": 5824,
+        "seekReadyClockAdvancedMs": 695,
+        "seekTargetMs": 15000,
+        "postSeekPositionMs": 15695,
+        "beforeSeekDecodedVideo": 562,
+        "beforeSeekDecodedAudio": 506,
+        "postSeekDecodedVideo": 847,
+        "postSeekDecodedAudio": 680,
+        "observationRequestedSeconds": 140,
+        "observationWallMs": 143724,
+        "observationClockAdvancedMs": 99917,
+        "longestStalledClockMs": 24000,
+        "observationSamples": [
+          {
+            "inputBytesRead": 22434192,
+            "picturesDisplayed": 697,
+            "wallElapsedMs": 5026,
+            "picturesLost": 2,
+            "playing": true,
+            "decodedVideo": 1463,
+            "audioBuffersPlayed": 556,
+            "positionMs": 20841
+          },
+          {
+            "inputBytesRead": 26415472,
+            "picturesDisplayed": 988,
+            "wallElapsedMs": 10041,
+            "picturesLost": 2,
+            "playing": true,
+            "decodedVideo": 2045,
+            "audioBuffersPlayed": 773,
+            "positionMs": 25678
+          },
+          {
+            "inputBytesRead": 30429520,
+            "picturesDisplayed": 1294,
+            "wallElapsedMs": 15064,
+            "picturesLost": 2,
+            "playing": true,
+            "decodedVideo": 2657,
+            "audioBuffersPlayed": 990,
+            "positionMs": 30802
+          },
+          {
+            "inputBytesRead": 30560592,
+            "picturesDisplayed": 1601,
+            "wallElapsedMs": 20082,
+            "picturesLost": 2,
+            "playing": true,
+            "decodedVideo": 3271,
+            "audioBuffersPlayed": 1207,
+            "positionMs": 35895
+          },
+          {
+            "inputBytesRead": 30560592,
+            "picturesDisplayed": 1887,
+            "wallElapsedMs": 25100,
+            "picturesLost": 2,
+            "playing": true,
+            "decodedVideo": 3848,
+            "audioBuffersPlayed": 1386,
+            "positionMs": 40932
+          },
+          {
+            "inputBytesRead": 30560592,
+            "picturesDisplayed": 1887,
+            "wallElapsedMs": 30119,
+            "picturesLost": 2,
+            "playing": false,
+            "decodedVideo": 3848,
+            "audioBuffersPlayed": 1386,
+            "positionMs": -1
+          },
+          {
+            "inputBytesRead": 30560592,
+            "picturesDisplayed": 1887,
+            "wallElapsedMs": 35138,
+            "picturesLost": 2,
+            "playing": false,
+            "decodedVideo": 3848,
+            "audioBuffersPlayed": 1386,
+            "positionMs": -1
+          },
+          {
+            "inputBytesRead": 30560592,
+            "picturesDisplayed": 1887,
+            "wallElapsedMs": 40157,
+            "picturesLost": 2,
+            "playing": false,
+            "decodedVideo": 3848,
+            "audioBuffersPlayed": 1386,
+            "positionMs": -1
+          },
+          {
+            "inputBytesRead": 30560592,
+            "picturesDisplayed": 1887,
+            "wallElapsedMs": 45177,
+            "picturesLost": 2,
+            "playing": false,
+            "decodedVideo": 3848,
+            "audioBuffersPlayed": 1386,
+            "positionMs": -1
+          },
+          {
+            "inputBytesRead": 2670576,
+            "picturesDisplayed": 33,
+            "wallElapsedMs": 53400,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 128,
+            "audioBuffersPlayed": 86,
+            "positionMs": 40932
+          },
+          {
+            "inputBytesRead": 12915224,
+            "picturesDisplayed": 110,
+            "wallElapsedMs": 58420,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 278,
+            "audioBuffersPlayed": 87,
+            "positionMs": 40932
+          },
+          {
+            "inputBytesRead": 17845584,
+            "picturesDisplayed": 143,
+            "wallElapsedMs": 63438,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 532,
+            "audioBuffersPlayed": 87,
+            "positionMs": 40932
+          },
+          {
+            "inputBytesRead": 18304320,
+            "picturesDisplayed": 143,
+            "wallElapsedMs": 68455,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 532,
+            "audioBuffersPlayed": 87,
+            "positionMs": 40932
+          },
+          {
+            "inputBytesRead": 22924576,
+            "picturesDisplayed": 520,
+            "wallElapsedMs": 73472,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 1122,
+            "audioBuffersPlayed": 347,
+            "positionMs": 45345
+          },
+          {
+            "inputBytesRead": 31722720,
+            "picturesDisplayed": 826,
+            "wallElapsedMs": 78492,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 1734,
+            "audioBuffersPlayed": 563,
+            "positionMs": 50470
+          },
+          {
+            "inputBytesRead": 35540160,
+            "picturesDisplayed": 1117,
+            "wallElapsedMs": 83509,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 2316,
+            "audioBuffersPlayed": 780,
+            "positionMs": 55322
+          },
+          {
+            "inputBytesRead": 39570592,
+            "picturesDisplayed": 1424,
+            "wallElapsedMs": 88525,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 2930,
+            "audioBuffersPlayed": 996,
+            "positionMs": 60412
+          },
+          {
+            "inputBytesRead": 42968208,
+            "picturesDisplayed": 1715,
+            "wallElapsedMs": 93544,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 3512,
+            "audioBuffersPlayed": 1214,
+            "positionMs": 65261
+          },
+          {
+            "inputBytesRead": 44868752,
+            "picturesDisplayed": 2022,
+            "wallElapsedMs": 98570,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 4126,
+            "audioBuffersPlayed": 1430,
+            "positionMs": 70377
+          },
+          {
+            "inputBytesRead": 46011536,
+            "picturesDisplayed": 2329,
+            "wallElapsedMs": 103589,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 4740,
+            "audioBuffersPlayed": 1647,
+            "positionMs": 75524
+          },
+          {
+            "inputBytesRead": 49290384,
+            "picturesDisplayed": 2621,
+            "wallElapsedMs": 108609,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 5324,
+            "audioBuffersPlayed": 1863,
+            "positionMs": 80361
+          },
+          {
+            "inputBytesRead": 51412112,
+            "picturesDisplayed": 2927,
+            "wallElapsedMs": 113622,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 5936,
+            "audioBuffersPlayed": 2080,
+            "positionMs": 85484
+          },
+          {
+            "inputBytesRead": 51942544,
+            "picturesDisplayed": 3234,
+            "wallElapsedMs": 118645,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 6550,
+            "audioBuffersPlayed": 2297,
+            "positionMs": 90578
+          },
+          {
+            "inputBytesRead": 52839568,
+            "picturesDisplayed": 3525,
+            "wallElapsedMs": 123658,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 7132,
+            "audioBuffersPlayed": 2513,
+            "positionMs": 95430
+          },
+          {
+            "inputBytesRead": 53574800,
+            "picturesDisplayed": 3831,
+            "wallElapsedMs": 128675,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 7744,
+            "audioBuffersPlayed": 2729,
+            "positionMs": 100555
+          },
+          {
+            "inputBytesRead": 54822032,
+            "picturesDisplayed": 4138,
+            "wallElapsedMs": 133694,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 8358,
+            "audioBuffersPlayed": 2946,
+            "positionMs": 105646
+          },
+          {
+            "inputBytesRead": 56067216,
+            "picturesDisplayed": 4429,
+            "wallElapsedMs": 138710,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 8940,
+            "audioBuffersPlayed": 3163,
+            "positionMs": 110494
+          },
+          {
+            "inputBytesRead": 57724048,
+            "picturesDisplayed": 4736,
+            "wallElapsedMs": 143724,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 9554,
+            "audioBuffersPlayed": 3379,
+            "positionMs": 115612
+          }
+        ],
+        "positionMs": 2706,
+        "decodedVideo": 388,
+        "decodedAudio": 348,
+        "picturesDisplayed": 4736,
+        "audioBuffersPlayed": 3379,
+        "audioBuffersLost": 0,
+        "videoCallbacks": 6672,
+        "paintedVideoFrames": 6661,
+        "cleanShutdown": true,
+        "processExitCode": 0,
+        "nativeProcessIsolated": true,
+        "workerCpuMsDuringObservation": 93031,
+        "decoderPolicy": "software_avcodec",
+        "demuxPolicy": "avformat"
+      },
+      "network": {
+        "blockedBytesAfterSettling": 0,
+        "recoveryLatencyMs": 30304,
+        "paintedFramesAtCut": 1302,
+        "resumeCheckpointMs": 40932,
+        "outageRequestedSeconds": 25,
+        "paintedFramesAtRecovery": 2264,
+        "cutPositionMs": 30802,
+        "mode": "disconnect",
+        "longestConsecutiveRecoveredSeconds": 73,
+        "terminalReason": "",
+        "recovered": true,
+        "steadyRecoveredSeconds": 73,
+        "stallObserved": true,
+        "faultInjected": true,
+        "explicitRestartAttempts": 1,
+        "restored": true,
+        "lastObservationElapsedMs": 143724,
+        "events": [
+          {
+            "event": "network_down",
+            "elapsedMs": 15061,
+            "positionMs": 30802
+          },
+          {
+            "event": "output_stall_observed",
+            "elapsedMs": 26106,
+            "positionMs": -1
+          },
+          {
+            "event": "network_up",
+            "elapsedMs": 40157,
+            "positionMs": -1
+          },
+          {
+            "event": "explicit_recovery_restart",
+            "elapsedMs": 50317,
+            "positionMs": 40932
+          },
+          {
+            "event": "output_recovered",
+            "elapsedMs": 70461,
+            "positionMs": 42278
+          }
+        ]
+      },
+      "relay": {
+        "bytesForwarded": 89451872,
+        "closed": true,
+        "requests": 6,
+        "streamFailures": 4,
+        "loopbackOnly": true,
+        "upstreamHttpStatuses": {
+          "206": 6
+        },
+        "rejectedRequests": 1,
+        "activeRequests": 0
+      },
+      "capture": {
+        "captureDiscontinuities": 0,
+        "timestampErrors": 0,
+        "capturedPackets": 16263,
+        "peakLoopbackAmplitude": 0.04155,
+        "multimediaCaptureScheduling": true,
+        "multimediaSchedulingRestored": true,
+        "physicalMicrophoneOpened": false,
+        "rawAudioSaved": false
+      },
+      "deadlineAudit": {
+        "limitMs": 30000,
+        "lateAcceptance": true
+      },
+      "historical-failed-decisions.csv": {
+        "exists": false
+      },
+      "original-gate-failures.csv": {
+        "exists": false
+      },
+      "endpointActivity": {
+        "sha256": "223e5c8d289f593e2561b1378d79c99cee79e256f8271af1224f572c9af81350",
+        "binCount": 164,
+        "binsWithPeakAbove001": 99,
+        "binsWithRmsAbove0005Packets": null,
+        "interpretation": "Activity only; natural silence and application content are not distinguished."
+      }
+    },
+    {
+      "id": "repro-track-relay-control",
+      "workerJarSha256": "b93e7dc35f6b1ecfd6327cd0e1204031db2e00c7c0db165c18cfa404cd5c9f5e",
+      "harnessSha256": "71b4eaff2d69695930a3ab256898cb9ee68cee339cf4812086bc39822f9da17c",
+      "description": "No-fault relay control; seek readiness failed before steady observation. Not a recovery or steady-control qualification.",
+      "result": "failed",
+      "reason": "PlaybackProbeFailed",
+      "worker": {
+        "result": "failed",
+        "stage": "seek",
+        "errorType": "IOException",
+        "selectedHeight": 1080,
+        "selectedFps": 60,
+        "selectedCodec": "avc1.64002A",
+        "selectedDelivery": "PROGRESSIVE_HTTP",
+        "pairedAudio": true,
+        "networkCacheMs": 3000,
+        "seekWaitMs": 10044,
+        "seekReadyClockAdvancedMs": 0,
+        "seekTargetMs": 15000,
+        "postSeekPositionMs": 15000,
+        "beforeSeekDecodedVideo": 548,
+        "beforeSeekDecodedAudio": 496,
+        "postSeekDecodedVideo": 593,
+        "postSeekDecodedAudio": 498,
+        "positionMs": 2706,
+        "decodedVideo": 388,
+        "decodedAudio": 348,
+        "videoCallbacks": 408,
+        "paintedVideoFrames": 408,
+        "framePoolCapacity": 3,
+        "framePoolDroppedCallbacks": 0,
+        "cleanShutdown": true,
+        "processExitCode": 1,
+        "nativeProcessIsolated": true,
+        "decoderPolicy": "software_avcodec",
+        "demuxPolicy": "avformat"
+      },
+      "network": {},
+      "relay": {
+        "bytesForwarded": 4624072,
+        "closed": true,
+        "requests": 3,
+        "streamFailures": 3,
+        "loopbackOnly": true,
+        "upstreamHttpStatuses": {
+          "206": 3
+        },
+        "rejectedRequests": 0,
+        "activeRequests": 0,
+        "tracks": {
+          "audio": {
+            "failures": 1,
+            "bytes": 1949696,
+            "pendingWriteMs": 0,
+            "readMs": 16267,
+            "requests": 1,
+            "writeMs": 14,
+            "pendingReadMs": 0
+          },
+          "video": {
+            "failures": 2,
+            "bytes": 2674376,
+            "pendingWriteMs": 0,
+            "readMs": 17596,
+            "requests": 2,
+            "writeMs": 127,
+            "pendingReadMs": 0
+          }
+        }
+      },
+      "capture": {
+        "captureDiscontinuities": 0,
+        "timestampErrors": 0,
+        "capturedPackets": 2347,
+        "peakLoopbackAmplitude": 0.001704,
+        "multimediaCaptureScheduling": true,
+        "multimediaSchedulingRestored": true,
+        "physicalMicrophoneOpened": false,
+        "rawAudioSaved": false
+      },
+      "deadlineAudit": {
+        "limitMs": 30000,
+        "lateAcceptance": false
+      },
+      "historical-failed-decisions.csv": {
+        "exists": false
+      },
+      "original-gate-failures.csv": {
+        "exists": false
+      },
+      "endpointActivity": {
+        "sha256": "75ecfbc4940c1d5254ef24abd9b66c170f871105517b78ff5e1d68a052d605b5",
+        "binCount": 25,
+        "binsWithPeakAbove001": 5,
+        "binsWithRmsAbove0005Packets": null,
+        "interpretation": "Activity only; natural silence and application content are not distinguished."
+      }
+    },
+    {
+      "id": "repro-original-gate-caller-a3",
+      "workerJarSha256": "8af78b14c0c14d1fc9accff06693dc710039548e7be371437f0df28066371f79",
+      "harnessSha256": "88a327bf5092016896cc7ad117eabcf0be0ca609eb681ace99dcf16f16507ea9",
+      "description": "Historical gate/render/relay class bytes unchanged; caller reads references before/after each decision and writes only failed decisions.",
+      "result": "passed",
+      "reason": null,
+      "worker": {
+        "result": "passed",
+        "stage": "complete",
+        "selectedHeight": 1080,
+        "selectedFps": 60,
+        "selectedCodec": "avc1.64002A",
+        "selectedDelivery": "PROGRESSIVE_HTTP",
+        "pairedAudio": true,
+        "networkCacheMs": 3000,
+        "seekWaitMs": 9843,
+        "seekReadyClockAdvancedMs": 686,
+        "seekTargetMs": 15000,
+        "postSeekPositionMs": 15686,
+        "beforeSeekDecodedVideo": 532,
+        "beforeSeekDecodedAudio": 486,
+        "postSeekDecodedVideo": 813,
+        "postSeekDecodedAudio": 660,
+        "observationRequestedSeconds": 140,
+        "observationWallMs": 143501,
+        "observationClockAdvancedMs": 107554,
+        "longestStalledClockMs": 24000,
+        "observationSamples": [
+          {
+            "inputBytesRead": 22122896,
+            "picturesDisplayed": 734,
+            "wallElapsedMs": 5021,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 1427,
+            "audioBuffersPlayed": 547,
+            "positionMs": 20777
+          },
+          {
+            "inputBytesRead": 26104176,
+            "picturesDisplayed": 1040,
+            "wallElapsedMs": 10043,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 2039,
+            "audioBuffersPlayed": 764,
+            "positionMs": 25903
+          },
+          {
+            "inputBytesRead": 30101840,
+            "picturesDisplayed": 1331,
+            "wallElapsedMs": 15065,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 2621,
+            "audioBuffersPlayed": 980,
+            "positionMs": 30756
+          },
+          {
+            "inputBytesRead": 30249296,
+            "picturesDisplayed": 1638,
+            "wallElapsedMs": 20083,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 3235,
+            "audioBuffersPlayed": 1197,
+            "positionMs": 35845
+          },
+          {
+            "inputBytesRead": 30249296,
+            "picturesDisplayed": 1927,
+            "wallElapsedMs": 25104,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 3818,
+            "audioBuffersPlayed": 1376,
+            "positionMs": 40937
+          },
+          {
+            "inputBytesRead": 30249296,
+            "picturesDisplayed": 1927,
+            "wallElapsedMs": 30123,
+            "picturesLost": 0,
+            "playing": false,
+            "decodedVideo": 3818,
+            "audioBuffersPlayed": 1376,
+            "positionMs": -1
+          },
+          {
+            "inputBytesRead": 30249296,
+            "picturesDisplayed": 1927,
+            "wallElapsedMs": 35139,
+            "picturesLost": 0,
+            "playing": false,
+            "decodedVideo": 3818,
+            "audioBuffersPlayed": 1376,
+            "positionMs": -1
+          },
+          {
+            "inputBytesRead": 30249296,
+            "picturesDisplayed": 1927,
+            "wallElapsedMs": 40155,
+            "picturesLost": 0,
+            "playing": false,
+            "decodedVideo": 3818,
+            "audioBuffersPlayed": 1376,
+            "positionMs": -1
+          },
+          {
+            "inputBytesRead": 30249296,
+            "picturesDisplayed": 1927,
+            "wallElapsedMs": 45172,
+            "picturesLost": 0,
+            "playing": false,
+            "decodedVideo": 3818,
+            "audioBuffersPlayed": 1376,
+            "positionMs": -1
+          },
+          {
+            "inputBytesRead": 5029856,
+            "picturesDisplayed": 46,
+            "wallElapsedMs": 53143,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 154,
+            "audioBuffersPlayed": 86,
+            "positionMs": 40937
+          },
+          {
+            "inputBytesRead": 15600992,
+            "picturesDisplayed": 122,
+            "wallElapsedMs": 58162,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 379,
+            "audioBuffersPlayed": 87,
+            "positionMs": 40937
+          },
+          {
+            "inputBytesRead": 18877760,
+            "picturesDisplayed": 263,
+            "wallElapsedMs": 63182,
+            "picturesLost": 1,
+            "playing": true,
+            "decodedVideo": 808,
+            "audioBuffersPlayed": 217,
+            "positionMs": 42511
+          },
+          {
+            "inputBytesRead": 23645472,
+            "picturesDisplayed": 569,
+            "wallElapsedMs": 68202,
+            "picturesLost": 1,
+            "playing": true,
+            "decodedVideo": 1420,
+            "audioBuffersPlayed": 433,
+            "positionMs": 47636
+          },
+          {
+            "inputBytesRead": 27675904,
+            "picturesDisplayed": 876,
+            "wallElapsedMs": 73219,
+            "picturesLost": 1,
+            "playing": true,
+            "decodedVideo": 2034,
+            "audioBuffersPlayed": 650,
+            "positionMs": 52727
+          },
+          {
+            "inputBytesRead": 31558880,
+            "picturesDisplayed": 1167,
+            "wallElapsedMs": 78237,
+            "picturesLost": 1,
+            "playing": true,
+            "decodedVideo": 2616,
+            "audioBuffersPlayed": 866,
+            "positionMs": 57578
+          },
+          {
+            "inputBytesRead": 35605696,
+            "picturesDisplayed": 1474,
+            "wallElapsedMs": 83255,
+            "picturesLost": 1,
+            "playing": true,
+            "decodedVideo": 3230,
+            "audioBuffersPlayed": 1083,
+            "positionMs": 62707
+          },
+          {
+            "inputBytesRead": 39488672,
+            "picturesDisplayed": 1765,
+            "wallElapsedMs": 88277,
+            "picturesLost": 1,
+            "playing": true,
+            "decodedVideo": 3812,
+            "audioBuffersPlayed": 1299,
+            "positionMs": 67545
+          },
+          {
+            "inputBytesRead": 43502720,
+            "picturesDisplayed": 2071,
+            "wallElapsedMs": 93303,
+            "picturesLost": 1,
+            "playing": true,
+            "decodedVideo": 4424,
+            "audioBuffersPlayed": 1516,
+            "positionMs": 72667
+          },
+          {
+            "inputBytesRead": 47275120,
+            "picturesDisplayed": 2378,
+            "wallElapsedMs": 98320,
+            "picturesLost": 1,
+            "playing": true,
+            "decodedVideo": 5038,
+            "audioBuffersPlayed": 1732,
+            "positionMs": 77761
+          },
+          {
+            "inputBytesRead": 50674800,
+            "picturesDisplayed": 2669,
+            "wallElapsedMs": 103338,
+            "picturesLost": 1,
+            "playing": true,
+            "decodedVideo": 5620,
+            "audioBuffersPlayed": 1949,
+            "positionMs": 82612
+          },
+          {
+            "inputBytesRead": 51559536,
+            "picturesDisplayed": 2975,
+            "wallElapsedMs": 108358,
+            "picturesLost": 1,
+            "playing": true,
+            "decodedVideo": 6232,
+            "audioBuffersPlayed": 2166,
+            "positionMs": 87738
+          },
+          {
+            "inputBytesRead": 52724848,
+            "picturesDisplayed": 3282,
+            "wallElapsedMs": 113376,
+            "picturesLost": 1,
+            "playing": true,
+            "decodedVideo": 6846,
+            "audioBuffersPlayed": 2382,
+            "positionMs": 92828
+          },
+          {
+            "inputBytesRead": 53150832,
+            "picturesDisplayed": 3573,
+            "wallElapsedMs": 118396,
+            "picturesLost": 1,
+            "playing": true,
+            "decodedVideo": 7428,
+            "audioBuffersPlayed": 2599,
+            "positionMs": 97678
+          },
+          {
+            "inputBytesRead": 54082672,
+            "picturesDisplayed": 3880,
+            "wallElapsedMs": 123414,
+            "picturesLost": 1,
+            "playing": true,
+            "decodedVideo": 8042,
+            "audioBuffersPlayed": 2815,
+            "positionMs": 102807
+          },
+          {
+            "inputBytesRead": 55362672,
+            "picturesDisplayed": 4186,
+            "wallElapsedMs": 128436,
+            "picturesLost": 1,
+            "playing": true,
+            "decodedVideo": 8654,
+            "audioBuffersPlayed": 3032,
+            "positionMs": 107894
+          },
+          {
+            "inputBytesRead": 56607856,
+            "picturesDisplayed": 4477,
+            "wallElapsedMs": 133457,
+            "picturesLost": 1,
+            "playing": true,
+            "decodedVideo": 9236,
+            "audioBuffersPlayed": 3249,
+            "positionMs": 112770
+          },
+          {
+            "inputBytesRead": 58362992,
+            "picturesDisplayed": 4784,
+            "wallElapsedMs": 138478,
+            "picturesLost": 1,
+            "playing": true,
+            "decodedVideo": 9850,
+            "audioBuffersPlayed": 3465,
+            "positionMs": 117861
+          },
+          {
+            "inputBytesRead": 60953712,
+            "picturesDisplayed": 5090,
+            "wallElapsedMs": 143500,
+            "picturesLost": 1,
+            "playing": true,
+            "decodedVideo": 10462,
+            "audioBuffersPlayed": 3682,
+            "positionMs": 122987
+          }
+        ],
+        "positionMs": 2544,
+        "decodedVideo": 370,
+        "decodedAudio": 344,
+        "picturesDisplayed": 5105,
+        "audioBuffersPlayed": 3682,
+        "audioBuffersLost": 0,
+        "videoCallbacks": 7070,
+        "paintedVideoFrames": 7055,
+        "cleanShutdown": true,
+        "processExitCode": 0,
+        "nativeProcessIsolated": true,
+        "workerCpuMsDuringObservation": 96438,
+        "decoderPolicy": "software_avcodec",
+        "demuxPolicy": "avformat"
+      },
+      "network": {
+        "blockedBytesAfterSettling": 0,
+        "recoveryLatencyMs": 22022,
+        "paintedFramesAtCut": 1342,
+        "resumeCheckpointMs": 40937,
+        "outageRequestedSeconds": 25,
+        "paintedFramesAtRecovery": 2175,
+        "cutPositionMs": 30756,
+        "mode": "disconnect",
+        "longestConsecutiveRecoveredSeconds": 81,
+        "terminalReason": "",
+        "recovered": true,
+        "steadyRecoveredSeconds": 81,
+        "stallObserved": true,
+        "faultInjected": true,
+        "explicitRestartAttempts": 1,
+        "restored": true,
+        "lastObservationElapsedMs": 143500,
+        "events": [
+          {
+            "event": "network_down",
+            "elapsedMs": 15063,
+            "positionMs": 30756
+          },
+          {
+            "event": "output_stall_observed",
+            "elapsedMs": 26109,
+            "positionMs": -1
+          },
+          {
+            "event": "network_up",
+            "elapsedMs": 40154,
+            "positionMs": -1
+          },
+          {
+            "event": "explicit_recovery_restart",
+            "elapsedMs": 50289,
+            "positionMs": 40937
+          },
+          {
+            "event": "output_recovered",
+            "elapsedMs": 62176,
+            "positionMs": 41506
+          }
+        ]
+      },
+      "relay": {
+        "bytesForwarded": 92294480,
+        "closed": true,
+        "requests": 6,
+        "streamFailures": 4,
+        "loopbackOnly": true,
+        "upstreamHttpStatuses": {
+          "206": 6
+        },
+        "rejectedRequests": 1,
+        "activeRequests": 0
+      },
+      "capture": {
+        "captureDiscontinuities": 0,
+        "timestampErrors": 0,
+        "capturedPackets": 16933,
+        "peakLoopbackAmplitude": 0.04155,
+        "multimediaCaptureScheduling": true,
+        "multimediaSchedulingRestored": true,
+        "physicalMicrophoneOpened": false,
+        "rawAudioSaved": false
+      },
+      "deadlineAudit": {
+        "limitMs": 30000,
+        "lateAcceptance": false
+      },
+      "historical-failed-decisions.csv": {
+        "exists": false
+      },
+      "original-gate-failures.csv": {
+        "exists": false
+      },
+      "endpointActivity": {
+        "sha256": "d39cd01ebced88af1e068447f4b790fc2cf078c6328988c8f9d9e4294d560df5",
+        "binCount": 171,
+        "binsWithPeakAbove001": 108,
+        "binsWithRmsAbove0005Packets": 104,
+        "interpretation": "Activity only; natural silence and application content are not distinguished."
+      }
+    },
+    {
+      "id": "repro-final-relay-control",
+      "workerJarSha256": "1cc58be65285a059baa1da9b0fffe712e2108b8be08b206d0a4ffb402e7d2142",
+      "harnessSha256": "88a327bf5092016896cc7ad117eabcf0be0ca609eb681ace99dcf16f16507ea9",
+      "description": "Final build, no fault, 100 observation iterations.",
+      "result": "passed",
+      "reason": null,
+      "worker": {
+        "result": "passed",
+        "stage": "complete",
+        "selectedHeight": 1080,
+        "selectedFps": 60,
+        "selectedCodec": "avc1.64002A",
+        "selectedDelivery": "PROGRESSIVE_HTTP",
+        "pairedAudio": true,
+        "networkCacheMs": 3000,
+        "seekWaitMs": 6224,
+        "seekReadyClockAdvancedMs": 640,
+        "seekTargetMs": 15000,
+        "postSeekPositionMs": 15640,
+        "beforeSeekDecodedVideo": 546,
+        "beforeSeekDecodedAudio": 494,
+        "postSeekDecodedVideo": 821,
+        "postSeekDecodedAudio": 668,
+        "observationRequestedSeconds": 100,
+        "observationWallMs": 100510,
+        "observationClockAdvancedMs": 100682,
+        "longestStalledClockMs": 0,
+        "observationSamples": [
+          {
+            "inputBytesRead": 22892928,
+            "picturesDisplayed": 688,
+            "wallElapsedMs": 5045,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 1433,
+            "audioBuffersPlayed": 551,
+            "positionMs": 20728
+          },
+          {
+            "inputBytesRead": 26792288,
+            "picturesDisplayed": 979,
+            "wallElapsedMs": 10069,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 2015,
+            "audioBuffersPlayed": 768,
+            "positionMs": 25578
+          },
+          {
+            "inputBytesRead": 29020496,
+            "picturesDisplayed": 1280,
+            "wallElapsedMs": 15107,
+            "picturesLost": 9,
+            "playing": true,
+            "decodedVideo": 2635,
+            "audioBuffersPlayed": 985,
+            "positionMs": 30756
+          },
+          {
+            "inputBytesRead": 34951456,
+            "picturesDisplayed": 1586,
+            "wallElapsedMs": 20134,
+            "picturesLost": 9,
+            "playing": true,
+            "decodedVideo": 3247,
+            "audioBuffersPlayed": 1201,
+            "positionMs": 35845
+          },
+          {
+            "inputBytesRead": 38768896,
+            "picturesDisplayed": 1877,
+            "wallElapsedMs": 25159,
+            "picturesLost": 9,
+            "playing": true,
+            "decodedVideo": 3829,
+            "audioBuffersPlayed": 1419,
+            "positionMs": 40694
+          },
+          {
+            "inputBytesRead": 42701024,
+            "picturesDisplayed": 2184,
+            "wallElapsedMs": 30179,
+            "picturesLost": 9,
+            "playing": true,
+            "decodedVideo": 4443,
+            "audioBuffersPlayed": 1635,
+            "positionMs": 45812
+          },
+          {
+            "inputBytesRead": 46977216,
+            "picturesDisplayed": 2490,
+            "wallElapsedMs": 35201,
+            "picturesLost": 9,
+            "playing": true,
+            "decodedVideo": 5055,
+            "audioBuffersPlayed": 1852,
+            "positionMs": 50911
+          },
+          {
+            "inputBytesRead": 50876576,
+            "picturesDisplayed": 2781,
+            "wallElapsedMs": 40230,
+            "picturesLost": 9,
+            "playing": true,
+            "decodedVideo": 5637,
+            "audioBuffersPlayed": 2069,
+            "positionMs": 55787
+          },
+          {
+            "inputBytesRead": 54775952,
+            "picturesDisplayed": 3088,
+            "wallElapsedMs": 45252,
+            "picturesLost": 9,
+            "playing": true,
+            "decodedVideo": 6251,
+            "audioBuffersPlayed": 2285,
+            "positionMs": 60879
+          },
+          {
+            "inputBytesRead": 56567936,
+            "picturesDisplayed": 3394,
+            "wallElapsedMs": 50280,
+            "picturesLost": 9,
+            "playing": true,
+            "decodedVideo": 6863,
+            "audioBuffersPlayed": 2502,
+            "positionMs": 66004
+          },
+          {
+            "inputBytesRead": 58685568,
+            "picturesDisplayed": 3686,
+            "wallElapsedMs": 55304,
+            "picturesLost": 9,
+            "playing": true,
+            "decodedVideo": 7447,
+            "audioBuffersPlayed": 2718,
+            "positionMs": 70857
+          },
+          {
+            "inputBytesRead": 59775104,
+            "picturesDisplayed": 3989,
+            "wallElapsedMs": 60327,
+            "picturesLost": 12,
+            "playing": true,
+            "decodedVideo": 8059,
+            "audioBuffersPlayed": 2935,
+            "positionMs": 75944
+          },
+          {
+            "inputBytesRead": 63414400,
+            "picturesDisplayed": 4296,
+            "wallElapsedMs": 65355,
+            "picturesLost": 12,
+            "playing": true,
+            "decodedVideo": 8673,
+            "audioBuffersPlayed": 3152,
+            "positionMs": 81075
+          },
+          {
+            "inputBytesRead": 64979072,
+            "picturesDisplayed": 4587,
+            "wallElapsedMs": 70384,
+            "picturesLost": 12,
+            "playing": true,
+            "decodedVideo": 9255,
+            "audioBuffersPlayed": 3369,
+            "positionMs": 85912
+          },
+          {
+            "inputBytesRead": 65710208,
+            "picturesDisplayed": 4893,
+            "wallElapsedMs": 75407,
+            "picturesLost": 12,
+            "playing": true,
+            "decodedVideo": 9867,
+            "audioBuffersPlayed": 3585,
+            "positionMs": 91034
+          },
+          {
+            "inputBytesRead": 66439296,
+            "picturesDisplayed": 5200,
+            "wallElapsedMs": 80427,
+            "picturesLost": 12,
+            "playing": true,
+            "decodedVideo": 10481,
+            "audioBuffersPlayed": 3802,
+            "positionMs": 96128
+          },
+          {
+            "inputBytesRead": 67108992,
+            "picturesDisplayed": 5491,
+            "wallElapsedMs": 85448,
+            "picturesLost": 12,
+            "playing": true,
+            "decodedVideo": 11063,
+            "audioBuffersPlayed": 4018,
+            "positionMs": 100978
+          },
+          {
+            "inputBytesRead": 68421760,
+            "picturesDisplayed": 5797,
+            "wallElapsedMs": 90466,
+            "picturesLost": 12,
+            "playing": true,
+            "decodedVideo": 11675,
+            "audioBuffersPlayed": 4235,
+            "positionMs": 106105
+          },
+          {
+            "inputBytesRead": 69765248,
+            "picturesDisplayed": 6104,
+            "wallElapsedMs": 95490,
+            "picturesLost": 12,
+            "playing": true,
+            "decodedVideo": 12289,
+            "audioBuffersPlayed": 4452,
+            "positionMs": 111194
+          },
+          {
+            "inputBytesRead": 71323776,
+            "picturesDisplayed": 6395,
+            "wallElapsedMs": 100510,
+            "picturesLost": 12,
+            "playing": true,
+            "decodedVideo": 12871,
+            "audioBuffersPlayed": 4668,
+            "positionMs": 116044
+          }
+        ],
+        "positionMs": 2590,
+        "decodedVideo": 374,
+        "decodedAudio": 344,
+        "picturesDisplayed": 6411,
+        "audioBuffersPlayed": 4668,
+        "audioBuffersLost": 0,
+        "videoCallbacks": 6408,
+        "paintedVideoFrames": 6405,
+        "framePoolCapacity": 3,
+        "framePoolDroppedCallbacks": 0,
+        "cleanShutdown": true,
+        "processExitCode": 0,
+        "nativeProcessIsolated": true,
+        "workerCpuMsDuringObservation": 89828,
+        "decoderPolicy": "software_avcodec",
+        "demuxPolicy": "avformat"
+      },
+      "network": {},
+      "relay": {
+        "bytesForwarded": 72198144,
+        "closed": true,
+        "requests": 3,
+        "streamFailures": 2,
+        "loopbackOnly": true,
+        "upstreamHttpStatuses": {
+          "206": 3
+        },
+        "rejectedRequests": 0,
+        "activeRequests": 0,
+        "tracks": {
+          "video": {
+            "failures": 2,
+            "bytes": 61926648,
+            "pendingWriteMs": 0,
+            "readMs": 61159,
+            "requests": 2,
+            "writeMs": 52439,
+            "pendingReadMs": 0
+          },
+          "audio": {
+            "failures": 0,
+            "bytes": 10271496,
+            "pendingWriteMs": 0,
+            "readMs": 8088,
+            "requests": 1,
+            "writeMs": 56,
+            "pendingReadMs": 0
+          }
+        }
+      },
+      "capture": {
+        "captureDiscontinuities": 0,
+        "timestampErrors": 0,
+        "capturedPackets": 12025,
+        "peakLoopbackAmplitude": 0.04155,
+        "multimediaCaptureScheduling": true,
+        "multimediaSchedulingRestored": true,
+        "physicalMicrophoneOpened": false,
+        "rawAudioSaved": false
+      },
+      "deadlineAudit": {
+        "limitMs": 30000,
+        "lateAcceptance": false
+      },
+      "historical-failed-decisions.csv": {
+        "exists": false
+      },
+      "original-gate-failures.csv": {
+        "exists": false
+      },
+      "trackDiagnostics": {
+        "sha256": "6c0bf1d928f89afdd48e231c70ac15827dcdfd0ff4d8ee818fb00f350bdf8829",
+        "rowCount": 100,
+        "columns": [
+          "epochMs",
+          "elapsedMs",
+          "phase",
+          "clockMs",
+          "decodedVideo",
+          "decodedAudio",
+          "pictures",
+          "audioBuffers",
+          "painted",
+          "callbacks",
+          "videoBytes",
+          "audioBytes",
+          "videoReadMs",
+          "audioReadMs",
+          "videoWriteMs",
+          "audioWriteMs",
+          "videoPendingReadMs",
+          "audioPendingReadMs",
+          "videoPendingWriteMs",
+          "audioPendingWriteMs",
+          "videoRequests",
+          "audioRequests",
+          "videoFailures",
+          "audioFailures",
+          "gcMs",
+          "gcCollections",
+          "cpuMs"
+        ],
+        "selectedRows": [
+          {
+            "epochMs": 1792288839831,
+            "elapsedMs": 1005,
+            "phase": 0,
+            "clockMs": 16645,
+            "decodedVideo": 943,
+            "decodedAudio": 756,
+            "pictures": 443,
+            "audioBuffers": 378,
+            "painted": 451,
+            "callbacks": 451,
+            "videoBytes": 9719432,
+            "audioBytes": 10271496,
+            "videoReadMs": 13775,
+            "audioReadMs": 8088,
+            "videoWriteMs": 134,
+            "audioWriteMs": 56,
+            "videoPendingReadMs": 17,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 0,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 2,
+            "audioRequests": 1,
+            "videoFailures": 1,
+            "audioFailures": 0,
+            "gcMs": 50,
+            "gcCollections": 20,
+            "cpuMs": 16406
+          },
+          {
+            "epochMs": 1792288859955,
+            "elapsedMs": 21137,
+            "phase": 0,
+            "clockMs": 36886,
+            "decodedVideo": 3369,
+            "decodedAudio": 2490,
+            "pictures": 1647,
+            "audioBuffers": 1245,
+            "painted": 1647,
+            "callbacks": 1649,
+            "videoBytes": 25726488,
+            "audioBytes": 10271496,
+            "videoReadMs": 33790,
+            "audioReadMs": 8088,
+            "videoWriteMs": 244,
+            "audioWriteMs": 56,
+            "videoPendingReadMs": 11,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 0,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 2,
+            "audioRequests": 1,
+            "videoFailures": 1,
+            "audioFailures": 0,
+            "gcMs": 63,
+            "gcCollections": 29,
+            "cpuMs": 36921
+          },
+          {
+            "epochMs": 1792288880051,
+            "elapsedMs": 41233,
+            "phase": 0,
+            "clockMs": 56794,
+            "decodedVideo": 5761,
+            "decodedAudio": 4224,
+            "pictures": 2843,
+            "audioBuffers": 2112,
+            "painted": 2853,
+            "callbacks": 2855,
+            "videoBytes": 41700760,
+            "audioBytes": 10271496,
+            "videoReadMs": 53752,
+            "audioReadMs": 8088,
+            "videoWriteMs": 341,
+            "audioWriteMs": 56,
+            "videoPendingReadMs": 36,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 0,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 2,
+            "audioRequests": 1,
+            "videoFailures": 1,
+            "audioFailures": 0,
+            "gcMs": 72,
+            "gcCollections": 39,
+            "cpuMs": 55093
+          },
+          {
+            "epochMs": 1792288900150,
+            "elapsedMs": 61332,
+            "phase": 0,
+            "clockMs": 76986,
+            "decodedVideo": 8181,
+            "decodedAudio": 5956,
+            "pictures": 4050,
+            "audioBuffers": 2978,
+            "painted": 4055,
+            "callbacks": 4058,
+            "videoBytes": 51195208,
+            "audioBytes": 10271496,
+            "videoReadMs": 61136,
+            "audioReadMs": 8088,
+            "videoWriteMs": 12946,
+            "audioWriteMs": 56,
+            "videoPendingReadMs": 0,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 141,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 2,
+            "audioRequests": 1,
+            "videoFailures": 1,
+            "audioFailures": 0,
+            "gcMs": 80,
+            "gcCollections": 49,
+            "cpuMs": 72515
+          },
+          {
+            "epochMs": 1792288920250,
+            "elapsedMs": 81432,
+            "phase": 0,
+            "clockMs": 97145,
+            "decodedVideo": 10603,
+            "decodedAudio": 7690,
+            "pictures": 5261,
+            "audioBuffers": 3845,
+            "painted": 5261,
+            "callbacks": 5264,
+            "videoBytes": 57216296,
+            "audioBytes": 10271496,
+            "videoReadMs": 61149,
+            "audioReadMs": 8088,
+            "videoWriteMs": 31740,
+            "audioWriteMs": 56,
+            "videoPendingReadMs": 0,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 1434,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 2,
+            "audioRequests": 1,
+            "videoFailures": 1,
+            "audioFailures": 0,
+            "gcMs": 89,
+            "gcCollections": 59,
+            "cpuMs": 89750
+          },
+          {
+            "epochMs": 1792288939327,
+            "elapsedMs": 100509,
+            "phase": 0,
+            "clockMs": 116044,
+            "decodedVideo": 12871,
+            "decodedAudio": 9336,
+            "pictures": 6395,
+            "audioBuffers": 4668,
+            "painted": 6405,
+            "callbacks": 6408,
+            "videoBytes": 61926648,
+            "audioBytes": 10271496,
+            "videoReadMs": 61159,
+            "audioReadMs": 8088,
+            "videoWriteMs": 51002,
+            "audioWriteMs": 56,
+            "videoPendingReadMs": 0,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 1238,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 2,
+            "audioRequests": 1,
+            "videoFailures": 1,
+            "audioFailures": 0,
+            "gcMs": 97,
+            "gcCollections": 69,
+            "cpuMs": 105390
+          }
+        ],
+        "postRecoveryAudioByteValues": [],
+        "postRecoveryMaxAudioPendingReadMs": 0,
+        "postRecoveryMaxAudioPendingWriteMs": 0
+      },
+      "endpointActivity": {
+        "sha256": "d6d0e59cabd6bfd7f25b9e14c77d1c16c12099c52d22db3a428791f18c2f6690",
+        "binCount": 121,
+        "binsWithPeakAbove001": 98,
+        "binsWithRmsAbove0005Packets": 94,
+        "interpretation": "Activity only; natural silence and application content are not distinguished."
+      }
+    },
+    {
+      "id": "repro-final-disconnect",
+      "workerJarSha256": "1cc58be65285a059baa1da9b0fffe712e2108b8be08b206d0a4ffb402e7d2142",
+      "harnessSha256": "88a327bf5092016896cc7ad117eabcf0be0ca609eb681ace99dcf16f16507ea9",
+      "description": "Final build, unchanged strict stability gate, deadline precedence fixed.",
+      "result": "passed",
+      "reason": null,
+      "worker": {
+        "result": "passed",
+        "stage": "complete",
+        "selectedHeight": 1080,
+        "selectedFps": 60,
+        "selectedCodec": "avc1.64002A",
+        "selectedDelivery": "PROGRESSIVE_HTTP",
+        "pairedAudio": true,
+        "networkCacheMs": 3000,
+        "seekWaitMs": 5819,
+        "seekReadyClockAdvancedMs": 578,
+        "seekTargetMs": 15000,
+        "postSeekPositionMs": 15578,
+        "beforeSeekDecodedVideo": 544,
+        "beforeSeekDecodedAudio": 490,
+        "postSeekDecodedVideo": 813,
+        "postSeekDecodedAudio": 664,
+        "observationRequestedSeconds": 140,
+        "observationWallMs": 148277,
+        "observationClockAdvancedMs": 107014,
+        "longestStalledClockMs": 24000,
+        "observationSamples": [
+          {
+            "inputBytesRead": 24138112,
+            "picturesDisplayed": 684,
+            "wallElapsedMs": 5054,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 1425,
+            "audioBuffersPlayed": 549,
+            "positionMs": 20701
+          },
+          {
+            "inputBytesRead": 27971936,
+            "picturesDisplayed": 975,
+            "wallElapsedMs": 10078,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 2007,
+            "audioBuffersPlayed": 765,
+            "positionMs": 25555
+          },
+          {
+            "inputBytesRead": 32018752,
+            "picturesDisplayed": 1282,
+            "wallElapsedMs": 15096,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 2621,
+            "audioBuffersPlayed": 983,
+            "positionMs": 30644
+          },
+          {
+            "inputBytesRead": 32133440,
+            "picturesDisplayed": 1588,
+            "wallElapsedMs": 20117,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 3233,
+            "audioBuffersPlayed": 1199,
+            "positionMs": 35772
+          },
+          {
+            "inputBytesRead": 32133440,
+            "picturesDisplayed": 1883,
+            "wallElapsedMs": 25137,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 3828,
+            "audioBuffersPlayed": 1378,
+            "positionMs": 40725
+          },
+          {
+            "inputBytesRead": 32133440,
+            "picturesDisplayed": 1883,
+            "wallElapsedMs": 30162,
+            "picturesLost": 0,
+            "playing": false,
+            "decodedVideo": 3828,
+            "audioBuffersPlayed": 1378,
+            "positionMs": -1
+          },
+          {
+            "inputBytesRead": 32133440,
+            "picturesDisplayed": 1883,
+            "wallElapsedMs": 35184,
+            "picturesLost": 0,
+            "playing": false,
+            "decodedVideo": 3828,
+            "audioBuffersPlayed": 1378,
+            "positionMs": -1
+          },
+          {
+            "inputBytesRead": 32133440,
+            "picturesDisplayed": 1883,
+            "wallElapsedMs": 40233,
+            "picturesLost": 0,
+            "playing": false,
+            "decodedVideo": 3828,
+            "audioBuffersPlayed": 1378,
+            "positionMs": -1
+          },
+          {
+            "inputBytesRead": 32133440,
+            "picturesDisplayed": 1883,
+            "wallElapsedMs": 45254,
+            "picturesLost": 0,
+            "playing": false,
+            "decodedVideo": 3828,
+            "audioBuffersPlayed": 1378,
+            "positionMs": -1
+          },
+          {
+            "inputBytesRead": 4177904,
+            "picturesDisplayed": 46,
+            "wallElapsedMs": 57861,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 154,
+            "audioBuffersPlayed": 85,
+            "positionMs": 40725
+          },
+          {
+            "inputBytesRead": 15732064,
+            "picturesDisplayed": 119,
+            "wallElapsedMs": 62883,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 369,
+            "audioBuffersPlayed": 86,
+            "positionMs": 40725
+          },
+          {
+            "inputBytesRead": 19680576,
+            "picturesDisplayed": 253,
+            "wallElapsedMs": 67906,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 768,
+            "audioBuffersPlayed": 216,
+            "positionMs": 42111
+          },
+          {
+            "inputBytesRead": 23776544,
+            "picturesDisplayed": 560,
+            "wallElapsedMs": 72927,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 1382,
+            "audioBuffersPlayed": 432,
+            "positionMs": 47228
+          },
+          {
+            "inputBytesRead": 27675904,
+            "picturesDisplayed": 851,
+            "wallElapsedMs": 77951,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 1964,
+            "audioBuffersPlayed": 649,
+            "positionMs": 52078
+          },
+          {
+            "inputBytesRead": 31165664,
+            "picturesDisplayed": 1157,
+            "wallElapsedMs": 82977,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 2576,
+            "audioBuffersPlayed": 866,
+            "positionMs": 57203
+          },
+          {
+            "inputBytesRead": 31280352,
+            "picturesDisplayed": 1464,
+            "wallElapsedMs": 87998,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 3190,
+            "audioBuffersPlayed": 1082,
+            "positionMs": 62295
+          },
+          {
+            "inputBytesRead": 39292080,
+            "picturesDisplayed": 1755,
+            "wallElapsedMs": 93019,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 3772,
+            "audioBuffersPlayed": 1299,
+            "positionMs": 67145
+          },
+          {
+            "inputBytesRead": 41225376,
+            "picturesDisplayed": 2062,
+            "wallElapsedMs": 98041,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 4386,
+            "audioBuffersPlayed": 1516,
+            "positionMs": 72273
+          },
+          {
+            "inputBytesRead": 47307888,
+            "picturesDisplayed": 2368,
+            "wallElapsedMs": 103063,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 4998,
+            "audioBuffersPlayed": 1732,
+            "positionMs": 77362
+          },
+          {
+            "inputBytesRead": 49351776,
+            "picturesDisplayed": 2659,
+            "wallElapsedMs": 108088,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 5580,
+            "audioBuffersPlayed": 1949,
+            "positionMs": 82234
+          },
+          {
+            "inputBytesRead": 51756112,
+            "picturesDisplayed": 2966,
+            "wallElapsedMs": 113109,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 6194,
+            "audioBuffersPlayed": 2166,
+            "positionMs": 87327
+          },
+          {
+            "inputBytesRead": 52782160,
+            "picturesDisplayed": 3272,
+            "wallElapsedMs": 118130,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 6806,
+            "audioBuffersPlayed": 2383,
+            "positionMs": 92451
+          },
+          {
+            "inputBytesRead": 53281872,
+            "picturesDisplayed": 3564,
+            "wallElapsedMs": 123154,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 7390,
+            "audioBuffersPlayed": 2600,
+            "positionMs": 97303
+          },
+          {
+            "inputBytesRead": 54246480,
+            "picturesDisplayed": 3870,
+            "wallElapsedMs": 128179,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 8002,
+            "audioBuffersPlayed": 2817,
+            "positionMs": 102395
+          },
+          {
+            "inputBytesRead": 55493712,
+            "picturesDisplayed": 4176,
+            "wallElapsedMs": 133201,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 8614,
+            "audioBuffersPlayed": 3034,
+            "positionMs": 107521
+          },
+          {
+            "inputBytesRead": 56706128,
+            "picturesDisplayed": 4468,
+            "wallElapsedMs": 138227,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 9198,
+            "audioBuffersPlayed": 3251,
+            "positionMs": 112374
+          },
+          {
+            "inputBytesRead": 58428496,
+            "picturesDisplayed": 4774,
+            "wallElapsedMs": 143251,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 9810,
+            "audioBuffersPlayed": 3468,
+            "positionMs": 117460
+          },
+          {
+            "inputBytesRead": 60986448,
+            "picturesDisplayed": 5081,
+            "wallElapsedMs": 148277,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 10424,
+            "audioBuffersPlayed": 3684,
+            "positionMs": 122592
+          }
+        ],
+        "positionMs": 2636,
+        "decodedVideo": 378,
+        "decodedAudio": 346,
+        "picturesDisplayed": 5081,
+        "audioBuffersPlayed": 3684,
+        "audioBuffersLost": 0,
+        "videoCallbacks": 7013,
+        "paintedVideoFrames": 7000,
+        "framePoolCapacity": 3,
+        "framePoolDroppedCallbacks": 0,
+        "cleanShutdown": true,
+        "processExitCode": 0,
+        "nativeProcessIsolated": true,
+        "workerCpuMsDuringObservation": 96734,
+        "decoderPolicy": "software_avcodec",
+        "demuxPolicy": "avformat"
+      },
+      "network": {
+        "blockedBytesAfterSettling": 0,
+        "recoveryLatencyMs": 27673,
+        "paintedFramesAtCut": 1288,
+        "resumeCheckpointMs": 40725,
+        "outageRequestedSeconds": 25,
+        "diagnosticSamples": 140,
+        "paintedFramesAtRecovery": 2177,
+        "recoverySampleColumns": [
+          "elapsedMs",
+          "positionMs",
+          "clockDeltaMs",
+          "audioBufferDelta",
+          "pictureDelta",
+          "paintDelta",
+          "relayByteDelta",
+          "wallDeltaMs"
+        ],
+        "cutPositionMs": 30644,
+        "mode": "disconnect",
+        "longestConsecutiveRecoveredSeconds": 80,
+        "terminalReason": "",
+        "recovered": true,
+        "steadyRecoveredSeconds": 80,
+        "stallObserved": true,
+        "faultInjected": true,
+        "explicitRestartAttempts": 1,
+        "restored": true,
+        "lastObservationElapsedMs": 148276,
+        "events": [
+          {
+            "event": "network_down",
+            "elapsedMs": 15094,
+            "positionMs": 30644
+          },
+          {
+            "event": "output_stall_observed",
+            "elapsedMs": 26139,
+            "positionMs": -1
+          },
+          {
+            "event": "network_up",
+            "elapsedMs": 40232,
+            "positionMs": -1
+          },
+          {
+            "event": "explicit_recovery_restart",
+            "elapsedMs": 50333,
+            "positionMs": 40725
+          },
+          {
+            "event": "output_recovered",
+            "elapsedMs": 67905,
+            "positionMs": 42111
+          }
+        ]
+      },
+      "relay": {
+        "bytesForwarded": 94399808,
+        "closed": true,
+        "requests": 6,
+        "streamFailures": 4,
+        "loopbackOnly": true,
+        "upstreamHttpStatuses": {
+          "206": 6
+        },
+        "rejectedRequests": 1,
+        "activeRequests": 0,
+        "tracks": {
+          "video": {
+            "failures": 4,
+            "bytes": 73856816,
+            "pendingWriteMs": 0,
+            "readMs": 80358,
+            "requests": 4,
+            "writeMs": 41031,
+            "pendingReadMs": 0
+          },
+          "audio": {
+            "failures": 0,
+            "bytes": 20542992,
+            "pendingWriteMs": 0,
+            "readMs": 13245,
+            "requests": 2,
+            "writeMs": 137,
+            "pendingReadMs": 0
+          }
+        }
+      },
+      "capture": {
+        "captureDiscontinuities": 0,
+        "timestampErrors": 0,
+        "capturedPackets": 17675,
+        "peakLoopbackAmplitude": 0.04155,
+        "multimediaCaptureScheduling": true,
+        "multimediaSchedulingRestored": true,
+        "physicalMicrophoneOpened": false,
+        "rawAudioSaved": false
+      },
+      "deadlineAudit": {
+        "limitMs": 30000,
+        "lateAcceptance": false
+      },
+      "componentSamples": {
+        "total": 80,
+        "failedPredicateSamples": [],
+        "selectedRows": [
+          [
+            68908,
+            43154,
+            1043,
+            43,
+            61,
+            60,
+            819184,
+            1003
+          ],
+          [
+            73930,
+            48245,
+            1017,
+            44,
+            61,
+            60,
+            671744,
+            1004
+          ],
+          [
+            78955,
+            53094,
+            1016,
+            43,
+            61,
+            60,
+            802816,
+            1005
+          ],
+          [
+            83981,
+            58211,
+            1008,
+            43,
+            61,
+            60,
+            49152,
+            1005
+          ],
+          [
+            89002,
+            63311,
+            1016,
+            44,
+            61,
+            60,
+            409600,
+            1005
+          ],
+          [
+            94024,
+            68186,
+            1041,
+            43,
+            61,
+            60,
+            802816,
+            1006
+          ],
+          [
+            99045,
+            73278,
+            1005,
+            43,
+            61,
+            60,
+            212992,
+            1005
+          ],
+          [
+            104070,
+            78402,
+            1040,
+            43,
+            61,
+            61,
+            802800,
+            1008
+          ],
+          [
+            109090,
+            83255,
+            1021,
+            44,
+            61,
+            60,
+            1032176,
+            1003
+          ],
+          [
+            114111,
+            88346,
+            1019,
+            44,
+            61,
+            60,
+            253952,
+            1003
+          ],
+          [
+            119136,
+            93473,
+            1022,
+            44,
+            62,
+            61,
+            262144,
+            1007
+          ],
+          [
+            124158,
+            98312,
+            1009,
+            44,
+            61,
+            60,
+            253952,
+            1005
+          ],
+          [
+            129183,
+            103411,
+            1016,
+            43,
+            61,
+            61,
+            524288,
+            1005
+          ],
+          [
+            134206,
+            108529,
+            1008,
+            43,
+            62,
+            60,
+            253952,
+            1006
+          ],
+          [
+            139232,
+            113379,
+            1005,
+            43,
+            61,
+            60,
+            262144,
+            1005
+          ],
+          [
+            144254,
+            118504,
+            1044,
+            43,
+            61,
+            60,
+            524288,
+            1004
+          ],
+          [
+            148276,
+            122592,
+            1024,
+            44,
+            62,
+            60,
+            524288,
+            1004
+          ]
+        ]
+      },
+      "historical-failed-decisions.csv": {
+        "exists": false
+      },
+      "original-gate-failures.csv": {
+        "exists": false
+      },
+      "trackDiagnostics": {
+        "sha256": "874b8411e5697e7bca8def3754e320f15af980ba8f7b5287def0ca754a978e3d",
+        "rowCount": 140,
+        "columns": [
+          "epochMs",
+          "elapsedMs",
+          "phase",
+          "clockMs",
+          "decodedVideo",
+          "decodedAudio",
+          "pictures",
+          "audioBuffers",
+          "painted",
+          "callbacks",
+          "videoBytes",
+          "audioBytes",
+          "videoReadMs",
+          "audioReadMs",
+          "videoWriteMs",
+          "audioWriteMs",
+          "videoPendingReadMs",
+          "audioPendingReadMs",
+          "videoPendingWriteMs",
+          "audioPendingWriteMs",
+          "videoRequests",
+          "audioRequests",
+          "videoFailures",
+          "audioFailures",
+          "gcMs",
+          "gcCollections",
+          "cpuMs"
+        ],
+        "selectedRows": [
+          {
+            "epochMs": 1792288961054,
+            "elapsedMs": 1006,
+            "phase": 0,
+            "clockMs": 16595,
+            "decodedVideo": 935,
+            "decodedAudio": 752,
+            "pictures": 439,
+            "audioBuffers": 376,
+            "painted": 443,
+            "callbacks": 444,
+            "videoBytes": 10841736,
+            "audioBytes": 10271496,
+            "videoReadMs": 12527,
+            "audioReadMs": 7788,
+            "videoWriteMs": 1034,
+            "audioWriteMs": 61,
+            "videoPendingReadMs": 20,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 0,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 2,
+            "audioRequests": 1,
+            "videoFailures": 1,
+            "audioFailures": 0,
+            "gcMs": 52,
+            "gcCollections": 21,
+            "cpuMs": 16171
+          },
+          {
+            "epochMs": 1792288976133,
+            "elapsedMs": 16099,
+            "phase": 1,
+            "clockMs": 31685,
+            "decodedVideo": 2743,
+            "decodedAudio": 2052,
+            "pictures": 1343,
+            "audioBuffers": 1026,
+            "painted": 1348,
+            "callbacks": 1348,
+            "videoBytes": 22081080,
+            "audioBytes": 10271496,
+            "videoReadMs": 26561,
+            "audioReadMs": 7788,
+            "videoWriteMs": 1101,
+            "audioWriteMs": 61,
+            "videoPendingReadMs": 0,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 0,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 2,
+            "audioRequests": 1,
+            "videoFailures": 2,
+            "audioFailures": 0,
+            "gcMs": 62,
+            "gcCollections": 30,
+            "cpuMs": 29359
+          },
+          {
+            "epochMs": 1792288981154,
+            "elapsedMs": 21119,
+            "phase": 1,
+            "clockMs": 36538,
+            "decodedVideo": 3325,
+            "decodedAudio": 2486,
+            "pictures": 1634,
+            "audioBuffers": 1243,
+            "painted": 1650,
+            "callbacks": 1650,
+            "videoBytes": 22081080,
+            "audioBytes": 10271496,
+            "videoReadMs": 26561,
+            "audioReadMs": 7788,
+            "videoWriteMs": 1101,
+            "audioWriteMs": 61,
+            "videoPendingReadMs": 0,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 0,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 2,
+            "audioRequests": 1,
+            "videoFailures": 2,
+            "audioFailures": 0,
+            "gcMs": 65,
+            "gcCollections": 34,
+            "cpuMs": 33750
+          },
+          {
+            "epochMs": 1792289001272,
+            "elapsedMs": 41238,
+            "phase": 2,
+            "clockMs": -1,
+            "decodedVideo": 3828,
+            "decodedAudio": 2757,
+            "pictures": 1883,
+            "audioBuffers": 1378,
+            "painted": 1917,
+            "callbacks": 1917,
+            "videoBytes": 22081080,
+            "audioBytes": 10271496,
+            "videoReadMs": 26561,
+            "audioReadMs": 7788,
+            "videoWriteMs": 1101,
+            "audioWriteMs": 61,
+            "videoPendingReadMs": 0,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 0,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 2,
+            "audioRequests": 1,
+            "videoFailures": 2,
+            "audioFailures": 0,
+            "gcMs": 69,
+            "gcCollections": 38,
+            "cpuMs": 37546
+          },
+          {
+            "epochMs": 1792289028942,
+            "elapsedMs": 68908,
+            "phase": 3,
+            "clockMs": 43154,
+            "decodedVideo": 890,
+            "decodedAudio": 518,
+            "pictures": 314,
+            "audioBuffers": 259,
+            "painted": 2237,
+            "callbacks": 2237,
+            "videoBytes": 32585824,
+            "audioBytes": 20542992,
+            "videoReadMs": 39327,
+            "audioReadMs": 13245,
+            "videoWriteMs": 2260,
+            "audioWriteMs": 137,
+            "videoPendingReadMs": 1,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 0,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 4,
+            "audioRequests": 2,
+            "videoFailures": 3,
+            "audioFailures": 0,
+            "gcMs": 107,
+            "gcCollections": 53,
+            "cpuMs": 44640
+          },
+          {
+            "epochMs": 1792289049036,
+            "elapsedMs": 89002,
+            "phase": 3,
+            "clockMs": 63311,
+            "decodedVideo": 3312,
+            "decodedAudio": 2252,
+            "pictures": 1525,
+            "audioBuffers": 1126,
+            "painted": 3443,
+            "callbacks": 3443,
+            "videoBytes": 43694096,
+            "audioBytes": 20542992,
+            "videoReadMs": 59320,
+            "audioReadMs": 13245,
+            "videoWriteMs": 2318,
+            "audioWriteMs": 137,
+            "videoPendingReadMs": 38,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 0,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 4,
+            "audioRequests": 2,
+            "videoFailures": 3,
+            "audioFailures": 0,
+            "gcMs": 118,
+            "gcCollections": 66,
+            "cpuMs": 60531
+          },
+          {
+            "epochMs": 1792289069125,
+            "elapsedMs": 109090,
+            "phase": 3,
+            "clockMs": 83255,
+            "decodedVideo": 5702,
+            "decodedAudio": 3986,
+            "pictures": 2720,
+            "audioBuffers": 1993,
+            "painted": 4648,
+            "callbacks": 4648,
+            "videoBytes": 62470016,
+            "audioBytes": 20542992,
+            "videoReadMs": 79321,
+            "audioReadMs": 13245,
+            "videoWriteMs": 2425,
+            "audioWriteMs": 137,
+            "videoPendingReadMs": 8,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 0,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 4,
+            "audioRequests": 2,
+            "videoFailures": 3,
+            "audioFailures": 0,
+            "gcMs": 130,
+            "gcCollections": 80,
+            "cpuMs": 78609
+          },
+          {
+            "epochMs": 1792289089218,
+            "elapsedMs": 129183,
+            "phase": 3,
+            "clockMs": 103411,
+            "decodedVideo": 8124,
+            "decodedAudio": 5720,
+            "pictures": 3931,
+            "audioBuffers": 2860,
+            "painted": 5854,
+            "callbacks": 5854,
+            "videoBytes": 67499872,
+            "audioBytes": 20542992,
+            "videoReadMs": 80337,
+            "audioReadMs": 13245,
+            "videoWriteMs": 21213,
+            "audioWriteMs": 137,
+            "videoPendingReadMs": 0,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 295,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 4,
+            "audioRequests": 2,
+            "videoFailures": 3,
+            "audioFailures": 0,
+            "gcMs": 142,
+            "gcCollections": 94,
+            "cpuMs": 96484
+          },
+          {
+            "epochMs": 1792289108311,
+            "elapsedMs": 148276,
+            "phase": 3,
+            "clockMs": 122592,
+            "decodedVideo": 10424,
+            "decodedAudio": 7368,
+            "pictures": 5081,
+            "audioBuffers": 3684,
+            "painted": 6999,
+            "callbacks": 6999,
+            "videoBytes": 73783088,
+            "audioBytes": 20542992,
+            "videoReadMs": 80348,
+            "audioReadMs": 13245,
+            "videoWriteMs": 40405,
+            "audioWriteMs": 137,
+            "videoPendingReadMs": 0,
+            "audioPendingReadMs": 0,
+            "videoPendingWriteMs": 184,
+            "audioPendingWriteMs": 0,
+            "videoRequests": 4,
+            "audioRequests": 2,
+            "videoFailures": 3,
+            "audioFailures": 0,
+            "gcMs": 153,
+            "gcCollections": 107,
+            "cpuMs": 111812
+          }
+        ],
+        "postRecoveryAudioByteValues": [
+          20542992
+        ],
+        "postRecoveryMaxAudioPendingReadMs": 0,
+        "postRecoveryMaxAudioPendingWriteMs": 0
+      },
+      "endpointActivity": {
+        "sha256": "f0990dc6f63847cc516601e41d56999385f42a26851d8f1cd2a8a5f7251b86ec",
+        "binCount": 178,
+        "binsWithPeakAbove001": 117,
+        "binsWithRmsAbove0005Packets": 110,
+        "interpretation": "Activity only; natural silence and application content are not distinguished."
+      }
+    },
+    {
+      "id": "repro-exact-pr7-jdwp",
+      "workerJarSha256": "a8841f5c8a0968eece83760a094fa4705cee3f94a68f31f69de6e7fe40bcb3a0",
+      "harnessSha256": "88a327bf5092016896cc7ad117eabcf0be0ca609eb681ace99dcf16f16507ea9",
+      "description": "Original JAR with startup JDWP agent and supervised diagnostic caller; non-suspending field watches attach after 90 seconds. Debug configuration can perturb execution.",
+      "result": "passed",
+      "reason": null,
+      "worker": {
+        "result": "passed",
+        "stage": "complete",
+        "selectedHeight": 1080,
+        "selectedFps": 60,
+        "selectedCodec": "avc1.64002A",
+        "selectedDelivery": "PROGRESSIVE_HTTP",
+        "pairedAudio": true,
+        "networkCacheMs": 3000,
+        "seekWaitMs": 5627,
+        "seekReadyClockAdvancedMs": 712,
+        "seekTargetMs": 15000,
+        "postSeekPositionMs": 15712,
+        "beforeSeekDecodedVideo": 532,
+        "beforeSeekDecodedAudio": 484,
+        "postSeekDecodedVideo": 817,
+        "postSeekDecodedAudio": 658,
+        "observationRequestedSeconds": 140,
+        "observationWallMs": 142307,
+        "observationClockAdvancedMs": 108600,
+        "longestStalledClockMs": 24000,
+        "observationSamples": [
+          {
+            "inputBytesRead": 23318912,
+            "picturesDisplayed": 664,
+            "wallElapsedMs": 5024,
+            "picturesLost": 1,
+            "playing": true,
+            "decodedVideo": 1399,
+            "audioBuffersPlayed": 546,
+            "positionMs": 20586
+          },
+          {
+            "inputBytesRead": 27414880,
+            "picturesDisplayed": 971,
+            "wallElapsedMs": 10042,
+            "picturesLost": 1,
+            "playing": true,
+            "decodedVideo": 2013,
+            "audioBuffersPlayed": 763,
+            "positionMs": 25678
+          },
+          {
+            "inputBytesRead": 31527232,
+            "picturesDisplayed": 1277,
+            "wallElapsedMs": 15060,
+            "picturesLost": 1,
+            "playing": true,
+            "decodedVideo": 2625,
+            "audioBuffersPlayed": 979,
+            "positionMs": 30803
+          },
+          {
+            "inputBytesRead": 31543616,
+            "picturesDisplayed": 1568,
+            "wallElapsedMs": 20086,
+            "picturesLost": 1,
+            "playing": true,
+            "decodedVideo": 3207,
+            "audioBuffersPlayed": 1196,
+            "positionMs": 35656
+          },
+          {
+            "inputBytesRead": 31543616,
+            "picturesDisplayed": 1869,
+            "wallElapsedMs": 25108,
+            "picturesLost": 1,
+            "playing": true,
+            "decodedVideo": 3809,
+            "audioBuffersPlayed": 1375,
+            "positionMs": 40637
+          },
+          {
+            "inputBytesRead": 31543616,
+            "picturesDisplayed": 1870,
+            "wallElapsedMs": 30126,
+            "picturesLost": 1,
+            "playing": false,
+            "decodedVideo": 3816,
+            "audioBuffersPlayed": 1375,
+            "positionMs": -1
+          },
+          {
+            "inputBytesRead": 31543616,
+            "picturesDisplayed": 1870,
+            "wallElapsedMs": 35149,
+            "picturesLost": 1,
+            "playing": false,
+            "decodedVideo": 3816,
+            "audioBuffersPlayed": 1375,
+            "positionMs": -1
+          },
+          {
+            "inputBytesRead": 31543616,
+            "picturesDisplayed": 1870,
+            "wallElapsedMs": 40170,
+            "picturesLost": 1,
+            "playing": false,
+            "decodedVideo": 3816,
+            "audioBuffersPlayed": 1375,
+            "positionMs": -1
+          },
+          {
+            "inputBytesRead": 31543616,
+            "picturesDisplayed": 1870,
+            "wallElapsedMs": 45186,
+            "picturesLost": 1,
+            "playing": false,
+            "decodedVideo": 3816,
+            "audioBuffersPlayed": 1375,
+            "positionMs": -1
+          },
+          {
+            "inputBytesRead": 2326528,
+            "picturesDisplayed": 37,
+            "wallElapsedMs": 51919,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 136,
+            "audioBuffersPlayed": 86,
+            "positionMs": 40637
+          },
+          {
+            "inputBytesRead": 14929248,
+            "picturesDisplayed": 113,
+            "wallElapsedMs": 56937,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 407,
+            "audioBuffersPlayed": 87,
+            "positionMs": 40637
+          },
+          {
+            "inputBytesRead": 18894160,
+            "picturesDisplayed": 295,
+            "wallElapsedMs": 61961,
+            "picturesLost": 4,
+            "playing": true,
+            "decodedVideo": 878,
+            "audioBuffersPlayed": 260,
+            "positionMs": 43095
+          },
+          {
+            "inputBytesRead": 22433072,
+            "picturesDisplayed": 587,
+            "wallElapsedMs": 66980,
+            "picturesLost": 4,
+            "playing": true,
+            "decodedVideo": 1462,
+            "audioBuffersPlayed": 477,
+            "positionMs": 47945
+          },
+          {
+            "inputBytesRead": 26496272,
+            "picturesDisplayed": 893,
+            "wallElapsedMs": 71999,
+            "picturesLost": 4,
+            "playing": true,
+            "decodedVideo": 2074,
+            "audioBuffersPlayed": 694,
+            "positionMs": 53071
+          },
+          {
+            "inputBytesRead": 30379248,
+            "picturesDisplayed": 1200,
+            "wallElapsedMs": 77021,
+            "picturesLost": 4,
+            "playing": true,
+            "decodedVideo": 2688,
+            "audioBuffersPlayed": 910,
+            "positionMs": 58161
+          },
+          {
+            "inputBytesRead": 34344144,
+            "picturesDisplayed": 1491,
+            "wallElapsedMs": 82043,
+            "picturesLost": 4,
+            "playing": true,
+            "decodedVideo": 3270,
+            "audioBuffersPlayed": 1127,
+            "positionMs": 63011
+          },
+          {
+            "inputBytesRead": 38309040,
+            "picturesDisplayed": 1798,
+            "wallElapsedMs": 87060,
+            "picturesLost": 4,
+            "playing": true,
+            "decodedVideo": 3884,
+            "audioBuffersPlayed": 1343,
+            "positionMs": 68140
+          },
+          {
+            "inputBytesRead": 41946272,
+            "picturesDisplayed": 2104,
+            "wallElapsedMs": 92082,
+            "picturesLost": 4,
+            "playing": true,
+            "decodedVideo": 4496,
+            "audioBuffersPlayed": 1560,
+            "positionMs": 73229
+          },
+          {
+            "inputBytesRead": 46238848,
+            "picturesDisplayed": 2396,
+            "wallElapsedMs": 97102,
+            "picturesLost": 4,
+            "playing": true,
+            "decodedVideo": 5080,
+            "audioBuffersPlayed": 1776,
+            "positionMs": 78101
+          },
+          {
+            "inputBytesRead": 49609824,
+            "picturesDisplayed": 2702,
+            "wallElapsedMs": 102121,
+            "picturesLost": 4,
+            "playing": true,
+            "decodedVideo": 5692,
+            "audioBuffersPlayed": 1993,
+            "positionMs": 83194
+          },
+          {
+            "inputBytesRead": 50502752,
+            "picturesDisplayed": 3008,
+            "wallElapsedMs": 107142,
+            "picturesLost": 4,
+            "playing": true,
+            "decodedVideo": 6304,
+            "audioBuffersPlayed": 2210,
+            "positionMs": 88317
+          },
+          {
+            "inputBytesRead": 51496032,
+            "picturesDisplayed": 3300,
+            "wallElapsedMs": 112164,
+            "picturesLost": 4,
+            "playing": true,
+            "decodedVideo": 6888,
+            "audioBuffersPlayed": 2426,
+            "positionMs": 93171
+          },
+          {
+            "inputBytesRead": 52132960,
+            "picturesDisplayed": 3606,
+            "wallElapsedMs": 117194,
+            "picturesLost": 5,
+            "playing": true,
+            "decodedVideo": 7502,
+            "audioBuffersPlayed": 2643,
+            "positionMs": 98262
+          },
+          {
+            "inputBytesRead": 53247072,
+            "picturesDisplayed": 3912,
+            "wallElapsedMs": 122217,
+            "picturesLost": 5,
+            "playing": true,
+            "decodedVideo": 8114,
+            "audioBuffersPlayed": 2860,
+            "positionMs": 103388
+          },
+          {
+            "inputBytesRead": 54199392,
+            "picturesDisplayed": 4203,
+            "wallElapsedMs": 127241,
+            "picturesLost": 5,
+            "playing": true,
+            "decodedVideo": 8696,
+            "audioBuffersPlayed": 3077,
+            "positionMs": 108241
+          },
+          {
+            "inputBytesRead": 55542880,
+            "picturesDisplayed": 4509,
+            "wallElapsedMs": 132265,
+            "picturesLost": 5,
+            "playing": true,
+            "decodedVideo": 9308,
+            "audioBuffersPlayed": 3293,
+            "positionMs": 113328
+          },
+          {
+            "inputBytesRead": 57330784,
+            "picturesDisplayed": 4816,
+            "wallElapsedMs": 137285,
+            "picturesLost": 5,
+            "playing": true,
+            "decodedVideo": 9922,
+            "audioBuffersPlayed": 3510,
+            "positionMs": 118457
+          },
+          {
+            "inputBytesRead": 59855968,
+            "picturesDisplayed": 5107,
+            "wallElapsedMs": 142307,
+            "picturesLost": 5,
+            "playing": true,
+            "decodedVideo": 10504,
+            "audioBuffersPlayed": 3726,
+            "positionMs": 123296
+          }
+        ],
+        "positionMs": 2529,
+        "decodedVideo": 368,
+        "decodedAudio": 346,
+        "picturesDisplayed": 5169,
+        "audioBuffersPlayed": 3770,
+        "audioBuffersLost": 0,
+        "videoCallbacks": 7085,
+        "paintedVideoFrames": 7024,
+        "cleanShutdown": true,
+        "processExitCode": 0,
+        "nativeProcessIsolated": true,
+        "workerCpuMsDuringObservation": 129953,
+        "decoderPolicy": "software_avcodec",
+        "demuxPolicy": "avformat"
+      },
+      "network": {
+        "blockedBytesAfterSettling": 0,
+        "recoveryLatencyMs": 20782,
+        "paintedFramesAtCut": 1279,
+        "resumeCheckpointMs": 40637,
+        "outageRequestedSeconds": 25,
+        "paintedFramesAtRecovery": 2144,
+        "cutPositionMs": 30803,
+        "mode": "disconnect",
+        "longestConsecutiveRecoveredSeconds": 81,
+        "terminalReason": "",
+        "recovered": true,
+        "steadyRecoveredSeconds": 81,
+        "stallObserved": true,
+        "faultInjected": true,
+        "explicitRestartAttempts": 1,
+        "restored": true,
+        "lastObservationElapsedMs": 142306,
+        "events": [
+          {
+            "event": "network_down",
+            "elapsedMs": 15058,
+            "positionMs": 30803
+          },
+          {
+            "event": "output_stall_observed",
+            "elapsedMs": 26111,
+            "positionMs": -1
+          },
+          {
+            "event": "network_up",
+            "elapsedMs": 40168,
+            "positionMs": -1
+          },
+          {
+            "event": "explicit_recovery_restart",
+            "elapsedMs": 50203,
+            "positionMs": 40637
+          },
+          {
+            "event": "output_recovered",
+            "elapsedMs": 60950,
+            "positionMs": 42089
+          }
+        ]
+      },
+      "relay": {
+        "bytesForwarded": 93203776,
+        "closed": true,
+        "requests": 6,
+        "streamFailures": 4,
+        "loopbackOnly": true,
+        "upstreamHttpStatuses": {
+          "206": 6
+        },
+        "rejectedRequests": 1,
+        "activeRequests": 0
+      },
+      "capture": {
+        "captureDiscontinuities": 0,
+        "timestampErrors": 0,
+        "capturedPackets": 16174,
+        "peakLoopbackAmplitude": 0.04155,
+        "multimediaCaptureScheduling": true,
+        "multimediaSchedulingRestored": true,
+        "physicalMicrophoneOpened": false,
+        "rawAudioSaved": false
+      },
+      "deadlineAudit": {
+        "limitMs": 30000,
+        "lateAcceptance": false
+      },
+      "historical-failed-decisions.csv": {
+        "exists": false
+      },
+      "original-gate-failures.csv": {
+        "exists": false
+      },
+      "endpointActivity": {
+        "sha256": "6e0c7f3d2232dc146f233b59c58ee71949c7c3f3aed3d5c36b0c0b2e0c770665",
+        "binCount": 163,
+        "binsWithPeakAbove001": 111,
+        "binsWithRmsAbove0005Packets": 106,
+        "interpretation": "Activity only; natural silence and application content are not distinguished."
+      }
+    },
+    {
+      "id": "repro-exact-pr7-a2",
+      "workerJarSha256": "a8841f5c8a0968eece83760a094fa4705cee3f94a68f31f69de6e7fe40bcb3a0",
+      "harnessSha256": "88a327bf5092016896cc7ad117eabcf0be0ca609eb681ace99dcf16f16507ea9",
+      "description": "Final exact-binary repeat; no diagnostic agent.",
+      "result": "failed",
+      "reason": "PlaybackProbeFailed",
+      "worker": {
+        "result": "failed",
+        "stage": "decode",
+        "errorType": "IOException",
+        "selectedHeight": 1080,
+        "selectedFps": 60,
+        "selectedCodec": "avc1.64002A",
+        "selectedDelivery": "PROGRESSIVE_HTTP",
+        "pairedAudio": true,
+        "networkCacheMs": 3000,
+        "positionMs": 0,
+        "decodedVideo": 0,
+        "decodedAudio": 0,
+        "videoCallbacks": 0,
+        "paintedVideoFrames": 0,
+        "cleanShutdown": true,
+        "processExitCode": 1,
+        "nativeProcessIsolated": true
+      },
+      "network": {
+        "blockedBytesAfterSettling": 0,
+        "recoveryLatencyMs": -1,
+        "paintedFramesAtCut": 0,
+        "resumeCheckpointMs": 0,
+        "outageRequestedSeconds": 25,
+        "paintedFramesAtRecovery": 0,
+        "cutPositionMs": 0,
+        "mode": "disconnect",
+        "longestConsecutiveRecoveredSeconds": 0,
+        "terminalReason": "",
+        "recovered": false,
+        "steadyRecoveredSeconds": 0,
+        "stallObserved": false,
+        "faultInjected": false,
+        "explicitRestartAttempts": 0,
+        "restored": false,
+        "lastObservationElapsedMs": 0,
+        "events": []
+      },
+      "relay": {
+        "bytesForwarded": 0,
+        "closed": true,
+        "requests": 4,
+        "streamFailures": 0,
+        "loopbackOnly": true,
+        "upstreamHttpStatuses": {
+          "403": 4
+        },
+        "rejectedRequests": 0,
+        "activeRequests": 0
+      },
+      "capture": {
+        "captureDiscontinuities": 0,
+        "timestampErrors": 0,
+        "capturedPackets": 3681,
+        "peakLoopbackAmplitude": 0.343377,
+        "multimediaCaptureScheduling": true,
+        "multimediaSchedulingRestored": true,
+        "physicalMicrophoneOpened": false,
+        "rawAudioSaved": false
+      },
+      "deadlineAudit": {
+        "limitMs": 30000,
+        "lateAcceptance": false
+      },
+      "historical-failed-decisions.csv": {
+        "exists": false
+      },
+      "original-gate-failures.csv": {
+        "exists": false
+      },
+      "endpointActivity": {
+        "sha256": "4d4aa78a8b403da5a664bb4e7b3014424530f04d09c6ec54b4546f4cc47c6bc5",
+        "binCount": 38,
+        "binsWithPeakAbove001": 2,
+        "binsWithRmsAbove0005Packets": 2,
+        "interpretation": "Activity only; natural silence and application content are not distinguished."
+      }
+    },
+    {
+      "id": "repro-original-gate-caller-a4",
+      "workerJarSha256": "8af78b14c0c14d1fc9accff06693dc710039548e7be371437f0df28066371f79",
+      "harnessSha256": "88a327bf5092016896cc7ad117eabcf0be0ca609eb681ace99dcf16f16507ea9",
+      "description": "Final caller-only observer repeat; gate/render/relay class bytes preserved.",
+      "result": "passed",
+      "reason": null,
+      "worker": {
+        "result": "passed",
+        "stage": "complete",
+        "selectedHeight": 1080,
+        "selectedFps": 60,
+        "selectedCodec": "avc1.64002A",
+        "selectedDelivery": "PROGRESSIVE_HTTP",
+        "pairedAudio": true,
+        "networkCacheMs": 3000,
+        "seekWaitMs": 5830,
+        "seekReadyClockAdvancedMs": 711,
+        "seekTargetMs": 15000,
+        "postSeekPositionMs": 15711,
+        "beforeSeekDecodedVideo": 544,
+        "beforeSeekDecodedAudio": 492,
+        "postSeekDecodedVideo": 829,
+        "postSeekDecodedAudio": 666,
+        "observationRequestedSeconds": 140,
+        "observationWallMs": 143868,
+        "observationClockAdvancedMs": 102867,
+        "longestStalledClockMs": 24000,
+        "observationSamples": [
+          {
+            "inputBytesRead": 24465792,
+            "picturesDisplayed": 686,
+            "wallElapsedMs": 5028,
+            "picturesLost": 5,
+            "playing": true,
+            "decodedVideo": 1441,
+            "audioBuffersPlayed": 551,
+            "positionMs": 20840
+          },
+          {
+            "inputBytesRead": 28365152,
+            "picturesDisplayed": 978,
+            "wallElapsedMs": 10050,
+            "picturesLost": 5,
+            "playing": true,
+            "decodedVideo": 2025,
+            "audioBuffersPlayed": 767,
+            "positionMs": 25678
+          },
+          {
+            "inputBytesRead": 32379200,
+            "picturesDisplayed": 1284,
+            "wallElapsedMs": 15075,
+            "picturesLost": 5,
+            "playing": true,
+            "decodedVideo": 2637,
+            "audioBuffersPlayed": 984,
+            "positionMs": 30802
+          },
+          {
+            "inputBytesRead": 32510272,
+            "picturesDisplayed": 1591,
+            "wallElapsedMs": 20093,
+            "picturesLost": 5,
+            "playing": true,
+            "decodedVideo": 3251,
+            "audioBuffersPlayed": 1200,
+            "positionMs": 35895
+          },
+          {
+            "inputBytesRead": 32510272,
+            "picturesDisplayed": 1877,
+            "wallElapsedMs": 25109,
+            "picturesLost": 5,
+            "playing": true,
+            "decodedVideo": 3828,
+            "audioBuffersPlayed": 1379,
+            "positionMs": 40931
+          },
+          {
+            "inputBytesRead": 32510272,
+            "picturesDisplayed": 1877,
+            "wallElapsedMs": 30127,
+            "picturesLost": 5,
+            "playing": false,
+            "decodedVideo": 3828,
+            "audioBuffersPlayed": 1379,
+            "positionMs": -1
+          },
+          {
+            "inputBytesRead": 32510272,
+            "picturesDisplayed": 1877,
+            "wallElapsedMs": 35155,
+            "picturesLost": 5,
+            "playing": false,
+            "decodedVideo": 3828,
+            "audioBuffersPlayed": 1379,
+            "positionMs": -1
+          },
+          {
+            "inputBytesRead": 32510272,
+            "picturesDisplayed": 1877,
+            "wallElapsedMs": 40183,
+            "picturesLost": 5,
+            "playing": false,
+            "decodedVideo": 3828,
+            "audioBuffersPlayed": 1379,
+            "positionMs": -1
+          },
+          {
+            "inputBytesRead": 32510272,
+            "picturesDisplayed": 1877,
+            "wallElapsedMs": 45201,
+            "picturesLost": 5,
+            "playing": false,
+            "decodedVideo": 3828,
+            "audioBuffersPlayed": 1379,
+            "positionMs": -1
+          },
+          {
+            "inputBytesRead": 2277376,
+            "picturesDisplayed": 33,
+            "wallElapsedMs": 52194,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 128,
+            "audioBuffersPlayed": 86,
+            "positionMs": 40931
+          },
+          {
+            "inputBytesRead": 13013544,
+            "picturesDisplayed": 106,
+            "wallElapsedMs": 57220,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 370,
+            "audioBuffersPlayed": 87,
+            "positionMs": 40931
+          },
+          {
+            "inputBytesRead": 14094872,
+            "picturesDisplayed": 176,
+            "wallElapsedMs": 62235,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 414,
+            "audioBuffersPlayed": 87,
+            "positionMs": 40931
+          },
+          {
+            "inputBytesRead": 18238800,
+            "picturesDisplayed": 273,
+            "wallElapsedMs": 67319,
+            "picturesLost": 7,
+            "playing": true,
+            "decodedVideo": 684,
+            "audioBuffersPlayed": 173,
+            "positionMs": 41746
+          },
+          {
+            "inputBytesRead": 21548336,
+            "picturesDisplayed": 521,
+            "wallElapsedMs": 72470,
+            "picturesLost": 63,
+            "playing": true,
+            "decodedVideo": 1292,
+            "audioBuffersPlayed": 391,
+            "positionMs": 46881
+          },
+          {
+            "inputBytesRead": 23891232,
+            "picturesDisplayed": 731,
+            "wallElapsedMs": 77772,
+            "picturesLost": 181,
+            "playing": true,
+            "decodedVideo": 1948,
+            "audioBuffersPlayed": 652,
+            "positionMs": 52304
+          },
+          {
+            "inputBytesRead": 24759584,
+            "picturesDisplayed": 946,
+            "wallElapsedMs": 83234,
+            "picturesLost": 295,
+            "playing": true,
+            "decodedVideo": 2606,
+            "audioBuffersPlayed": 869,
+            "positionMs": 57776
+          },
+          {
+            "inputBytesRead": 27479312,
+            "picturesDisplayed": 1189,
+            "wallElapsedMs": 88395,
+            "picturesLost": 358,
+            "playing": true,
+            "decodedVideo": 3218,
+            "audioBuffersPlayed": 1087,
+            "positionMs": 62869
+          },
+          {
+            "inputBytesRead": 34491600,
+            "picturesDisplayed": 1478,
+            "wallElapsedMs": 93437,
+            "picturesLost": 380,
+            "playing": true,
+            "decodedVideo": 3840,
+            "audioBuffersPlayed": 1304,
+            "positionMs": 68028
+          },
+          {
+            "inputBytesRead": 39226544,
+            "picturesDisplayed": 1768,
+            "wallElapsedMs": 98456,
+            "picturesLost": 381,
+            "playing": true,
+            "decodedVideo": 4422,
+            "audioBuffersPlayed": 1521,
+            "positionMs": 72879
+          },
+          {
+            "inputBytesRead": 46455936,
+            "picturesDisplayed": 2065,
+            "wallElapsedMs": 103497,
+            "picturesLost": 393,
+            "playing": true,
+            "decodedVideo": 5040,
+            "audioBuffersPlayed": 1739,
+            "positionMs": 78047
+          },
+          {
+            "inputBytesRead": 49855616,
+            "picturesDisplayed": 2330,
+            "wallElapsedMs": 108520,
+            "picturesLost": 436,
+            "playing": true,
+            "decodedVideo": 5652,
+            "audioBuffersPlayed": 1956,
+            "positionMs": 83139
+          },
+          {
+            "inputBytesRead": 50609280,
+            "picturesDisplayed": 2603,
+            "wallElapsedMs": 113642,
+            "picturesLost": 459,
+            "playing": true,
+            "decodedVideo": 6244,
+            "audioBuffersPlayed": 2173,
+            "positionMs": 88085
+          },
+          {
+            "inputBytesRead": 51741824,
+            "picturesDisplayed": 2906,
+            "wallElapsedMs": 118669,
+            "picturesLost": 462,
+            "playing": true,
+            "decodedVideo": 6856,
+            "audioBuffersPlayed": 2391,
+            "positionMs": 93179
+          },
+          {
+            "inputBytesRead": 52378752,
+            "picturesDisplayed": 3215,
+            "wallElapsedMs": 123689,
+            "picturesLost": 462,
+            "playing": true,
+            "decodedVideo": 7474,
+            "audioBuffersPlayed": 2608,
+            "positionMs": 98311
+          },
+          {
+            "inputBytesRead": 53427328,
+            "picturesDisplayed": 3506,
+            "wallElapsedMs": 128712,
+            "picturesLost": 462,
+            "playing": true,
+            "decodedVideo": 8056,
+            "audioBuffersPlayed": 2825,
+            "positionMs": 103163
+          },
+          {
+            "inputBytesRead": 54477952,
+            "picturesDisplayed": 3814,
+            "wallElapsedMs": 133766,
+            "picturesLost": 463,
+            "playing": true,
+            "decodedVideo": 8674,
+            "audioBuffersPlayed": 3042,
+            "positionMs": 108311
+          },
+          {
+            "inputBytesRead": 55755904,
+            "picturesDisplayed": 4101,
+            "wallElapsedMs": 138817,
+            "picturesLost": 469,
+            "playing": true,
+            "decodedVideo": 9260,
+            "audioBuffersPlayed": 3259,
+            "positionMs": 113210
+          },
+          {
+            "inputBytesRead": 57543808,
+            "picturesDisplayed": 4406,
+            "wallElapsedMs": 143867,
+            "picturesLost": 472,
+            "playing": true,
+            "decodedVideo": 9876,
+            "audioBuffersPlayed": 3476,
+            "positionMs": 118328
+          }
+        ],
+        "positionMs": 2528,
+        "decodedVideo": 368,
+        "decodedAudio": 346,
+        "picturesDisplayed": 4421,
+        "audioBuffersPlayed": 3476,
+        "audioBuffersLost": 0,
+        "videoCallbacks": 6345,
+        "paintedVideoFrames": 6324,
+        "cleanShutdown": true,
+        "processExitCode": 0,
+        "nativeProcessIsolated": true,
+        "workerCpuMsDuringObservation": 128969,
+        "decoderPolicy": "software_avcodec",
+        "demuxPolicy": "avformat"
+      },
+      "network": {
+        "blockedBytesAfterSettling": 0,
+        "recoveryLatencyMs": 27135,
+        "paintedFramesAtCut": 1294,
+        "resumeCheckpointMs": 40931,
+        "outageRequestedSeconds": 25,
+        "paintedFramesAtRecovery": 2194,
+        "cutPositionMs": 30802,
+        "mode": "disconnect",
+        "longestConsecutiveRecoveredSeconds": 75,
+        "terminalReason": "",
+        "recovered": true,
+        "steadyRecoveredSeconds": 75,
+        "stallObserved": true,
+        "faultInjected": true,
+        "explicitRestartAttempts": 1,
+        "restored": true,
+        "lastObservationElapsedMs": 143867,
+        "events": [
+          {
+            "event": "network_down",
+            "elapsedMs": 15072,
+            "positionMs": 30802
+          },
+          {
+            "event": "output_stall_observed",
+            "elapsedMs": 26112,
+            "positionMs": -1
+          },
+          {
+            "event": "network_up",
+            "elapsedMs": 40183,
+            "positionMs": -1
+          },
+          {
+            "event": "explicit_recovery_restart",
+            "elapsedMs": 50389,
+            "positionMs": 40931
+          },
+          {
+            "event": "output_recovered",
+            "elapsedMs": 67318,
+            "positionMs": 41746
+          }
+        ]
+      },
+      "relay": {
+        "bytesForwarded": 91139424,
+        "closed": true,
+        "requests": 6,
+        "streamFailures": 4,
+        "loopbackOnly": true,
+        "upstreamHttpStatuses": {
+          "206": 6
+        },
+        "rejectedRequests": 1,
+        "activeRequests": 0
+      },
+      "capture": {
+        "captureDiscontinuities": 0,
+        "timestampErrors": 0,
+        "capturedPackets": 16370,
+        "peakLoopbackAmplitude": 0.552825,
+        "multimediaCaptureScheduling": true,
+        "multimediaSchedulingRestored": true,
+        "physicalMicrophoneOpened": false,
+        "rawAudioSaved": false
+      },
+      "deadlineAudit": {
+        "limitMs": 30000,
+        "lateAcceptance": false
+      },
+      "historical-failed-decisions.csv": {
+        "exists": false
+      },
+      "original-gate-failures.csv": {
+        "exists": false
+      },
+      "endpointActivity": {
+        "sha256": "ee67ebba5f98df8c09f1890d353133857ad1c645f0ab98b20c247b22d0826298",
+        "binCount": 165,
+        "binsWithPeakAbove001": 105,
+        "binsWithRmsAbove0005Packets": 98,
+        "interpretation": "Activity only; natural silence and application content are not distinguished."
+      }
+    }
+  ],
+  "historicalClassIdentity": {
+    "NetworkScenario": {
+      "identical": true,
+      "sha256": "437f7c8c98a388648a6850bda7ec6aaf21cb408dad74b65a75eb6f0fb9740102"
+    },
+    "PresentationWindow": {
+      "identical": true,
+      "sha256": "6bb5fcb553119ab08d0e01afbc66e1bb2ae22cfc5242d1c5f6c794d743d297ea"
+    },
+    "ProbeRelay": {
+      "identical": true,
+      "sha256": "881d9bf537235ea58b1b1e1a5e831d56021ce6bc141a65fe30971dac6f563444"
+    }
+  },
+  "historicalObserverPatch": {
+    "path": "tools/foundation/fixtures/legacy-recovery-observer.patch",
+    "sha256": "9e6bbadc37b42f9c0e02c6efc91de6e315a0c7b60fa20648914d36ae73d26de8",
+    "baseHead": "2169186fa5da940b51a3dca342ce2b0d72d3a795",
+    "noFailedDecisionFileMeaning": "No steady reset was observed after recovery; writing was never invoked. Reflection/caller work can still perturb timing."
+  },
+  "lateDebuggerExperiment": {
+    "nativeJarSha256": "a8841f5c8a0968eece83760a094fa4705cee3f94a68f31f69de6e7fe40bcb3a0",
+    "attachRequestedAfterSeconds": 90,
+    "suspendPolicy": "NONE",
+    "originalClassesUnmodified": true,
+    "attachedAtSeconds": 90.156,
+    "transportClosed": true,
+    "eventCounts": {
+      "lastElapsedMs": 70,
+      "steadySeconds": 70,
+      "referencePosition": 70,
+      "referenceAudio": 70,
+      "referencePictures": 70,
+      "referencePainted": 70
+    },
+    "failedDecisions": [],
+    "harnessExit": 0,
+    "steadyEventSummary": {
+      "count": 70,
+      "first": {
+        "epochMs": 1792289227732,
+        "elapsedMs": 73004,
+        "value": 12
+      },
+      "last": {
+        "epochMs": 1792289297035,
+        "elapsedMs": 142306,
+        "value": 81
+      }
+    }
+  },
+  "checks": {
+    "javaTests": 40,
+    "javaFailures": 0,
+    "pythonTimingTests": 11,
+    "distributionBuild": "passed",
+    "deadlineRegressionMs": 30304,
+    "deadlineRegressionExpected": "DEADLINE",
+    "finalWorkerJarSha256": "1cc58be65285a059baa1da9b0fffe712e2108b8be08b206d0a4ffb402e7d2142",
+    "headlessRegression": {
+      "result": "passed",
+      "stage": "complete",
+      "decodedVideo": 197,
+      "decodedAudio": 319,
+      "seekWorked": true,
+      "pauseStable": true,
+      "resumeAdvanced": true,
+      "cleanShutdown": true,
+      "processExitCode": 0
+    }
+  }
+}
