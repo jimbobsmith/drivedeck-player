@@ -69,6 +69,8 @@ The desktop downloader refuses PipePipe's hosted signature-decoder endpoint inst
 
 Issue #2 adds an opt-in `-Present` validation window with native audio inside the supervised worker. See [DESKTOP_PRESENTATION.md](DESKTOP_PRESENTATION.md) for commands, separate flash/beep fixtures, render-loopback timestamps, negative controls and interpretation. The selected avformat demuxer improves the measured seek path; a conservative software AVC profile is capped at 720p30 and qualifies this sample at 480p30. Opt-in `-Profile hd720` / `-Profile hd1080` and `-ObserveSeconds` support bounded HD and longer-run qualification; see the presentation guide and latest results before interpreting the higher profiles. Worker decode/transport success still does not certify arbitrary provider A/V sync. The controlled timing harness and human output confirmation are separate evidence.
 
+See [DESKTOP_NETWORK.md](DESKTOP_NETWORK.md) for the scoped loopback relay, explicit interruption/recovery scenarios and separate post-recovery measurement.
+
 ## Delivery and evidence
 
 Measured results are recorded in `RESULTS.md` and linked from issue #1. Do not mark the cross-product parent complete after this spike. Remaining provider, device, desktop presentation, compatibility, signing and release gates stay open.

@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-17",
+  "scopedBuild": "test installDist passed",
+  "javaTests": [
+    {
+      "name": "com.drivedeck.player.spike.DesktopPlaybackProfileTest",
+      "tests": "5",
+      "failures": "0",
+      "errors": "0"
+    },
+    {
+      "name": "com.drivedeck.player.spike.NetworkScenarioTest",
+      "tests": "4",
+      "failures": "0",
+      "errors": "0"
+    },
+    {
+      "name": "com.drivedeck.player.spike.ProbeRelayTest",
+      "tests": "6",
+      "failures": "0",
+      "errors": "0"
+    },
+    {
+      "name": "com.drivedeck.player.spike.ProbeSettingsTest",
+      "tests": "4",
+      "failures": "0",
+      "errors": "0"
+    },
+    {
+      "name": "com.drivedeck.player.spike.SeekReadinessTest",
+      "tests": "4",
+      "failures": "0",
+      "errors": "0"
+    },
+    {
+      "name": "com.drivedeck.player.spike.WorkerSupervisorTest",
+      "tests": "9",
+      "failures": "0",
+      "errors": "0"
+    }
+  ],
+  "pythonTimingAnalysisTests": 11,
+  "inheritedToolchainEvidence": "desktop-presentation-checks.json",
+  "testedDesktopJarSha256": "a8841f5c8a0968eece83760a094fa4705cee3f94a68f31f69de6e7fe40bcb3a0",
+  "sourceToolSha256": {
+    "tools/foundation/av_sync_metrics.py": "75d520ce2208a5ec2a6e7e0c1a89fb8ed125abaeb2d0d7d5dcda14510c2282e9",
+    "tools/foundation/make-sync-fixture.py": "537155fe003638acaf2c521befc1f3876a95751e24e3dee83d0e2b975fb6e7c4",
+    "tools/foundation/validate-presentation.py": "465c67c661a0ef5b35d908e2ace9a5c85235bbb22efcc8789df692c07c04241e"
+  },
+  "headlessFixtureRegression": {
+    "pauseStable": true,
+    "javaVersion": "25.0.4.1",
+    "lengthMs": 20000,
+    "beforeSeekDecodedVideo": 291,
+    "avSyncProven": false,
+    "beforeSeekDecodedAudio": 465,
+    "output": "dummy_decode_only",
+    "vlcVersion": "3.0.24 Vetinari",
+    "result": "passed",
+    "postSeekPositionMs": 7691,
+    "postSeekDecodedVideo": 626,
+    "demuxPolicy": "avformat",
+    "networkCacheMs": 1000,
+    "seekWaitMs": 803,
+    "postSeekDecodedAudio": 1312,
+    "seekWorked": true,
+    "resumeAdvanced": true,
+    "schemaVersion": 2,
+    "seekReadyClockAdvancedMs": 691,
+    "cleanShutdown": true,
+    "decodedVideo": 213,
+    "jnaVersion": "5.14.0",
+    "decodedAudio": 343,
+    "decoderPolicy": "software_avcodec",
+    "seekTargetMs": 7000,
+    "stage": "complete",
+    "seekable": true,
+    "nativeProcessIsolated": true,
+    "processExitCode": 0,
+    "positionMs": 2502
+  },
+  "automatedTestCount": 43,
+  "providerRecoveryQualification": "Not established: final guarded trials resume but fail stable-output gate at 14 and 18 samples."
+}

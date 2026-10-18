@@ -1,0 +1,30 @@
+package com.drivedeck.player.spike;
+import java.util.Map;
+import org.junit.Test;
+import static org.junit.Assert.*;
+public class NetworkScenarioTest {
+ @Test public void faultsRequireBoundedLongObservation() {
+   assertFalse(new NetworkScenario(Map.of(),20).enabled());
+   var control=new NetworkScenario(Map.of("DD_PLAYER_NETWORK_FAULT","relay"),20);
+   assertFalse(control.enabled()); assertTrue(control.usesRelay());
+   assertTrue(new NetworkScenario(Map.of("DD_PLAYER_NETWORK_FAULT","disconnect"),120).enabled());
+   for(var env:java.util.List.of(Map.of("DD_PLAYER_NETWORK_FAULT","unknown"),Map.of("DD_PLAYER_NETWORK_DOWN_SECONDS","46")))
+     assertThrows(IllegalArgumentException.class,()->new NetworkScenario(env,120));
+   assertThrows(IllegalArgumentException.class,()->new NetworkScenario(Map.of("DD_PLAYER_NETWORK_FAULT","hold"),20));
+ }
+ @Test public void restartingAtZeroOrJumpingAheadCannotProveRecovery() {
+   assertFalse(NetworkScenario.recoveryPosition(40000,1000,1000));
+   assertFalse(NetworkScenario.recoveryPosition(40000,60000,1000));
+   assertTrue(NetworkScenario.recoveryPosition(40000,42000,1000));
+ }
+ @Test public void instantOfCutCannotProveAStall() {
+   assertFalse(NetworkScenario.outputStalled(0,0,0));
+   assertFalse(NetworkScenario.outputStalled(1000,1000,50));
+   assertTrue(NetworkScenario.outputStalled(1000,0,0));
+ }
+ @Test public void noFaultOrNativePlayingAloneCannotProveRecovery() {
+   var scenario=new NetworkScenario(Map.of("DD_PLAYER_NETWORK_FAULT","hold"),120);
+   assertThrows(java.io.IOException.class,scenario::requireSuccess);
+   assertEquals("recovery_not_proven",scenario.report().getString("terminalReason"));
+ }
+}

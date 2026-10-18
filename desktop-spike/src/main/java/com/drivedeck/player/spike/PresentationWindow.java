@@ -99,6 +99,8 @@ final class PresentationWindow implements AutoCloseable {
         player.audio().setMute(false);
     }
 
+    long paintedFrames() { return painted.get(); }
+
     void mark(String phase) throws Exception {
         SwingUtilities.invokeAndWait(() -> phases.add(System.currentTimeMillis() + "," + phase));
     }
