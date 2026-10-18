@@ -1,11 +1,37 @@
 import unittest
-from recovery_diagnostics import analyze
+from recovery_diagnostics import analyze, replay_batches
 
 COLUMNS = ["elapsedMs", "positionMs", "clockDeltaMs", "audioBufferDelta", "pictureDelta", "paintDelta", "relayByteDelta", "wallDeltaMs"]
 def worker(rows):
     return {"result": "failed", "networkScenario": {"recoverySampleColumns": COLUMNS, "recoverySamples": rows}}
 
 class RecoveryDiagnosticsTest(unittest.TestCase):
+    def test_batch_replay_confirms_hold_and_retains_original_failure(self):
+        rows=[[i*1000,i*1000,1000,0 if i%2 else 86,60,60,100,1000] for i in range(1,33)]
+        batch=replay_batches(COLUMNS,rows)
+        self.assertEqual(32000,batch["terminalConfirmedMs"]);self.assertTrue(batch["qualified"])
+        data=worker(rows)
+        self.assertIsNone(analyze(data)["counterBatchAudit"])
+        data["networkScenario"].update(recoveryValidation="confirmed_audio_batches_v2",confirmedRecoveredMs=32000,
+                                      longestConfirmedRecoveredMs=32000,pendingAudioBatchMs=0)
+        report=analyze(data)
+        self.assertTrue(report["counterBatchAudit"]["matchesWorkerDurations"])
+        self.assertEqual("failed",report["workerResult"])
+        self.assertTrue(report["strictPerTickAuditOnly"])
+        rows.append([33000,33000,1000,0,60,60,100,1000])
+        self.assertFalse(replay_batches(COLUMNS,rows)["qualified"])
+    def test_batched_validation_rejects_real_stalls_resets_and_late_catchup(self):
+        good=[[i*1000,i*1000,1000,43,60,60,100,1000] for i in range(1,31)]
+        for bad in ([31000,31000,0,86,60,60,100,1000],[31000,31000,1000,-1,60,60,100,1000],
+                    [31000,31000,1000,86,0,60,100,1000],[31000,31000,1000,86,60,0,100,1000],
+                    [31000,31000,1000,86,60,60,100,1251]):
+            self.assertFalse(replay_batches(COLUMNS,good+[bad])["qualified"])
+        held=[31000,31000,1000,0,60,60,100,1000]
+        self.assertFalse(replay_batches(COLUMNS,good+[held,held])["qualified"])
+        self.assertFalse(replay_batches(COLUMNS,good+[held,[32000,32000,1000,86,60,60,100,1251]])["qualified"])
+    def test_unknown_gate_version_is_not_silently_audited_as_legacy(self):
+        with self.assertRaisesRegex(ValueError,"UnknownRecoveryValidation"):
+            analyze({"networkScenario":{"recoveryValidation":"future"}})
     def test_distinguishes_audio_hold_from_clock_video_and_paint(self):
         report = analyze(worker([[1000, 2000, 1000, 0, 60, 60, 0, 1000]]))
         self.assertEqual(["audio_not_advanced"], report["failures"][0]["failedComponents"])

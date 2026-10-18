@@ -279,6 +279,13 @@ public final class DesktopSpike {
                             .put("picturesLost", sampleStats.picturesLost()).put("audioBuffersPlayed", sampleStats.audioBuffersPlayed())
                             .put("inputBytesRead", sampleStats.inputBytesRead()));
                 }
+                // One bounded confirmation interval, only for an audio publication pending at the end.
+                // A second hold or any clock/video/paint failure resets terminal qualification.
+                if (network.awaitingAudioBatch()) {
+                    for (int tick=0; tick<5; tick++) { presentation.checkOpen(); Thread.sleep(200); if(audioTimeline!=null) audioTimeline.sample(player); }
+                    network.tick(TimeUnit.NANOSECONDS.toMillis(System.nanoTime()-observationWallStart),player,relay,presentation,media,mediaOptions.toArray(String[]::new));
+                    output.put("terminalBatchConfirmationSampled",true);
+                }
                 output.put("observationSamples", samples).put("observationRequestedSeconds", settings.observationSeconds())
                         .put("observationWallMs", TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - observationWallStart))
                         .put("longestStalledClockMs", longestStallMs)

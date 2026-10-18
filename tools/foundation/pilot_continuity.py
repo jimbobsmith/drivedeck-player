@@ -54,6 +54,16 @@ def assess_interval(rows,start_ms,end_ms,threshold=.00002):
                 continuousPilotObserved=qualified,exclusiveSourceContinuityProven=False)
 
 
+def assess_terminal(rows, phases, worker):
+    """Last 30 seconds of observation, with a 100ms terminal boundary trim."""
+    stamps={name:float(stamp) for stamp,name in phases}
+    end=stamps["steady_after_seek"]+worker["observationWallMs"]-100
+    start=end-30000
+    if start<stamps.get("network_recovered",stamps["steady_after_seek"])+2000:
+        raise ValueError("InsufficientTerminalPilotWindow")
+    return assess_interval(rows,start,end)
+
+
 def analyze_directory(directory):
     import csv,json
     from audio_timeline import read_csv,phase_segments

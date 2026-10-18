@@ -15,7 +15,7 @@ import numpy as np
 import soundcard as sc
 from soundcard import mediafoundation as mf
 from av_sync_metrics import measure
-from pilot_continuity import PilotPackets
+from pilot_continuity import PilotPackets, assess_terminal
 
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument("--java-home", type=Path, required=True)
@@ -44,6 +44,7 @@ if args.fixture_directory:
 if bool(args.video_id) == bool(args.fixture_directory): parser.error("Choose one public video ID or sync fixture directory")
 pilot=None
 if args.pilot_continuity:
+    if args.observe_seconds<40: parser.error("Terminal pilot continuity needs at least 40 seconds of observation")
     if not args.fixture_directory or not recipe_path.exists() or not recipe.get("continuousCarrierHz"):
         parser.error("Pilot continuity requires a generated continuous-carrier fixture recipe")
     pilot=PilotPackets(recipe["continuousCarrierHz"])
@@ -211,6 +212,10 @@ try:
                 raise RuntimeError("PostRecoveryCaptureFailure")
             if report["postRecoverySync"]["result"]!="passed": raise RuntimeError("PostRecoveryAVSyncBudgetFailed")
             report["calibratedPostRecoverySyncPassed"] = True
+        if pilot is not None:
+            report["terminalPilotContinuity"]=assess_terminal(pilot.rows,phases,worker)
+            if pilot.dropped or not report["terminalPilotContinuity"]["continuousPilotObserved"]:
+                raise RuntimeError("TerminalPilotContinuityFailed")
     else:
         report["providerAVSyncProven"] = False
     report["result"] = "passed"
