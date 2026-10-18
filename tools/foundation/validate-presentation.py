@@ -51,6 +51,7 @@ report = {"schemaVersion": 1, "capture": "WASAPI_default_render_loopback", "phys
 audio_events = []
 discontinuity_events = []
 timestamp_error_events = []
+audio_activity = {}
 peak = 0.0
 last_pulse = -1e9
 packet_count = timestamp_errors = discontinuities = 0
@@ -84,6 +85,13 @@ def packet(recorder, detect):
             discontinuities += 1
             discontinuity_events.append((timestamp * 100 + clock_offset) / 1e6)
         packet_count += 1
+    if detect:
+        second = int((timestamp * 100 + clock_offset) / 1e9)
+        activity = audio_activity.setdefault(second, {"epochSecond": second, "frames": 0, "nonSilentFrames": 0, "peak": 0.0})
+        activity["frames"] += count
+        if samples is not None:
+            activity["nonSilentFrames"] += count
+            activity["peak"] = round(max(activity["peak"], float(np.max(np.abs(samples)))), 6)
     if samples is None: return 0.0
     mono = samples.mean(axis=1)
     value = float(np.max(np.abs(samples)))
@@ -205,6 +213,7 @@ finally:
     if process is not None and process.poll() is None:
         # The child Java supervisor owns native-worker lifetime. Kill the owned tree on harness failure.
         subprocess.run(["taskkill", "/PID", str(process.pid), "/T", "/F"], capture_output=True)
+    (args.output_directory / "audio-activity.json").write_text(json.dumps(list(audio_activity.values())))
     (args.output_directory / "audio-pulse-events.json").write_text(json.dumps(audio_events))
     (args.output_directory / "capture-gaps.json").write_text(json.dumps(discontinuity_events))
     (args.output_directory / "timestamp-error-events.json").write_text(json.dumps(timestamp_error_events))

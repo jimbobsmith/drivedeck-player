@@ -17,9 +17,8 @@ import org.json.JSONObject;
 
 /** Small validation surface, owned by the isolated native worker, not a finished desktop UI. */
 final class PresentationWindow implements AutoCloseable {
-    private record Frame(BufferedImage image, long sequence) { }
-    private volatile Frame latest;
-    private Frame shown;
+    private volatile VideoFramePool frames;
+    private VideoFramePool.Lease shown;
     private final AtomicLong delivered = new AtomicLong();
     private final AtomicLong painted = new AtomicLong();
     private final AtomicBoolean closed = new AtomicBoolean();
@@ -32,10 +31,9 @@ final class PresentationWindow implements AutoCloseable {
     private boolean wasWhite;
     private final RenderCallbackAdapter renderer = new RenderCallbackAdapter() {
         @Override protected void onDisplay(MediaPlayer ignored, int[] pixels) {
-            var image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-            System.arraycopy(pixels, 0, ((DataBufferInt) image.getRaster().getDataBuffer()).getData(), 0, width * height);
-            latest = new Frame(image, delivered.incrementAndGet());
-            surface.repaint(); // No libVLC calls on a native callback thread.
+            long sequence = delivered.incrementAndGet();
+            var pool = frames;
+            if (pool != null && pool.publish(pixels, sequence)) surface.repaint(); // No libVLC calls on a native callback thread.
         }
     };
     private int width, height;
@@ -48,30 +46,35 @@ final class PresentationWindow implements AutoCloseable {
             surface = new JPanel() {
                 @Override protected void paintComponent(Graphics graphics) {
                     super.paintComponent(graphics);
-                    var frame = latest;
+                    var pool = frames;
+                    var frame = pool == null ? null : pool.acquireLatest();
                     if (frame == null) return;
-                    int w = getWidth(), h = getHeight();
-                    double scale = Math.min((double) w / frame.image.getWidth(), (double) h / frame.image.getHeight());
-                    int dw = (int) (frame.image.getWidth() * scale), dh = (int) (frame.image.getHeight() * scale);
-                    graphics.drawImage(frame.image, (w - dw) / 2, (h - dh) / 2, dw, dh, null);
-                    shown = frame;
-                    if (frame.sequence != lastSequence) {
-                        lastSequence = frame.sequence;
-                        painted.incrementAndGet();
-                        int rgb = frame.image.getRGB(frame.image.getWidth() / 2, frame.image.getHeight() / 2);
-                        boolean white = ((rgb >> 16) & 255) > 220 && ((rgb >> 8) & 255) > 220 && (rgb & 255) > 220;
-                        // Epoch milliseconds align with WASAPI QPC mapped to the host wall clock.
-                        if (white && !wasWhite && events.size() < 500) {
-                            int second = 0;
-                            for (int bit = 0; bit < 6; bit++) {
-                                int marker = frame.image.getRGB((22 + bit * 40) * frame.image.getWidth() / 320,
-                                        12 * frame.image.getHeight() / 180);
-                                if (((marker >> 8) & 255) > 100 && ((marker >> 16) & 255) < 100) second |= 1 << bit;
+                    boolean retained = false;
+                    try {
+                        int w = getWidth(), h = getHeight();
+                        double scale = Math.min((double) w / frame.image().getWidth(), (double) h / frame.image().getHeight());
+                        int dw = (int) (frame.image().getWidth() * scale), dh = (int) (frame.image().getHeight() * scale);
+                        graphics.drawImage(frame.image(), (w - dw) / 2, (h - dh) / 2, dw, dh, null);
+                        if (shown != null) shown.close();
+                        shown = frame; retained = true;
+                        if (frame.sequence() != lastSequence) {
+                            lastSequence = frame.sequence();
+                            painted.incrementAndGet();
+                            int rgb = frame.image().getRGB(frame.image().getWidth() / 2, frame.image().getHeight() / 2);
+                            boolean white = ((rgb >> 16) & 255) > 220 && ((rgb >> 8) & 255) > 220 && (rgb & 255) > 220;
+                            // Epoch milliseconds align with WASAPI QPC mapped to the host wall clock.
+                            if (white && !wasWhite && events.size() < 500) {
+                                int second = 0;
+                                for (int bit = 0; bit < 6; bit++) {
+                                    int marker = frame.image().getRGB((22 + bit * 40) * frame.image().getWidth() / 320,
+                                            12 * frame.image().getHeight() / 180);
+                                    if (((marker >> 8) & 255) > 100 && ((marker >> 16) & 255) < 100) second |= 1 << bit;
+                                }
+                                events.add(System.currentTimeMillis() + "," + frame.sequence() + "," + second);
                             }
-                            events.add(System.currentTimeMillis() + "," + frame.sequence + "," + second);
+                            wasWhite = white;
                         }
-                        wasWhite = white;
-                    }
+                    } finally { if (!retained) frame.close(); }
                 }
             };
             surface.setBackground(Color.BLACK);
@@ -90,6 +93,7 @@ final class PresentationWindow implements AutoCloseable {
             @Override public BufferFormat getBufferFormat(int sourceWidth, int sourceHeight) {
                 width = Math.min(sourceWidth, maxSurfaceWidth);
                 height = Math.max(1, sourceHeight * width / sourceWidth);
+                frames = new VideoFramePool(width, height);
                 renderer.setBuffer(new int[width * height]);
                 return new RV32BufferFormat(width, height);
             }
@@ -114,19 +118,21 @@ final class PresentationWindow implements AutoCloseable {
         SwingUtilities.invokeAndWait(() -> {
             output.put("paintedVideoFrames", painted.get()).put("videoCallbacks", delivered.get())
                     .put("renderWidth", width).put("renderHeight", height)
+                    .put("framePoolCapacity", frames == null ? 0 : frames.capacity())
+                    .put("framePoolDroppedCallbacks", frames == null ? 0 : frames.dropped())
                     .put("windowShowing", window.isShowing()).put("playerVolumePercent", 35);
             var frame = shown;
             try {
                 Files.write(directory.resolve("flash-events.csv"), events);
                 Files.write(directory.resolve("phases.csv"), phases);
                 // Only our decoded video surface is captured; no desktop or other window pixels.
-                if (frame != null) ImageIO.write(frame.image, "png", directory.resolve("presented-frame.png").toFile());
+                if (frame != null) ImageIO.write(frame.image(), "png", directory.resolve("presented-frame.png").toFile());
             } catch (java.io.IOException failure) { throw new java.io.UncheckedIOException(failure); }
         });
         if (painted.get() < 20) throw new java.io.IOException("No painted video evidence");
     }
 
     @Override public void close() throws Exception {
-        SwingUtilities.invokeAndWait(() -> window.dispose());
+        SwingUtilities.invokeAndWait(() -> { window.dispose(); if (shown != null) { shown.close(); shown = null; } });
     }
 }

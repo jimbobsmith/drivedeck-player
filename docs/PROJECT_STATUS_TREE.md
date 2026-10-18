@@ -1,6 +1,6 @@
 # DriveDeck Player status
 
-Updated: 2026-10-17. Product line: `main`. Foundation PR #3 merged at `832a8824515e44867b3e34d770c12ac127260524`. Headless PR #4 merged at `68acddb68b2670e9fd97a7336938ebc52fdf82bf`. Presentation PR #5 merged at `667502a7aa69904ab661b5a6d19b5790fe461ea4`. HD/timing PR #6 merged at `cb0b86d0a82ef2e2bd09fd6413d2aa7ded1d6daa`. Active continuation: issue #2, branch `codex/issue-2-desktop-network-recovery`. No release published. HD/timing evidence through PR #6 is integrated. Longer 1080p60/network continuation requires its own reviewed merge.
+Updated: 2026-10-17. Product line: `main`. Foundation PR #3 merged at `832a8824515e44867b3e34d770c12ac127260524`. Headless PR #4 merged at `68acddb68b2670e9fd97a7336938ebc52fdf82bf`. Presentation PR #5 merged at `667502a7aa69904ab661b5a6d19b5790fe461ea4`. HD/timing PR #6 merged at `cb0b86d0a82ef2e2bd09fd6413d2aa7ded1d6daa`. Network PR #7 merged at `f4f85211ca267bf0825e7e86baddf45ab2c2bda5`. Active continuation: issue #2, branch `codex/issue-2-desktop-recovery-stability`. No release published. Evidence through PR #7 is integrated; the recovery diagnosis/render-buffer continuation requires its own reviewed merge.
 
 - [x] Standalone fork with PipePipe v5.4.0 client/extractor pins.
 - [x] Independent Android package/version/Test label and isolated upstream updates.
@@ -14,9 +14,10 @@ Updated: 2026-10-17. Product line: `main`. Foundation PR #3 merged at `832a88245
 - [x] Controlled separate-track software presentation timing: two qualified runs plus a correctly rejected 250ms delayed-audio control; physical latency and provider alignment remain unmeasured.
 - [x] Integrated opt-in 720p60 YouTube presentation: three-minute pass plus one-minute repeat, strict progress/stall gates and clean native shutdown.
 - [x] Integrated controlled 720p60 A/V timing: two three-minute passes and correctly rejected three-minute 250ms delayed-audio control, zero capture gaps.
-- [x] Review-branch direct and no-fault-relay 1080p60 actual YouTube controls: five minutes each, no sampled stalls.
-- [x] Review-branch scoped held-stream/disconnect tests and controlled 1080p60 post-recovery A/V proof; permanent outage/cancellation fail deliberately with clean cleanup.
-- [ ] Actual-provider stable recovery after disconnect: final guarded trials resume but fail the 30-consecutive-sample gate at 14/18. More diagnosis required in #2.
+- [x] Integrated direct and no-fault-relay 1080p60 actual YouTube controls: five minutes each, no sampled stalls.
+- [x] Integrated scoped held-stream/disconnect tests and controlled 1080p60 post-recovery A/V proof; permanent outage/cancellation fail deliberately with clean cleanup.
+- [x] Review-branch bounded HD image buffers and component recovery traces; two scoped YouTube recovery repeats pass at 79/82 stable samples, controlled post-recovery timing and delayed-audio rejection pass.
+- [ ] Causal diagnosis/reliability of the original intermittent provider recovery failure: 14/18 failures retained, with three observation-only passes before the buffer fix. #2 remains open; current passes do not establish the original cause.
 - [ ] Provider-specific source A/V alignment, broader physical network/route/hardware qualification; #2 remains open.
 - [ ] Desktop local JavaScript/SABR/adaptive delivery adapter decision and proof.
 - [ ] Finished desktop UI, OS media keys and packaging matrix.

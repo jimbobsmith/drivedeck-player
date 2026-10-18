@@ -1,6 +1,6 @@
 # Desktop network interruption validation
 
-Issue #2, Windows x64 experiment. PR #6 is integrated in main at `cb0b86d0a82ef2e2bd09fd6413d2aa7ded1d6daa`. The continuation remains an isolated validation worker, not a finished network recovery product policy.
+Issue #2, Windows x64 experiment. PR #7 is integrated in main at `f4f85211ca267bf0825e7e86baddf45ab2c2bda5`. The continuation remains an isolated validation worker, not a finished network recovery product policy.
 
 ## Scoped fault injection
 
@@ -23,8 +23,20 @@ After restoration, require advancing clock, audio/video output and newly painted
 
 For controlled flash/beep fixtures, qualify a separate post-recovery interval starting two seconds after observed recovery, with at least twelve identified pulses over thirty seconds. All capture flags are retained. Any discontinuity or timestamp error inside that measurement interval fails; full-capture continuity is reported independently and is not silently waived. Original uninterrupted tests retain their strict whole-capture continuity rule. This measures software timing after recovery, not physical display/acoustic latency or provider source alignment.
 
+## Recovery diagnostics and bounded rendering
+
+The observer retains up to 300 numeric recovery rows, with column names in `recoverySampleColumns`: elapsed time, position, clock/audio/native-picture/Swing-paint deltas, forwarded-byte delta and actual wall-time delta. The first comparison starts at the observed recovery sample. The >=500ms clock and positive audio/picture/paint requirements and thirty-consecutive-sample gate are unchanged. A diagnostic trace contains one genuine reduced-output interval (zero clock/audio delta and only 11 native pictures/13 paints); it is still rejected by the progress predicate. Native Playing or a later catch-up cannot waive a failed sample.
+
+The validation surface now allocates three RGB images per negotiated format and reuses them. Paint/capture leases protect image pixels from concurrent overwrite; an incoming callback is dropped when all buffers are busy rather than blocking on a paint. This bounds image ownership and removes full-image allocation from every callback. At 1080p60, the previous callback allocated approximately 0.5GB of image pixels per second. The image-pool capacity/drop count is reported for the current format. It is not a total JVM/native/GPU memory cap or a guarantee of lossless frame presentation. Format changes may temporarily retain an older borrowed image.
+
+`validate-presentation.py` also writes `audio-activity.json` in disposable storage: epoch-second bins containing captured-frame counts, frames from packets not flagged SILENT, and peak amplitude. These summaries help compare endpoint activity with counter stalls; they do not prove provider source alignment, and natural source silence is not itself a playback failure. Raw audio, output-device identity and provider URLs remain excluded.
+
+For a disposable GC comparison, set `JAVA_TOOL_OPTIONS=-Xlog:gc,safepoint=info:stderr:uptimemillis` for the probe process, then restore the previous environment value. Worker native logs remain private scratch artifacts; curate only numeric GC summaries. The source, runtime binary hash and logging option must accompany the comparison. Lower allocation pressure is measured independently from causal diagnosis of an intermittent provider failure.
+
 ## Evidence and remaining gates
 
-Two five-minute actual 1080p60 controls pass. Controlled 1080p60 hold and disconnect timing pass after recovery; permanent outage and cancellation exit deliberately and cleanly. Actual-provider hard-disconnect recovery remains unqualified: final trials resume but fail stable-output qualification at 14/18 consecutive samples. These failures are retained, not converted to passes. Exact outcomes and per-run binaries are recorded in RESULTS.md and curated desktop-network evidence. Five-minute 1080p60 provider playback and application-scoped outage results are separate gates. Controlled fixtures do not substitute for actual YouTube delivery. Keep #2 open for wider provider/network/hardware/routes, local JavaScript/adaptive/live delivery and packaging. No phone installation or release is performed.
+Two integrated five-minute actual 1080p60 controls pass. Controlled 1080p60 hold/disconnect timing and permanent-outage/cancellation cleanup are integrated through PR #7. Its final provider trials resumed but failed stability at 14/18 samples; those failures remain recorded. The follow-up diagnostic repeats pass 74/82/82 samples before any rendering fix, so their original cause remains unresolved. A confirmed per-frame image-allocation defect is fixed with the bounded pool: two current provider runs pass 79/82 stable samples, and controlled post-recovery timing passes at 24.76ms median audio delay over 84 seconds. The known 250ms delayed-audio control remains correctly rejected. Numeric traces and exact provenance are in [desktop-recovery-stability.json](evidence/desktop-recovery-stability.json); RESULTS.md distinguishes resource improvement from unresolved intermittent-failure causality.
+
+Keep #2 open for the original intermittent failure's causal diagnosis and wider provider/network/hardware/routes, local JavaScript/adaptive/live delivery, media keys and packaging. Five-minute playback, scoped outage recovery, software fixture timing and provider source alignment are separate evidence gates. No phone installation or release is performed.
 
 Primary references: [JDK 25 HttpServer](https://docs.oracle.com/en/java/javase/25/docs/api/jdk.httpserver/com/sun/net/httpserver/HttpServer.html), [HTTP Range semantics (RFC 9110)](https://www.rfc-editor.org/rfc/rfc9110.html#name-range). The relay uses the JDK and existing OkHttp dependency; no new runtime dependency is added.
