@@ -27,4 +27,13 @@ public class NetworkScenarioTest {
    assertThrows(java.io.IOException.class,scenario::requireSuccess);
    assertEquals("recovery_not_proven",scenario.report().getString("terminalReason"));
  }
+ @Test public void everyRecoveredOutputMustAdvanceWithoutWaivingAClockOrCounterStall() {
+   assertTrue(NetworkScenario.progressing(1004,43,61,60));
+   assertFalse(NetworkScenario.progressing(0,0,11,13)); // Observed diagnostic interruption.
+   assertFalse(NetworkScenario.progressing(499,43,61,60));
+   assertFalse(NetworkScenario.progressing(1000,0,61,60));
+   assertFalse(NetworkScenario.progressing(1000,43,0,60));
+   assertFalse(NetworkScenario.progressing(1000,43,61,0));
+   assertFalse(NetworkScenario.progressing(1000,-43,61,60)); // Counter reset is not progress.
+ }
 }

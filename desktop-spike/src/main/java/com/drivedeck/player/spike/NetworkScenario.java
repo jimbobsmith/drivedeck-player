@@ -16,6 +16,8 @@ final class NetworkScenario {
     private long lastElapsedMs;
     private String terminalReason="";
     private final JSONArray events=new JSONArray();
+    private final JSONArray recoverySamples=new JSONArray();
+    private long referenceElapsed, referenceBytes;
     NetworkScenario(Map<String,String> env, int observeSeconds) {
         mode=env.getOrDefault("DD_PLAYER_NETWORK_FAULT","none");
         if (!java.util.Set.of("none","relay","hold","disconnect","permanent","cancel").contains(mode)) throw new IllegalArgumentException("Unknown fault");
@@ -54,6 +56,8 @@ final class NetworkScenario {
             }
         } else if (!resumed) {
             if (recoveryPosition(checkpoint,position,elapsed-upAt) && position-referencePosition>=500 && stats.audioBuffersPlayed()>referenceAudio+10 && stats.picturesDisplayed()>referencePictures+10 && window.paintedFrames()>referencePainted+10) {
+                referenceElapsed=elapsed; referenceBytes=relay.bytes();
+                referencePosition=position; referenceAudio=stats.audioBuffersPlayed(); referencePictures=stats.picturesDisplayed(); referencePainted=window.paintedFrames();
                 resumed=true; recoveredPainted=window.paintedFrames(); resumeAt=elapsed; window.mark("network_recovered"); event("output_recovered",elapsed,position);
             } else if (elapsed-upAt>=10000 && !restarted) {
                 restarted=true; event("explicit_recovery_restart",elapsed,checkpoint);
@@ -78,7 +82,10 @@ final class NetworkScenario {
                 var reset=player.media().info().statistics(); referenceAudio=reset.audioBuffersPlayed(); referencePictures=reset.picturesDisplayed(); referencePainted=window.paintedFrames();
             } else if (elapsed-upAt>=30000) throw failure("recovery_deadline",elapsed,position);
         } else {
-            if (position-referencePosition>=500 && stats.audioBuffersPlayed()>referenceAudio && stats.picturesDisplayed()>referencePictures && window.paintedFrames()>referencePainted) steadySeconds++;
+            long painted=window.paintedFrames(), bytes=relay.bytes();
+            if (recoverySamples.length()<300) recoverySamples.put(new JSONArray(new long[]{elapsed,position,position-referencePosition,stats.audioBuffersPlayed()-referenceAudio,stats.picturesDisplayed()-referencePictures,painted-referencePainted,bytes-referenceBytes,elapsed-referenceElapsed}));
+            referenceElapsed=elapsed; referenceBytes=bytes;
+            if (progressing(position-referencePosition,stats.audioBuffersPlayed()-referenceAudio,stats.picturesDisplayed()-referencePictures,painted-referencePainted)) steadySeconds++;
             else steadySeconds=0;
             longestSteadySeconds=Math.max(longestSteadySeconds,steadySeconds);
             referencePosition=position; referenceAudio=stats.audioBuffersPlayed(); referencePictures=stats.picturesDisplayed(); referencePainted=window.paintedFrames();
@@ -86,6 +93,9 @@ final class NetworkScenario {
     }
     private IOException failure(String reason,long elapsed,long position) {
         terminalReason=reason; event(reason,elapsed,position); return new IOException("NetworkRecoveryDeadline");
+    }
+    static boolean progressing(long clockDelta, long audioDelta, long pictureDelta, long paintDelta) {
+        return clockDelta>=500 && audioDelta>0 && pictureDelta>0 && paintDelta>0;
     }
     static boolean recoveryPosition(long checkpoint, long position, long elapsedSinceRestore) {
         // Output at the beginning or an unrelated future position is not resume-at-checkpoint evidence.
@@ -98,7 +108,7 @@ final class NetworkScenario {
     JSONObject report() { return new JSONObject().put("mode",mode).put("outageRequestedSeconds",downSeconds).put("faultInjected",down)
             .put("stallObserved",stalled).put("restored",restored).put("recovered",resumed).put("explicitRestartAttempts",restarted?1:0)
             .put("paintedFramesAtCut",cutPainted).put("paintedFramesAtRecovery",recoveredPainted).put("terminalReason",terminalReason).put("lastObservationElapsedMs",lastElapsedMs).put("cutPositionMs",cutPosition).put("resumeCheckpointMs",checkpoint).put("blockedBytesAfterSettling",blockedByteDelta)
-            .put("recoveryLatencyMs",resumed?resumeAt-upAt:-1).put("steadyRecoveredSeconds",steadySeconds).put("longestConsecutiveRecoveredSeconds",longestSteadySeconds).put("events",events); }
+            .put("recoveryLatencyMs",resumed?resumeAt-upAt:-1).put("steadyRecoveredSeconds",steadySeconds).put("longestConsecutiveRecoveredSeconds",longestSteadySeconds).put("events",events).put("recoverySampleColumns",new JSONArray(java.util.List.of("elapsedMs","positionMs","clockDeltaMs","audioBufferDelta","pictureDelta","paintDelta","relayByteDelta","wallDeltaMs"))).put("recoverySamples",recoverySamples); }
     void requireSuccess() throws IOException {
         if (!down || !stalled || !resumed || longestSteadySeconds<30 || blockedByteDelta>32768) { terminalReason="recovery_not_proven"; throw new IOException("NetworkRecoveryNotProven"); }
     }
