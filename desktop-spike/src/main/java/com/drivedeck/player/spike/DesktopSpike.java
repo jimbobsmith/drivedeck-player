@@ -161,13 +161,16 @@ public final class DesktopSpike {
         stage("native_factory");
         // Feasibility policy: explicitly select software avcodec for every media.
         // Automatic D3D11 decode crashed during stop after seeking on the measured host.
-        var options = new ArrayList<>(List.of("--no-video-title-show", "--quiet", "--avcodec-hw=none", "--codec=avcodec,none", "--demux=avformat"));
+        boolean audioTimelineRequested = "1".equals(System.getenv("DD_PLAYER_AUDIO_TIMELINE"));
+        if (audioTimelineRequested && !present) throw new IllegalArgumentException("Audio timeline needs presentation");
+        var options = new ArrayList<>(List.of("--no-video-title-show", audioTimelineRequested ? "--verbose=2" : "--quiet", "--avcodec-hw=none", "--codec=avcodec,none", "--demux=avformat"));
         options.add("--network-caching=" + settings.networkCacheMs());
         output.put("networkCacheMs", settings.networkCacheMs());
         if (!present) options.addAll(List.of("--vout=dummy", "--aout=dummy"));
         var factory = new MediaPlayerFactory(options.toArray(String[]::new));
         MediaPlayer player = null;
         PresentationWindow presentation = null;
+        AudioTimeline audioTimeline = null;
         try {
             stage("native_player");
             if (present) {
@@ -177,6 +180,7 @@ public final class DesktopSpike {
                         scratch().resolve("presentation-" + UUID.randomUUID()).toString()));
                 presentation = new PresentationWindow(factory, embedded, capture, settings.surfaceWidth());
             } else player = factory.mediaPlayers().newMediaPlayer();
+            if (audioTimelineRequested) audioTimeline = new AudioTimeline(factory, presentation.diagnosticDirectory());
             stage("native_play");
             if (presentation != null) presentation.mark("start");
             if (!player.media().play(media, mediaOptions.toArray(String[]::new))) throw new IOException("Start rejected");
@@ -259,7 +263,7 @@ public final class DesktopSpike {
                 long cpuStart = ProcessHandle.current().info().totalCpuDuration().orElse(Duration.ZERO).toMillis();
                 long lastPosition = observedStart, stalledMs = 0, longestStallMs = 0;
                 for (int i = 0; i < settings.observationSeconds(); i++) {
-                    for (int tick = 0; tick < 5; tick++) { presentation.checkOpen(); Thread.sleep(200); }
+                    for (int tick = 0; tick < 5; tick++) { presentation.checkOpen(); Thread.sleep(200); if (audioTimeline != null) audioTimeline.sample(player); }
                     if (network.usesRelay()) network.tick(TimeUnit.NANOSECONDS.toMillis(System.nanoTime()-observationWallStart),player,relay,presentation,media,mediaOptions.toArray(String[]::new));
                     long position = player.status().time();
                     var sampleStats = player.media().info().statistics();
@@ -309,9 +313,11 @@ public final class DesktopSpike {
                 player.release();
             }
             stage("factory_release");
+            if (audioTimeline != null) audioTimeline.detach();
             factory.release();
             if (presentation != null) presentation.close();
             output.put("cleanShutdown", true);
+            if (audioTimeline != null) audioTimeline.save(output);
             stage(failedStage);
         }
         return null;
