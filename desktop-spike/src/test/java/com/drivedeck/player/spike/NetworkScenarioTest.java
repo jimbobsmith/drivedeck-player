@@ -45,4 +45,11 @@ public class NetworkScenarioTest {
    assertEquals(NetworkScenario.RecoveryAction.RESTART,NetworkScenario.recoveryAction(10000,false,false));
    assertEquals(NetworkScenario.RecoveryAction.WAIT,NetworkScenario.recoveryAction(10000,false,true));
  }
+ @Test public void recoveryMustStillBeStableAtCompletion() {
+   assertFalse(NetworkScenario.stableAtCompletion(150,0)); // Long provider run ended with painting held.
+   assertFalse(NetworkScenario.stableAtCompletion(150,29));
+   assertFalse(NetworkScenario.stableAtCompletion(29,30));
+   assertTrue(NetworkScenario.stableAtCompletion(30,30));
+   assertTrue(NetworkScenario.stableAtCompletion(150,30));
+ }
 }

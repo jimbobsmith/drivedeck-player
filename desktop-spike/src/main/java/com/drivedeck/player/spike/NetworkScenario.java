@@ -128,7 +128,8 @@ final class NetworkScenario {
             .put("stallObserved",stalled).put("restored",restored).put("recovered",resumed).put("explicitRestartAttempts",restarted?1:0)
             .put("paintedFramesAtCut",cutPainted).put("paintedFramesAtRecovery",recoveredPainted).put("terminalReason",terminalReason).put("lastObservationElapsedMs",lastElapsedMs).put("cutPositionMs",cutPosition).put("resumeCheckpointMs",checkpoint).put("blockedBytesAfterSettling",blockedByteDelta)
             .put("recoveryLatencyMs",resumed?resumeAt-upAt:-1).put("steadyRecoveredSeconds",steadySeconds).put("longestConsecutiveRecoveredSeconds",longestSteadySeconds).put("events",events).put("recoverySampleColumns",new JSONArray(java.util.List.of("elapsedMs","positionMs","clockDeltaMs","audioBufferDelta","pictureDelta","paintDelta","relayByteDelta","wallDeltaMs"))).put("recoverySamples",recoverySamples); }
+    static boolean stableAtCompletion(int longest, int terminal) { return longest>=30 && terminal>=30; }
     void requireSuccess() throws IOException {
-        if (!down || !stalled || !resumed || longestSteadySeconds<30 || blockedByteDelta>32768) { terminalReason="recovery_not_proven"; throw new IOException("NetworkRecoveryNotProven"); }
+        if (!down || !stalled || !resumed || !stableAtCompletion(longestSteadySeconds,steadySeconds) || blockedByteDelta>32768) { terminalReason="recovery_not_proven"; throw new IOException("NetworkRecoveryNotProven"); }
     }
 }

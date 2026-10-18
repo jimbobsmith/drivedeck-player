@@ -117,6 +117,14 @@ public final class DesktopSpike {
                     selected = separateVideo;
                     audioMedia = separateAudio.getContent();
                     output.put("pairedAudio", true).put("videoResolution", separateVideo.getResolution());
+                    // Public format properties only: no URLs, track names, cookies or account identifiers.
+                    var audioDescriptor = separateAudio.getItagItem();
+                    output.put("selectedAudioFormat", separateAudio.getFormat().name())
+                            .put("selectedAudioCodec", separateAudio.getCodec()).put("selectedAudioItag", separateAudio.getItag())
+                            .put("selectedAudioBitrate", separateAudio.getBitrate())
+                            .put("selectedAudioSampleRate", audioDescriptor == null ? -1 : audioDescriptor.getSampleRate())
+                            .put("selectedAudioChannels", audioDescriptor == null ? -1 : audioDescriptor.getAudioChannels())
+                            .put("providerDeclaredAudioBytes", audioDescriptor == null ? -1 : audioDescriptor.getContentLength());
                 } else {
                     output.put("pairedAudio", false);
                 }
