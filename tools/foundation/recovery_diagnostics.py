@@ -15,6 +15,28 @@ def failed_components(clock, audio, pictures, paint):
     return failed
 
 
+def replay_batches(columns, samples):
+    """Versioned publication audit; never upgrades a historical worker result."""
+    confirmed = pending = longest = holds = resets = 0
+    for values in samples:
+        if len(values)!=len(columns): raise ValueError("RecoveryDecisionArity")
+        row=dict(zip(columns, values))
+        wall,clock,audio,pictures,paint=(row[k] for k in ("wallDeltaMs","clockDeltaMs","audioBufferDelta","pictureDelta","paintDelta"))
+        if wall<500 or wall>1250 or clock<500 or clock>wall+500 or audio<0 or pictures<=0 or paint<=0:
+            confirmed=pending=0;resets+=1
+        elif audio==0:
+            pending+=wall
+            if pending>1250: confirmed=pending=0;resets+=1
+        elif pending+wall>2250:
+            confirmed=pending=0;resets+=1
+        else:
+            holds+=bool(pending);confirmed+=pending+wall;pending=0;longest=max(longest,confirmed)
+    terminal=0 if pending else confirmed
+    return dict(longestConfirmedMs=longest,terminalConfirmedMs=terminal,pendingMs=pending,
+                confirmedHolds=holds,resetDecisions=resets,qualified=longest>=30000 and terminal>=30000,
+                audibleContinuityProven=False)
+
+
 def analyze(worker, original_failures=None, track_rows=None, window_rows=None, audio_activity=None):
     network = worker.get("networkScenario", {})
     columns = network.get("recoverySampleColumns", [])
@@ -81,7 +103,16 @@ def analyze(worker, original_failures=None, track_rows=None, window_rows=None, a
             second = epoch//1000
             detail["nearbyEndpointEnergyBins"] = [row for row in audio_activity if second-1 <= row["epochSecond"] <= second+1]
             detail["endpointEnergyIsMixedAndBinsPartiallyOverlap"] = True
-    return {"schemaVersion": 1, "source": source, "workerResult": worker.get("result"),
+    version=network.get("recoveryValidation","strict_per_tick_v1")
+    if version not in ("strict_per_tick_v1","confirmed_audio_batches_v2"):
+        raise ValueError("UnknownRecoveryValidation")
+    batch=replay_batches(columns,samples) if samples and version=="confirmed_audio_batches_v2" else None
+    if batch is not None:
+        batch["matchesWorkerDurations"]=(batch["longestConfirmedMs"]==network.get("longestConfirmedRecoveredMs")
+                                         and batch["terminalConfirmedMs"]==network.get("confirmedRecoveredMs")
+                                         and batch["pendingMs"]==network.get("pendingAudioBatchMs"))
+    return {"schemaVersion": 2, "recoveryValidation":version,"counterBatchAudit":batch,
+            "strictPerTickAuditOnly":version!="strict_per_tick_v1", "source": source, "workerResult": worker.get("result"),
             "terminalReason": network.get("terminalReason"), "decisionSampleCount": len(samples),
             "failedDecisionCount": len(failures) if source != "no_per_decision_evidence" else None,
             "recomputedLongestStableSamples": longest if samples else None,
@@ -92,7 +123,7 @@ def analyze(worker, original_failures=None, track_rows=None, window_rows=None, a
                                             and network.get("steadyRecoveredSeconds", 0)>=30)
                                            if "steadyRecoveredSeconds" in network else None,
             "failures": failures, "rootCauseProven": False,
-            "interpretation": "Predicate failures identify observed components, not native/transport cause or source A/V alignment."}
+            "interpretation": "Strict per-tick failures are legacy comparison only for version 2; its counterBatchAudit identifies the active publication gate. Neither audit proves native cause or audible continuity/source alignment."}
 
 
 def main():

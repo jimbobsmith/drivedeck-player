@@ -1,7 +1,17 @@
 import unittest
 import numpy as np
-from pilot_continuity import PilotPackets,assess_interval
+from pilot_continuity import PilotPackets,assess_interval,assess_terminal
 class PilotTests(unittest.TestCase):
+    def test_terminal_gate_rejects_silent_audio_even_with_qualified_counters(self):
+        rows=[dict(startEpochMs=t,durationMs=10,pilotAmplitude=.0002,flags=0) for t in range(0,100000,10)]
+        phases=[(0,"steady_after_seek"),(10000,"network_recovered")]
+        worker={"observationWallMs":100000,"result":"passed"}
+        self.assertTrue(assess_terminal(rows,phases,worker)["continuousPilotObserved"])
+        for row in rows:
+            if 80000<=row["startEpochMs"]<84000: row["pilotAmplitude"]=0
+        self.assertFalse(assess_terminal(rows,phases,worker)["continuousPilotObserved"])
+        with self.assertRaisesRegex(ValueError,"InsufficientTerminalPilotWindow"):
+            assess_terminal(rows,phases,{"observationWallMs":30000})
     def test_known_tone_phase_and_amplitude(self):
         pilot=PilotPackets(300)
         for phase in (0,.7,2):

@@ -12,7 +12,7 @@ final class NetworkScenario {
     private boolean down, restored, resumed, stalled, restarted;
     private long cutAt, upAt, resumeAt, cutPosition, checkpoint, referencePosition, referenceAudio, referencePictures;
     private long quietBytes, blockedByteDelta, referencePainted, cutPainted, recoveredPainted;
-    private int steadySeconds, longestSteadySeconds;
+    private final RecoveryProgress progress=new RecoveryProgress();
     private long lastElapsedMs;
     private String terminalReason="";
     private final JSONArray events=new JSONArray();
@@ -96,10 +96,8 @@ final class NetworkScenario {
         } else {
             long painted=window.paintedFrames(), bytes=relay.bytes();
             if (recoverySamples.length()<300) recoverySamples.put(new JSONArray(new long[]{elapsed,position,position-referencePosition,stats.audioBuffersPlayed()-referenceAudio,stats.picturesDisplayed()-referencePictures,painted-referencePainted,bytes-referenceBytes,elapsed-referenceElapsed}));
+            progress.sample(elapsed-referenceElapsed,position-referencePosition,stats.audioBuffersPlayed()-referenceAudio,stats.picturesDisplayed()-referencePictures,painted-referencePainted);
             referenceElapsed=elapsed; referenceBytes=bytes;
-            if (progressing(position-referencePosition,stats.audioBuffersPlayed()-referenceAudio,stats.picturesDisplayed()-referencePictures,painted-referencePainted)) steadySeconds++;
-            else steadySeconds=0;
-            longestSteadySeconds=Math.max(longestSteadySeconds,steadySeconds);
             referencePosition=position; referenceAudio=stats.audioBuffersPlayed(); referencePictures=stats.picturesDisplayed(); referencePainted=window.paintedFrames();
         }
     }
@@ -124,12 +122,16 @@ final class NetworkScenario {
         return elapsedSinceCut>=1000 && clockDelta<250 && audioDelta==0;
     }
     void finishRelayBytes(long value) { if (down && !restored && quietBytes>0) blockedByteDelta=value-quietBytes; }
-    JSONObject report() { return new JSONObject().put("mode",mode).put("diagnosticSamples",trace==null?0:trace.samples()).put("outageRequestedSeconds",downSeconds).put("faultInjected",down)
+    boolean awaitingAudioBatch() { return resumed && progress.pendingMs()>0; }
+    JSONObject report() { return new JSONObject().put("recoveryValidation","confirmed_audio_batches_v2").put("audibleContinuityProven",false)
+            .put("confirmedRecoveredMs",progress.terminalMs()).put("longestConfirmedRecoveredMs",progress.longestMs())
+            .put("pendingAudioBatchMs",progress.pendingMs()).put("confirmedAudioHolds",progress.confirmedHolds())
+            .put("maximumDecisionIntervalMs",RecoveryProgress.MAX_SAMPLE_MS).put("maximumAudioBatchWindowMs",RecoveryProgress.MAX_BATCH_MS).put("mode",mode).put("diagnosticSamples",trace==null?0:trace.samples()).put("outageRequestedSeconds",downSeconds).put("faultInjected",down)
             .put("stallObserved",stalled).put("restored",restored).put("recovered",resumed).put("explicitRestartAttempts",restarted?1:0)
             .put("paintedFramesAtCut",cutPainted).put("paintedFramesAtRecovery",recoveredPainted).put("terminalReason",terminalReason).put("lastObservationElapsedMs",lastElapsedMs).put("cutPositionMs",cutPosition).put("resumeCheckpointMs",checkpoint).put("blockedBytesAfterSettling",blockedByteDelta)
-            .put("recoveryLatencyMs",resumed?resumeAt-upAt:-1).put("steadyRecoveredSeconds",steadySeconds).put("longestConsecutiveRecoveredSeconds",longestSteadySeconds).put("events",events).put("recoverySampleColumns",new JSONArray(java.util.List.of("elapsedMs","positionMs","clockDeltaMs","audioBufferDelta","pictureDelta","paintDelta","relayByteDelta","wallDeltaMs"))).put("recoverySamples",recoverySamples); }
+            .put("recoveryLatencyMs",resumed?resumeAt-upAt:-1).put("steadyRecoveredSeconds",progress.terminalMs()/1000).put("longestConsecutiveRecoveredSeconds",progress.longestMs()/1000).put("events",events).put("recoverySampleColumns",new JSONArray(java.util.List.of("elapsedMs","positionMs","clockDeltaMs","audioBufferDelta","pictureDelta","paintDelta","relayByteDelta","wallDeltaMs"))).put("recoverySamples",recoverySamples); }
     static boolean stableAtCompletion(int longest, int terminal) { return longest>=30 && terminal>=30; }
     void requireSuccess() throws IOException {
-        if (!down || !stalled || !resumed || !stableAtCompletion(longestSteadySeconds,steadySeconds) || blockedByteDelta>32768) { terminalReason="recovery_not_proven"; throw new IOException("NetworkRecoveryNotProven"); }
+        if (!down || !stalled || !resumed || !progress.qualified() || blockedByteDelta>32768) { terminalReason="recovery_not_proven"; throw new IOException("NetworkRecoveryNotProven"); }
     }
 }
