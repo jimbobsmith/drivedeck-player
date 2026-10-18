@@ -19,7 +19,10 @@ final class NetworkScenario {
     private final JSONArray recoverySamples=new JSONArray();
     private long referenceElapsed, referenceBytes;
     private RecoveryTrace trace;
+    private RecoveryDecisions decisions;
+    private final int inlineLimit;
     NetworkScenario(Map<String,String> env, int observeSeconds) {
+        inlineLimit=observeSeconds>300?60:300;
         mode=env.getOrDefault("DD_PLAYER_NETWORK_FAULT","none");
         if (!java.util.Set.of("none","relay","hold","disconnect","permanent","cancel").contains(mode)) throw new IllegalArgumentException("Unknown fault");
         downSeconds=Integer.parseInt(env.getOrDefault("DD_PLAYER_NETWORK_DOWN_SECONDS","25"));
@@ -32,6 +35,7 @@ final class NetworkScenario {
         lastElapsedMs=elapsed;
         long position=player.status().time(); var stats=player.media().info().statistics();
         if(trace==null) trace=new RecoveryTrace(window.diagnosticDirectory());
+        if(enabled() && decisions==null) decisions=new RecoveryDecisions(window.diagnosticDirectory());
         var v=relay.track("video"); var a=relay.track("audio");
         long gcMs=0,gcCount=0;
         for(var bean:java.lang.management.ManagementFactory.getGarbageCollectorMXBeans()) { gcMs+=Math.max(0,bean.getCollectionTime()); gcCount+=Math.max(0,bean.getCollectionCount()); }
@@ -95,7 +99,9 @@ final class NetworkScenario {
             }
         } else {
             long painted=window.paintedFrames(), bytes=relay.bytes();
-            if (recoverySamples.length()<300) recoverySamples.put(new JSONArray(new long[]{elapsed,position,position-referencePosition,stats.audioBuffersPlayed()-referenceAudio,stats.picturesDisplayed()-referencePictures,painted-referencePainted,bytes-referenceBytes,elapsed-referenceElapsed}));
+            long[] decision={elapsed,position,position-referencePosition,stats.audioBuffersPlayed()-referenceAudio,stats.picturesDisplayed()-referencePictures,painted-referencePainted,bytes-referenceBytes,elapsed-referenceElapsed};
+            decisions.append(decision);
+            if (recoverySamples.length()<inlineLimit) recoverySamples.put(new JSONArray(decision));
             progress.sample(elapsed-referenceElapsed,position-referencePosition,stats.audioBuffersPlayed()-referenceAudio,stats.picturesDisplayed()-referencePictures,painted-referencePainted);
             referenceElapsed=elapsed; referenceBytes=bytes;
             referencePosition=position; referenceAudio=stats.audioBuffersPlayed(); referencePictures=stats.picturesDisplayed(); referencePainted=window.paintedFrames();
@@ -124,6 +130,8 @@ final class NetworkScenario {
     void finishRelayBytes(long value) { if (down && !restored && quietBytes>0) blockedByteDelta=value-quietBytes; }
     boolean awaitingAudioBatch() { return resumed && progress.pendingMs()>0; }
     JSONObject report() { return new JSONObject().put("recoveryValidation","confirmed_audio_batches_v2").put("audibleContinuityProven",false)
+            .put("recoveryDecisionSidecar",RecoveryDecisions.NAME).put("totalRecoveryDecisionSamples",decisions==null?0:decisions.samples())
+            .put("recoverySamplesComplete",decisions==null || decisions.samples()==recoverySamples.length())
             .put("confirmedRecoveredMs",progress.terminalMs()).put("longestConfirmedRecoveredMs",progress.longestMs())
             .put("pendingAudioBatchMs",progress.pendingMs()).put("confirmedAudioHolds",progress.confirmedHolds())
             .put("maximumDecisionIntervalMs",RecoveryProgress.MAX_SAMPLE_MS).put("maximumAudioBatchWindowMs",RecoveryProgress.MAX_BATCH_MS).put("mode",mode).put("diagnosticSamples",trace==null?0:trace.samples()).put("outageRequestedSeconds",downSeconds).put("faultInjected",down)

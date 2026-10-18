@@ -6,6 +6,29 @@ def worker(rows):
     return {"result": "failed", "networkScenario": {"recoverySampleColumns": COLUMNS, "recoverySamples": rows}}
 
 class RecoveryDiagnosticsTest(unittest.TestCase):
+    def test_long_run_requires_complete_sidecar_and_audits_the_terminal_failure(self):
+        good=[[i*1000,i*1000,1000,43,60,60,100,1000] for i in range(1,551)]
+        good[-1][5]=0 # Late paint stall outside the inline preview.
+        data=worker(good[:60]);data["networkScenario"].update(recoveryValidation="confirmed_audio_batches_v2",
+            totalRecoveryDecisionSamples=550,recoverySamplesComplete=False,confirmedRecoveredMs=0,
+            longestConfirmedRecoveredMs=549000,pendingAudioBatchMs=0)
+        with self.assertRaisesRegex(ValueError,"FullRecoveryDecisionSidecarRequired"):analyze(data)
+        report=analyze(data,decision_rows=[dict(zip(COLUMNS,row)) for row in good])
+        self.assertEqual(550,report["decisionSampleCount"])
+        self.assertEqual("full_numeric_sidecar",report["decisionSource"])
+        self.assertFalse(report["counterBatchAudit"]["qualified"])
+        self.assertTrue(report["counterBatchAudit"]["matchesWorkerDurations"])
+    def test_missing_or_mismatched_terminal_evidence_cannot_be_accepted(self):
+        rows=[[1000,1000,1000,43,60,60,0,1000]]
+        data=worker(rows);data["networkScenario"].update(totalRecoveryDecisionSamples=2,recoverySamplesComplete=False)
+        data["networkScenario"]["recoverySamplesComplete"]=True
+        with self.assertRaisesRegex(ValueError,"FullRecoveryDecisionSidecarRequired"):analyze(data)
+        with self.assertRaisesRegex(ValueError,"RecoveryDecisionSidecarCount"):
+            analyze(data,decision_rows=[dict(zip(COLUMNS,rows[0]))])
+        data["networkScenario"]["totalRecoveryDecisionSamples"]=1
+        changed=rows[0].copy();changed[3]=0
+        with self.assertRaisesRegex(ValueError,"RecoveryDecisionPreviewMismatch"):
+            analyze(data,decision_rows=[dict(zip(COLUMNS,changed))])
     def test_batch_replay_confirms_hold_and_retains_original_failure(self):
         rows=[[i*1000,i*1000,1000,0 if i%2 else 86,60,60,100,1000] for i in range(1,33)]
         batch=replay_batches(COLUMNS,rows)

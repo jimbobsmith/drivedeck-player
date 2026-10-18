@@ -273,7 +273,7 @@ public final class DesktopSpike {
                     stalledMs = position - lastPosition < 250 ? stalledMs + 1000 : 0;
                     longestStallMs = Math.max(longestStallMs, stalledMs);
                     lastPosition = position;
-                    if (settings.observationSeconds() <= 60 || (i + 1) % 5 == 0) samples.put(new JSONObject().put("wallElapsedMs", TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - observationWallStart))
+                    if (settings.observationSeconds() <= 60 || (i + 1) % (settings.observationSeconds()>300?10:5) == 0) samples.put(new JSONObject().put("wallElapsedMs", TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - observationWallStart))
                             .put("positionMs", position).put("playing", player.status().isPlaying())
                             .put("decodedVideo", sampleStats.decodedVideo()).put("picturesDisplayed", sampleStats.picturesDisplayed())
                             .put("picturesLost", sampleStats.picturesLost()).put("audioBuffersPlayed", sampleStats.audioBuffersPlayed())

@@ -29,7 +29,7 @@ parser.add_argument("--network-down-seconds", type=int, default=25)
 parser.add_argument("--profile", choices=("baseline", "hd720", "hd1080"), default="baseline")
 parser.add_argument("--pilot-continuity",action="store_true")
 args = parser.parse_args()
-if not 20 <= args.observe_seconds <= 300: parser.error("Observation must be 20..300 seconds")
+if not 20 <= args.observe_seconds <= 600: parser.error("Observation must be 20..600 seconds")
 pulse_period_seconds = 1
 if args.fixture_directory:
     recipe_path = args.fixture_directory / "recipe.json"

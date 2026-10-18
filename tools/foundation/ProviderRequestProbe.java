@@ -8,6 +8,8 @@ import org.json.*;
 import org.schabi.newpipe.extractor.*;
 import org.schabi.newpipe.extractor.downloader.Downloader;
 import org.schabi.newpipe.extractor.stream.*;
+import org.schabi.newpipe.extractor.services.youtube.YoutubeParsingHelper;
+import org.schabi.newpipe.extractor.localization.Localization;
 /** Standalone bounded diagnostic tool. Compile into disposable storage using the installed spike classpath. */
 public class ProviderRequestProbe {
  static long resolutionNs;
@@ -18,6 +20,7 @@ public class ProviderRequestProbe {
    var b=new okhttp3.Request.Builder().url(url).method(method,null).header("Accept-Encoding","identity");
    if(method.equals("GET") && !rangeProfile.equals("none")) b.header("Range",rangeProfile.equals("open")?"bytes="+offset+"-":"bytes="+offset+"-"+(offset+1023));
    if(profile.equals("extractor_user_agent")) b.header("User-Agent",UA);
+   if(profile.equals("visionos_user_agent")) b.header("User-Agent",YoutubeParsingHelper.getVisionOsUserAgent(Localization.DEFAULT));
    try(var response=client.newCall(b.build()).execute()) {
     row.put("status",response.code()).put("declaredBodyBytes",response.body()==null?-1:response.body().contentLength())
      .put("bytesRead",method.equals("HEAD")||response.body()==null?0:response.body().byteStream().readNBytes(1024).length);
@@ -36,12 +39,15 @@ public class ProviderRequestProbe {
   var standardOut=System.out;
   var watchdog=Thread.ofPlatform().daemon().start(()->{try{Thread.sleep((120L+revisit)*1000);standardOut.println("{\"result\":\"failed\",\"errorType\":\"ProviderProbeDeadline\"}");System.exit(124);}catch(InterruptedException ignored){}});
   System.setOut(new java.io.PrintStream(java.io.OutputStream.nullOutputStream()));
-  var result=new JSONObject().put("schemaVersion",2).put("revisitSeconds",revisit).put("sameResolvedSourcesReused",true).put("publicVideoId","aqz-KE-bpKQ").put("rawBodySaved",false).put("accountCredentialsSupplied",false);
+  var result=new JSONObject().put("schemaVersion",3).put("revisitSeconds",revisit).put("sameResolvedSourcesReused",true).put("publicVideoId","aqz-KE-bpKQ").put("rawBodySaved",false).put("accountCredentialsSupplied",false);
   var client=new OkHttpClient.Builder().connectTimeout(Duration.ofSeconds(5)).readTimeout(Duration.ofSeconds(5)).callTimeout(Duration.ofSeconds(8)).build();
   try {
    var c=Class.forName("com.drivedeck.player.spike.DesktopSpike$DesktopDownloader").getDeclaredConstructor();c.setAccessible(true);
    try(var downloader=(AutoCloseable)c.newInstance()) {
-    NewPipe.init((Downloader)downloader);var info=StreamInfo.getInfo("https://www.youtube.com/watch?v=aqz-KE-bpKQ");
+    NewPipe.init((Downloader)downloader);
+    String configured=NewPipe.getYoutubePlayerClient();
+    result.put("configuredExtractorClient",Set.of("visionos","mweb","tv_downgraded").contains(configured)?configured:"other");
+    var info=StreamInfo.getInfo("https://www.youtube.com/watch?v=aqz-KE-bpKQ");
     var video=info.getVideoOnlyStreams().stream().filter(s->s.getFormat()==MediaFormat.MPEG_4&&s.getHeight()==1080&&s.getFps()==60&&s.getCodec().startsWith("avc")&&s.getDeliveryMethod()==DeliveryMethod.PROGRESSIVE_HTTP).findFirst().orElseThrow();
     var audio=info.getAudioStreams().stream().filter(s->s.getFormat()==MediaFormat.M4A&&s.getDeliveryMethod()==DeliveryMethod.PROGRESSIVE_HTTP).findFirst().orElseThrow();
     long resolvedAt=System.nanoTime();resolutionNs=resolvedAt;
@@ -55,10 +61,10 @@ public class ProviderRequestProbe {
      var track=new JSONObject().put("round",round).put("sourceAgeMs",(trackStarted-resolvedAt)/1000000).put("track",entry.getKey()).put("itag",entry.getKey().equals("video")?video.getItag():audio.getItag()).put("nParameterPresent",params.containsKey("n")).put("rangeQueryPresent",params.containsKey("range"));
      try{track.put("expirySecondsFromProbe",Long.parseLong(params.get("expire"))-Instant.now().getEpochSecond());}catch(Exception ignored){}
      String clientClass=params.getOrDefault("c","unknown");
-     track.put("sourceClientClass",Set.of("WEB","MWEB","ANDROID","ANDROID_VR","TVHTML5","TVHTML5_SIMPLY_EMBEDDED_PLAYER","WEB_EMBEDDED_PLAYER","IOS").contains(clientClass)?clientClass:"other")
+     track.put("sourceClientClass",Set.of("WEB","MWEB","ANDROID","ANDROID_VR","TVHTML5","TVHTML5_SIMPLY_EMBEDDED_PLAYER","WEB_EMBEDDED_PLAYER","IOS","VISIONOS").contains(clientClass)?clientClass:"other")
        .put("proofTokenParameterPresent",params.containsKey("pot")).put("ipBindingParameterPresent",params.containsKey("ip"));
      var rows=new JSONArray();
-     for(String profile:List.of("relay_default","extractor_user_agent")) {
+     for(String profile:List.of("relay_default","extractor_user_agent","visionos_user_agent")) {
       rows.put(request(client,url,"HEAD",profile,"none",0));
       for(String rangeProfile:List.of("closed","open","none")) rows.put(request(client,url,"GET",profile,rangeProfile,0));
      }
