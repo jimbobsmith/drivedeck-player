@@ -55,6 +55,32 @@ public class ProbeRelayTest {
             assertTrue(response.headers().firstValue("Set-Cookie").isEmpty()); assertFalse(relay.report().toString().contains("secret"));
         } finally {upstream.stop(0);}
     }
+    @Test public void remoteDenialsRetainMethodRangeAndExpiryWithoutCredentials() throws Exception {
+        var upstream=HttpServer.create(new InetSocketAddress("127.0.0.1",0),0);
+        upstream.createContext("/secret",e->{e.sendResponseHeaders(403,-1);e.close();}); upstream.start();
+        try(var relay=new ProbeRelay()) {
+            String url=relay.add("video","http://127.0.0.1:"+upstream.getAddress().getPort()+"/secret?expire=1&token=secret");
+            assertEquals(403,get(url,"bytes=4-").statusCode());
+            client.send(HttpRequest.newBuilder(URI.create(url)).method("HEAD",HttpRequest.BodyPublishers.noBody()).build(),HttpResponse.BodyHandlers.discarding());
+            var rows=relay.report().getJSONArray("upstreamResponses"); assertEquals(2,rows.length());
+            assertEquals("GET",rows.getJSONObject(0).getString("method"));
+            assertEquals("open",rows.getJSONObject(0).getString("rangeKind"));
+            assertEquals(4,rows.getJSONObject(0).getLong("rangeStart"));
+            assertEquals("video",rows.getJSONObject(0).getString("track"));
+            assertEquals(403,rows.getJSONObject(0).getInt("status"));
+            assertTrue(rows.getJSONObject(0).getLong("expirySecondsAtResponse")<0);
+            assertEquals("HEAD",rows.getJSONObject(1).getString("method"));
+            assertEquals("none",rows.getJSONObject(1).getString("rangeKind"));
+            assertFalse(relay.report().toString().contains("secret"));
+        } finally {upstream.stop(0);}
+    }
+    @Test public void numericRequestMetadataHandlesUnknownAndOversizedValues() {
+        assertNull(ProbeRelay.expiry("https://example.invalid/?token=secret"));
+        assertNull(ProbeRelay.expiry("https://example.invalid/?expire=9999999999999999999"));
+        assertEquals(Long.valueOf(123),ProbeRelay.expiry("https://example.invalid/?expire=123&token=secret"));
+        assertEquals("suffix",ProbeRelay.rangeReport("bytes=-1024").getString("rangeKind"));
+        assertEquals("unrepresentable",ProbeRelay.rangeReport("bytes=999999999999999999999-").getString("rangeKind"));
+    }
     @Test public void offlineRejectsNewRequestsThenRestoresRangePlayback() throws Exception {
         var p=temp(".mp4");Files.write(p,new byte[]{1,2,3});
         try(var relay=new ProbeRelay()) {

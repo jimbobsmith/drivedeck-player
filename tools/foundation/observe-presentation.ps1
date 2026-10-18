@@ -1,4 +1,4 @@
-param([Parameter(Mandatory)][string]$Python,[Parameter(Mandatory)][string]$JavaHome,[Parameter(Mandatory)][string]$Distribution,[Parameter(Mandatory)][string]$OutputDirectory,[ValidatePattern('^[A-Za-z0-9_-]{11}$')][string]$VideoId='aqz-KE-bpKQ',[ValidateRange(100,300)][int]$ObserveSeconds=300,[ValidateSet('hd720','hd1080')][string]$Profile='hd1080',[switch]$KeepDisplayAwake,[string]$FixtureDirectory,[ValidateSet('relay','hold','disconnect','permanent','cancel')][string]$NetworkFault='disconnect')
+param([Parameter(Mandatory)][string]$Python,[Parameter(Mandatory)][string]$JavaHome,[Parameter(Mandatory)][string]$Distribution,[Parameter(Mandatory)][string]$OutputDirectory,[ValidatePattern('^[A-Za-z0-9_-]{11}$')][string]$VideoId='aqz-KE-bpKQ',[ValidateRange(100,300)][int]$ObserveSeconds=300,[ValidateSet('hd720','hd1080')][string]$Profile='hd1080',[switch]$KeepDisplayAwake,[switch]$PilotContinuity,[string]$FixtureDirectory,[ValidateSet('relay','hold','disconnect','permanent','cancel')][string]$NetworkFault='disconnect')
 # Windows PowerShell -STA. Passive unless explicitly requested; no focus, input, lock or persistent power changes.
 $ErrorActionPreference='Stop'
 $OutputDirectory=[IO.Path]::GetFullPath($OutputDirectory)
@@ -69,6 +69,7 @@ $root=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..\..'))
 # A fixture defaults to an uninterrupted relay control; pass NetworkFault explicitly for a fixture outage.
 if($FixtureDirectory -and !$PSBoundParameters.ContainsKey('NetworkFault')){$NetworkFault='relay'}
 $arguments=@((Join-Path $PSScriptRoot 'validate-presentation.py'),'--java-home',$JavaHome,'--distribution',$Distribution,'--output-directory',$OutputDirectory,'--profile',$Profile,'--observe-seconds',[string]$ObserveSeconds,'--network-fault',$NetworkFault)
+if($PilotContinuity){$arguments+='--pilot-continuity'}
 if($FixtureDirectory){$arguments+=@('--fixture-directory',$FixtureDirectory)}else{$arguments+=@('--video-id',$VideoId)}
 $observer=New-Object PresentationObserver
 $previousExecution=[uint32]0;$started=$false;$process=New-Object System.Diagnostics.Process

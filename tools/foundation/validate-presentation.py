@@ -15,6 +15,7 @@ import numpy as np
 import soundcard as sc
 from soundcard import mediafoundation as mf
 from av_sync_metrics import measure
+from pilot_continuity import PilotPackets
 
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument("--java-home", type=Path, required=True)
@@ -26,6 +27,7 @@ parser.add_argument("--observe-seconds", type=int, default=20)
 parser.add_argument("--network-fault", choices=("none","relay","hold","disconnect","permanent","cancel"), default="none")
 parser.add_argument("--network-down-seconds", type=int, default=25)
 parser.add_argument("--profile", choices=("baseline", "hd720", "hd1080"), default="baseline")
+parser.add_argument("--pilot-continuity",action="store_true")
 args = parser.parse_args()
 if not 20 <= args.observe_seconds <= 300: parser.error("Observation must be 20..300 seconds")
 pulse_period_seconds = 1
@@ -40,6 +42,11 @@ if args.fixture_directory:
         if recipe["durationSeconds"] < 15 + args.observe_seconds + 5:
             parser.error("Fixture needs seek + observation + five seconds of headroom")
 if bool(args.video_id) == bool(args.fixture_directory): parser.error("Choose one public video ID or sync fixture directory")
+pilot=None
+if args.pilot_continuity:
+    if not args.fixture_directory or not recipe_path.exists() or not recipe.get("continuousCarrierHz"):
+        parser.error("Pilot continuity requires a generated continuous-carrier fixture recipe")
+    pilot=PilotPackets(recipe["continuousCarrierHz"])
 if os.name != "nt": parser.error("This probe uses Windows WASAPI")
 args.output_directory.mkdir(parents=True, exist_ok=True)
 speaker = sc.default_speaker()
@@ -94,6 +101,8 @@ def packet(recorder, detect):
             if float(np.mean(samples * samples)) > .0005 ** 2:
                 activity["rmsAbove0005PacketFrames"] += count
             activity["peak"] = round(max(activity["peak"], float(np.max(np.abs(samples)))), 6)
+    if detect and pilot is not None:
+        pilot.observe((timestamp*100+clock_offset)/1e6,count,samples,flags)
     if samples is None: return 0.0
     mono = samples.mean(axis=1)
     value = float(np.max(np.abs(samples)))
@@ -215,6 +224,9 @@ finally:
     if process is not None and process.poll() is None:
         # The child Java supervisor owns native-worker lifetime. Kill the owned tree on harness failure.
         subprocess.run(["taskkill", "/PID", str(process.pid), "/T", "/F"], capture_output=True)
+    if pilot is not None:
+        (args.output_directory / "pilot-packets.json").write_text(json.dumps(pilot.rows))
+        report["pilotMeasurement"]={"frequencyHz":pilot.frequency,"packets":len(pilot.rows),"droppedPackets":pilot.dropped,"rawPcmSaved":False,"mixedEndpoint":True}
     (args.output_directory / "audio-activity.json").write_text(json.dumps(list(audio_activity.values())))
     (args.output_directory / "audio-pulse-events.json").write_text(json.dumps(audio_events))
     (args.output_directory / "capture-gaps.json").write_text(json.dumps(discontinuity_events))
