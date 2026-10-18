@@ -1,0 +1,6568 @@
+{
+  "schemaVersion": 1,
+  "issue": 2,
+  "baselineMainCommit": "2aa91b791a64e456726c22ac5f9025e400a245a3",
+  "controlledCounterBatchingConfirmed": true,
+  "nativeWaitStackCaptured": false,
+  "provider403RootCauseProven": false,
+  "actualProviderContinuityProven": false,
+  "workerJarSha256": "8f383772e7b138fc5ec7dad4946067be4747574342232c59255868b57aa2bd24",
+  "defaultOutputChanged": false,
+  "recoveryGatesChanged": false,
+  "trials": [
+    {
+      "inputSampleRate": 44100,
+      "outputSampleRate": 44100,
+      "outputBufferFrames": 88200,
+      "predictedHalfBufferWaitMs": 1000,
+      "encodedSourceFormat": {
+        "codec": "aac",
+        "sampleRate": 44100,
+        "timeBase": "1/44100",
+        "channels": 2
+      },
+      "fullHarnessResult": "failed",
+      "worker": {
+        "pauseStable": true,
+        "observationWallMs": 181923,
+        "framePoolDroppedCallbacks": 0,
+        "audioBuffersLost": 0,
+        "audioBuffersPlayed": 5782,
+        "networkScenario": {
+          "blockedBytesAfterSettling": 0,
+          "recoveryLatencyMs": 13008,
+          "paintedFramesAtCut": 1245,
+          "resumeCheckpointMs": 51833,
+          "outageRequestedSeconds": 25,
+          "recoverySamples": [
+            [
+              54260,
+              54379,
+              1007,
+              43,
+              61,
+              61,
+              0,
+              1005
+            ],
+            [
+              55265,
+              55393,
+              1014,
+              44,
+              61,
+              60,
+              0,
+              1005
+            ],
+            [
+              56270,
+              56437,
+              1044,
+              43,
+              61,
+              60,
+              0,
+              1005
+            ],
+            [
+              57276,
+              57445,
+              1008,
+              44,
+              62,
+              61,
+              0,
+              1006
+            ],
+            [
+              58281,
+              58460,
+              1015,
+              43,
+              61,
+              60,
+              0,
+              1005
+            ],
+            [
+              59287,
+              59501,
+              1041,
+              44,
+              61,
+              60,
+              0,
+              1006
+            ],
+            [
+              60291,
+              60267,
+              766,
+              43,
+              46,
+              61,
+              0,
+              1004
+            ],
+            [
+              61295,
+              61290,
+              1023,
+              44,
+              61,
+              60,
+              0,
+              1004
+            ],
+            [
+              62302,
+              62295,
+              1005,
+              43,
+              62,
+              60,
+              0,
+              1007
+            ],
+            [
+              63308,
+              63311,
+              1016,
+              44,
+              61,
+              61,
+              0,
+              1006
+            ],
+            [
+              64314,
+              64354,
+              1043,
+              43,
+              61,
+              60,
+              0,
+              1006
+            ],
+            [
+              65318,
+              65362,
+              1008,
+              44,
+              62,
+              61,
+              0,
+              1004
+            ],
+            [
+              66333,
+              66378,
+              1016,
+              43,
+              61,
+              60,
+              0,
+              1015
+            ],
+            [
+              67339,
+              67420,
+              1042,
+              44,
+              61,
+              60,
+              0,
+              1006
+            ],
+            [
+              68343,
+              68428,
+              1008,
+              43,
+              62,
+              61,
+              0,
+              1004
+            ],
+            [
+              69347,
+              69445,
+              1017,
+              44,
+              61,
+              60,
+              0,
+              1004
+            ],
+            [
+              70352,
+              70486,
+              1041,
+              43,
+              61,
+              60,
+              0,
+              1005
+            ],
+            [
+              71356,
+              71508,
+              1022,
+              44,
+              62,
+              61,
+              0,
+              1004
+            ],
+            [
+              72362,
+              72512,
+              1004,
+              43,
+              61,
+              60,
+              0,
+              1006
+            ],
+            [
+              73370,
+              73528,
+              1016,
+              44,
+              61,
+              60,
+              0,
+              1008
+            ],
+            [
+              74375,
+              74572,
+              1044,
+              43,
+              61,
+              61,
+              0,
+              1005
+            ],
+            [
+              75379,
+              75578,
+              1006,
+              43,
+              62,
+              60,
+              0,
+              1004
+            ],
+            [
+              76383,
+              76344,
+              766,
+              44,
+              46,
+              60,
+              0,
+              1004
+            ],
+            [
+              77389,
+              77361,
+              1017,
+              43,
+              61,
+              60,
+              0,
+              1006
+            ],
+            [
+              78393,
+              78402,
+              1041,
+              44,
+              61,
+              61,
+              0,
+              1004
+            ],
+            [
+              79398,
+              79412,
+              1010,
+              43,
+              62,
+              60,
+              0,
+              1005
+            ],
+            [
+              80404,
+              80430,
+              1018,
+              44,
+              61,
+              60,
+              0,
+              1006
+            ],
+            [
+              81409,
+              81468,
+              1038,
+              43,
+              61,
+              61,
+              0,
+              1005
+            ],
+            [
+              82414,
+              82491,
+              1023,
+              44,
+              61,
+              60,
+              0,
+              1005
+            ],
+            [
+              83419,
+              83494,
+              1003,
+              43,
+              62,
+              60,
+              0,
+              1005
+            ],
+            [
+              84426,
+              84511,
+              1017,
+              44,
+              61,
+              61,
+              0,
+              1007
+            ],
+            [
+              85431,
+              85555,
+              1044,
+              43,
+              61,
+              60,
+              0,
+              1005
+            ],
+            [
+              86437,
+              86562,
+              1007,
+              44,
+              62,
+              60,
+              0,
+              1006
+            ],
+            [
+              87444,
+              87578,
+              1016,
+              43,
+              61,
+              61,
+              0,
+              1007
+            ],
+            [
+              88449,
+              88620,
+              1042,
+              44,
+              61,
+              60,
+              0,
+              1005
+            ],
+            [
+              89457,
+              89628,
+              1008,
+              43,
+              62,
+              61,
+              0,
+              1008
+            ],
+            [
+              90462,
+              90644,
+              1016,
+              44,
+              61,
+              60,
+              0,
+              1005
+            ],
+            [
+              91466,
+              91684,
+              1040,
+              43,
+              61,
+              60,
+              0,
+              1004
+            ],
+            [
+              92470,
+              92451,
+              767,
+              44,
+              46,
+              60,
+              0,
+              1004
+            ],
+            [
+              93477,
+              93472,
+              1021,
+              43,
+              61,
+              61,
+              0,
+              1007
+            ],
+            [
+              94481,
+              94479,
+              1007,
+              44,
+              62,
+              60,
+              0,
+              1004
+            ],
+            [
+              95487,
+              95496,
+              1017,
+              43,
+              61,
+              60,
+              0,
+              1006
+            ],
+            [
+              96492,
+              96537,
+              1041,
+              44,
+              61,
+              61,
+              0,
+              1005
+            ],
+            [
+              97496,
+              97546,
+              1009,
+              43,
+              62,
+              60,
+              0,
+              1004
+            ],
+            [
+              98500,
+              98562,
+              1016,
+              43,
+              61,
+              60,
+              0,
+              1004
+            ],
+            [
+              99507,
+              99603,
+              1041,
+              44,
+              61,
+              61,
+              0,
+              1007
+            ],
+            [
+              100510,
+              100613,
+              1010,
+              43,
+              62,
+              60,
+              0,
+              1003
+            ],
+            [
+              101514,
+              101628,
+              1015,
+              44,
+              61,
+              60,
+              0,
+              1004
+            ],
+            [
+              102520,
+              102669,
+              1041,
+              43,
+              61,
+              60,
+              0,
+              1006
+            ],
+            [
+              103523,
+              103689,
+              1020,
+              44,
+              62,
+              61,
+              0,
+              1003
+            ],
+            [
+              104529,
+              104695,
+              1006,
+              43,
+              61,
+              60,
+              0,
+              1006
+            ],
+            [
+              105533,
+              105712,
+              1017,
+              44,
+              61,
+              60,
+              0,
+              1004
+            ],
+            [
+              106538,
+              106754,
+              1042,
+              43,
+              61,
+              60,
+              0,
+              1005
+            ],
+            [
+              107544,
+              107520,
+              766,
+              44,
+              46,
+              61,
+              0,
+              1006
+            ],
+            [
+              108549,
+              108528,
+              1008,
+              43,
+              62,
+              60,
+              0,
+              1005
+            ],
+            [
+              109554,
+              109545,
+              1017,
+              44,
+              61,
+              60,
+              0,
+              1005
+            ],
+            [
+              110559,
+              110585,
+              1040,
+              43,
+              61,
+              61,
+              0,
+              1005
+            ],
+            [
+              111563,
+              111595,
+              1010,
+              44,
+              61,
+              60,
+              0,
+              1004
+            ],
+            [
+              112569,
+              112612,
+              1017,
+              43,
+              62,
+              60,
+              0,
+              1006
+            ],
+            [
+              113572,
+              113627,
+              1015,
+              44,
+              61,
+              61,
+              0,
+              1003
+            ],
+            [
+              114578,
+              114673,
+              1046,
+              43,
+              61,
+              60,
+              0,
+              1006
+            ],
+            [
+              115583,
+              115678,
+              1005,
+              44,
+              62,
+              60,
+              0,
+              1005
+            ],
+            [
+              116589,
+              116694,
+              1016,
+              43,
+              61,
+              60,
+              0,
+              1006
+            ],
+            [
+              117593,
+              117739,
+              1045,
+              44,
+              61,
+              61,
+              0,
+              1004
+            ],
+            [
+              118599,
+              118744,
+              1005,
+              43,
+              62,
+              60,
+              0,
+              1006
+            ],
+            [
+              119603,
+              119760,
+              1016,
+              44,
+              61,
+              60,
+              0,
+              1004
+            ],
+            [
+              120610,
+              120803,
+              1043,
+              43,
+              61,
+              61,
+              0,
+              1007
+            ],
+            [
+              121613,
+              121811,
+              1008,
+              44,
+              61,
+              60,
+              0,
+              1003
+            ],
+            [
+              122618,
+              122828,
+              1017,
+              43,
+              62,
+              60,
+              0,
+              1005
+            ],
+            [
+              123624,
+              123594,
+              766,
+              43,
+              46,
+              61,
+              0,
+              1006
+            ],
+            [
+              124629,
+              124611,
+              1017,
+              44,
+              61,
+              60,
+              0,
+              1005
+            ],
+            [
+              125634,
+              125656,
+              1045,
+              43,
+              61,
+              60,
+              0,
+              1005
+            ],
+            [
+              126641,
+              126662,
+              1006,
+              44,
+              62,
+              61,
+              0,
+              1007
+            ],
+            [
+              127648,
+              127678,
+              1016,
+              43,
+              61,
+              60,
+              0,
+              1007
+            ],
+            [
+              128654,
+              128720,
+              1042,
+              44,
+              61,
+              60,
+              0,
+              1006
+            ],
+            [
+              129659,
+              129728,
+              1008,
+              43,
+              62,
+              61,
+              0,
+              1005
+            ],
+            [
+              130663,
+              130744,
+              1016,
+              44,
+              61,
+              60,
+              0,
+              1004
+            ],
+            [
+              131670,
+              131785,
+              1041,
+              43,
+              61,
+              60,
+              0,
+              1007
+            ],
+            [
+              132677,
+              132808,
+              1023,
+              44,
+              62,
+              61,
+              0,
+              1007
+            ],
+            [
+              133683,
+              133810,
+              1002,
+              43,
+              61,
+              60,
+              0,
+              1006
+            ],
+            [
+              134686,
+              134827,
+              1017,
+              44,
+              61,
+              60,
+              0,
+              1003
+            ],
+            [
+              135691,
+              135872,
+              1045,
+              43,
+              61,
+              61,
+              0,
+              1005
+            ],
+            [
+              136695,
+              136878,
+              1006,
+              44,
+              62,
+              60,
+              0,
+              1004
+            ],
+            [
+              137699,
+              137894,
+              1016,
+              43,
+              61,
+              60,
+              0,
+              1004
+            ],
+            [
+              138704,
+              138661,
+              767,
+              44,
+              46,
+              60,
+              0,
+              1005
+            ],
+            [
+              139707,
+              139704,
+              1043,
+              43,
+              61,
+              61,
+              0,
+              1003
+            ],
+            [
+              140712,
+              140712,
+              1008,
+              44,
+              62,
+              60,
+              0,
+              1005
+            ],
+            [
+              141717,
+              141729,
+              1017,
+              43,
+              61,
+              60,
+              0,
+              1005
+            ],
+            [
+              142720,
+              142769,
+              1040,
+              44,
+              61,
+              60,
+              0,
+              1003
+            ],
+            [
+              143723,
+              143791,
+              1022,
+              43,
+              62,
+              61,
+              0,
+              1003
+            ],
+            [
+              144731,
+              144795,
+              1004,
+              44,
+              61,
+              60,
+              0,
+              1008
+            ],
+            [
+              145738,
+              145812,
+              1017,
+              43,
+              61,
+              60,
+              0,
+              1007
+            ],
+            [
+              146743,
+              146856,
+              1044,
+              43,
+              61,
+              61,
+              0,
+              1005
+            ],
+            [
+              147746,
+              147861,
+              1005,
+              44,
+              62,
+              60,
+              0,
+              1003
+            ],
+            [
+              148751,
+              148878,
+              1017,
+              43,
+              61,
+              60,
+              0,
+              1005
+            ],
+            [
+              149756,
+              149921,
+              1043,
+              44,
+              61,
+              60,
+              0,
+              1005
+            ],
+            [
+              150762,
+              150927,
+              1006,
+              43,
+              62,
+              61,
+              0,
+              1006
+            ],
+            [
+              151767,
+              151944,
+              1017,
+              43,
+              61,
+              60,
+              0,
+              1005
+            ],
+            [
+              152771,
+              152986,
+              1042,
+              44,
+              61,
+              60,
+              0,
+              1004
+            ],
+            [
+              153774,
+              153752,
+              766,
+              0,
+              46,
+              61,
+              0,
+              1003
+            ],
+            [
+              154778,
+              154774,
+              1022,
+              43,
+              62,
+              60,
+              0,
+              1004
+            ],
+            [
+              155783,
+              155778,
+              1004,
+              44,
+              61,
+              60,
+              0,
+              1005
+            ],
+            [
+              156787,
+              156794,
+              1016,
+              87,
+              61,
+              60,
+              0,
+              1004
+            ],
+            [
+              157793,
+              157838,
+              1044,
+              43,
+              61,
+              61,
+              0,
+              1006
+            ],
+            [
+              158799,
+              158845,
+              1007,
+              44,
+              62,
+              60,
+              0,
+              1006
+            ],
+            [
+              159804,
+              159862,
+              1017,
+              43,
+              61,
+              60,
+              0,
+              1005
+            ],
+            [
+              160809,
+              160904,
+              1042,
+              44,
+              61,
+              61,
+              0,
+              1005
+            ],
+            [
+              161813,
+              161910,
+              1006,
+              43,
+              61,
+              60,
+              0,
+              1004
+            ],
+            [
+              162821,
+              162927,
+              1017,
+              44,
+              62,
+              60,
+              0,
+              1008
+            ],
+            [
+              163826,
+              163969,
+              1042,
+              43,
+              61,
+              61,
+              0,
+              1005
+            ],
+            [
+              164834,
+              164991,
+              1022,
+              44,
+              62,
+              60,
+              0,
+              1008
+            ],
+            [
+              165841,
+              165995,
+              1004,
+              43,
+              61,
+              61,
+              0,
+              1007
+            ],
+            [
+              166845,
+              167012,
+              1017,
+              44,
+              61,
+              60,
+              0,
+              1004
+            ],
+            [
+              167850,
+              168054,
+              1042,
+              43,
+              61,
+              60,
+              0,
+              1005
+            ],
+            [
+              168855,
+              169061,
+              1007,
+              44,
+              62,
+              60,
+              0,
+              1005
+            ],
+            [
+              169862,
+              169827,
+              766,
+              0,
+              46,
+              61,
+              0,
+              1007
+            ],
+            [
+              170868,
+              170845,
+              1018,
+              43,
+              61,
+              60,
+              0,
+              1006
+            ],
+            [
+              171873,
+              171887,
+              1042,
+              44,
+              61,
+              61,
+              0,
+              1005
+            ],
+            [
+              172878,
+              172895,
+              1008,
+              43,
+              62,
+              60,
+              0,
+              1005
+            ],
+            [
+              173884,
+              173912,
+              1017,
+              44,
+              61,
+              60,
+              0,
+              1006
+            ],
+            [
+              174889,
+              174953,
+              1041,
+              43,
+              61,
+              60,
+              0,
+              1005
+            ],
+            [
+              175894,
+              175973,
+              1020,
+              44,
+              61,
+              61,
+              0,
+              1005
+            ],
+            [
+              176900,
+              176977,
+              1004,
+              43,
+              62,
+              60,
+              0,
+              1006
+            ],
+            [
+              177907,
+              177995,
+              1018,
+              44,
+              61,
+              61,
+              0,
+              1007
+            ],
+            [
+              178911,
+              179038,
+              1043,
+              87,
+              61,
+              60,
+              0,
+              1004
+            ],
+            [
+              179914,
+              180045,
+              1007,
+              43,
+              62,
+              60,
+              0,
+              1003
+            ],
+            [
+              180918,
+              181062,
+              1017,
+              44,
+              61,
+              60,
+              0,
+              1004
+            ],
+            [
+              181922,
+              182104,
+              1042,
+              43,
+              61,
+              60,
+              0,
+              1004
+            ]
+          ],
+          "diagnosticSamples": 180,
+          "paintedFramesAtRecovery": 2695,
+          "recoverySampleColumns": [
+            "elapsedMs",
+            "positionMs",
+            "clockDeltaMs",
+            "audioBufferDelta",
+            "pictureDelta",
+            "paintDelta",
+            "relayByteDelta",
+            "wallDeltaMs"
+          ],
+          "cutPositionMs": 30813,
+          "mode": "disconnect",
+          "longestConsecutiveRecoveredSeconds": 99,
+          "terminalReason": "recovery_not_proven",
+          "recovered": true,
+          "steadyRecoveredSeconds": 12,
+          "stallObserved": true,
+          "faultInjected": true,
+          "explicitRestartAttempts": 1,
+          "restored": true,
+          "lastObservationElapsedMs": 181922,
+          "events": [
+            {
+              "event": "network_down",
+              "elapsedMs": 15103,
+              "positionMs": 30813
+            },
+            {
+              "event": "output_stall_observed",
+              "elapsedMs": 37224,
+              "positionMs": -1
+            },
+            {
+              "event": "network_up",
+              "elapsedMs": 40247,
+              "positionMs": -1
+            },
+            {
+              "event": "explicit_recovery_restart",
+              "elapsedMs": 50333,
+              "positionMs": 51833
+            },
+            {
+              "event": "output_recovered",
+              "elapsedMs": 53255,
+              "positionMs": 53372
+            }
+          ]
+        },
+        "output": "swing_video_native_audio",
+        "postSeekDecodedVideo": 864,
+        "framePoolCapacity": 3,
+        "networkCacheMs": 3000,
+        "seekWaitMs": 2614,
+        "postSeekDecodedAudio": 703,
+        "pairedAudio": true,
+        "jnaVersion": "5.14.0",
+        "decodedAudio": 341,
+        "seekTargetMs": 15000,
+        "seekable": true,
+        "windowShowing": true,
+        "videoCallbacks": 10421,
+        "audioTimeline": {
+          "rawMessagesSaved": false,
+          "droppedEvents": 0,
+          "optIn": true,
+          "samplePeriodTargetMs": 200,
+          "outputConsumptionClock": false,
+          "nativeLogDetached": true,
+          "samples": 900,
+          "events": 23,
+          "droppedSamples": 0
+        },
+        "processExitCode": 1,
+        "observationEndMs": 182104,
+        "picturesDisplayed": 7860,
+        "javaVersion": "25.0.4.1",
+        "errorType": "IOException",
+        "lengthMs": 210000,
+        "beforeSeekDecodedVideo": 527,
+        "renderHeight": 1090,
+        "avSyncProven": false,
+        "beforeSeekDecodedAudio": 507,
+        "vlcVersion": "3.0.24 Vetinari",
+        "result": "failed",
+        "postSeekPositionMs": 15757,
+        "longestStalledClockMs": 13000,
+        "renderWidth": 1920,
+        "observationSamples": [
+          {
+            "inputBytesRead": 2183176,
+            "picturesDisplayed": 639,
+            "wallElapsedMs": 5045,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 1476,
+            "audioBuffersPlayed": 567,
+            "positionMs": 20844
+          },
+          {
+            "inputBytesRead": 2887688,
+            "picturesDisplayed": 930,
+            "wallElapsedMs": 10074,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 2058,
+            "audioBuffersPlayed": 784,
+            "positionMs": 25693
+          },
+          {
+            "inputBytesRead": 3440381,
+            "picturesDisplayed": 1237,
+            "wallElapsedMs": 15105,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 2672,
+            "audioBuffersPlayed": 1002,
+            "positionMs": 30813
+          },
+          {
+            "inputBytesRead": 3440381,
+            "picturesDisplayed": 1543,
+            "wallElapsedMs": 20133,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 3284,
+            "audioBuffersPlayed": 1219,
+            "positionMs": 35911
+          },
+          {
+            "inputBytesRead": 3440381,
+            "picturesDisplayed": 1834,
+            "wallElapsedMs": 25161,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 3866,
+            "audioBuffersPlayed": 1437,
+            "positionMs": 40786
+          },
+          {
+            "inputBytesRead": 3440381,
+            "picturesDisplayed": 2141,
+            "wallElapsedMs": 30189,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 4480,
+            "audioBuffersPlayed": 1654,
+            "positionMs": 45879
+          },
+          {
+            "inputBytesRead": 3440381,
+            "picturesDisplayed": 2444,
+            "wallElapsedMs": 35214,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 5086,
+            "audioBuffersPlayed": 1871,
+            "positionMs": 50926
+          },
+          {
+            "inputBytesRead": 3440381,
+            "picturesDisplayed": 2517,
+            "wallElapsedMs": 40251,
+            "picturesLost": 0,
+            "playing": false,
+            "decodedVideo": 5237,
+            "audioBuffersPlayed": 1889,
+            "positionMs": -1
+          },
+          {
+            "inputBytesRead": 3440381,
+            "picturesDisplayed": 2517,
+            "wallElapsedMs": 45293,
+            "picturesLost": 0,
+            "playing": false,
+            "decodedVideo": 5237,
+            "audioBuffersPlayed": 1889,
+            "positionMs": -1
+          },
+          {
+            "inputBytesRead": 17330053,
+            "picturesDisplayed": 39,
+            "wallElapsedMs": 51246,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 141,
+            "audioBuffersPlayed": 86,
+            "positionMs": 51833
+          },
+          {
+            "inputBytesRead": 17330053,
+            "picturesDisplayed": 320,
+            "wallElapsedMs": 56271,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 876,
+            "audioBuffersPlayed": 347,
+            "positionMs": 56437
+          },
+          {
+            "inputBytesRead": 17330053,
+            "picturesDisplayed": 611,
+            "wallElapsedMs": 61297,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 1458,
+            "audioBuffersPlayed": 565,
+            "positionMs": 61290
+          },
+          {
+            "inputBytesRead": 17330053,
+            "picturesDisplayed": 918,
+            "wallElapsedMs": 66333,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 2072,
+            "audioBuffersPlayed": 782,
+            "positionMs": 66378
+          },
+          {
+            "inputBytesRead": 17330053,
+            "picturesDisplayed": 1225,
+            "wallElapsedMs": 71357,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 2686,
+            "audioBuffersPlayed": 1000,
+            "positionMs": 71508
+          },
+          {
+            "inputBytesRead": 17330053,
+            "picturesDisplayed": 1516,
+            "wallElapsedMs": 76384,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 3268,
+            "audioBuffersPlayed": 1217,
+            "positionMs": 76344
+          },
+          {
+            "inputBytesRead": 17330053,
+            "picturesDisplayed": 1822,
+            "wallElapsedMs": 81410,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 3880,
+            "audioBuffersPlayed": 1434,
+            "positionMs": 81468
+          },
+          {
+            "inputBytesRead": 17330053,
+            "picturesDisplayed": 2129,
+            "wallElapsedMs": 86438,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 4494,
+            "audioBuffersPlayed": 1652,
+            "positionMs": 86562
+          },
+          {
+            "inputBytesRead": 17330053,
+            "picturesDisplayed": 2435,
+            "wallElapsedMs": 91467,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 5106,
+            "audioBuffersPlayed": 1869,
+            "positionMs": 91684
+          },
+          {
+            "inputBytesRead": 17330053,
+            "picturesDisplayed": 2726,
+            "wallElapsedMs": 96493,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 5688,
+            "audioBuffersPlayed": 2087,
+            "positionMs": 96537
+          },
+          {
+            "inputBytesRead": 17330053,
+            "picturesDisplayed": 3033,
+            "wallElapsedMs": 101515,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 6302,
+            "audioBuffersPlayed": 2304,
+            "positionMs": 101628
+          },
+          {
+            "inputBytesRead": 17330053,
+            "picturesDisplayed": 3339,
+            "wallElapsedMs": 106538,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 6914,
+            "audioBuffersPlayed": 2521,
+            "positionMs": 106754
+          },
+          {
+            "inputBytesRead": 17330053,
+            "picturesDisplayed": 3630,
+            "wallElapsedMs": 111564,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 7496,
+            "audioBuffersPlayed": 2739,
+            "positionMs": 111595
+          },
+          {
+            "inputBytesRead": 17330053,
+            "picturesDisplayed": 3937,
+            "wallElapsedMs": 116591,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 8110,
+            "audioBuffersPlayed": 2956,
+            "positionMs": 116694
+          },
+          {
+            "inputBytesRead": 17330053,
+            "picturesDisplayed": 4243,
+            "wallElapsedMs": 121614,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 8722,
+            "audioBuffersPlayed": 3174,
+            "positionMs": 121811
+          },
+          {
+            "inputBytesRead": 17330053,
+            "picturesDisplayed": 4535,
+            "wallElapsedMs": 126641,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 9306,
+            "audioBuffersPlayed": 3391,
+            "positionMs": 126662
+          },
+          {
+            "inputBytesRead": 17330053,
+            "picturesDisplayed": 4841,
+            "wallElapsedMs": 131672,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 9918,
+            "audioBuffersPlayed": 3608,
+            "positionMs": 131785
+          },
+          {
+            "inputBytesRead": 17330053,
+            "picturesDisplayed": 5148,
+            "wallElapsedMs": 136696,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 10532,
+            "audioBuffersPlayed": 3826,
+            "positionMs": 136878
+          },
+          {
+            "inputBytesRead": 17330053,
+            "picturesDisplayed": 5439,
+            "wallElapsedMs": 141718,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 11114,
+            "audioBuffersPlayed": 4043,
+            "positionMs": 141729
+          },
+          {
+            "inputBytesRead": 17330053,
+            "picturesDisplayed": 5745,
+            "wallElapsedMs": 146744,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 11726,
+            "audioBuffersPlayed": 4260,
+            "positionMs": 146856
+          },
+          {
+            "inputBytesRead": 17330053,
+            "picturesDisplayed": 6052,
+            "wallElapsedMs": 151768,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 12340,
+            "audioBuffersPlayed": 4477,
+            "positionMs": 151944
+          },
+          {
+            "inputBytesRead": 17330053,
+            "picturesDisplayed": 6343,
+            "wallElapsedMs": 156788,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 12922,
+            "audioBuffersPlayed": 4695,
+            "positionMs": 156794
+          },
+          {
+            "inputBytesRead": 17330053,
+            "picturesDisplayed": 6649,
+            "wallElapsedMs": 161815,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 13534,
+            "audioBuffersPlayed": 4912,
+            "positionMs": 161910
+          },
+          {
+            "inputBytesRead": 17330053,
+            "picturesDisplayed": 6956,
+            "wallElapsedMs": 166846,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 14148,
+            "audioBuffersPlayed": 5130,
+            "positionMs": 167012
+          },
+          {
+            "inputBytesRead": 17330053,
+            "picturesDisplayed": 7247,
+            "wallElapsedMs": 171874,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 14730,
+            "audioBuffersPlayed": 5304,
+            "positionMs": 171887
+          },
+          {
+            "inputBytesRead": 17330053,
+            "picturesDisplayed": 7554,
+            "wallElapsedMs": 176902,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 15344,
+            "audioBuffersPlayed": 5521,
+            "positionMs": 176977
+          },
+          {
+            "inputBytesRead": 17330053,
+            "picturesDisplayed": 7860,
+            "wallElapsedMs": 181923,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 15956,
+            "audioBuffersPlayed": 5782,
+            "positionMs": 182104
+          }
+        ],
+        "observationClockAdvancedMs": 166347,
+        "demuxPolicy": "avformat",
+        "seekWorked": true,
+        "resumeAdvanced": true,
+        "playerVolumePercent": 35,
+        "schemaVersion": 2,
+        "seekReadyClockAdvancedMs": 757,
+        "paintedVideoFrames": 10417,
+        "relay": {
+          "bytesForwarded": 21255810,
+          "closed": true,
+          "upstreamResponses": [],
+          "droppedUpstreamResponses": 0,
+          "requests": 10,
+          "streamFailures": 4,
+          "loopbackOnly": true,
+          "upstreamHttpStatuses": {},
+          "rejectedRequests": 1,
+          "activeRequests": 0,
+          "tracks": {
+            "audio": {
+              "failures": 1,
+              "bytes": 2695694,
+              "pendingWriteMs": 0,
+              "readMs": 8,
+              "requests": 4,
+              "writeMs": 14,
+              "pendingReadMs": 0
+            },
+            "video": {
+              "failures": 3,
+              "bytes": 18560116,
+              "pendingWriteMs": 0,
+              "readMs": 23,
+              "requests": 6,
+              "writeMs": 71,
+              "pendingReadMs": 0
+            }
+          }
+        },
+        "audioOutputRequested": "mmdevice",
+        "cleanShutdown": true,
+        "decodedVideo": 369,
+        "workerCpuMsDuringObservation": 92172,
+        "decoderPolicy": "software_avcodec",
+        "observationRequestedSeconds": 180,
+        "stage": "presentation_observe",
+        "observationStartMs": 15757,
+        "nativeProcessIsolated": true,
+        "positionMs": 2528
+      },
+      "analysis": {
+        "schemaVersion": 1,
+        "workerResult": "failed",
+        "harnessResult": "failed",
+        "pilotMeasurement": {
+          "frequencyHz": 300,
+          "packets": 17627,
+          "droppedPackets": 0,
+          "rawPcmSaved": false,
+          "mixedEndpoint": true
+        },
+        "phaseAnalyses": [
+          {
+            "phase": "steady_after_seek",
+            "startEpochMs": 1792297650104,
+            "analysis": {
+              "schemaVersion": 1,
+              "sampleCount": 75,
+              "nativeEventCount": 0,
+              "nativeEventCounts": {},
+              "minimumHoldMs": 1000,
+              "samplingGaps": [],
+              "audioCounterPlateaus": [
+                {
+                  "startEpochMs": 1792297654345,
+                  "endEpochMs": 1792297655351,
+                  "startMonotonicMs": 14006,
+                  "endMonotonicMs": 15012,
+                  "observedHeldMs": 1006,
+                  "snapshots": 6,
+                  "audioBuffers": 567,
+                  "decodedAudioDelta": 0,
+                  "audioLostDelta": 0,
+                  "clockDeltaMs": 767,
+                  "decodedVideoDelta": 92,
+                  "pictureDelta": 46,
+                  "entireMeasuredSnapshotHeld": false,
+                  "nearbyNativeEvents": []
+                }
+              ],
+              "counterCadence": {
+                "positiveChangeCount": 14,
+                "positiveBufferDeltaHistogram": {
+                  "43": 7,
+                  "44": 7
+                },
+                "counterResets": 0,
+                "medianPositiveUpdateIntervalMs": 1006,
+                "maximumPositiveUpdateIntervalMs": 1207,
+                "positiveUpdateIntervalHistogramMs": {
+                  "1006": 2,
+                  "1005": 4,
+                  "1007": 2,
+                  "1207": 1,
+                  "1004": 2,
+                  "1008": 1,
+                  "1011": 1
+                }
+              },
+              "outputContinuityProven": false,
+              "sourceAvSyncProven": false,
+              "rootCauseProven": false
+            }
+          },
+          {
+            "phase": "network_down",
+            "startEpochMs": 1792297665209,
+            "analysis": {
+              "schemaVersion": 1,
+              "sampleCount": 125,
+              "nativeEventCount": 1,
+              "nativeEventCounts": {
+                "output_reset": 1
+              },
+              "minimumHoldMs": 1000,
+              "samplingGaps": [],
+              "audioCounterPlateaus": [
+                {
+                  "startEpochMs": 1792297666618,
+                  "endEpochMs": 1792297667623,
+                  "startMonotonicMs": 26279,
+                  "endMonotonicMs": 27284,
+                  "observedHeldMs": 1005,
+                  "snapshots": 6,
+                  "audioBuffers": 1089,
+                  "decodedAudioDelta": 0,
+                  "audioLostDelta": 0,
+                  "clockDeltaMs": 780,
+                  "decodedVideoDelta": 90,
+                  "pictureDelta": 45,
+                  "entireMeasuredSnapshotHeld": false,
+                  "nearbyNativeEvents": []
+                },
+                {
+                  "startEpochMs": 1792297682705,
+                  "endEpochMs": 1792297683711,
+                  "startMonotonicMs": 42366,
+                  "endMonotonicMs": 43372,
+                  "observedHeldMs": 1006,
+                  "snapshots": 6,
+                  "audioBuffers": 1784,
+                  "decodedAudioDelta": 0,
+                  "audioLostDelta": 0,
+                  "clockDeltaMs": 767,
+                  "decodedVideoDelta": 92,
+                  "pictureDelta": 46,
+                  "entireMeasuredSnapshotHeld": false,
+                  "nearbyNativeEvents": []
+                },
+                {
+                  "startEpochMs": 1792297685924,
+                  "endEpochMs": 1792297690352,
+                  "startMonotonicMs": 45584,
+                  "endMonotonicMs": 50013,
+                  "observedHeldMs": 4429,
+                  "snapshots": 23,
+                  "audioBuffers": 1889,
+                  "decodedAudioDelta": 0,
+                  "audioLostDelta": 0,
+                  "clockDeltaMs": -51530,
+                  "decodedVideoDelta": 79,
+                  "pictureDelta": 37,
+                  "entireMeasuredSnapshotHeld": false,
+                  "nearbyNativeEvents": [
+                    {
+                      "epochMs": 1792297687104,
+                      "event": "output_reset",
+                      "value": 0
+                    }
+                  ]
+                }
+              ],
+              "counterCadence": {
+                "positiveChangeCount": 21,
+                "positiveBufferDeltaHistogram": {
+                  "43": 11,
+                  "44": 9,
+                  "18": 1
+                },
+                "counterResets": 0,
+                "medianPositiveUpdateIntervalMs": 1006.0,
+                "maximumPositiveUpdateIntervalMs": 1207,
+                "positiveUpdateIntervalHistogramMs": {
+                  "1006": 7,
+                  "1205": 1,
+                  "1005": 5,
+                  "1007": 1,
+                  "805": 1,
+                  "1008": 1,
+                  "1004": 3,
+                  "1207": 1
+                }
+              },
+              "outputContinuityProven": false,
+              "sourceAvSyncProven": false,
+              "rootCauseProven": false
+            }
+          },
+          {
+            "phase": "network_up",
+            "startEpochMs": 1792297690355,
+            "analysis": {
+              "schemaVersion": 1,
+              "sampleCount": 59,
+              "nativeEventCount": 8,
+              "nativeEventCounts": {
+                "selected_mmdevice": 1,
+                "output_buffer_frames": 1,
+                "selected_wasapi": 1,
+                "mixer_sample_rate": 1,
+                "insert_zero_frames": 1,
+                "output_reset": 2,
+                "audio_preroll_end": 1
+              },
+              "minimumHoldMs": 1000,
+              "samplingGaps": [
+                {
+                  "beforeMonotonicMs": 60099,
+                  "afterMonotonicMs": 61213,
+                  "gapMs": 1114
+                }
+              ],
+              "audioCounterPlateaus": [
+                {
+                  "startEpochMs": 1792297690556,
+                  "endEpochMs": 1792297700438,
+                  "startMonotonicMs": 50217,
+                  "endMonotonicMs": 60099,
+                  "observedHeldMs": 9882,
+                  "snapshots": 50,
+                  "audioBuffers": 1889,
+                  "decodedAudioDelta": 0,
+                  "audioLostDelta": 0,
+                  "clockDeltaMs": 0,
+                  "decodedVideoDelta": 0,
+                  "pictureDelta": 0,
+                  "entireMeasuredSnapshotHeld": true,
+                  "nearbyNativeEvents": [
+                    {
+                      "epochMs": 1792297700557,
+                      "event": "selected_mmdevice",
+                      "value": 0
+                    },
+                    {
+                      "epochMs": 1792297700570,
+                      "event": "output_buffer_frames",
+                      "value": 88200
+                    },
+                    {
+                      "epochMs": 1792297700570,
+                      "event": "selected_wasapi",
+                      "value": 0
+                    },
+                    {
+                      "epochMs": 1792297700571,
+                      "event": "mixer_sample_rate",
+                      "value": 44100
+                    },
+                    {
+                      "epochMs": 1792297700686,
+                      "event": "insert_zero_frames",
+                      "value": 441
+                    }
+                  ]
+                }
+              ],
+              "counterCadence": {
+                "positiveChangeCount": 3,
+                "positiveBufferDeltaHistogram": {
+                  "1": 1,
+                  "86": 1,
+                  "44": 1
+                },
+                "counterResets": 1,
+                "medianPositiveUpdateIntervalMs": 502.5,
+                "maximumPositiveUpdateIntervalMs": 603,
+                "positiveUpdateIntervalHistogramMs": {
+                  "402": 1,
+                  "603": 1
+                }
+              },
+              "outputContinuityProven": false,
+              "sourceAvSyncProven": false,
+              "rootCauseProven": false
+            }
+          },
+          {
+            "phase": "network_recovered",
+            "startEpochMs": 1792297703360,
+            "analysis": {
+              "schemaVersion": 1,
+              "sampleCount": 641,
+              "nativeEventCount": 2,
+              "nativeEventCounts": {
+                "output_reset": 2
+              },
+              "minimumHoldMs": 1000,
+              "samplingGaps": [],
+              "audioCounterPlateaus": [
+                {
+                  "startEpochMs": 1792297703762,
+                  "endEpochMs": 1792297704768,
+                  "startMonotonicMs": 63423,
+                  "endMonotonicMs": 64429,
+                  "observedHeldMs": 1006,
+                  "snapshots": 6,
+                  "audioBuffers": 260,
+                  "decodedAudioDelta": 0,
+                  "audioLostDelta": 0,
+                  "clockDeltaMs": 766,
+                  "decodedVideoDelta": 92,
+                  "pictureDelta": 46,
+                  "entireMeasuredSnapshotHeld": false,
+                  "nearbyNativeEvents": []
+                },
+                {
+                  "startEpochMs": 1792297717043,
+                  "endEpochMs": 1792297718048,
+                  "startMonotonicMs": 76703,
+                  "endMonotonicMs": 77708,
+                  "observedHeldMs": 1005,
+                  "snapshots": 6,
+                  "audioBuffers": 826,
+                  "decodedAudioDelta": 0,
+                  "audioLostDelta": 0,
+                  "clockDeltaMs": 767,
+                  "decodedVideoDelta": 92,
+                  "pictureDelta": 46,
+                  "entireMeasuredSnapshotHeld": false,
+                  "nearbyNativeEvents": []
+                },
+                {
+                  "startEpochMs": 1792297732117,
+                  "endEpochMs": 1792297733123,
+                  "startMonotonicMs": 91778,
+                  "endMonotonicMs": 92784,
+                  "observedHeldMs": 1006,
+                  "snapshots": 6,
+                  "audioBuffers": 1478,
+                  "decodedAudioDelta": 0,
+                  "audioLostDelta": 0,
+                  "clockDeltaMs": 744,
+                  "decodedVideoDelta": 92,
+                  "pictureDelta": 46,
+                  "entireMeasuredSnapshotHeld": false,
+                  "nearbyNativeEvents": []
+                },
+                {
+                  "startEpochMs": 1792297748205,
+                  "endEpochMs": 1792297749211,
+                  "startMonotonicMs": 107865,
+                  "endMonotonicMs": 108871,
+                  "observedHeldMs": 1006,
+                  "snapshots": 6,
+                  "audioBuffers": 2173,
+                  "decodedAudioDelta": 0,
+                  "audioLostDelta": 0,
+                  "clockDeltaMs": 766,
+                  "decodedVideoDelta": 92,
+                  "pictureDelta": 46,
+                  "entireMeasuredSnapshotHeld": false,
+                  "nearbyNativeEvents": []
+                },
+                {
+                  "startEpochMs": 1792297760463,
+                  "endEpochMs": 1792297761467,
+                  "startMonotonicMs": 120124,
+                  "endMonotonicMs": 121128,
+                  "observedHeldMs": 1004,
+                  "snapshots": 6,
+                  "audioBuffers": 2695,
+                  "decodedAudioDelta": 0,
+                  "audioLostDelta": 0,
+                  "clockDeltaMs": 767,
+                  "decodedVideoDelta": 92,
+                  "pictureDelta": 46,
+                  "entireMeasuredSnapshotHeld": false,
+                  "nearbyNativeEvents": []
+                },
+                {
+                  "startEpochMs": 1792297775539,
+                  "endEpochMs": 1792297776546,
+                  "startMonotonicMs": 135199,
+                  "endMonotonicMs": 136206,
+                  "observedHeldMs": 1007,
+                  "snapshots": 6,
+                  "audioBuffers": 3347,
+                  "decodedAudioDelta": 0,
+                  "audioLostDelta": 0,
+                  "clockDeltaMs": 765,
+                  "decodedVideoDelta": 92,
+                  "pictureDelta": 46,
+                  "entireMeasuredSnapshotHeld": false,
+                  "nearbyNativeEvents": []
+                },
+                {
+                  "startEpochMs": 1792297790616,
+                  "endEpochMs": 1792297791621,
+                  "startMonotonicMs": 150277,
+                  "endMonotonicMs": 151282,
+                  "observedHeldMs": 1005,
+                  "snapshots": 6,
+                  "audioBuffers": 4000,
+                  "decodedAudioDelta": 0,
+                  "audioLostDelta": 0,
+                  "clockDeltaMs": 766,
+                  "decodedVideoDelta": 90,
+                  "pictureDelta": 45,
+                  "entireMeasuredSnapshotHeld": false,
+                  "nearbyNativeEvents": []
+                },
+                {
+                  "startEpochMs": 1792297802876,
+                  "endEpochMs": 1792297803879,
+                  "startMonotonicMs": 162537,
+                  "endMonotonicMs": 163540,
+                  "observedHeldMs": 1003,
+                  "snapshots": 6,
+                  "audioBuffers": 4521,
+                  "decodedAudioDelta": 0,
+                  "audioLostDelta": 0,
+                  "clockDeltaMs": 766,
+                  "decodedVideoDelta": 92,
+                  "pictureDelta": 46,
+                  "entireMeasuredSnapshotHeld": false,
+                  "nearbyNativeEvents": []
+                },
+                {
+                  "startEpochMs": 1792297806692,
+                  "endEpochMs": 1792297807698,
+                  "startMonotonicMs": 166352,
+                  "endMonotonicMs": 167358,
+                  "observedHeldMs": 1006,
+                  "snapshots": 6,
+                  "audioBuffers": 4695,
+                  "decodedAudioDelta": 0,
+                  "audioLostDelta": 0,
+                  "clockDeltaMs": 766,
+                  "decodedVideoDelta": 92,
+                  "pictureDelta": 46,
+                  "entireMeasuredSnapshotHeld": false,
+                  "nearbyNativeEvents": []
+                },
+                {
+                  "startEpochMs": 1792297818961,
+                  "endEpochMs": 1792297819967,
+                  "startMonotonicMs": 178621,
+                  "endMonotonicMs": 179628,
+                  "observedHeldMs": 1007,
+                  "snapshots": 6,
+                  "audioBuffers": 5217,
+                  "decodedAudioDelta": 0,
+                  "audioLostDelta": 0,
+                  "clockDeltaMs": 766,
+                  "decodedVideoDelta": 92,
+                  "pictureDelta": 46,
+                  "entireMeasuredSnapshotHeld": false,
+                  "nearbyNativeEvents": []
+                }
+              ],
+              "counterCadence": {
+                "positiveChangeCount": 128,
+                "positiveBufferDeltaHistogram": {
+                  "43": 67,
+                  "44": 61
+                },
+                "counterResets": 0,
+                "medianPositiveUpdateIntervalMs": 1005,
+                "maximumPositiveUpdateIntervalMs": 1209,
+                "positiveUpdateIntervalHistogramMs": {
+                  "1206": 2,
+                  "1006": 22,
+                  "1005": 43,
+                  "1007": 9,
+                  "1003": 11,
+                  "1008": 4,
+                  "1016": 1,
+                  "1205": 2,
+                  "1009": 1,
+                  "804": 1,
+                  "1004": 20,
+                  "1207": 2,
+                  "805": 2,
+                  "1208": 2,
+                  "803": 1,
+                  "1204": 1,
+                  "601": 1,
+                  "1209": 1,
+                  "802": 1
+                }
+              },
+              "outputContinuityProven": false,
+              "sourceAvSyncProven": false,
+              "rootCauseProven": false
+            }
+          }
+        ],
+        "assessments": [
+          {
+            "phase": "steady_after_seek",
+            "counterHold": {
+              "startEpochMs": 1792297654345,
+              "endEpochMs": 1792297655351,
+              "startMonotonicMs": 14006,
+              "endMonotonicMs": 15012,
+              "observedHeldMs": 1006,
+              "snapshots": 6,
+              "audioBuffers": 567,
+              "decodedAudioDelta": 0,
+              "audioLostDelta": 0,
+              "clockDeltaMs": 767,
+              "decodedVideoDelta": 92,
+              "pictureDelta": 46,
+              "entireMeasuredSnapshotHeld": false,
+              "nearbyNativeEvents": []
+            },
+            "pilot": {
+              "startEpochMs": 1792297654445,
+              "endEpochMs": 1792297655251,
+              "packetCount": 82,
+              "coveredMs": 805.691,
+              "maximumGapMs": 0.021,
+              "minimumPilotAmplitude": 0.00020986,
+              "threshold": 2e-05,
+              "belowThresholdPackets": 0,
+              "flaggedPackets": 0,
+              "continuousPilotObserved": true,
+              "exclusiveSourceContinuityProven": false
+            }
+          },
+          {
+            "phase": "network_recovered",
+            "counterHold": {
+              "startEpochMs": 1792297703762,
+              "endEpochMs": 1792297704768,
+              "startMonotonicMs": 63423,
+              "endMonotonicMs": 64429,
+              "observedHeldMs": 1006,
+              "snapshots": 6,
+              "audioBuffers": 260,
+              "decodedAudioDelta": 0,
+              "audioLostDelta": 0,
+              "clockDeltaMs": 766,
+              "decodedVideoDelta": 92,
+              "pictureDelta": 46,
+              "entireMeasuredSnapshotHeld": false,
+              "nearbyNativeEvents": []
+            },
+            "pilot": {
+              "startEpochMs": 1792297703862,
+              "endEpochMs": 1792297704668,
+              "packetCount": 82,
+              "coveredMs": 805.686,
+              "maximumGapMs": 0.02,
+              "minimumPilotAmplitude": 0.00020996,
+              "threshold": 2e-05,
+              "belowThresholdPackets": 0,
+              "flaggedPackets": 0,
+              "continuousPilotObserved": true,
+              "exclusiveSourceContinuityProven": false
+            }
+          },
+          {
+            "phase": "network_recovered",
+            "counterHold": {
+              "startEpochMs": 1792297717043,
+              "endEpochMs": 1792297718048,
+              "startMonotonicMs": 76703,
+              "endMonotonicMs": 77708,
+              "observedHeldMs": 1005,
+              "snapshots": 6,
+              "audioBuffers": 826,
+              "decodedAudioDelta": 0,
+              "audioLostDelta": 0,
+              "clockDeltaMs": 767,
+              "decodedVideoDelta": 92,
+              "pictureDelta": 46,
+              "entireMeasuredSnapshotHeld": false,
+              "nearbyNativeEvents": []
+            },
+            "pilot": {
+              "startEpochMs": 1792297717143,
+              "endEpochMs": 1792297717948,
+              "packetCount": 82,
+              "coveredMs": 804.718,
+              "maximumGapMs": 0.021,
+              "minimumPilotAmplitude": 0.00016353,
+              "threshold": 2e-05,
+              "belowThresholdPackets": 0,
+              "flaggedPackets": 0,
+              "continuousPilotObserved": true,
+              "exclusiveSourceContinuityProven": false
+            }
+          },
+          {
+            "phase": "network_recovered",
+            "counterHold": {
+              "startEpochMs": 1792297732117,
+              "endEpochMs": 1792297733123,
+              "startMonotonicMs": 91778,
+              "endMonotonicMs": 92784,
+              "observedHeldMs": 1006,
+              "snapshots": 6,
+              "audioBuffers": 1478,
+              "decodedAudioDelta": 0,
+              "audioLostDelta": 0,
+              "clockDeltaMs": 744,
+              "decodedVideoDelta": 92,
+              "pictureDelta": 46,
+              "entireMeasuredSnapshotHeld": false,
+              "nearbyNativeEvents": []
+            },
+            "pilot": {
+              "startEpochMs": 1792297732217,
+              "endEpochMs": 1792297733023,
+              "packetCount": 81,
+              "coveredMs": 805.659,
+              "maximumGapMs": 0.019,
+              "minimumPilotAmplitude": 0.00021092,
+              "threshold": 2e-05,
+              "belowThresholdPackets": 0,
+              "flaggedPackets": 0,
+              "continuousPilotObserved": true,
+              "exclusiveSourceContinuityProven": false
+            }
+          },
+          {
+            "phase": "network_recovered",
+            "counterHold": {
+              "startEpochMs": 1792297748205,
+              "endEpochMs": 1792297749211,
+              "startMonotonicMs": 107865,
+              "endMonotonicMs": 108871,
+              "observedHeldMs": 1006,
+              "snapshots": 6,
+              "audioBuffers": 2173,
+              "decodedAudioDelta": 0,
+              "audioLostDelta": 0,
+              "clockDeltaMs": 766,
+              "decodedVideoDelta": 92,
+              "pictureDelta": 46,
+              "entireMeasuredSnapshotHeld": false,
+              "nearbyNativeEvents": []
+            },
+            "pilot": {
+              "startEpochMs": 1792297748305,
+              "endEpochMs": 1792297749111,
+              "packetCount": 82,
+              "coveredMs": 805.709,
+              "maximumGapMs": 0.019,
+              "minimumPilotAmplitude": 0.00021011,
+              "threshold": 2e-05,
+              "belowThresholdPackets": 0,
+              "flaggedPackets": 0,
+              "continuousPilotObserved": true,
+              "exclusiveSourceContinuityProven": false
+            }
+          },
+          {
+            "phase": "network_recovered",
+            "counterHold": {
+              "startEpochMs": 1792297760463,
+              "endEpochMs": 1792297761467,
+              "startMonotonicMs": 120124,
+              "endMonotonicMs": 121128,
+              "observedHeldMs": 1004,
+              "snapshots": 6,
+              "audioBuffers": 2695,
+              "decodedAudioDelta": 0,
+              "audioLostDelta": 0,
+              "clockDeltaMs": 767,
+              "decodedVideoDelta": 92,
+              "pictureDelta": 46,
+              "entireMeasuredSnapshotHeld": false,
+              "nearbyNativeEvents": []
+            },
+            "pilot": {
+              "startEpochMs": 1792297760563,
+              "endEpochMs": 1792297761367,
+              "packetCount": 82,
+              "coveredMs": 803.696,
+              "maximumGapMs": 0.02,
+              "minimumPilotAmplitude": 0.00021014,
+              "threshold": 2e-05,
+              "belowThresholdPackets": 0,
+              "flaggedPackets": 0,
+              "continuousPilotObserved": true,
+              "exclusiveSourceContinuityProven": false
+            }
+          },
+          {
+            "phase": "network_recovered",
+            "counterHold": {
+              "startEpochMs": 1792297775539,
+              "endEpochMs": 1792297776546,
+              "startMonotonicMs": 135199,
+              "endMonotonicMs": 136206,
+              "observedHeldMs": 1007,
+              "snapshots": 6,
+              "audioBuffers": 3347,
+              "decodedAudioDelta": 0,
+              "audioLostDelta": 0,
+              "clockDeltaMs": 765,
+              "decodedVideoDelta": 92,
+              "pictureDelta": 46,
+              "entireMeasuredSnapshotHeld": false,
+              "nearbyNativeEvents": []
+            },
+            "pilot": {
+              "startEpochMs": 1792297775639,
+              "endEpochMs": 1792297776446,
+              "packetCount": 81,
+              "coveredMs": 806.72,
+              "maximumGapMs": 0.019,
+              "minimumPilotAmplitude": 0.00020996,
+              "threshold": 2e-05,
+              "belowThresholdPackets": 0,
+              "flaggedPackets": 0,
+              "continuousPilotObserved": true,
+              "exclusiveSourceContinuityProven": false
+            }
+          },
+          {
+            "phase": "network_recovered",
+            "counterHold": {
+              "startEpochMs": 1792297790616,
+              "endEpochMs": 1792297791621,
+              "startMonotonicMs": 150277,
+              "endMonotonicMs": 151282,
+              "observedHeldMs": 1005,
+              "snapshots": 6,
+              "audioBuffers": 4000,
+              "decodedAudioDelta": 0,
+              "audioLostDelta": 0,
+              "clockDeltaMs": 766,
+              "decodedVideoDelta": 90,
+              "pictureDelta": 45,
+              "entireMeasuredSnapshotHeld": false,
+              "nearbyNativeEvents": []
+            },
+            "pilot": {
+              "startEpochMs": 1792297790716,
+              "endEpochMs": 1792297791521,
+              "packetCount": 82,
+              "coveredMs": 804.71,
+              "maximumGapMs": 0.021,
+              "minimumPilotAmplitude": 0.0002102,
+              "threshold": 2e-05,
+              "belowThresholdPackets": 0,
+              "flaggedPackets": 0,
+              "continuousPilotObserved": true,
+              "exclusiveSourceContinuityProven": false
+            }
+          },
+          {
+            "phase": "network_recovered",
+            "counterHold": {
+              "startEpochMs": 1792297802876,
+              "endEpochMs": 1792297803879,
+              "startMonotonicMs": 162537,
+              "endMonotonicMs": 163540,
+              "observedHeldMs": 1003,
+              "snapshots": 6,
+              "audioBuffers": 4521,
+              "decodedAudioDelta": 0,
+              "audioLostDelta": 0,
+              "clockDeltaMs": 766,
+              "decodedVideoDelta": 92,
+              "pictureDelta": 46,
+              "entireMeasuredSnapshotHeld": false,
+              "nearbyNativeEvents": []
+            },
+            "pilot": {
+              "startEpochMs": 1792297802976,
+              "endEpochMs": 1792297803779,
+              "packetCount": 82,
+              "coveredMs": 802.658,
+              "maximumGapMs": 0.02,
+              "minimumPilotAmplitude": 0.00021046,
+              "threshold": 2e-05,
+              "belowThresholdPackets": 0,
+              "flaggedPackets": 0,
+              "continuousPilotObserved": true,
+              "exclusiveSourceContinuityProven": false
+            }
+          },
+          {
+            "phase": "network_recovered",
+            "counterHold": {
+              "startEpochMs": 1792297806692,
+              "endEpochMs": 1792297807698,
+              "startMonotonicMs": 166352,
+              "endMonotonicMs": 167358,
+              "observedHeldMs": 1006,
+              "snapshots": 6,
+              "audioBuffers": 4695,
+              "decodedAudioDelta": 0,
+              "audioLostDelta": 0,
+              "clockDeltaMs": 766,
+              "decodedVideoDelta": 92,
+              "pictureDelta": 46,
+              "entireMeasuredSnapshotHeld": false,
+              "nearbyNativeEvents": []
+            },
+            "pilot": {
+              "startEpochMs": 1792297806792,
+              "endEpochMs": 1792297807598,
+              "packetCount": 82,
+              "coveredMs": 805.664,
+              "maximumGapMs": 0.022,
+              "minimumPilotAmplitude": 0.00021096,
+              "threshold": 2e-05,
+              "belowThresholdPackets": 0,
+              "flaggedPackets": 0,
+              "continuousPilotObserved": true,
+              "exclusiveSourceContinuityProven": false
+            }
+          },
+          {
+            "phase": "network_recovered",
+            "counterHold": {
+              "startEpochMs": 1792297818961,
+              "endEpochMs": 1792297819967,
+              "startMonotonicMs": 178621,
+              "endMonotonicMs": 179628,
+              "observedHeldMs": 1007,
+              "snapshots": 6,
+              "audioBuffers": 5217,
+              "decodedAudioDelta": 0,
+              "audioLostDelta": 0,
+              "clockDeltaMs": 766,
+              "decodedVideoDelta": 92,
+              "pictureDelta": 46,
+              "entireMeasuredSnapshotHeld": false,
+              "nearbyNativeEvents": []
+            },
+            "pilot": {
+              "startEpochMs": 1792297819061,
+              "endEpochMs": 1792297819867,
+              "packetCount": 82,
+              "coveredMs": 805.697,
+              "maximumGapMs": 0.018,
+              "minimumPilotAmplitude": 0.0002107,
+              "threshold": 2e-05,
+              "belowThresholdPackets": 0,
+              "flaggedPackets": 0,
+              "continuousPilotObserved": true,
+              "exclusiveSourceContinuityProven": false
+            }
+          }
+        ],
+        "qualifiedHolds": 11,
+        "mixedEndpoint": true,
+        "providerContinuityProven": false,
+        "nativeWaitStackCaptured": false
+      },
+      "lateOutageNegativeControl": {
+        "startEpochMs": 1792297687355.0,
+        "endEpochMs": 1792297689355.0,
+        "packetCount": 18,
+        "coveredMs": 170.871,
+        "maximumGapMs": 1829.07,
+        "minimumPilotAmplitude": 0.0,
+        "threshold": 2e-05,
+        "belowThresholdPackets": 18,
+        "flaggedPackets": 18,
+        "continuousPilotObserved": false,
+        "exclusiveSourceContinuityProven": false
+      },
+      "independentlyComputedPostRecoverySync": {
+        "result": "passed",
+        "matchedPulses": 32,
+        "medianAudioMinusVideoMs": 32.5,
+        "p95AbsoluteOffsetMs": 33.51,
+        "maxAbsoluteOffsetMs": 33.52,
+        "endMinusStartDriftMs": 0.01,
+        "measuredSpanSeconds": 124.0,
+        "matchCoverage": 1.0,
+        "medianBudgetMs": 80,
+        "p95BudgetMs": 120,
+        "driftBudgetMs": 40,
+        "maximumOffsetBudgetMs": 150,
+        "windowMedianExcursionMs": 1.99,
+        "windowExcursionBudgetMs": 40,
+        "minimumSpanSeconds": 30,
+        "minimumMatchedPulses": 12
+      },
+      "independentSyncDoesNotOverrideWorkerResult": true,
+      "capture": {
+        "timestampErrors": 0,
+        "captureDiscontinuities": 0,
+        "rawAudioSaved": false,
+        "physicalMicrophoneOpened": false,
+        "multimediaSchedulingRestored": true,
+        "pilotMeasurement": {
+          "frequencyHz": 300,
+          "packets": 17627,
+          "droppedPackets": 0,
+          "rawPcmSaved": false,
+          "mixedEndpoint": true
+        },
+        "wallClockMappingChangeMs": 0.966,
+        "sampleRate": 48000,
+        "capturedPackets": 17627
+      },
+      "fixtureRecipe": {
+        "durationSeconds": 210,
+        "fps": 60,
+        "width": 1920,
+        "height": 1080,
+        "sampleRate": 44100,
+        "pulsePeriodMs": 4000,
+        "flashDurationMs": 66.66666666666667,
+        "toneDurationMs": 20,
+        "continuousCarrierHz": 300,
+        "continuousCarrierAmplitude": 0.005,
+        "toneBaseHz": 1000,
+        "toneStepPerIdHz": 100,
+        "maximumPulseId": 52,
+        "audioDelayMs": 0,
+        "videoSha256": "6937dde237b90c370ec97a07b5bd80834338feaa3d6fbd3dbe55c5d9be3e67cd",
+        "audioSha256": "5d33fc20c93e75ca6f8319b3091411813ee848e5d97f581092069d673b3bbdb0",
+        "sourceAudioSha256": "6aace8dcf4a76489bf75c4e9279861dcd9d47600ddb5b522bb3bae77e65cfffe",
+        "sourceSampleRate": 48000,
+        "generator": "fragment-sync-fixture.py",
+        "pyavVersion": "19.0.1",
+        "audioEncoderBitrate": 128000,
+        "unfragmentedVideoSha256": "3e0fb4cd4bbd331bb7d1bcb3103c3bda63c065a1594fb7cdd303721148268f7e",
+        "videoPacketIdentity": {
+          "payloadSha256": "829ee4be9523b4cadf4363c943b6d8af4c21a56f728d784582d8480d263a000d",
+          "timelineSha256": "bcab1c10a502902f11879e530a51ce886c380200d48af94df3c8da47405ae275",
+          "packetCount": 12600,
+          "first": [
+            0,
+            0,
+            256,
+            "1/15360"
+          ],
+          "last": [
+            3225344,
+            3225344,
+            256,
+            "1/15360"
+          ]
+        },
+        "unfragmentedAudioSha256": "7a9e8468a1e4286302419f0933f1fdecf9cd56e6fa7aaa31565af1ef22795295",
+        "fragmentDurationMs": 10000,
+        "fragmentVideo": true,
+        "muxOptions": {
+          "movflags": "delay_moov+default_base_moof+global_sidx",
+          "frag_duration": "10000000"
+        },
+        "packetIdentity": {
+          "payloadSha256": "62d9236fcdd4cebdecc11fcaf6eaf9898430fe2f067d19505efacfe54717947a",
+          "timelineSha256": "12fa35aaa4316b0aaa60a233f9e0e2b336bd83e702100d9e9260aa30ab148302",
+          "packetCount": 9045,
+          "first": [
+            -1024,
+            -1024,
+            1024,
+            "1/44100"
+          ],
+          "last": [
+            9260032,
+            9260032,
+            968,
+            "1/44100"
+          ]
+        },
+        "encodedPacketsAndTimelineIdentical": true
+      },
+      "artifactSha256": {
+        "worker.json": "4d7df3dac228f2beb8c517f385c01c58983da7ce1d8b27b9b911ff99934ae52d",
+        "presentation-result.json": "c52b6f0f73dcb1e91f33821507721ce6c68228942596087d79f55580670417f0",
+        "audio-timeline.csv": "5437ebd7545eb6b214589e16f1423f9af90a67a6f57a2d0384d985ab41844a8e",
+        "audio-native-events.csv": "506f6410d8b246217426c83253d5a9ead86ff0f0fddbb6a8fe746395de039cdd",
+        "pilot-packets.json": "cd44560be0e32296cc9ff2e68264b2cc42a6c8a5877cc537015e56ec41f04aa1",
+        "phases.csv": "0b6d486524ebbf6d7864267e366329839c37aa487f1b903323ae017f4088dfb2",
+        "audio-pulse-events.json": "fac6a01d7e05bb4ada2d1f9297c33ae9ddbcc2de96daf4e2ef22fadc5c5e1733",
+        "flash-events.csv": "c5a7488525d7806019c22c1e0c266797f9f262b160f8ace3a929810bb2a2ee88"
+      }
+    },
+    {
+      "inputSampleRate": 48000,
+      "outputSampleRate": 44100,
+      "outputBufferFrames": 88200,
+      "predictedHalfBufferWaitMs": 1000,
+      "encodedSourceFormat": {
+        "codec": "aac",
+        "sampleRate": 48000,
+        "timeBase": "1/48000",
+        "channels": 2
+      },
+      "fullHarnessResult": "passed",
+      "worker": {
+        "pauseStable": true,
+        "observationWallMs": 181974,
+        "framePoolDroppedCallbacks": 0,
+        "audioBuffersLost": 0,
+        "audioBuffersPlayed": 6286,
+        "networkScenario": {
+          "blockedBytesAfterSettling": 0,
+          "recoveryLatencyMs": 11989,
+          "paintedFramesAtCut": 1234,
+          "resumeCheckpointMs": 50882,
+          "outageRequestedSeconds": 25,
+          "recoverySamples": [
+            [
+              53284,
+              52395,
+              1009,
+              47,
+              62,
+              61,
+              0,
+              1008
+            ],
+            [
+              54290,
+              53434,
+              1039,
+              47,
+              61,
+              60,
+              0,
+              1006
+            ],
+            [
+              55298,
+              54445,
+              1011,
+              48,
+              61,
+              61,
+              0,
+              1008
+            ],
+            [
+              56304,
+              55464,
+              1019,
+              48,
+              62,
+              60,
+              0,
+              1006
+            ],
+            [
+              57306,
+              56496,
+              1032,
+              47,
+              61,
+              60,
+              0,
+              1002
+            ],
+            [
+              58311,
+              57512,
+              1016,
+              47,
+              62,
+              61,
+              0,
+              1005
+            ],
+            [
+              59315,
+              58554,
+              1042,
+              48,
+              61,
+              60,
+              0,
+              1004
+            ],
+            [
+              60322,
+              59562,
+              1008,
+              47,
+              62,
+              60,
+              0,
+              1007
+            ],
+            [
+              61328,
+              60602,
+              1040,
+              47,
+              61,
+              60,
+              0,
+              1006
+            ],
+            [
+              62333,
+              61370,
+              768,
+              47,
+              46,
+              61,
+              0,
+              1005
+            ],
+            [
+              63338,
+              62379,
+              1009,
+              48,
+              62,
+              60,
+              0,
+              1005
+            ],
+            [
+              64342,
+              63417,
+              1038,
+              47,
+              61,
+              60,
+              0,
+              1004
+            ],
+            [
+              65347,
+              64430,
+              1013,
+              47,
+              62,
+              61,
+              0,
+              1005
+            ],
+            [
+              66354,
+              65446,
+              1016,
+              48,
+              61,
+              60,
+              0,
+              1007
+            ],
+            [
+              67360,
+              66479,
+              1033,
+              47,
+              61,
+              60,
+              0,
+              1006
+            ],
+            [
+              68364,
+              67496,
+              1017,
+              47,
+              62,
+              61,
+              0,
+              1004
+            ],
+            [
+              69369,
+              68537,
+              1041,
+              47,
+              61,
+              60,
+              0,
+              1005
+            ],
+            [
+              70375,
+              69546,
+              1009,
+              47,
+              62,
+              60,
+              0,
+              1006
+            ],
+            [
+              71382,
+              70585,
+              1039,
+              48,
+              61,
+              61,
+              0,
+              1007
+            ],
+            [
+              72386,
+              71595,
+              1010,
+              47,
+              62,
+              60,
+              0,
+              1004
+            ],
+            [
+              73392,
+              72634,
+              1039,
+              47,
+              61,
+              60,
+              0,
+              1006
+            ],
+            [
+              74395,
+              73645,
+              1011,
+              47,
+              62,
+              60,
+              0,
+              1003
+            ],
+            [
+              75401,
+              74663,
+              1018,
+              48,
+              61,
+              61,
+              0,
+              1006
+            ],
+            [
+              76405,
+              75429,
+              766,
+              47,
+              46,
+              60,
+              0,
+              1004
+            ],
+            [
+              77410,
+              76462,
+              1033,
+              47,
+              61,
+              60,
+              0,
+              1005
+            ],
+            [
+              78417,
+              77479,
+              1017,
+              47,
+              62,
+              61,
+              0,
+              1007
+            ],
+            [
+              79423,
+              78513,
+              1034,
+              48,
+              61,
+              60,
+              0,
+              1006
+            ],
+            [
+              80427,
+              79529,
+              1016,
+              47,
+              62,
+              60,
+              0,
+              1004
+            ],
+            [
+              81431,
+              80570,
+              1041,
+              47,
+              61,
+              61,
+              0,
+              1004
+            ],
+            [
+              82436,
+              81580,
+              1010,
+              47,
+              62,
+              60,
+              0,
+              1005
+            ],
+            [
+              83443,
+              82618,
+              1038,
+              48,
+              61,
+              60,
+              0,
+              1007
+            ],
+            [
+              84451,
+              83630,
+              1012,
+              47,
+              62,
+              61,
+              0,
+              1008
+            ],
+            [
+              85454,
+              84646,
+              1016,
+              47,
+              61,
+              60,
+              0,
+              1003
+            ],
+            [
+              86460,
+              85680,
+              1034,
+              48,
+              61,
+              60,
+              0,
+              1006
+            ],
+            [
+              87465,
+              86696,
+              1016,
+              47,
+              62,
+              61,
+              0,
+              1005
+            ],
+            [
+              88470,
+              87737,
+              1041,
+              47,
+              61,
+              60,
+              0,
+              1005
+            ],
+            [
+              89474,
+              88745,
+              1008,
+              47,
+              62,
+              60,
+              0,
+              1004
+            ],
+            [
+              90478,
+              89513,
+              768,
+              47,
+              46,
+              60,
+              0,
+              1004
+            ],
+            [
+              91484,
+              90553,
+              1040,
+              48,
+              61,
+              61,
+              0,
+              1006
+            ],
+            [
+              92488,
+              91562,
+              1009,
+              47,
+              62,
+              60,
+              0,
+              1004
+            ],
+            [
+              93493,
+              92602,
+              1040,
+              47,
+              61,
+              60,
+              0,
+              1005
+            ],
+            [
+              94498,
+              93613,
+              1011,
+              47,
+              62,
+              61,
+              0,
+              1005
+            ],
+            [
+              95503,
+              94631,
+              1018,
+              48,
+              61,
+              60,
+              0,
+              1005
+            ],
+            [
+              96509,
+              95663,
+              1032,
+              47,
+              61,
+              60,
+              0,
+              1006
+            ],
+            [
+              97513,
+              96680,
+              1017,
+              47,
+              62,
+              61,
+              0,
+              1004
+            ],
+            [
+              98519,
+              97712,
+              1032,
+              48,
+              61,
+              60,
+              0,
+              1006
+            ],
+            [
+              99525,
+              98729,
+              1017,
+              47,
+              62,
+              60,
+              0,
+              1006
+            ],
+            [
+              100528,
+              99770,
+              1041,
+              47,
+              61,
+              60,
+              0,
+              1003
+            ],
+            [
+              101531,
+              100779,
+              1009,
+              47,
+              62,
+              61,
+              0,
+              1003
+            ],
+            [
+              102535,
+              101817,
+              1038,
+              48,
+              61,
+              60,
+              0,
+              1004
+            ],
+            [
+              103541,
+              102585,
+              768,
+              47,
+              46,
+              60,
+              0,
+              1006
+            ],
+            [
+              104548,
+              103595,
+              1010,
+              47,
+              62,
+              61,
+              0,
+              1007
+            ],
+            [
+              105553,
+              104634,
+              1039,
+              47,
+              61,
+              60,
+              0,
+              1005
+            ],
+            [
+              106558,
+              105645,
+              1011,
+              48,
+              61,
+              60,
+              0,
+              1005
+            ],
+            [
+              107561,
+              106662,
+              1017,
+              47,
+              62,
+              61,
+              0,
+              1003
+            ],
+            [
+              108565,
+              107696,
+              1034,
+              47,
+              61,
+              60,
+              0,
+              1004
+            ],
+            [
+              109570,
+              108713,
+              1017,
+              47,
+              62,
+              60,
+              0,
+              1005
+            ],
+            [
+              110575,
+              109754,
+              1041,
+              47,
+              61,
+              60,
+              0,
+              1005
+            ],
+            [
+              111578,
+              110763,
+              1009,
+              47,
+              62,
+              60,
+              0,
+              1003
+            ],
+            [
+              112584,
+              111802,
+              1039,
+              48,
+              61,
+              61,
+              0,
+              1006
+            ],
+            [
+              113588,
+              112813,
+              1011,
+              47,
+              62,
+              60,
+              0,
+              1004
+            ],
+            [
+              114593,
+              113831,
+              1018,
+              47,
+              61,
+              60,
+              0,
+              1005
+            ],
+            [
+              115597,
+              114862,
+              1031,
+              48,
+              61,
+              61,
+              0,
+              1004
+            ],
+            [
+              116603,
+              115629,
+              767,
+              48,
+              46,
+              60,
+              0,
+              1006
+            ],
+            [
+              117607,
+              116645,
+              1016,
+              47,
+              62,
+              60,
+              0,
+              1004
+            ],
+            [
+              118612,
+              117679,
+              1034,
+              47,
+              61,
+              61,
+              0,
+              1005
+            ],
+            [
+              119617,
+              118696,
+              1017,
+              48,
+              62,
+              60,
+              0,
+              1005
+            ],
+            [
+              120623,
+              119737,
+              1041,
+              47,
+              61,
+              60,
+              0,
+              1006
+            ],
+            [
+              121628,
+              120746,
+              1009,
+              47,
+              62,
+              61,
+              0,
+              1005
+            ],
+            [
+              122633,
+              121787,
+              1041,
+              48,
+              61,
+              60,
+              0,
+              1005
+            ],
+            [
+              123640,
+              122797,
+              1010,
+              47,
+              62,
+              60,
+              0,
+              1007
+            ],
+            [
+              124646,
+              123834,
+              1037,
+              47,
+              61,
+              61,
+              0,
+              1006
+            ],
+            [
+              125651,
+              124845,
+              1011,
+              48,
+              61,
+              60,
+              0,
+              1005
+            ],
+            [
+              126657,
+              125864,
+              1019,
+              47,
+              62,
+              60,
+              0,
+              1006
+            ],
+            [
+              127660,
+              126896,
+              1032,
+              47,
+              61,
+              60,
+              0,
+              1003
+            ],
+            [
+              128664,
+              127912,
+              1016,
+              47,
+              62,
+              61,
+              0,
+              1004
+            ],
+            [
+              129671,
+              128954,
+              1042,
+              48,
+              61,
+              60,
+              0,
+              1007
+            ],
+            [
+              130676,
+              129713,
+              759,
+              47,
+              46,
+              60,
+              0,
+              1005
+            ],
+            [
+              131681,
+              130730,
+              1017,
+              47,
+              62,
+              61,
+              0,
+              1005
+            ],
+            [
+              132687,
+              131769,
+              1039,
+              48,
+              61,
+              60,
+              0,
+              1006
+            ],
+            [
+              133693,
+              132780,
+              1011,
+              47,
+              62,
+              60,
+              0,
+              1006
+            ],
+            [
+              134701,
+              133818,
+              1038,
+              47,
+              61,
+              61,
+              0,
+              1008
+            ],
+            [
+              135708,
+              134829,
+              1011,
+              48,
+              62,
+              60,
+              0,
+              1007
+            ],
+            [
+              136713,
+              135846,
+              1017,
+              47,
+              61,
+              61,
+              0,
+              1005
+            ],
+            [
+              137721,
+              136880,
+              1034,
+              47,
+              61,
+              60,
+              0,
+              1008
+            ],
+            [
+              138727,
+              137896,
+              1016,
+              48,
+              62,
+              60,
+              0,
+              1006
+            ],
+            [
+              139731,
+              138938,
+              1042,
+              47,
+              61,
+              61,
+              0,
+              1004
+            ],
+            [
+              140736,
+              139946,
+              1008,
+              47,
+              62,
+              60,
+              0,
+              1005
+            ],
+            [
+              141743,
+              140985,
+              1039,
+              48,
+              61,
+              60,
+              0,
+              1007
+            ],
+            [
+              142748,
+              141996,
+              1011,
+              47,
+              62,
+              61,
+              0,
+              1005
+            ],
+            [
+              143755,
+              143033,
+              1037,
+              47,
+              61,
+              60,
+              0,
+              1007
+            ],
+            [
+              144761,
+              143801,
+              768,
+              47,
+              46,
+              60,
+              0,
+              1006
+            ],
+            [
+              145767,
+              144812,
+              1011,
+              48,
+              62,
+              61,
+              0,
+              1006
+            ],
+            [
+              146774,
+              145831,
+              1019,
+              47,
+              61,
+              60,
+              0,
+              1007
+            ],
+            [
+              147779,
+              146862,
+              1031,
+              47,
+              61,
+              61,
+              0,
+              1005
+            ],
+            [
+              148784,
+              147879,
+              1017,
+              48,
+              62,
+              60,
+              0,
+              1005
+            ],
+            [
+              149787,
+              148912,
+              1033,
+              47,
+              61,
+              60,
+              0,
+              1003
+            ],
+            [
+              150793,
+              149931,
+              1019,
+              47,
+              62,
+              60,
+              0,
+              1006
+            ],
+            [
+              151797,
+              150970,
+              1039,
+              47,
+              61,
+              61,
+              0,
+              1004
+            ],
+            [
+              152802,
+              151980,
+              1010,
+              47,
+              62,
+              60,
+              0,
+              1005
+            ],
+            [
+              153807,
+              153018,
+              1038,
+              47,
+              61,
+              60,
+              0,
+              1005
+            ],
+            [
+              154811,
+              154029,
+              1011,
+              48,
+              61,
+              60,
+              0,
+              1004
+            ],
+            [
+              155817,
+              155046,
+              1017,
+              47,
+              62,
+              61,
+              0,
+              1006
+            ],
+            [
+              156823,
+              156081,
+              1035,
+              47,
+              61,
+              60,
+              0,
+              1006
+            ],
+            [
+              157830,
+              157096,
+              1015,
+              47,
+              62,
+              61,
+              0,
+              1007
+            ],
+            [
+              158834,
+              157863,
+              767,
+              48,
+              46,
+              60,
+              0,
+              1004
+            ],
+            [
+              159839,
+              158896,
+              1033,
+              47,
+              61,
+              60,
+              0,
+              1005
+            ],
+            [
+              160843,
+              159913,
+              1017,
+              47,
+              62,
+              60,
+              0,
+              1004
+            ],
+            [
+              161849,
+              160955,
+              1042,
+              47,
+              61,
+              62,
+              0,
+              1006
+            ],
+            [
+              162868,
+              161963,
+              1008,
+              48,
+              62,
+              60,
+              0,
+              1019
+            ],
+            [
+              163873,
+              163003,
+              1040,
+              47,
+              61,
+              60,
+              0,
+              1005
+            ],
+            [
+              164878,
+              164013,
+              1010,
+              47,
+              62,
+              60,
+              0,
+              1005
+            ],
+            [
+              165884,
+              165030,
+              1017,
+              48,
+              61,
+              61,
+              0,
+              1006
+            ],
+            [
+              166890,
+              166062,
+              1032,
+              47,
+              61,
+              60,
+              0,
+              1006
+            ],
+            [
+              167895,
+              167080,
+              1018,
+              47,
+              62,
+              60,
+              0,
+              1005
+            ],
+            [
+              168901,
+              168112,
+              1032,
+              47,
+              61,
+              61,
+              0,
+              1006
+            ],
+            [
+              169905,
+              169129,
+              1017,
+              47,
+              62,
+              60,
+              0,
+              1004
+            ],
+            [
+              170909,
+              170170,
+              1041,
+              47,
+              61,
+              60,
+              0,
+              1004
+            ],
+            [
+              171913,
+              171180,
+              1010,
+              48,
+              62,
+              61,
+              0,
+              1004
+            ],
+            [
+              172919,
+              171945,
+              765,
+              47,
+              46,
+              60,
+              0,
+              1006
+            ],
+            [
+              173925,
+              172985,
+              1040,
+              47,
+              61,
+              60,
+              0,
+              1006
+            ],
+            [
+              174934,
+              173996,
+              1011,
+              47,
+              62,
+              61,
+              0,
+              1009
+            ],
+            [
+              175937,
+              175034,
+              1038,
+              48,
+              61,
+              60,
+              0,
+              1003
+            ],
+            [
+              176943,
+              176047,
+              1013,
+              47,
+              62,
+              60,
+              0,
+              1006
+            ],
+            [
+              177951,
+              177062,
+              1015,
+              47,
+              61,
+              61,
+              0,
+              1008
+            ],
+            [
+              178956,
+              178096,
+              1034,
+              47,
+              61,
+              60,
+              0,
+              1005
+            ],
+            [
+              179963,
+              179113,
+              1017,
+              47,
+              62,
+              61,
+              0,
+              1007
+            ],
+            [
+              180970,
+              180154,
+              1041,
+              47,
+              61,
+              60,
+              0,
+              1007
+            ],
+            [
+              181974,
+              181163,
+              1009,
+              48,
+              62,
+              60,
+              0,
+              1004
+            ]
+          ],
+          "diagnosticSamples": 180,
+          "paintedFramesAtRecovery": 2610,
+          "recoverySampleColumns": [
+            "elapsedMs",
+            "positionMs",
+            "clockDeltaMs",
+            "audioBufferDelta",
+            "pictureDelta",
+            "paintDelta",
+            "relayByteDelta",
+            "wallDeltaMs"
+          ],
+          "cutPositionMs": 30597,
+          "mode": "disconnect",
+          "longestConsecutiveRecoveredSeconds": 129,
+          "terminalReason": "",
+          "recovered": true,
+          "steadyRecoveredSeconds": 129,
+          "stallObserved": true,
+          "faultInjected": true,
+          "explicitRestartAttempts": 1,
+          "restored": true,
+          "lastObservationElapsedMs": 181974,
+          "events": [
+            {
+              "event": "network_down",
+              "elapsedMs": 15117,
+              "positionMs": 30597
+            },
+            {
+              "event": "output_stall_observed",
+              "elapsedMs": 37267,
+              "positionMs": -1
+            },
+            {
+              "event": "network_up",
+              "elapsedMs": 40287,
+              "positionMs": -1
+            },
+            {
+              "event": "explicit_recovery_restart",
+              "elapsedMs": 50360,
+              "positionMs": 50882
+            },
+            {
+              "event": "output_recovered",
+              "elapsedMs": 52276,
+              "positionMs": 51386
+            }
+          ]
+        },
+        "output": "swing_video_native_audio",
+        "postSeekDecodedVideo": 834,
+        "framePoolCapacity": 3,
+        "networkCacheMs": 3000,
+        "seekWaitMs": 2414,
+        "postSeekDecodedAudio": 811,
+        "pairedAudio": true,
+        "jnaVersion": "5.14.0",
+        "decodedAudio": 371,
+        "seekTargetMs": 15000,
+        "seekable": true,
+        "windowShowing": true,
+        "videoCallbacks": 10397,
+        "audioTimeline": {
+          "rawMessagesSaved": false,
+          "droppedEvents": 0,
+          "optIn": true,
+          "samplePeriodTargetMs": 200,
+          "outputConsumptionClock": false,
+          "nativeLogDetached": true,
+          "samples": 900,
+          "events": 23,
+          "droppedSamples": 0
+        },
+        "processExitCode": 0,
+        "observationEndMs": 181163,
+        "picturesDisplayed": 7864,
+        "javaVersion": "25.0.4.1",
+        "lengthMs": 210000,
+        "beforeSeekDecodedVideo": 525,
+        "renderHeight": 1090,
+        "avSyncProven": false,
+        "beforeSeekDecodedAudio": 551,
+        "vlcVersion": "3.0.24 Vetinari",
+        "result": "passed",
+        "postSeekPositionMs": 15503,
+        "longestStalledClockMs": 13000,
+        "renderWidth": 1920,
+        "observationSamples": [
+          {
+            "inputBytesRead": 2134024,
+            "picturesDisplayed": 624,
+            "wallElapsedMs": 5050,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 1448,
+            "audioBuffersPlayed": 643,
+            "positionMs": 20612
+          },
+          {
+            "inputBytesRead": 2904072,
+            "picturesDisplayed": 932,
+            "wallElapsedMs": 10082,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 2064,
+            "audioBuffersPlayed": 857,
+            "positionMs": 25729
+          },
+          {
+            "inputBytesRead": 3327034,
+            "picturesDisplayed": 1223,
+            "wallElapsedMs": 15119,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 2646,
+            "audioBuffersPlayed": 1111,
+            "positionMs": 30597
+          },
+          {
+            "inputBytesRead": 3343418,
+            "picturesDisplayed": 1531,
+            "wallElapsedMs": 20144,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 3262,
+            "audioBuffersPlayed": 1351,
+            "positionMs": 35713
+          },
+          {
+            "inputBytesRead": 3343418,
+            "picturesDisplayed": 1823,
+            "wallElapsedMs": 25169,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 3846,
+            "audioBuffersPlayed": 1555,
+            "positionMs": 40580
+          },
+          {
+            "inputBytesRead": 3343418,
+            "picturesDisplayed": 2130,
+            "wallElapsedMs": 30196,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 4460,
+            "audioBuffersPlayed": 1819,
+            "positionMs": 45696
+          },
+          {
+            "inputBytesRead": 3343418,
+            "picturesDisplayed": 2440,
+            "wallElapsedMs": 35221,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 5080,
+            "audioBuffersPlayed": 2033,
+            "positionMs": 50882
+          },
+          {
+            "inputBytesRead": 3343418,
+            "picturesDisplayed": 2490,
+            "wallElapsedMs": 40289,
+            "picturesLost": 0,
+            "playing": false,
+            "decodedVideo": 5185,
+            "audioBuffersPlayed": 2033,
+            "positionMs": -1
+          },
+          {
+            "inputBytesRead": 3343418,
+            "picturesDisplayed": 2490,
+            "wallElapsedMs": 45324,
+            "picturesLost": 0,
+            "playing": false,
+            "decodedVideo": 5185,
+            "audioBuffersPlayed": 2033,
+            "positionMs": -1
+          },
+          {
+            "inputBytesRead": 16665794,
+            "picturesDisplayed": 38,
+            "wallElapsedMs": 51274,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 139,
+            "audioBuffersPlayed": 93,
+            "positionMs": 50882
+          },
+          {
+            "inputBytesRead": 16665794,
+            "picturesDisplayed": 322,
+            "wallElapsedMs": 56305,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 823,
+            "audioBuffersPlayed": 378,
+            "positionMs": 55464
+          },
+          {
+            "inputBytesRead": 16665794,
+            "picturesDisplayed": 629,
+            "wallElapsedMs": 61328,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 1437,
+            "audioBuffersPlayed": 614,
+            "positionMs": 60602
+          },
+          {
+            "inputBytesRead": 16665794,
+            "picturesDisplayed": 921,
+            "wallElapsedMs": 66355,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 2021,
+            "audioBuffersPlayed": 851,
+            "positionMs": 65446
+          },
+          {
+            "inputBytesRead": 16665794,
+            "picturesDisplayed": 1228,
+            "wallElapsedMs": 71383,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 2635,
+            "audioBuffersPlayed": 1087,
+            "positionMs": 70585
+          },
+          {
+            "inputBytesRead": 16665794,
+            "picturesDisplayed": 1520,
+            "wallElapsedMs": 76405,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 3219,
+            "audioBuffersPlayed": 1323,
+            "positionMs": 75429
+          },
+          {
+            "inputBytesRead": 16665794,
+            "picturesDisplayed": 1827,
+            "wallElapsedMs": 81432,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 3833,
+            "audioBuffersPlayed": 1559,
+            "positionMs": 80570
+          },
+          {
+            "inputBytesRead": 16665794,
+            "picturesDisplayed": 2134,
+            "wallElapsedMs": 86461,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 4447,
+            "audioBuffersPlayed": 1796,
+            "positionMs": 85680
+          },
+          {
+            "inputBytesRead": 16665794,
+            "picturesDisplayed": 2426,
+            "wallElapsedMs": 91485,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 5031,
+            "audioBuffersPlayed": 2032,
+            "positionMs": 90553
+          },
+          {
+            "inputBytesRead": 16665794,
+            "picturesDisplayed": 2733,
+            "wallElapsedMs": 96510,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 5645,
+            "audioBuffersPlayed": 2268,
+            "positionMs": 95663
+          },
+          {
+            "inputBytesRead": 16665794,
+            "picturesDisplayed": 3041,
+            "wallElapsedMs": 101532,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 6261,
+            "audioBuffersPlayed": 2504,
+            "positionMs": 100779
+          },
+          {
+            "inputBytesRead": 16665794,
+            "picturesDisplayed": 3332,
+            "wallElapsedMs": 106558,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 6843,
+            "audioBuffersPlayed": 2741,
+            "positionMs": 105645
+          },
+          {
+            "inputBytesRead": 16665794,
+            "picturesDisplayed": 3640,
+            "wallElapsedMs": 111579,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 7459,
+            "audioBuffersPlayed": 2976,
+            "positionMs": 110763
+          },
+          {
+            "inputBytesRead": 16665794,
+            "picturesDisplayed": 3931,
+            "wallElapsedMs": 116604,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 8041,
+            "audioBuffersPlayed": 3214,
+            "positionMs": 115629
+          },
+          {
+            "inputBytesRead": 16665794,
+            "picturesDisplayed": 4239,
+            "wallElapsedMs": 121629,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 8657,
+            "audioBuffersPlayed": 3450,
+            "positionMs": 120746
+          },
+          {
+            "inputBytesRead": 16665794,
+            "picturesDisplayed": 4546,
+            "wallElapsedMs": 126657,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 9271,
+            "audioBuffersPlayed": 3687,
+            "positionMs": 125864
+          },
+          {
+            "inputBytesRead": 16665794,
+            "picturesDisplayed": 4838,
+            "wallElapsedMs": 131682,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 9855,
+            "audioBuffersPlayed": 3923,
+            "positionMs": 130730
+          },
+          {
+            "inputBytesRead": 16665794,
+            "picturesDisplayed": 5145,
+            "wallElapsedMs": 136714,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 10469,
+            "audioBuffersPlayed": 4160,
+            "positionMs": 135846
+          },
+          {
+            "inputBytesRead": 16665794,
+            "picturesDisplayed": 5452,
+            "wallElapsedMs": 141744,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 11083,
+            "audioBuffersPlayed": 4397,
+            "positionMs": 140985
+          },
+          {
+            "inputBytesRead": 16665794,
+            "picturesDisplayed": 5744,
+            "wallElapsedMs": 146775,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 11667,
+            "audioBuffersPlayed": 4633,
+            "positionMs": 145831
+          },
+          {
+            "inputBytesRead": 16665794,
+            "picturesDisplayed": 6051,
+            "wallElapsedMs": 151798,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 12281,
+            "audioBuffersPlayed": 4869,
+            "positionMs": 150970
+          },
+          {
+            "inputBytesRead": 16665794,
+            "picturesDisplayed": 6358,
+            "wallElapsedMs": 156824,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 12895,
+            "audioBuffersPlayed": 5105,
+            "positionMs": 156081
+          },
+          {
+            "inputBytesRead": 16665794,
+            "picturesDisplayed": 6650,
+            "wallElapsedMs": 161864,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 13479,
+            "audioBuffersPlayed": 5341,
+            "positionMs": 160955
+          },
+          {
+            "inputBytesRead": 16665794,
+            "picturesDisplayed": 6957,
+            "wallElapsedMs": 166891,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 14093,
+            "audioBuffersPlayed": 5578,
+            "positionMs": 166062
+          },
+          {
+            "inputBytesRead": 16665794,
+            "picturesDisplayed": 7265,
+            "wallElapsedMs": 171915,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 14709,
+            "audioBuffersPlayed": 5814,
+            "positionMs": 171180
+          },
+          {
+            "inputBytesRead": 16665794,
+            "picturesDisplayed": 7557,
+            "wallElapsedMs": 176945,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 15293,
+            "audioBuffersPlayed": 6050,
+            "positionMs": 176047
+          },
+          {
+            "inputBytesRead": 16665794,
+            "picturesDisplayed": 7864,
+            "wallElapsedMs": 181974,
+            "picturesLost": 0,
+            "playing": true,
+            "decodedVideo": 15907,
+            "audioBuffersPlayed": 6286,
+            "positionMs": 181163
+          }
+        ],
+        "observationClockAdvancedMs": 165660,
+        "demuxPolicy": "avformat",
+        "seekWorked": true,
+        "resumeAdvanced": true,
+        "playerVolumePercent": 35,
+        "schemaVersion": 2,
+        "seekReadyClockAdvancedMs": 503,
+        "paintedVideoFrames": 10393,
+        "relay": {
+          "bytesForwarded": 20488444,
+          "closed": true,
+          "upstreamResponses": [],
+          "droppedUpstreamResponses": 0,
+          "requests": 10,
+          "streamFailures": 4,
+          "loopbackOnly": true,
+          "upstreamHttpStatuses": {},
+          "rejectedRequests": 1,
+          "activeRequests": 0,
+          "tracks": {
+            "audio": {
+              "failures": 1,
+              "bytes": 2534536,
+              "pendingWriteMs": 0,
+              "readMs": 8,
+              "requests": 4,
+              "writeMs": 15,
+              "pendingReadMs": 0
+            },
+            "video": {
+              "failures": 3,
+              "bytes": 17953908,
+              "pendingWriteMs": 0,
+              "readMs": 21,
+              "requests": 6,
+              "writeMs": 49,
+              "pendingReadMs": 0
+            }
+          }
+        },
+        "audioOutputRequested": "mmdevice",
+        "cleanShutdown": true,
+        "decodedVideo": 369,
+        "workerCpuMsDuringObservation": 89703,
+        "decoderPolicy": "software_avcodec",
+        "observationRequestedSeconds": 180,
+        "stage": "complete",
+        "observationStartMs": 15503,
+        "nativeProcessIsolated": true,
+        "positionMs": 2554
+      },
+      "analysis": {
+        "schemaVersion": 1,
+        "workerResult": "passed",
+        "harnessResult": "passed",
+        "pilotMeasurement": {
+          "frequencyHz": 300,
+          "packets": 17557,
+          "droppedPackets": 0,
+          "rawPcmSaved": false,
+          "mixedEndpoint": true
+        },
+        "phaseAnalyses": [
+          {
+            "phase": "steady_after_seek",
+            "startEpochMs": 1792297873049,
+            "analysis": {
+              "schemaVersion": 1,
+              "sampleCount": 75,
+              "nativeEventCount": 0,
+              "nativeEventCounts": {},
+              "minimumHoldMs": 1000,
+              "samplingGaps": [],
+              "audioCounterPlateaus": [],
+              "counterCadence": {
+                "positiveChangeCount": 49,
+                "positiveBufferDeltaHistogram": {
+                  "12": 44,
+                  "4": 1,
+                  "56": 1,
+                  "48": 1,
+                  "10": 1,
+                  "50": 1
+                },
+                "counterResets": 0,
+                "medianPositiveUpdateIntervalMs": 202.0,
+                "maximumPositiveUpdateIntervalMs": 1015,
+                "positiveUpdateIntervalHistogramMs": {
+                  "201": 14,
+                  "401": 1,
+                  "1015": 1,
+                  "202": 9,
+                  "1003": 1,
+                  "402": 5,
+                  "200": 6,
+                  "216": 1,
+                  "400": 2,
+                  "203": 2,
+                  "404": 3,
+                  "403": 1,
+                  "1006": 1,
+                  "408": 1
+                }
+              },
+              "outputContinuityProven": false,
+              "sourceAvSyncProven": false,
+              "rootCauseProven": false
+            }
+          },
+          {
+            "phase": "network_down",
+            "startEpochMs": 1792297888168,
+            "analysis": {
+              "schemaVersion": 1,
+              "sampleCount": 125,
+              "nativeEventCount": 1,
+              "nativeEventCounts": {
+                "output_reset": 1
+              },
+              "minimumHoldMs": 1000,
+              "samplingGaps": [],
+              "audioCounterPlateaus": [
+                {
+                  "startEpochMs": 1792297907669,
+                  "endEpochMs": 1792297913338,
+                  "startMonotonicMs": 44180,
+                  "endMonotonicMs": 49849,
+                  "observedHeldMs": 5669,
+                  "snapshots": 29,
+                  "audioBuffers": 2033,
+                  "decodedAudioDelta": 0,
+                  "audioLostDelta": 0,
+                  "clockDeltaMs": -50278,
+                  "decodedVideoDelta": 177,
+                  "pictureDelta": 86,
+                  "entireMeasuredSnapshotHeld": false,
+                  "nearbyNativeEvents": [
+                    {
+                      "epochMs": 1792297909693,
+                      "event": "output_reset",
+                      "value": 0
+                    }
+                  ]
+                }
+              ],
+              "counterCadence": {
+                "positiveChangeCount": 57,
+                "positiveBufferDeltaHistogram": {
+                  "3": 1,
+                  "57": 1,
+                  "12": 42,
+                  "11": 1,
+                  "49": 1,
+                  "48": 1,
+                  "1": 1,
+                  "59": 1,
+                  "10": 1,
+                  "50": 1,
+                  "6": 1,
+                  "54": 1,
+                  "15": 2,
+                  "14": 2
+                },
+                "counterResets": 0,
+                "medianPositiveUpdateIntervalMs": 202.0,
+                "maximumPositiveUpdateIntervalMs": 1006,
+                "positiveUpdateIntervalHistogramMs": {
+                  "1003": 1,
+                  "402": 8,
+                  "201": 16,
+                  "203": 2,
+                  "401": 3,
+                  "200": 9,
+                  "1005": 3,
+                  "202": 8,
+                  "404": 2,
+                  "1004": 1,
+                  "403": 2,
+                  "1006": 1
+                }
+              },
+              "outputContinuityProven": false,
+              "sourceAvSyncProven": false,
+              "rootCauseProven": false
+            }
+          },
+          {
+            "phase": "network_up",
+            "startEpochMs": 1792297913339,
+            "analysis": {
+              "schemaVersion": 1,
+              "sampleCount": 54,
+              "nativeEventCount": 8,
+              "nativeEventCounts": {
+                "selected_mmdevice": 1,
+                "output_buffer_frames": 1,
+                "selected_wasapi": 1,
+                "mixer_sample_rate": 1,
+                "insert_zero_frames": 1,
+                "output_reset": 2,
+                "audio_preroll_end": 1
+              },
+              "minimumHoldMs": 1000,
+              "samplingGaps": [
+                {
+                  "beforeMonotonicMs": 59922,
+                  "afterMonotonicMs": 61035,
+                  "gapMs": 1113
+                }
+              ],
+              "audioCounterPlateaus": [
+                {
+                  "startEpochMs": 1792297913541,
+                  "endEpochMs": 1792297923411,
+                  "startMonotonicMs": 50052,
+                  "endMonotonicMs": 59922,
+                  "observedHeldMs": 9870,
+                  "snapshots": 50,
+                  "audioBuffers": 2033,
+                  "decodedAudioDelta": 0,
+                  "audioLostDelta": 0,
+                  "clockDeltaMs": 0,
+                  "decodedVideoDelta": 0,
+                  "pictureDelta": 0,
+                  "entireMeasuredSnapshotHeld": true,
+                  "nearbyNativeEvents": [
+                    {
+                      "epochMs": 1792297923500,
+                      "event": "selected_mmdevice",
+                      "value": 0
+                    },
+                    {
+                      "epochMs": 1792297923513,
+                      "event": "output_buffer_frames",
+                      "value": 88200
+                    },
+                    {
+                      "epochMs": 1792297923513,
+                      "event": "selected_wasapi",
+                      "value": 0
+                    },
+                    {
+                      "epochMs": 1792297923514,
+                      "event": "mixer_sample_rate",
+                      "value": 44100
+                    },
+                    {
+                      "epochMs": 1792297923621,
+                      "event": "insert_zero_frames",
+                      "value": 352
+                    }
+                  ]
+                }
+              ],
+              "counterCadence": {
+                "positiveChangeCount": 2,
+                "positiveBufferDeltaHistogram": {
+                  "1": 1,
+                  "94": 1
+                },
+                "counterResets": 1,
+                "medianPositiveUpdateIntervalMs": 200,
+                "maximumPositiveUpdateIntervalMs": 200,
+                "positiveUpdateIntervalHistogramMs": {
+                  "200": 1
+                }
+              },
+              "outputContinuityProven": false,
+              "sourceAvSyncProven": false,
+              "rootCauseProven": false
+            }
+          },
+          {
+            "phase": "network_recovered",
+            "startEpochMs": 1792297925327,
+            "analysis": {
+              "schemaVersion": 1,
+              "sampleCount": 646,
+              "nativeEventCount": 2,
+              "nativeEventCounts": {
+                "output_reset": 2
+              },
+              "minimumHoldMs": 1000,
+              "samplingGaps": [],
+              "audioCounterPlateaus": [
+                {
+                  "startEpochMs": 1792297929756,
+                  "endEpochMs": 1792297930759,
+                  "startMonotonicMs": 66267,
+                  "endMonotonicMs": 67269,
+                  "observedHeldMs": 1002,
+                  "snapshots": 6,
+                  "audioBuffers": 425,
+                  "decodedAudioDelta": 0,
+                  "audioLostDelta": 0,
+                  "clockDeltaMs": 767,
+                  "decodedVideoDelta": 92,
+                  "pictureDelta": 46,
+                  "entireMeasuredSnapshotHeld": false,
+                  "nearbyNativeEvents": []
+                },
+                {
+                  "startEpochMs": 1792297940008,
+                  "endEpochMs": 1792297941014,
+                  "startMonotonicMs": 76519,
+                  "endMonotonicMs": 77525,
+                  "observedHeldMs": 1006,
+                  "snapshots": 6,
+                  "audioBuffers": 898,
+                  "decodedAudioDelta": 0,
+                  "audioLostDelta": 0,
+                  "clockDeltaMs": 768,
+                  "decodedVideoDelta": 92,
+                  "pictureDelta": 46,
+                  "entireMeasuredSnapshotHeld": false,
+                  "nearbyNativeEvents": []
+                },
+                {
+                  "startEpochMs": 1792297942823,
+                  "endEpochMs": 1792297943828,
+                  "startMonotonicMs": 79334,
+                  "endMonotonicMs": 80339,
+                  "observedHeldMs": 1005,
+                  "snapshots": 6,
+                  "audioBuffers": 1039,
+                  "decodedAudioDelta": 0,
+                  "audioLostDelta": 0,
+                  "clockDeltaMs": 788,
+                  "decodedVideoDelta": 92,
+                  "pictureDelta": 46,
+                  "entireMeasuredSnapshotHeld": false,
+                  "nearbyNativeEvents": []
+                },
+                {
+                  "startEpochMs": 1792297954080,
+                  "endEpochMs": 1792297955085,
+                  "startMonotonicMs": 90591,
+                  "endMonotonicMs": 91596,
+                  "observedHeldMs": 1005,
+                  "snapshots": 6,
+                  "audioBuffers": 1559,
+                  "decodedAudioDelta": 0,
+                  "audioLostDelta": 0,
+                  "clockDeltaMs": 768,
+                  "decodedVideoDelta": 92,
+                  "pictureDelta": 46,
+                  "entireMeasuredSnapshotHeld": false,
+                  "nearbyNativeEvents": []
+                },
+                {
+                  "startEpochMs": 1792297967146,
+                  "endEpochMs": 1792297968151,
+                  "startMonotonicMs": 103657,
+                  "endMonotonicMs": 104662,
+                  "observedHeldMs": 1005,
+                  "snapshots": 6,
+                  "audioBuffers": 2173,
+                  "decodedAudioDelta": 0,
+                  "audioLostDelta": 0,
+                  "clockDeltaMs": 769,
+                  "decodedVideoDelta": 92,
+                  "pictureDelta": 46,
+                  "entireMeasuredSnapshotHeld": false,
+                  "nearbyNativeEvents": []
+                },
+                {
+                  "startEpochMs": 1792297981214,
+                  "endEpochMs": 1792297982218,
+                  "startMonotonicMs": 117724,
+                  "endMonotonicMs": 118729,
+                  "observedHeldMs": 1005,
+                  "snapshots": 6,
+                  "audioBuffers": 2835,
+                  "decodedAudioDelta": 0,
+                  "audioLostDelta": 0,
+                  "clockDeltaMs": 788,
+                  "decodedVideoDelta": 92,
+                  "pictureDelta": 46,
+                  "entireMeasuredSnapshotHeld": false,
+                  "nearbyNativeEvents": []
+                },
+                {
+                  "startEpochMs": 1792297994277,
+                  "endEpochMs": 1792297995283,
+                  "startMonotonicMs": 130788,
+                  "endMonotonicMs": 131793,
+                  "observedHeldMs": 1005,
+                  "snapshots": 6,
+                  "audioBuffers": 3450,
+                  "decodedAudioDelta": 0,
+                  "audioLostDelta": 0,
+                  "clockDeltaMs": 767,
+                  "decodedVideoDelta": 94,
+                  "pictureDelta": 47,
+                  "entireMeasuredSnapshotHeld": false,
+                  "nearbyNativeEvents": []
+                },
+                {
+                  "startEpochMs": 1792298005535,
+                  "endEpochMs": 1792298006542,
+                  "startMonotonicMs": 142046,
+                  "endMonotonicMs": 143053,
+                  "observedHeldMs": 1007,
+                  "snapshots": 6,
+                  "audioBuffers": 3971,
+                  "decodedAudioDelta": 0,
+                  "audioLostDelta": 0,
+                  "clockDeltaMs": 769,
+                  "decodedVideoDelta": 92,
+                  "pictureDelta": 46,
+                  "entireMeasuredSnapshotHeld": false,
+                  "nearbyNativeEvents": []
+                },
+                {
+                  "startEpochMs": 1792298019624,
+                  "endEpochMs": 1792298020628,
+                  "startMonotonicMs": 156134,
+                  "endMonotonicMs": 157139,
+                  "observedHeldMs": 1005,
+                  "snapshots": 6,
+                  "audioBuffers": 4633,
+                  "decodedAudioDelta": 0,
+                  "audioLostDelta": 0,
+                  "clockDeltaMs": 786,
+                  "decodedVideoDelta": 92,
+                  "pictureDelta": 46,
+                  "entireMeasuredSnapshotHeld": false,
+                  "nearbyNativeEvents": []
+                },
+                {
+                  "startEpochMs": 1792298033693,
+                  "endEpochMs": 1792298034699,
+                  "startMonotonicMs": 170204,
+                  "endMonotonicMs": 171210,
+                  "observedHeldMs": 1006,
+                  "snapshots": 6,
+                  "audioBuffers": 5294,
+                  "decodedAudioDelta": 0,
+                  "audioLostDelta": 0,
+                  "clockDeltaMs": 767,
+                  "decodedVideoDelta": 92,
+                  "pictureDelta": 46,
+                  "entireMeasuredSnapshotHeld": false,
+                  "nearbyNativeEvents": []
+                },
+                {
+                  "startEpochMs": 1792298047783,
+                  "endEpochMs": 1792298048788,
+                  "startMonotonicMs": 184294,
+                  "endMonotonicMs": 185299,
+                  "observedHeldMs": 1005,
+                  "snapshots": 6,
+                  "audioBuffers": 5955,
+                  "decodedAudioDelta": 0,
+                  "audioLostDelta": 0,
+                  "clockDeltaMs": 766,
+                  "decodedVideoDelta": 92,
+                  "pictureDelta": 46,
+                  "entireMeasuredSnapshotHeld": false,
+                  "nearbyNativeEvents": []
+                }
+              ],
+              "counterCadence": {
+                "positiveChangeCount": 132,
+                "positiveBufferDeltaHistogram": {
+                  "47": 93,
+                  "48": 33,
+                  "34": 1,
+                  "14": 1,
+                  "35": 1,
+                  "13": 1,
+                  "31": 1,
+                  "16": 1
+                },
+                "counterResets": 0,
+                "medianPositiveUpdateIntervalMs": 1005,
+                "maximumPositiveUpdateIntervalMs": 1208,
+                "positiveUpdateIntervalHistogramMs": {
+                  "1006": 26,
+                  "1007": 9,
+                  "1204": 1,
+                  "1005": 39,
+                  "1206": 7,
+                  "1004": 20,
+                  "605": 2,
+                  "1008": 5,
+                  "805": 1,
+                  "1003": 6,
+                  "803": 3,
+                  "200": 1,
+                  "804": 3,
+                  "401": 1,
+                  "1208": 1,
+                  "808": 1,
+                  "1207": 1,
+                  "201": 1,
+                  "1020": 1,
+                  "1009": 1,
+                  "1205": 1
+                }
+              },
+              "outputContinuityProven": false,
+              "sourceAvSyncProven": false,
+              "rootCauseProven": false
+            }
+          }
+        ],
+        "assessments": [
+          {
+            "phase": "network_recovered",
+            "counterHold": {
+              "startEpochMs": 1792297929756,
+              "endEpochMs": 1792297930759,
+              "startMonotonicMs": 66267,
+              "endMonotonicMs": 67269,
+              "observedHeldMs": 1002,
+              "snapshots": 6,
+              "audioBuffers": 425,
+              "decodedAudioDelta": 0,
+              "audioLostDelta": 0,
+              "clockDeltaMs": 767,
+              "decodedVideoDelta": 92,
+              "pictureDelta": 46,
+              "entireMeasuredSnapshotHeld": false,
+              "nearbyNativeEvents": []
+            },
+            "pilot": {
+              "startEpochMs": 1792297929856,
+              "endEpochMs": 1792297930659,
+              "packetCount": 81,
+              "coveredMs": 802.722,
+              "maximumGapMs": 0.022,
+              "minimumPilotAmplitude": 0.00021209,
+              "threshold": 2e-05,
+              "belowThresholdPackets": 0,
+              "flaggedPackets": 0,
+              "continuousPilotObserved": true,
+              "exclusiveSourceContinuityProven": false
+            }
+          },
+          {
+            "phase": "network_recovered",
+            "counterHold": {
+              "startEpochMs": 1792297940008,
+              "endEpochMs": 1792297941014,
+              "startMonotonicMs": 76519,
+              "endMonotonicMs": 77525,
+              "observedHeldMs": 1006,
+              "snapshots": 6,
+              "audioBuffers": 898,
+              "decodedAudioDelta": 0,
+              "audioLostDelta": 0,
+              "clockDeltaMs": 768,
+              "decodedVideoDelta": 92,
+              "pictureDelta": 46,
+              "entireMeasuredSnapshotHeld": false,
+              "nearbyNativeEvents": []
+            },
+            "pilot": {
+              "startEpochMs": 1792297940108,
+              "endEpochMs": 1792297940914,
+              "packetCount": 82,
+              "coveredMs": 805.668,
+              "maximumGapMs": 0.02,
+              "minimumPilotAmplitude": 0.00021209,
+              "threshold": 2e-05,
+              "belowThresholdPackets": 0,
+              "flaggedPackets": 0,
+              "continuousPilotObserved": true,
+              "exclusiveSourceContinuityProven": false
+            }
+          },
+          {
+            "phase": "network_recovered",
+            "counterHold": {
+              "startEpochMs": 1792297942823,
+              "endEpochMs": 1792297943828,
+              "startMonotonicMs": 79334,
+              "endMonotonicMs": 80339,
+              "observedHeldMs": 1005,
+              "snapshots": 6,
+              "audioBuffers": 1039,
+              "decodedAudioDelta": 0,
+              "audioLostDelta": 0,
+              "clockDeltaMs": 788,
+              "decodedVideoDelta": 92,
+              "pictureDelta": 46,
+              "entireMeasuredSnapshotHeld": false,
+              "nearbyNativeEvents": []
+            },
+            "pilot": {
+              "startEpochMs": 1792297942923,
+              "endEpochMs": 1792297943728,
+              "packetCount": 81,
+              "coveredMs": 804.708,
+              "maximumGapMs": 0.02,
+              "minimumPilotAmplitude": 0.00021209,
+              "threshold": 2e-05,
+              "belowThresholdPackets": 0,
+              "flaggedPackets": 0,
+              "continuousPilotObserved": true,
+              "exclusiveSourceContinuityProven": false
+            }
+          },
+          {
+            "phase": "network_recovered",
+            "counterHold": {
+              "startEpochMs": 1792297954080,
+              "endEpochMs": 1792297955085,
+              "startMonotonicMs": 90591,
+              "endMonotonicMs": 91596,
+              "observedHeldMs": 1005,
+              "snapshots": 6,
+              "audioBuffers": 1559,
+              "decodedAudioDelta": 0,
+              "audioLostDelta": 0,
+              "clockDeltaMs": 768,
+              "decodedVideoDelta": 92,
+              "pictureDelta": 46,
+              "entireMeasuredSnapshotHeld": false,
+              "nearbyNativeEvents": []
+            },
+            "pilot": {
+              "startEpochMs": 1792297954180,
+              "endEpochMs": 1792297954985,
+              "packetCount": 82,
+              "coveredMs": 804.685,
+              "maximumGapMs": 0.02,
+              "minimumPilotAmplitude": 0.00021209,
+              "threshold": 2e-05,
+              "belowThresholdPackets": 0,
+              "flaggedPackets": 0,
+              "continuousPilotObserved": true,
+              "exclusiveSourceContinuityProven": false
+            }
+          },
+          {
+            "phase": "network_recovered",
+            "counterHold": {
+              "startEpochMs": 1792297967146,
+              "endEpochMs": 1792297968151,
+              "startMonotonicMs": 103657,
+              "endMonotonicMs": 104662,
+              "observedHeldMs": 1005,
+              "snapshots": 6,
+              "audioBuffers": 2173,
+              "decodedAudioDelta": 0,
+              "audioLostDelta": 0,
+              "clockDeltaMs": 769,
+              "decodedVideoDelta": 92,
+              "pictureDelta": 46,
+              "entireMeasuredSnapshotHeld": false,
+              "nearbyNativeEvents": []
+            },
+            "pilot": {
+              "startEpochMs": 1792297967246,
+              "endEpochMs": 1792297968051,
+              "packetCount": 81,
+              "coveredMs": 804.717,
+              "maximumGapMs": 0.021,
+              "minimumPilotAmplitude": 0.00021209,
+              "threshold": 2e-05,
+              "belowThresholdPackets": 0,
+              "flaggedPackets": 0,
+              "continuousPilotObserved": true,
+              "exclusiveSourceContinuityProven": false
+            }
+          },
+          {
+            "phase": "network_recovered",
+            "counterHold": {
+              "startEpochMs": 1792297981214,
+              "endEpochMs": 1792297982218,
+              "startMonotonicMs": 117724,
+              "endMonotonicMs": 118729,
+              "observedHeldMs": 1005,
+              "snapshots": 6,
+              "audioBuffers": 2835,
+              "decodedAudioDelta": 0,
+              "audioLostDelta": 0,
+              "clockDeltaMs": 788,
+              "decodedVideoDelta": 92,
+              "pictureDelta": 46,
+              "entireMeasuredSnapshotHeld": false,
+              "nearbyNativeEvents": []
+            },
+            "pilot": {
+              "startEpochMs": 1792297981314,
+              "endEpochMs": 1792297982118,
+              "packetCount": 81,
+              "coveredMs": 803.684,
+              "maximumGapMs": 0.02,
+              "minimumPilotAmplitude": 0.00019018,
+              "threshold": 2e-05,
+              "belowThresholdPackets": 0,
+              "flaggedPackets": 0,
+              "continuousPilotObserved": true,
+              "exclusiveSourceContinuityProven": false
+            }
+          },
+          {
+            "phase": "network_recovered",
+            "counterHold": {
+              "startEpochMs": 1792297994277,
+              "endEpochMs": 1792297995283,
+              "startMonotonicMs": 130788,
+              "endMonotonicMs": 131793,
+              "observedHeldMs": 1005,
+              "snapshots": 6,
+              "audioBuffers": 3450,
+              "decodedAudioDelta": 0,
+              "audioLostDelta": 0,
+              "clockDeltaMs": 767,
+              "decodedVideoDelta": 94,
+              "pictureDelta": 47,
+              "entireMeasuredSnapshotHeld": false,
+              "nearbyNativeEvents": []
+            },
+            "pilot": {
+              "startEpochMs": 1792297994377,
+              "endEpochMs": 1792297995183,
+              "packetCount": 82,
+              "coveredMs": 805.664,
+              "maximumGapMs": 0.02,
+              "minimumPilotAmplitude": 0.00021209,
+              "threshold": 2e-05,
+              "belowThresholdPackets": 0,
+              "flaggedPackets": 0,
+              "continuousPilotObserved": true,
+              "exclusiveSourceContinuityProven": false
+            }
+          },
+          {
+            "phase": "network_recovered",
+            "counterHold": {
+              "startEpochMs": 1792298005535,
+              "endEpochMs": 1792298006542,
+              "startMonotonicMs": 142046,
+              "endMonotonicMs": 143053,
+              "observedHeldMs": 1007,
+              "snapshots": 6,
+              "audioBuffers": 3971,
+              "decodedAudioDelta": 0,
+              "audioLostDelta": 0,
+              "clockDeltaMs": 769,
+              "decodedVideoDelta": 92,
+              "pictureDelta": 46,
+              "entireMeasuredSnapshotHeld": false,
+              "nearbyNativeEvents": []
+            },
+            "pilot": {
+              "startEpochMs": 1792298005635,
+              "endEpochMs": 1792298006442,
+              "packetCount": 82,
+              "coveredMs": 806.688,
+              "maximumGapMs": 0.021,
+              "minimumPilotAmplitude": 0.00019364,
+              "threshold": 2e-05,
+              "belowThresholdPackets": 0,
+              "flaggedPackets": 0,
+              "continuousPilotObserved": true,
+              "exclusiveSourceContinuityProven": false
+            }
+          },
+          {
+            "phase": "network_recovered",
+            "counterHold": {
+              "startEpochMs": 1792298019624,
+              "endEpochMs": 1792298020628,
+              "startMonotonicMs": 156134,
+              "endMonotonicMs": 157139,
+              "observedHeldMs": 1005,
+              "snapshots": 6,
+              "audioBuffers": 4633,
+              "decodedAudioDelta": 0,
+              "audioLostDelta": 0,
+              "clockDeltaMs": 786,
+              "decodedVideoDelta": 92,
+              "pictureDelta": 46,
+              "entireMeasuredSnapshotHeld": false,
+              "nearbyNativeEvents": []
+            },
+            "pilot": {
+              "startEpochMs": 1792298019724,
+              "endEpochMs": 1792298020528,
+              "packetCount": 81,
+              "coveredMs": 803.699,
+              "maximumGapMs": 0.022,
+              "minimumPilotAmplitude": 0.00021209,
+              "threshold": 2e-05,
+              "belowThresholdPackets": 0,
+              "flaggedPackets": 0,
+              "continuousPilotObserved": true,
+              "exclusiveSourceContinuityProven": false
+            }
+          },
+          {
+            "phase": "network_recovered",
+            "counterHold": {
+              "startEpochMs": 1792298033693,
+              "endEpochMs": 1792298034699,
+              "startMonotonicMs": 170204,
+              "endMonotonicMs": 171210,
+              "observedHeldMs": 1006,
+              "snapshots": 6,
+              "audioBuffers": 5294,
+              "decodedAudioDelta": 0,
+              "audioLostDelta": 0,
+              "clockDeltaMs": 767,
+              "decodedVideoDelta": 92,
+              "pictureDelta": 46,
+              "entireMeasuredSnapshotHeld": false,
+              "nearbyNativeEvents": []
+            },
+            "pilot": {
+              "startEpochMs": 1792298033793,
+              "endEpochMs": 1792298034599,
+              "packetCount": 81,
+              "coveredMs": 805.713,
+              "maximumGapMs": 0.018,
+              "minimumPilotAmplitude": 0.00020138,
+              "threshold": 2e-05,
+              "belowThresholdPackets": 0,
+              "flaggedPackets": 0,
+              "continuousPilotObserved": true,
+              "exclusiveSourceContinuityProven": false
+            }
+          },
+          {
+            "phase": "network_recovered",
+            "counterHold": {
+              "startEpochMs": 1792298047783,
+              "endEpochMs": 1792298048788,
+              "startMonotonicMs": 184294,
+              "endMonotonicMs": 185299,
+              "observedHeldMs": 1005,
+              "snapshots": 6,
+              "audioBuffers": 5955,
+              "decodedAudioDelta": 0,
+              "audioLostDelta": 0,
+              "clockDeltaMs": 766,
+              "decodedVideoDelta": 92,
+              "pictureDelta": 46,
+              "entireMeasuredSnapshotHeld": false,
+              "nearbyNativeEvents": []
+            },
+            "pilot": {
+              "startEpochMs": 1792298047883,
+              "endEpochMs": 1792298048688,
+              "packetCount": 81,
+              "coveredMs": 804.755,
+              "maximumGapMs": 0.017,
+              "minimumPilotAmplitude": 0.00021209,
+              "threshold": 2e-05,
+              "belowThresholdPackets": 0,
+              "flaggedPackets": 0,
+              "continuousPilotObserved": true,
+              "exclusiveSourceContinuityProven": false
+            }
+          }
+        ],
+        "qualifiedHolds": 11,
+        "mixedEndpoint": true,
+        "providerContinuityProven": false,
+        "nativeWaitStackCaptured": false
+      },
+      "lateOutageNegativeControl": {
+        "startEpochMs": 1792297910339.0,
+        "endEpochMs": 1792297912339.0,
+        "packetCount": 0,
+        "coveredMs": 0.0,
+        "maximumGapMs": 2000.0,
+        "minimumPilotAmplitude": null,
+        "threshold": 2e-05,
+        "belowThresholdPackets": 0,
+        "flaggedPackets": 0,
+        "continuousPilotObserved": false,
+        "exclusiveSourceContinuityProven": false
+      },
+      "independentlyComputedPostRecoverySync": {
+        "result": "passed",
+        "matchedPulses": 32,
+        "medianAudioMinusVideoMs": 30.67,
+        "p95AbsoluteOffsetMs": 32.16,
+        "maxAbsoluteOffsetMs": 32.17,
+        "endMinusStartDriftMs": -0.02,
+        "measuredSpanSeconds": 124.0,
+        "matchCoverage": 1.0,
+        "medianBudgetMs": 80,
+        "p95BudgetMs": 120,
+        "driftBudgetMs": 40,
+        "maximumOffsetBudgetMs": 150,
+        "windowMedianExcursionMs": 2.01,
+        "windowExcursionBudgetMs": 40,
+        "minimumSpanSeconds": 30,
+        "minimumMatchedPulses": 12
+      },
+      "independentSyncDoesNotOverrideWorkerResult": true,
+      "capture": {
+        "timestampErrors": 0,
+        "captureDiscontinuities": 0,
+        "rawAudioSaved": false,
+        "physicalMicrophoneOpened": false,
+        "multimediaSchedulingRestored": true,
+        "pilotMeasurement": {
+          "frequencyHz": 300,
+          "packets": 17557,
+          "droppedPackets": 0,
+          "rawPcmSaved": false,
+          "mixedEndpoint": true
+        },
+        "wallClockMappingChangeMs": 0.335,
+        "sampleRate": 48000,
+        "capturedPackets": 17557
+      },
+      "fixtureRecipe": {
+        "durationSeconds": 210,
+        "fps": 60,
+        "width": 1920,
+        "height": 1080,
+        "sampleRate": 48000,
+        "pulsePeriodMs": 4000,
+        "flashDurationMs": 66.66666666666667,
+        "toneDurationMs": 20,
+        "continuousCarrierHz": 300,
+        "continuousCarrierAmplitude": 0.005,
+        "toneBaseHz": 1000,
+        "toneStepPerIdHz": 100,
+        "maximumPulseId": 52,
+        "audioDelayMs": 0,
+        "videoSha256": "6937dde237b90c370ec97a07b5bd80834338feaa3d6fbd3dbe55c5d9be3e67cd",
+        "audioSha256": "46f5ba5e56a838f53b2d874a66f0442d41852533779a0b793517bd3b1f105dae",
+        "unfragmentedVideoSha256": "3e0fb4cd4bbd331bb7d1bcb3103c3bda63c065a1594fb7cdd303721148268f7e",
+        "videoPacketIdentity": {
+          "payloadSha256": "829ee4be9523b4cadf4363c943b6d8af4c21a56f728d784582d8480d263a000d",
+          "timelineSha256": "bcab1c10a502902f11879e530a51ce886c380200d48af94df3c8da47405ae275",
+          "packetCount": 12600,
+          "first": [
+            0,
+            0,
+            256,
+            "1/15360"
+          ],
+          "last": [
+            3225344,
+            3225344,
+            256,
+            "1/15360"
+          ]
+        },
+        "unfragmentedAudioSha256": "6aace8dcf4a76489bf75c4e9279861dcd9d47600ddb5b522bb3bae77e65cfffe",
+        "generator": "fragment-sync-fixture.py",
+        "pyavVersion": "19.0.1",
+        "fragmentDurationMs": 10000,
+        "fragmentVideo": true,
+        "muxOptions": {
+          "movflags": "delay_moov+default_base_moof+global_sidx",
+          "frag_duration": "10000000"
+        },
+        "packetIdentity": {
+          "payloadSha256": "91412b1afc76c34a85bd8a673c83c3b3c37cd070bc30a322836000e72389e49b",
+          "timelineSha256": "23422084a21110952e58f51d79a051fb26c0652e7bb7df5c24df66aaf33919bb",
+          "packetCount": 9845,
+          "first": [
+            -1024,
+            -1024,
+            1024,
+            "1/48000"
+          ],
+          "last": [
+            10079232,
+            10079232,
+            768,
+            "1/48000"
+          ]
+        },
+        "encodedPacketsAndTimelineIdentical": true
+      },
+      "artifactSha256": {
+        "worker.json": "6935c8bc47cb8bcb8c02bb6352a987ee9395e9ae825893ce37557e27c08d7594",
+        "presentation-result.json": "bbc39b56a720570edc5fc270a84562e0adaf8fc9991330ee70e75784f0755979",
+        "audio-timeline.csv": "5c229db8fade257303e2e7e65e99e586a1f97dc9fea509ed9a53524402f2b59d",
+        "audio-native-events.csv": "b4baf69ec8442035c21af8a07ef995217d6248b40eaa74a0c36ecad6efd5be73",
+        "pilot-packets.json": "15709deedc58b7cd209f6e6a658fce6f1d667ccbccad3e088b9489f6e49a3022",
+        "phases.csv": "da4c105e98cdc82a590fcf734d362376babaf91c91797fe36ac07006a0fb864a",
+        "audio-pulse-events.json": "78fa167108ec19dd3b8b2955b542587d09f41d35da61e271e5a55d047b598281",
+        "flash-events.csv": "7a9873684fb2227e39616c19b715143de2fd63dfb719c853563ee74667a4c9df"
+      }
+    }
+  ],
+  "sameVideoBytesAcrossRateControls": true,
+  "pilotMethod": {
+    "frequencyHz": 300,
+    "loopbackSampleRate": 48000,
+    "amplitudeThreshold": 2e-05,
+    "trimEachCounterHoldEdgeMs": 100,
+    "maxPacketGapMs": 1,
+    "minimumCoverageFraction": 0.98,
+    "mixedEndpoint": true,
+    "rawPcmSaved": false,
+    "scope": "Known generated pilot in hold interiors; neither exclusive process attribution nor provider source continuity is inferred."
+  },
+  "providerBoundaryProbe": {
+    "accountCredentialsSupplied": false,
+    "result": "completed",
+    "schemaVersion": 1,
+    "rawBodySaved": false,
+    "publicVideoId": "aqz-KE-bpKQ",
+    "tracks": [
+      {
+        "itag": 299,
+        "probeSpanMs": 4210,
+        "expirySecondsFromProbe": 21599,
+        "relay": {
+          "bytesForwarded": 65536,
+          "closed": true,
+          "upstreamResponses": [
+            {
+              "redirectCount": 0,
+              "rangeStart": 0,
+              "method": "GET",
+              "requestElapsedMs": 497,
+              "declaredContentLength": 257619653,
+              "expiryKnown": true,
+              "expirySecondsAtResponse": 21595,
+              "track": "video",
+              "sourceAgeMs": 10,
+              "rangeKind": "open",
+              "status": 206
+            }
+          ],
+          "droppedUpstreamResponses": 0,
+          "requests": 1,
+          "streamFailures": 1,
+          "loopbackOnly": true,
+          "upstreamHttpStatuses": {
+            "206": 1
+          },
+          "rejectedRequests": 0,
+          "activeRequests": 0,
+          "tracks": {
+            "video": {
+              "failures": 1,
+              "bytes": 65536,
+              "pendingWriteMs": 0,
+              "readMs": 135,
+              "requests": 1,
+              "writeMs": 0,
+              "pendingReadMs": 0
+            },
+            "audio": {
+              "failures": 0,
+              "bytes": 0,
+              "pendingWriteMs": 0,
+              "readMs": 0,
+              "requests": 0,
+              "writeMs": 0,
+              "pendingReadMs": 0
+            }
+          }
+        },
+        "ipBindingParameterPresent": true,
+        "nParameterPresent": false,
+        "rangeQueryPresent": false,
+        "requests": [
+          {
+            "method": "HEAD",
+            "rangeProfile": "none",
+            "redirects": 0,
+            "declaredBodyBytes": 0,
+            "headerProfile": "relay_default",
+            "bytesRead": 0,
+            "serverClockSkewSeconds": 0,
+            "status": 200,
+            "elapsedMs": 571
+          },
+          {
+            "rangeStart": 0,
+            "method": "GET",
+            "rangeProfile": "closed",
+            "rangeTotal": 257619653,
+            "redirects": 0,
+            "declaredBodyBytes": 1024,
+            "headerProfile": "relay_default",
+            "bytesRead": 1024,
+            "serverClockSkewSeconds": 0,
+            "status": 206,
+            "rangeEnd": 1023,
+            "elapsedMs": 151
+          },
+          {
+            "rangeStart": 0,
+            "method": "GET",
+            "rangeProfile": "open",
+            "rangeTotal": 257619653,
+            "redirects": 0,
+            "declaredBodyBytes": 257619653,
+            "headerProfile": "relay_default",
+            "bytesRead": 1024,
+            "serverClockSkewSeconds": -1,
+            "status": 206,
+            "rangeEnd": 257619652,
+            "elapsedMs": 498
+          },
+          {
+            "method": "GET",
+            "rangeProfile": "none",
+            "redirects": 0,
+            "declaredBodyBytes": 257619653,
+            "headerProfile": "relay_default",
+            "bytesRead": 1024,
+            "serverClockSkewSeconds": 0,
+            "status": 200,
+            "elapsedMs": 862
+          },
+          {
+            "method": "HEAD",
+            "rangeProfile": "none",
+            "redirects": 0,
+            "declaredBodyBytes": 0,
+            "headerProfile": "extractor_user_agent",
+            "bytesRead": 0,
+            "serverClockSkewSeconds": 0,
+            "status": 200,
+            "elapsedMs": 336
+          },
+          {
+            "rangeStart": 0,
+            "method": "GET",
+            "rangeProfile": "closed",
+            "rangeTotal": 257619653,
+            "redirects": 0,
+            "declaredBodyBytes": 1024,
+            "headerProfile": "extractor_user_agent",
+            "bytesRead": 1024,
+            "serverClockSkewSeconds": 0,
+            "status": 206,
+            "rangeEnd": 1023,
+            "elapsedMs": 240
+          },
+          {
+            "rangeStart": 0,
+            "method": "GET",
+            "rangeProfile": "open",
+            "rangeTotal": 257619653,
+            "redirects": 0,
+            "declaredBodyBytes": 257619653,
+            "headerProfile": "extractor_user_agent",
+            "bytesRead": 1024,
+            "serverClockSkewSeconds": 0,
+            "status": 206,
+            "rangeEnd": 257619652,
+            "elapsedMs": 276
+          },
+          {
+            "method": "GET",
+            "rangeProfile": "none",
+            "redirects": 0,
+            "declaredBodyBytes": 257619653,
+            "headerProfile": "extractor_user_agent",
+            "bytesRead": 1024,
+            "serverClockSkewSeconds": 0,
+            "status": 200,
+            "elapsedMs": 579
+          },
+          {
+            "rangeStart": 0,
+            "method": "GET",
+            "rangeProfile": "open",
+            "rangeTotal": 257619653,
+            "redirects": 0,
+            "declaredBodyBytes": 257619653,
+            "headerProfile": "loopback_relay_default",
+            "bytesRead": 1024,
+            "serverClockSkewSeconds": 0,
+            "status": 206,
+            "rangeEnd": 257619652,
+            "elapsedMs": 667
+          }
+        ],
+        "track": "video",
+        "sourceClientClass": "other",
+        "proofTokenParameterPresent": false
+      },
+      {
+        "itag": 140,
+        "probeSpanMs": 3554,
+        "expirySecondsFromProbe": 21595,
+        "relay": {
+          "bytesForwarded": 81920,
+          "closed": true,
+          "upstreamResponses": [
+            {
+              "redirectCount": 0,
+              "rangeStart": 0,
+              "method": "GET",
+              "requestElapsedMs": 509,
+              "declaredContentLength": 10271496,
+              "expiryKnown": true,
+              "expirySecondsAtResponse": 21592,
+              "track": "audio",
+              "sourceAgeMs": 2,
+              "rangeKind": "open",
+              "status": 206
+            }
+          ],
+          "droppedUpstreamResponses": 0,
+          "requests": 1,
+          "streamFailures": 1,
+          "loopbackOnly": true,
+          "upstreamHttpStatuses": {
+            "206": 1
+          },
+          "rejectedRequests": 0,
+          "activeRequests": 0,
+          "tracks": {
+            "video": {
+              "failures": 0,
+              "bytes": 0,
+              "pendingWriteMs": 0,
+              "readMs": 0,
+              "requests": 0,
+              "writeMs": 0,
+              "pendingReadMs": 0
+            },
+            "audio": {
+              "failures": 1,
+              "bytes": 81920,
+              "pendingWriteMs": 0,
+              "readMs": 156,
+              "requests": 1,
+              "writeMs": 0,
+              "pendingReadMs": 0
+            }
+          }
+        },
+        "ipBindingParameterPresent": true,
+        "nParameterPresent": false,
+        "rangeQueryPresent": false,
+        "requests": [
+          {
+            "method": "HEAD",
+            "rangeProfile": "none",
+            "redirects": 0,
+            "declaredBodyBytes": 0,
+            "headerProfile": "relay_default",
+            "bytesRead": 0,
+            "serverClockSkewSeconds": 0,
+            "status": 200,
+            "elapsedMs": 454
+          },
+          {
+            "rangeStart": 0,
+            "method": "GET",
+            "rangeProfile": "closed",
+            "rangeTotal": 10271496,
+            "redirects": 0,
+            "declaredBodyBytes": 1024,
+            "headerProfile": "relay_default",
+            "bytesRead": 1024,
+            "serverClockSkewSeconds": -1,
+            "status": 206,
+            "rangeEnd": 1023,
+            "elapsedMs": 244
+          },
+          {
+            "rangeStart": 0,
+            "method": "GET",
+            "rangeProfile": "open",
+            "rangeTotal": 10271496,
+            "redirects": 0,
+            "declaredBodyBytes": 10271496,
+            "headerProfile": "relay_default",
+            "bytesRead": 1024,
+            "serverClockSkewSeconds": 0,
+            "status": 206,
+            "rangeEnd": 10271495,
+            "elapsedMs": 219
+          },
+          {
+            "method": "GET",
+            "rangeProfile": "none",
+            "redirects": 0,
+            "declaredBodyBytes": 10271496,
+            "headerProfile": "relay_default",
+            "bytesRead": 1024,
+            "serverClockSkewSeconds": 0,
+            "status": 200,
+            "elapsedMs": 629
+          },
+          {
+            "method": "HEAD",
+            "rangeProfile": "none",
+            "redirects": 0,
+            "declaredBodyBytes": 0,
+            "headerProfile": "extractor_user_agent",
+            "bytesRead": 0,
+            "serverClockSkewSeconds": 0,
+            "status": 200,
+            "elapsedMs": 335
+          },
+          {
+            "rangeStart": 0,
+            "method": "GET",
+            "rangeProfile": "closed",
+            "rangeTotal": 10271496,
+            "redirects": 0,
+            "declaredBodyBytes": 1024,
+            "headerProfile": "extractor_user_agent",
+            "bytesRead": 1024,
+            "serverClockSkewSeconds": 0,
+            "status": 206,
+            "rangeEnd": 1023,
+            "elapsedMs": 135
+          },
+          {
+            "rangeStart": 0,
+            "method": "GET",
+            "rangeProfile": "open",
+            "rangeTotal": 10271496,
+            "redirects": 0,
+            "declaredBodyBytes": 10271496,
+            "headerProfile": "extractor_user_agent",
+            "bytesRead": 1024,
+            "serverClockSkewSeconds": 0,
+            "status": 206,
+            "rangeEnd": 10271495,
+            "elapsedMs": 253
+          },
+          {
+            "method": "GET",
+            "rangeProfile": "none",
+            "redirects": 0,
+            "declaredBodyBytes": 10271496,
+            "headerProfile": "extractor_user_agent",
+            "bytesRead": 1024,
+            "serverClockSkewSeconds": -1,
+            "status": 200,
+            "elapsedMs": 608
+          },
+          {
+            "rangeStart": 0,
+            "method": "GET",
+            "rangeProfile": "open",
+            "rangeTotal": 10271496,
+            "redirects": 0,
+            "declaredBodyBytes": 10271496,
+            "headerProfile": "loopback_relay_default",
+            "bytesRead": 1024,
+            "serverClockSkewSeconds": 0,
+            "status": 206,
+            "rangeEnd": 10271495,
+            "elapsedMs": 668
+          }
+        ],
+        "track": "audio",
+        "sourceClientClass": "other",
+        "proofTokenParameterPresent": false
+      }
+    ]
+  },
+  "providerBoundaryProbeLimit": "At most 1024 body bytes read per GET; full bodies are not validated. Intentional early close may increment relay transfer failures.",
+  "currentNativeProviderProbe": {
+    "pauseStable": true,
+    "selectedAudioItag": 140,
+    "selectedAudioCodec": "mp4a.40.2",
+    "selectedAudioSampleRate": 44100,
+    "output": "dummy_decode_only",
+    "postSeekDecodedVideo": 915,
+    "networkCacheMs": 1000,
+    "seekWaitMs": 803,
+    "postSeekDecodedAudio": 632,
+    "pairedAudio": true,
+    "jnaVersion": "5.14.0",
+    "decodedAudio": 334,
+    "deliveries": [],
+    "seekTargetMs": 7000,
+    "seekable": true,
+    "selectedAudioChannels": 2,
+    "videoOnlyStreams": 14,
+    "processExitCode": 0,
+    "javaVersion": "25.0.4.1",
+    "lengthMs": 634567,
+    "beforeSeekDecodedVideo": 564,
+    "avSyncProven": false,
+    "audioDeliveries": [
+      "PROGRESSIVE_HTTP"
+    ],
+    "beforeSeekDecodedAudio": 456,
+    "vlcVersion": "3.0.24 Vetinari",
+    "result": "passed",
+    "postSeekPositionMs": 7661,
+    "selectedAudioBitrate": 130992,
+    "demuxPolicy": "avformat",
+    "selectedAudioFormat": "M4A",
+    "seekWorked": true,
+    "resumeAdvanced": true,
+    "schemaVersion": 2,
+    "seekReadyClockAdvancedMs": 661,
+    "playbackProfile": "headless_probe",
+    "relay": {
+      "bytesForwarded": 15874792,
+      "closed": true,
+      "upstreamResponses": [
+        {
+          "redirectCount": 0,
+          "rangeStart": 0,
+          "method": "GET",
+          "requestElapsedMs": 582,
+          "declaredContentLength": 257619653,
+          "expiryKnown": true,
+          "expirySecondsAtResponse": 21599,
+          "track": "video",
+          "sourceAgeMs": 532,
+          "rangeKind": "open",
+          "status": 206
+        },
+        {
+          "redirectCount": 0,
+          "rangeStart": 0,
+          "method": "GET",
+          "requestElapsedMs": 320,
+          "declaredContentLength": 10271496,
+          "expiryKnown": true,
+          "expirySecondsAtResponse": 21598,
+          "track": "audio",
+          "sourceAgeMs": 1329,
+          "rangeKind": "open",
+          "status": 206
+        }
+      ],
+      "droppedUpstreamResponses": 0,
+      "requests": 2,
+      "streamFailures": 1,
+      "loopbackOnly": true,
+      "upstreamHttpStatuses": {
+        "206": 2
+      },
+      "rejectedRequests": 0,
+      "activeRequests": 0,
+      "tracks": {
+        "audio": {
+          "failures": 0,
+          "bytes": 10271496,
+          "pendingWriteMs": 0,
+          "readMs": 4168,
+          "requests": 1,
+          "writeMs": 67,
+          "pendingReadMs": 0
+        },
+        "video": {
+          "failures": 1,
+          "bytes": 5603296,
+          "pendingWriteMs": 0,
+          "readMs": 6082,
+          "requests": 1,
+          "writeMs": 1006,
+          "pendingReadMs": 0
+        }
+      }
+    },
+    "audioOutputRequested": "dummy",
+    "selectedHeight": 1080,
+    "selectedFps": 60,
+    "cleanShutdown": true,
+    "decodedVideo": 394,
+    "decoderPolicy": "software_avcodec",
+    "providerDeclaredAudioBytes": 10271496,
+    "stage": "complete",
+    "videoStreams": 0,
+    "videoOnlyDeliveries": [
+      "PROGRESSIVE_HTTP"
+    ],
+    "nativeProcessIsolated": true,
+    "audioStreams": 5,
+    "videoResolution": "1080p60",
+    "selectedDelivery": "PROGRESSIVE_HTTP",
+    "selectedCodec": "avc1.64002A",
+    "positionMs": 2755
+  },
+  "priorProvider403": {
+    "sourceEvidence": "desktop-audio-counter-timeline.json",
+    "sourceEvidenceSha256": "b5903845b5fe622750d4e2976a72c434034e2ae7cd16bc67ae46d7cb286be7d3",
+    "worker": {
+      "result": "failed",
+      "errorType": "IOException",
+      "stage": "decode",
+      "processExitCode": 1,
+      "cleanShutdown": true,
+      "nativeProcessIsolated": true,
+      "audioOutputRequested": "directsound",
+      "selectedFps": 60,
+      "selectedHeight": 1080,
+      "selectedCodec": "avc1.64002A",
+      "playbackProfile": "hd1080",
+      "videoResolution": "1080p60",
+      "selectedAudioFormat": "M4A",
+      "selectedAudioCodec": "mp4a.40.2",
+      "selectedAudioItag": 140,
+      "selectedAudioSampleRate": 44100,
+      "selectedAudioChannels": 2,
+      "audioTimeline": {
+        "rawMessagesSaved": false,
+        "droppedEvents": 0,
+        "optIn": true,
+        "samplePeriodTargetMs": 200,
+        "outputConsumptionClock": false,
+        "nativeLogDetached": true,
+        "samples": 0,
+        "events": 0,
+        "droppedSamples": 0
+      },
+      "relay": {
+        "bytesForwarded": 0,
+        "closed": true,
+        "requests": 4,
+        "streamFailures": 0,
+        "loopbackOnly": true,
+        "upstreamHttpStatuses": {
+          "403": 4
+        },
+        "rejectedRequests": 0,
+        "activeRequests": 0,
+        "tracks": {
+          "video": {
+            "failures": 0,
+            "bytes": 0,
+            "pendingWriteMs": 0,
+            "readMs": 0,
+            "requests": 4,
+            "writeMs": 0,
+            "pendingReadMs": 0
+          },
+          "audio": {
+            "failures": 0,
+            "bytes": 0,
+            "pendingWriteMs": 0,
+            "readMs": 0,
+            "requests": 0,
+            "writeMs": 0,
+            "pendingReadMs": 0
+          }
+        }
+      },
+      "networkScenario": {
+        "blockedBytesAfterSettling": 0,
+        "recoveryLatencyMs": -1,
+        "paintedFramesAtCut": 0,
+        "resumeCheckpointMs": 0,
+        "outageRequestedSeconds": 25,
+        "recoverySamples": [],
+        "diagnosticSamples": 0,
+        "paintedFramesAtRecovery": 0,
+        "recoverySampleColumns": [
+          "elapsedMs",
+          "positionMs",
+          "clockDeltaMs",
+          "audioBufferDelta",
+          "pictureDelta",
+          "paintDelta",
+          "relayByteDelta",
+          "wallDeltaMs"
+        ],
+        "cutPositionMs": 0,
+        "mode": "disconnect",
+        "longestConsecutiveRecoveredSeconds": 0,
+        "terminalReason": "",
+        "recovered": false,
+        "steadyRecoveredSeconds": 0,
+        "stallObserved": false,
+        "faultInjected": false,
+        "explicitRestartAttempts": 0,
+        "restored": false,
+        "lastObservationElapsedMs": 0,
+        "events": []
+      }
+    },
+    "retainedResult": "failed",
+    "retroactiveMethodOrExpiryDiagnosisAvailable": false
+  },
+  "currentHdPresentationProbe": {
+    "schemaVersion": 1,
+    "capture": "WASAPI_default_render_loopback",
+    "physicalMicrophoneOpened": false,
+    "rawAudioSaved": false,
+    "sampleRate": 48000,
+    "silentPacketFlagsChecked": true,
+    "physicalSpeakerConfirmation": "not_measured_by_harness",
+    "multimediaCaptureScheduling": true,
+    "baselinePeak": 0.0,
+    "preflightWaitSeconds": 1.0,
+    "worker": {
+      "pauseStable": true,
+      "observationWallMs": 20121,
+      "framePoolDroppedCallbacks": 0,
+      "selectedAudioItag": 140,
+      "audioBuffersLost": 1,
+      "selectedAudioCodec": "mp4a.40.2",
+      "audioBuffersPlayed": 1228,
+      "selectedAudioSampleRate": 44100,
+      "output": "swing_video_native_audio",
+      "postSeekDecodedVideo": 825,
+      "framePoolCapacity": 3,
+      "networkCacheMs": 3000,
+      "seekWaitMs": 5827,
+      "postSeekDecodedAudio": 720,
+      "pairedAudio": true,
+      "jnaVersion": "5.14.0",
+      "decodedAudio": 340,
+      "deliveries": [],
+      "seekTargetMs": 15000,
+      "seekable": true,
+      "windowShowing": true,
+      "selectedAudioChannels": 2,
+      "videoCallbacks": 1593,
+      "videoOnlyStreams": 14,
+      "audioTimeline": {
+        "rawMessagesSaved": false,
+        "droppedEvents": 0,
+        "optIn": true,
+        "samplePeriodTargetMs": 200,
+        "outputConsumptionClock": false,
+        "nativeLogDetached": true,
+        "samples": 100,
+        "events": 12,
+        "droppedSamples": 0
+      },
+      "processExitCode": 0,
+      "observationEndMs": 35778,
+      "picturesDisplayed": 1595,
+      "javaVersion": "25.0.4.1",
+      "lengthMs": 634567,
+      "beforeSeekDecodedVideo": 552,
+      "renderHeight": 1090,
+      "avSyncProven": false,
+      "audioDeliveries": [
+        "PROGRESSIVE_HTTP"
+      ],
+      "beforeSeekDecodedAudio": 524,
+      "vlcVersion": "3.0.24 Vetinari",
+      "result": "passed",
+      "postSeekPositionMs": 15594,
+      "longestStalledClockMs": 0,
+      "selectedAudioBitrate": 130992,
+      "renderWidth": 1920,
+      "observationSamples": [
+        {
+          "inputBytesRead": 19534240,
+          "picturesDisplayed": 445,
+          "wallElapsedMs": 1018,
+          "picturesLost": 1,
+          "playing": true,
+          "decodedVideo": 947,
+          "audioBuffersPlayed": 402,
+          "positionMs": 16638
+        },
+        {
+          "inputBytesRead": 20156832,
+          "picturesDisplayed": 491,
+          "wallElapsedMs": 2023,
+          "picturesLost": 1,
+          "playing": true,
+          "decodedVideo": 1039,
+          "audioBuffersPlayed": 445,
+          "positionMs": 17405
+        },
+        {
+          "inputBytesRead": 20976032,
+          "picturesDisplayed": 553,
+          "wallElapsedMs": 3028,
+          "picturesLost": 1,
+          "playing": true,
+          "decodedVideo": 1163,
+          "audioBuffersPlayed": 489,
+          "positionMs": 18410
+        },
+        {
+          "inputBytesRead": 21795216,
+          "picturesDisplayed": 614,
+          "wallElapsedMs": 4036,
+          "picturesLost": 1,
+          "playing": true,
+          "decodedVideo": 1285,
+          "audioBuffersPlayed": 532,
+          "positionMs": 19428
+        },
+        {
+          "inputBytesRead": 22614416,
+          "picturesDisplayed": 675,
+          "wallElapsedMs": 5043,
+          "picturesLost": 1,
+          "playing": true,
+          "decodedVideo": 1407,
+          "audioBuffersPlayed": 576,
+          "positionMs": 20470
+        },
+        {
+          "inputBytesRead": 23400832,
+          "picturesDisplayed": 737,
+          "wallElapsedMs": 6047,
+          "picturesLost": 1,
+          "playing": true,
+          "decodedVideo": 1531,
+          "audioBuffersPlayed": 619,
+          "positionMs": 21478
+        },
+        {
+          "inputBytesRead": 24187264,
+          "picturesDisplayed": 798,
+          "wallElapsedMs": 7053,
+          "picturesLost": 1,
+          "playing": true,
+          "decodedVideo": 1653,
+          "audioBuffersPlayed": 663,
+          "positionMs": 22494
+        },
+        {
+          "inputBytesRead": 25006464,
+          "picturesDisplayed": 859,
+          "wallElapsedMs": 8057,
+          "picturesLost": 1,
+          "playing": true,
+          "decodedVideo": 1775,
+          "audioBuffersPlayed": 706,
+          "positionMs": 23512
+        },
+        {
+          "inputBytesRead": 25825648,
+          "picturesDisplayed": 920,
+          "wallElapsedMs": 9064,
+          "picturesLost": 1,
+          "playing": true,
+          "decodedVideo": 1897,
+          "audioBuffersPlayed": 750,
+          "positionMs": 24555
+        },
+        {
+          "inputBytesRead": 26644848,
+          "picturesDisplayed": 982,
+          "wallElapsedMs": 10068,
+          "picturesLost": 1,
+          "playing": true,
+          "decodedVideo": 2021,
+          "audioBuffersPlayed": 793,
+          "positionMs": 25561
+        },
+        {
+          "inputBytesRead": 27365728,
+          "picturesDisplayed": 1043,
+          "wallElapsedMs": 11076,
+          "picturesLost": 1,
+          "playing": true,
+          "decodedVideo": 2143,
+          "audioBuffersPlayed": 837,
+          "positionMs": 26577
+        },
+        {
+          "inputBytesRead": 28283232,
+          "picturesDisplayed": 1104,
+          "wallElapsedMs": 12081,
+          "picturesLost": 1,
+          "playing": true,
+          "decodedVideo": 2265,
+          "audioBuffersPlayed": 880,
+          "positionMs": 27621
+        },
+        {
+          "inputBytesRead": 29020512,
+          "picturesDisplayed": 1166,
+          "wallElapsedMs": 13084,
+          "picturesLost": 1,
+          "playing": true,
+          "decodedVideo": 2389,
+          "audioBuffersPlayed": 924,
+          "positionMs": 28628
+        },
+        {
+          "inputBytesRead": 29839696,
+          "picturesDisplayed": 1227,
+          "wallElapsedMs": 14090,
+          "picturesLost": 1,
+          "playing": true,
+          "decodedVideo": 2511,
+          "audioBuffersPlayed": 967,
+          "positionMs": 29645
+        },
+        {
+          "inputBytesRead": 30658896,
+          "picturesDisplayed": 1288,
+          "wallElapsedMs": 15096,
+          "picturesLost": 1,
+          "playing": true,
+          "decodedVideo": 2633,
+          "audioBuffersPlayed": 1011,
+          "positionMs": 30687
+        },
+        {
+          "inputBytesRead": 31494464,
+          "picturesDisplayed": 1350,
+          "wallElapsedMs": 16101,
+          "picturesLost": 1,
+          "playing": true,
+          "decodedVideo": 2757,
+          "audioBuffersPlayed": 1054,
+          "positionMs": 31695
+        },
+        {
+          "inputBytesRead": 32313664,
+          "picturesDisplayed": 1411,
+          "wallElapsedMs": 17106,
+          "picturesLost": 1,
+          "playing": true,
+          "decodedVideo": 2879,
+          "audioBuffersPlayed": 1098,
+          "positionMs": 32712
+        },
+        {
+          "inputBytesRead": 32919872,
+          "picturesDisplayed": 1457,
+          "wallElapsedMs": 18113,
+          "picturesLost": 1,
+          "playing": true,
+          "decodedVideo": 2971,
+          "audioBuffersPlayed": 1141,
+          "positionMs": 33478
+        },
+        {
+          "inputBytesRead": 33755440,
+          "picturesDisplayed": 1518,
+          "wallElapsedMs": 19118,
+          "picturesLost": 1,
+          "playing": true,
+          "decodedVideo": 3093,
+          "audioBuffersPlayed": 1185,
+          "positionMs": 34495
+        },
+        {
+          "inputBytesRead": 34574640,
+          "picturesDisplayed": 1579,
+          "wallElapsedMs": 20121,
+          "picturesLost": 1,
+          "playing": true,
+          "decodedVideo": 3215,
+          "audioBuffersPlayed": 1228,
+          "positionMs": 35539
+        }
+      ],
+      "observationClockAdvancedMs": 20184,
+      "demuxPolicy": "avformat",
+      "selectedAudioFormat": "M4A",
+      "seekWorked": true,
+      "resumeAdvanced": true,
+      "playerVolumePercent": 35,
+      "schemaVersion": 2,
+      "seekReadyClockAdvancedMs": 594,
+      "paintedVideoFrames": 1593,
+      "playbackProfile": "hd1080",
+      "relay": {
+        "bytesForwarded": 35064112,
+        "closed": true,
+        "upstreamResponses": [
+          {
+            "redirectCount": 0,
+            "rangeStart": 0,
+            "method": "GET",
+            "requestElapsedMs": 568,
+            "declaredContentLength": 257619653,
+            "expiryKnown": true,
+            "expirySecondsAtResponse": 21598,
+            "track": "video",
+            "sourceAgeMs": 823,
+            "rangeKind": "open",
+            "status": 206
+          },
+          {
+            "redirectCount": 0,
+            "rangeStart": 0,
+            "method": "GET",
+            "requestElapsedMs": 480,
+            "declaredContentLength": 10271496,
+            "expiryKnown": true,
+            "expirySecondsAtResponse": 21597,
+            "track": "audio",
+            "sourceAgeMs": 1937,
+            "rangeKind": "open",
+            "status": 206
+          },
+          {
+            "redirectCount": 0,
+            "rangeStart": 5812488,
+            "method": "GET",
+            "requestElapsedMs": 388,
+            "declaredContentLength": 251807165,
+            "expiryKnown": true,
+            "expirySecondsAtResponse": 21591,
+            "track": "video",
+            "sourceAgeMs": 8394,
+            "rangeKind": "open",
+            "status": 206
+          }
+        ],
+        "droppedUpstreamResponses": 0,
+        "requests": 3,
+        "streamFailures": 2,
+        "loopbackOnly": true,
+        "upstreamHttpStatuses": {
+          "206": 3
+        },
+        "rejectedRequests": 0,
+        "activeRequests": 0,
+        "tracks": {
+          "audio": {
+            "failures": 0,
+            "bytes": 10271496,
+            "pendingWriteMs": 0,
+            "readMs": 3216,
+            "requests": 1,
+            "writeMs": 45,
+            "pendingReadMs": 0
+          },
+          "video": {
+            "failures": 2,
+            "bytes": 24792616,
+            "pendingWriteMs": 0,
+            "readMs": 32242,
+            "requests": 2,
+            "writeMs": 1118,
+            "pendingReadMs": 0
+          }
+        }
+      },
+      "audioOutputRequested": "mmdevice",
+      "selectedHeight": 1080,
+      "selectedFps": 60,
+      "cleanShutdown": true,
+      "decodedVideo": 374,
+      "workerCpuMsDuringObservation": 14094,
+      "decoderPolicy": "software_avcodec",
+      "observationRequestedSeconds": 20,
+      "providerDeclaredAudioBytes": 10271496,
+      "stage": "complete",
+      "observationStartMs": 15594,
+      "videoStreams": 0,
+      "videoOnlyDeliveries": [
+        "PROGRESSIVE_HTTP"
+      ],
+      "nativeProcessIsolated": true,
+      "audioStreams": 5,
+      "videoResolution": "1080p60",
+      "selectedDelivery": "PROGRESSIVE_HTTP",
+      "selectedCodec": "avc1.64002A",
+      "positionMs": 2589
+    },
+    "peakLoopbackAmplitude": 0.041701,
+    "timestampErrors": 0,
+    "captureDiscontinuities": 0,
+    "capturedPackets": 2693,
+    "wallClockMappingChangeMs": 0.083,
+    "providerAVSyncProven": false,
+    "result": "passed",
+    "multimediaSchedulingRestored": true
+  },
+  "sourceHashPolicy": "Build-input working file SHA256, including checkout line endings; Python analysis hashes describe the final offline analyzer.",
+  "nativeBinaries": [
+    {
+      "name": "libvlc.dll",
+      "sha256": "c0b1bedbc8e11267b39111733920a6af73d08791e333e4f8902eaffe4daf6db9"
+    },
+    {
+      "name": "libvlccore.dll",
+      "sha256": "c089f281affe1e85c61edd5996c2b496191f82fa5cdc7ef709b0c09bf754cdbe"
+    },
+    {
+      "name": "libmmdevice_plugin.dll",
+      "sha256": "1cc801b4eb4ad6eea3227ae668b76469a5e68d6681e39af7540753444522e9e6"
+    },
+    {
+      "name": "libwasapi_plugin.dll",
+      "sha256": "c971dda80399d72bf501f33d62919cd50576588849f9d9c05cbc1e5da74e0d53"
+    },
+    {
+      "name": "libdirectsound_plugin.dll",
+      "sha256": "40a99b3efbd5422159c39df55ad856e7442a754d69add8ddedc3db6b660e706a"
+    }
+  ],
+  "checks": {
+    "java": {
+      "tests": 48,
+      "failures": 0,
+      "errors": 0
+    },
+    "pythonTests": 38,
+    "totalTests": 86,
+    "distributionBuilt": true,
+    "defaultHeadless": {
+      "pauseStable": true,
+      "javaVersion": "25.0.4.1",
+      "lengthMs": 20000,
+      "beforeSeekDecodedVideo": 293,
+      "avSyncProven": false,
+      "beforeSeekDecodedAudio": 467,
+      "output": "dummy_decode_only",
+      "vlcVersion": "3.0.24 Vetinari",
+      "result": "passed",
+      "postSeekPositionMs": 7690,
+      "postSeekDecodedVideo": 628,
+      "demuxPolicy": "avformat",
+      "networkCacheMs": 1000,
+      "seekWaitMs": 805,
+      "postSeekDecodedAudio": 1316,
+      "seekWorked": true,
+      "resumeAdvanced": true,
+      "schemaVersion": 2,
+      "seekReadyClockAdvancedMs": 690,
+      "audioOutputRequested": "dummy",
+      "cleanShutdown": true,
+      "decodedVideo": 215,
+      "jnaVersion": "5.14.0",
+      "decodedAudio": 345,
+      "decoderPolicy": "software_avcodec",
+      "seekTargetMs": 7000,
+      "stage": "complete",
+      "seekable": true,
+      "nativeProcessIsolated": true,
+      "processExitCode": 0,
+      "positionMs": 2527
+    }
+  },
+  "sourceHashes": {
+    "desktop-spike/src/main/java/com/drivedeck/player/spike/ProbeRelay.java": "3e76ff18010b09d57ec0db1ac9a84c9b67454778c08392dc92eea22331a6f57f",
+    "tools/foundation/pilot_continuity.py": "da99cf5faa748e54e12960439c8da76fe3707492d9162f544de05365021c4d86",
+    "tools/foundation/validate-presentation.py": "668fe16d38fcb47f0faa96cea8bcbd99846bec4f2d95072a6d3ed8b778618141",
+    "tools/foundation/observe-presentation.ps1": "86d536eac4863f090f1e05a5ff125de7c16c536f7dc71407ed63b0e45cbcf44c",
+    "tools/foundation/ProviderRequestProbe.java": "369903dd0f067c94d233342cace9f43430c73c723ed8cdd91484d1650a8d575d"
+  },
+  "collectionVersionNote": "The collector observe arithmetic is identical in both rate runs; finite-configuration checks and offline analysis were added after the first launch. Both runs use the same worker JAR.",
+  "providerProbeSourceSha256": "369903dd0f067c94d233342cace9f43430c73c723ed8cdd91484d1650a8d575d"
+}

@@ -92,6 +92,28 @@ The analyzer labels observed audio-counter plateaus of at least 1000ms, excludes
 
 The measured comparison and its limits are in [audio timeline evidence](evidence/desktop-audio-counter-timeline.json) and RESULTS.md. Recovery is not necessary for the observed holds: the uninterrupted control and a pre-outage interval also contain them. The alternate backend is a diagnostic comparison, not a general device/route qualification.
 
+## Controlled pilot continuity and provider response diagnostics
+
+`observe-presentation.ps1 -PilotContinuity` adds `--pilot-continuity` to the existing capture harness. It requires a generated fixture recipe with a continuous carrier. Transient loopback packets are reduced to bounded numeric `pilot-packets.json` entries (40000 maximum); no raw PCM is saved and no physical microphone is opened. This measures the mixed default render endpoint, with no exclusive process attribution.
+
+Run `& $Python tools/foundation/pilot_continuity.py <run-directory>` for offline analysis. For each >=1000ms counter plateau in steady/recovered playback, it checks the interior after trimming 100ms at both edges. The predeclared pilot threshold is 0.00002; qualification requires every intersecting packet to contain the pilot, no SILENT/discontinuity/timestamp-error flag, maximum packet gap <=1ms and coverage >=98%. Invalid/non-finite amplitudes cannot qualify. The generated 300Hz tone is not a method for measuring arbitrary YouTube audio. Original worker/harness results remain authoritative and unchanged even when an independent signal/timing analysis passes.
+
+The remote relay now reports at most 64 numeric/enum `upstreamResponses` plus a dropped count: track, GET/HEAD, response status, range class/offsets, time since relay registration, response-header latency, known expiry remaining, declared length and redirect count. Expiry is observational metadata, never a retry/authentication decision. No URL, query token, provider header value, cookie, IP or device identity is recorded. Request headers and denial forwarding are unchanged.
+
+`tools/foundation/ProviderRequestProbe.java` is a standalone diagnostic for the fixed public foundation item. It compares default versus downloader-default browser User-Agent strings, HEAD, closed/open/no-range GET, and a loopback-relay GET. It reads at most 1024 body bytes per GET, stores no body, emits JSON and has a 120-second process watchdog. `completed` means the request matrix finished, not that all responses passed or playback succeeded. Closing a larger response after the bounded read can increment a relay transfer-failure meter intentionally. The profile named `extractor_user_agent` uses the downloader's configured default browser string; it does not emulate every extractor request header.
+
+Compile/run with the installed spike classpath, into a fresh disposable directory:
+
+```powershell
+$probe='D:\tmp\dd\<fresh-provider-probe>'
+New-Item -ItemType Directory $probe
+$cp=Join-Path $Distribution 'lib\*'
+& (Join-Path $JavaHome 'bin\javac.exe') -encoding UTF-8 -cp $cp -d $probe tools/foundation/ProviderRequestProbe.java
+& (Join-Path $JavaHome 'bin\java.exe') -cp "$cp;$probe" com.drivedeck.player.spike.ProviderRequestProbe > (Join-Path $probe 'result.json')
+```
+
+The current matrix succeeds but cannot retrospectively explain the earlier four HTTP 403 responses, whose request/expiry context was not recorded. A future denial should supply that context. Neither a User-Agent workaround nor automatic retries are introduced. See [confirmation/provider evidence](evidence/desktop-wasapi-provider-diagnosis.json).
+
 ## Evidence and remaining gates
 
 Two integrated five-minute actual 1080p60 controls pass. Controlled 1080p60 hold/disconnect timing and permanent-outage/cancellation cleanup are integrated through PR #7. Its final provider trials resumed but failed stability at 14/18 samples; those failures remain recorded. The follow-up diagnostic repeats pass 74/82/82 samples before any rendering fix, so their original cause remains unresolved. A confirmed per-frame image-allocation defect is fixed with the bounded pool: two current provider runs pass 79/82 stable samples, and controlled post-recovery timing passes at 24.76ms median audio delay over 84 seconds. The known 250ms delayed-audio control remains correctly rejected. Numeric traces and exact provenance are in [desktop-recovery-stability.json](evidence/desktop-recovery-stability.json); RESULTS.md distinguishes resource improvement from unresolved intermittent-failure causality.
