@@ -21,6 +21,33 @@ final class ProbeRelay implements AutoCloseable {
     private final Set<Call> calls = ConcurrentHashMap.newKeySet();
     private final Set<HttpExchange> exchanges = ConcurrentHashMap.newKeySet();
     private final AtomicLong bytes = new AtomicLong(), requests = new AtomicLong(), rejected = new AtomicLong(), failures = new AtomicLong();
+    record TrackSnapshot(long bytes, long readMs, long writeMs, long pendingReadMs, long pendingWriteMs, long requests, long failures) { }
+    private static final class TrackMeter {
+        final AtomicLong bytes=new AtomicLong(), readNs=new AtomicLong(), writeNs=new AtomicLong(), requests=new AtomicLong(), failures=new AtomicLong();
+        final Set<Transfer> transfers=ConcurrentHashMap.newKeySet();
+        TrackSnapshot snapshot() {
+            long now=System.nanoTime(), pending=0, pendingWrite=0;
+            for (var transfer:transfers) { long since=transfer.readStarted; if(since!=0) pending=Math.max(pending,(now-since)/1_000_000); since=transfer.writeStarted; if(since!=0) pendingWrite=Math.max(pendingWrite,(now-since)/1_000_000); }
+            return new TrackSnapshot(bytes.get(),readNs.get()/1_000_000,writeNs.get()/1_000_000,pending,pendingWrite,requests.get(),failures.get());
+        }
+    }
+    private static final class Transfer {
+        final TrackMeter meter;
+        volatile long readStarted, writeStarted;
+        Transfer(TrackMeter meter) { this.meter=meter; meter.requests.incrementAndGet(); meter.transfers.add(this); }
+        int read(InputStream input, byte[] buffer, int length) throws IOException {
+            readStarted=System.nanoTime();
+            try { return input.read(buffer,0,length); }
+            finally { meter.readNs.addAndGet(System.nanoTime()-readStarted); readStarted=0; }
+        }
+        void write(OutputStream output, byte[] buffer, int count) throws IOException {
+            writeStarted=System.nanoTime();
+            try { output.write(buffer,0,count); output.flush(); meter.bytes.addAndGet(count); }
+            finally { meter.writeNs.addAndGet(System.nanoTime()-writeStarted); writeStarted=0; }
+        }
+        void close() { meter.transfers.remove(this); }
+    }
+    private final Map<String,TrackMeter> tracks=Map.of("video",new TrackMeter(),"audio",new TrackMeter());
     private final Map<Integer,AtomicLong> statuses=new ConcurrentHashMap<>();
     private final String prefix = "/" + UUID.randomUUID() + "/";
     private final Object gate = new Object();
@@ -50,6 +77,7 @@ final class ProbeRelay implements AutoCloseable {
     }
     private void serve(HttpExchange exchange) {
         exchanges.add(exchange);
+        Transfer transfer=null;
         try {
             String source = sources.get(exchange.getRequestURI().getRawPath());
             if (source == null || exchange.getRequestURI().getRawQuery() != null) { reject(exchange,404); return; }
@@ -60,15 +88,16 @@ final class ProbeRelay implements AutoCloseable {
             if (method.equals("HEAD")) range=null;
             if (offline || closed) { reject(exchange,503); return; }
             requests.incrementAndGet();
+            transfer=new Transfer(tracks.get(exchange.getRequestURI().getRawPath().substring(prefix.length())));
             URI uri = URI.create(source);
-            if (uri.getScheme().equals("file")) serveFile(exchange, Path.of(uri), range, method.equals("HEAD"));
-            else serveRemote(exchange, source, range, method);
+            if (uri.getScheme().equals("file")) serveFile(exchange, Path.of(uri), range, method.equals("HEAD"),transfer);
+            else serveRemote(exchange, source, range, method,transfer);
         } catch (IOException | RuntimeException failure) {
-            failures.incrementAndGet(); // Never log exception messages or provider URLs.
-        } finally { exchanges.remove(exchange); exchange.close(); }
+            failures.incrementAndGet(); if(transfer!=null) transfer.meter.failures.incrementAndGet(); // Never log exception messages or provider URLs.
+        } finally { if(transfer!=null) transfer.close(); exchanges.remove(exchange); exchange.close(); }
     }
     private void reject(HttpExchange exchange, int code) throws IOException { rejected.incrementAndGet(); exchange.sendResponseHeaders(code,-1); }
-    private void serveRemote(HttpExchange exchange, String source, String range, String method) throws IOException {
+    private void serveRemote(HttpExchange exchange, String source, String range, String method, Transfer transfer) throws IOException {
         var request = new okhttp3.Request.Builder().url(source).method(method,null).header("Accept-Encoding","identity");
         if (range != null) request.header("Range",range);
         var call = client.newCall(request.build()); calls.add(call);
@@ -80,10 +109,10 @@ final class ProbeRelay implements AutoCloseable {
             exchange.getResponseHeaders().set("Cache-Control","no-store");
             long length = response.body() == null ? 0 : response.body().contentLength();
             exchange.sendResponseHeaders(response.code(), method.equals("HEAD") || length == 0 ? -1 : Math.max(0,length));
-            if (!method.equals("HEAD") && response.body() != null) copy(response.body().byteStream(),exchange.getResponseBody(),length,0);
+            if (!method.equals("HEAD") && response.body() != null) copy(response.body().byteStream(),exchange.getResponseBody(),length,0,transfer);
         } finally { calls.remove(call); }
     }
-    private void serveFile(HttpExchange exchange, Path path, String range, boolean head) throws IOException {
+    private void serveFile(HttpExchange exchange, Path path, String range, boolean head, Transfer transfer) throws IOException {
         long size = Files.size(path), start=0, end=size-1;
         try {
             if (range != null) {
@@ -107,16 +136,16 @@ final class ProbeRelay implements AutoCloseable {
             // Synthetic files are paced to avoid downloading the entire small fixture before the fault.
             // Tail/metadata requests remain quick. This pacing is not used for actual provider streams.
             long pace = start > size-262144 ? 0 : Math.max(65536,size/100);
-            copy(input,exchange.getResponseBody(),length,pace);
+            copy(input,exchange.getResponseBody(),length,pace,transfer);
         }
     }
-    private void copy(InputStream input, OutputStream output, long remaining, long pace) throws IOException {
+    private void copy(InputStream input, OutputStream output, long remaining, long pace, Transfer transfer) throws IOException {
         byte[] buffer=new byte[16384]; long sent=0, started=System.nanoTime();
         while (remaining != 0) {
             awaitOnline();
-            int count=input.read(buffer,0,(int)Math.min(buffer.length,remaining<0?buffer.length:remaining));
+            int count=transfer.read(input,buffer,(int)Math.min(buffer.length,remaining<0?buffer.length:remaining));
             if (count < 0) break;
-            awaitOnline(); output.write(buffer,0,count); output.flush(); bytes.addAndGet(count);
+            awaitOnline(); transfer.write(output,buffer,count); bytes.addAndGet(count);
             sent+=count; if (remaining>0) remaining-=count;
             if (pace>0 && !restoredOnce) {
                 long wait=sent*1_000_000_000L/pace-(System.nanoTime()-started);
@@ -125,9 +154,11 @@ final class ProbeRelay implements AutoCloseable {
             }
         }
     }
+    TrackSnapshot track(String name) { return tracks.get(name).snapshot(); }
     long bytes() { return bytes.get(); }
     JSONObject report() { return new JSONObject().put("bytesForwarded",bytes()).put("requests",requests.get())
             .put("rejectedRequests",rejected.get()).put("streamFailures",failures.get()).put("activeRequests",exchanges.size())
+            .put("tracks",new JSONObject(tracks.entrySet().stream().collect(java.util.stream.Collectors.toMap(Map.Entry::getKey,e->{var t=e.getValue().snapshot(); return new JSONObject().put("bytes",t.bytes()).put("readMs",t.readMs()).put("writeMs",t.writeMs()).put("pendingReadMs",t.pendingReadMs()).put("pendingWriteMs",t.pendingWriteMs()).put("requests",t.requests()).put("failures",t.failures());}))))
             .put("loopbackOnly",true).put("closed",closed).put("upstreamHttpStatuses",new JSONObject(statuses.entrySet().stream().collect(java.util.stream.Collectors.toMap(e->e.getKey().toString(),e->e.getValue().get())))); }
     @Override public void close() {
         closed=true; restore(); calls.forEach(Call::cancel); exchanges.forEach(HttpExchange::close); server.stop(0);

@@ -83,4 +83,30 @@ public class ProbeRelayTest {
             assertArrayEquals(data,joined);assertTrue(System.nanoTime()-restoredAt<TimeUnit.SECONDS.toNanos(2));response.body().close();
         } finally {Files.deleteIfExists(p);}
     }
+    @Test(timeout=10000) public void stalledAudioReadIsDistinctFromVideoDeliveryAndCleanup() throws Exception {
+        var release=new CountDownLatch(1);
+        var upstream=HttpServer.create(new InetSocketAddress("127.0.0.1",0),0);
+        upstream.createContext("/track",e->{
+            try {
+                e.sendResponseHeaders(200,4);e.getResponseBody().write(new byte[]{1,2});e.getResponseBody().flush();
+                release.await(5,TimeUnit.SECONDS);e.getResponseBody().write(new byte[]{3,4});
+            } catch(InterruptedException interrupted) {Thread.currentThread().interrupt();}
+            finally {e.close();}
+        });upstream.start();
+        var video=temp(".mp4");Files.write(video,new byte[]{9,8,7});
+        try(var relay=new ProbeRelay()) {
+            String audio=relay.add("audio","http://127.0.0.1:"+upstream.getAddress().getPort()+"/track?private=secret");
+            var response=client.send(HttpRequest.newBuilder(URI.create(audio)).build(),HttpResponse.BodyHandlers.ofInputStream());
+            assertArrayEquals(new byte[]{1,2},response.body().readNBytes(2));
+            assertArrayEquals(new byte[]{9,8,7},get(relay.add("video",video.toUri().toString()),null).body());
+            long deadline=System.nanoTime()+TimeUnit.SECONDS.toNanos(2);
+            while(relay.track("audio").pendingReadMs()<25 && System.nanoTime()<deadline) Thread.sleep(5);
+            assertTrue(relay.track("audio").pendingReadMs()>=25);assertEquals(0,relay.track("video").pendingReadMs());
+            assertEquals(2,relay.track("audio").bytes());assertEquals(3,relay.track("video").bytes());
+            release.countDown();assertArrayEquals(new byte[]{3,4},response.body().readAllBytes());response.body().close();
+            relay.close();assertEquals(4,relay.track("audio").bytes());assertEquals(7,relay.bytes());
+            assertTrue(relay.track("audio").readMs()>=25);assertEquals(0,relay.track("audio").pendingReadMs());
+            assertEquals(0,relay.track("audio").pendingWriteMs());assertFalse(relay.report().toString().contains("secret"));
+        } finally {release.countDown();upstream.stop(0);Files.deleteIfExists(video);}
+    }
 }

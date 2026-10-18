@@ -252,7 +252,7 @@ public final class DesktopSpike {
                 long lastPosition = observedStart, stalledMs = 0, longestStallMs = 0;
                 for (int i = 0; i < settings.observationSeconds(); i++) {
                     for (int tick = 0; tick < 5; tick++) { presentation.checkOpen(); Thread.sleep(200); }
-                    if (network.enabled()) network.tick(TimeUnit.NANOSECONDS.toMillis(System.nanoTime()-observationWallStart),player,relay,presentation,media,mediaOptions.toArray(String[]::new));
+                    if (network.usesRelay()) network.tick(TimeUnit.NANOSECONDS.toMillis(System.nanoTime()-observationWallStart),player,relay,presentation,media,mediaOptions.toArray(String[]::new));
                     long position = player.status().time();
                     var sampleStats = player.media().info().statistics();
                     stalledMs = position - lastPosition < 250 ? stalledMs + 1000 : 0;

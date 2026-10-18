@@ -103,6 +103,9 @@ final class PresentationWindow implements AutoCloseable {
         player.audio().setMute(false);
     }
 
+    Path diagnosticDirectory() { return directory; }
+    long videoCallbacks() { return delivered.get(); }
+
     long paintedFrames() { return painted.get(); }
 
     void mark(String phase) throws Exception {
