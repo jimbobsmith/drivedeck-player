@@ -71,6 +71,27 @@ python tools/foundation/fragment-sync-fixture.py D:\tmp\dd\sync-44100 D:\tmp\dd\
 
 The measured actual-source first-140 prefix again reaches only fourteen stable samples because audio submission counters hold while clock/video/paint advance. VLC statistics are not an independent audio-device clock. Generated fragmented-container controls and correctly returned source byte ranges do not establish the complete cause. Full retained outcomes, separate timing failures and remaining limits: [component evidence](evidence/desktop-recovery-components.json). Keep #2 open; do not waive audio-counter failures or describe a later passing interval as proof of the original failing prefix.
 
+## Opt-in native audio timeline and output comparison
+
+`DD_PLAYER_AUDIO_TIMELINE=1` enables bounded 200ms statistics sampling during observation and a numeric native-audio event sidecar. The worker saves `audio-timeline.csv` and `audio-native-events.csv` after native cleanup. A forced process kill can lose these in-memory diagnostics; the existing flushed recovery trace remains separate. Native callbacks retain only allowlisted event codes/numbers, perform no file IO or player calls, and ignore URLs, native object identifiers, device names and arbitrary messages. The sample/event caps are 1600/2000, with dropped counts and log-detachment state reported. Enabling this trace also enables native debug logging; uncopied raw native diagnostics stay in disposable storage. Its observation overhead can change timing.
+
+`DD_PLAYER_AUDIO_OUTPUT` accepts `default`, `mmdevice` or `directsound`. `default` adds no audio output override. The explicit alternatives are presentation-only diagnostic experiments and request a module with fallback disabled (`none`); the worker reports the requested policy, while allowlisted native selection events independently identify the loaded backend. An unsupported module must fail the existing audio/transport gates. This changes neither codec/demux policy nor the recovery predicate, thirty-second deadline or terminal thirty-sample requirement. No product default is changed.
+
+Example matched Windows experiment, using the existing observer and dependencies (`$Python` is the same Python 3 interpreter passed to the observer):
+
+```powershell
+$env:DD_PLAYER_AUDIO_TIMELINE='1'
+$env:DD_PLAYER_AUDIO_OUTPUT='mmdevice' # Repeat separately with 'directsound' and a fresh directory.
+# Run observe-presentation.ps1 with -NetworkFault disconnect -ObserveSeconds 180 -Profile hd1080.
+# Keep both source/profile and built distribution identical; never run audible probes concurrently.
+& $Python tools/foundation/audio_timeline.py D:\tmp\dd\<fresh-run-directory>
+Remove-Item Env:DD_PLAYER_AUDIO_TIMELINE,Env:DD_PLAYER_AUDIO_OUTPUT
+```
+
+The analyzer labels observed audio-counter plateaus of at least 1000ms, excludes sampling gaps over 500ms, checks whether other measured statistics change, and reports the distribution of positive counter updates. These are observation times, quantized by the 200ms poll, not audio-device timestamps. Per-phase summaries split samples at presentation marks, preventing an outage-spanning plateau from being attributed wholly to recovered playback. The whole-run overview is retained separately. Nearby native events use a +/-250ms window, have a deliberately partial allowlist, and cannot rule out every native error. Drift values are microseconds; inserted silence/output buffer values are frames; mixer/output rates are Hz. No field claims output consumption, exclusive continuity or provider source alignment.
+
+The measured comparison and its limits are in [audio timeline evidence](evidence/desktop-audio-counter-timeline.json) and RESULTS.md. Recovery is not necessary for the observed holds: the uninterrupted control and a pre-outage interval also contain them. The alternate backend is a diagnostic comparison, not a general device/route qualification.
+
 ## Evidence and remaining gates
 
 Two integrated five-minute actual 1080p60 controls pass. Controlled 1080p60 hold/disconnect timing and permanent-outage/cancellation cleanup are integrated through PR #7. Its final provider trials resumed but failed stability at 14/18 samples; those failures remain recorded. The follow-up diagnostic repeats pass 74/82/82 samples before any rendering fix, so their original cause remains unresolved. A confirmed per-frame image-allocation defect is fixed with the bounded pool: two current provider runs pass 79/82 stable samples, and controlled post-recovery timing passes at 24.76ms median audio delay over 84 seconds. The known 250ms delayed-audio control remains correctly rejected. Numeric traces and exact provenance are in [desktop-recovery-stability.json](evidence/desktop-recovery-stability.json); RESULTS.md distinguishes resource improvement from unresolved intermittent-failure causality.
