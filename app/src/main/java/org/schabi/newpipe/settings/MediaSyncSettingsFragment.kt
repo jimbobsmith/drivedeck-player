@@ -11,6 +11,7 @@ import org.json.JSONObject
 import org.schabi.newpipe.NewPipeDatabase
 import org.schabi.newpipe.R
 import org.schabi.newpipe.mediasync.MediaSyncClient
+import org.schabi.newpipe.mediasync.MediaSyncEnrollmentInput
 import org.schabi.newpipe.mediasync.MediaSyncCrypto
 import org.schabi.newpipe.mediasync.MediaSyncSecrets
 import java.util.concurrent.Executors
@@ -26,7 +27,7 @@ class MediaSyncSettingsFragment : BasePreferenceFragment() {
                     val passphrase = field.text.toString(); field.text.clear()
                     perform {
                         val text = requireContext().contentResolver.openInputStream(uri)?.use { input ->
-                            val bytes = input.readNBytes(16385); MediaSyncCrypto.check(bytes.size <= 16384); String(bytes, Charsets.UTF_8)
+                            String(MediaSyncEnrollmentInput.read(input), Charsets.UTF_8)
                         } ?: throw IllegalStateException()
                         val config = MediaSyncCrypto.unprotect(JSONObject(text), passphrase)
                         val secrets = MediaSyncSecrets(requireContext()); MediaSyncCrypto.check(!secrets.exists(), "disconnect_before_enrollment")

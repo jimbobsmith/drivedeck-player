@@ -50,3 +50,13 @@ avoids the shared phone-wide automation service. See
 [phone-evidence.json](phone-evidence.json) for exact evidence and limitations.
 The real DocumentsUI choice is intercepted, full provider gestures/playback and
 existing-library upgrade remain unproved, and no service is deployed.
+
+## Older Android / display tablet preparation
+
+The Fire display's API30 audit found a direct API33-only readNBytes call in the
+protected importer. The bounded MediaSyncEnrollmentInput helper replaces that
+call without changing the 16 KiB limit or product minimum API. Four focused
+input regressions plus the two existing unit tests pass; the rebuilt importer
+calls the helper in Dex. Physical-tablet validation is coordinated with the
+Spotify chat; see [TABLET_VALIDATION.md](TABLET_VALIDATION.md) for its current
+status and the preserved DD display/phone ownership boundary.
