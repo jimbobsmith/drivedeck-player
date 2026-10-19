@@ -18,6 +18,7 @@ final class ProbeRelay implements AutoCloseable {
     private final OkHttpClient client = new OkHttpClient.Builder().connectTimeout(Duration.ofSeconds(5))
             .readTimeout(Duration.ofSeconds(10)).followRedirects(true).build();
     private record Source(String location,long registeredNs,Long expiryEpochSeconds) {}
+    private final ProviderDenialWitness denialWitness;
     private final Map<String,Source> sources = new ConcurrentHashMap<>();
     private final List<JSONObject> upstreamResponses = new ArrayList<>();
     private int droppedResponses;
@@ -77,7 +78,9 @@ final class ProbeRelay implements AutoCloseable {
     private final String prefix = "/" + UUID.randomUUID() + "/";
     private final Object gate = new Object();
     private volatile boolean offline, closed, restoredOnce;
-    ProbeRelay() throws IOException {
+    ProbeRelay() throws IOException { this(false); }
+    ProbeRelay(boolean witnessEnabled) throws IOException {
+        denialWitness=new ProviderDenialWitness(witnessEnabled);
         server = HttpServer.create(new InetSocketAddress("127.0.0.1", 0), 8);
         server.setExecutor(executor);
         server.createContext("/", this::serve);
@@ -139,6 +142,7 @@ final class ProbeRelay implements AutoCloseable {
             String declared=response.header("Content-Length","");
             if(declared.matches("[0-9]{1,18}")) diagnostic.put("declaredContentLength",Long.parseLong(declared));
             response(diagnostic);
+            if(response.code()==403) denialWitness.capture(source.location(),source.registeredNs(),source.expiryEpochSeconds(),transfer.meter.label,method,range,diagnostic);
             for (String name : List.of("Content-Type","Content-Range","Accept-Ranges","Content-Length")) {
                 String value = response.header(name); if (value != null) exchange.getResponseHeaders().set(name,value);
             }
@@ -192,6 +196,10 @@ final class ProbeRelay implements AutoCloseable {
     }
     TrackSnapshot track(String name) { return tracks.get(name).snapshot(); }
     long bytes() { return bytes.get(); }
+    JSONObject runDenialWitness() {
+        if(!closed || !executor.isTerminated() || !exchanges.isEmpty()) throw new IllegalStateException("CloseRelayBeforeWitness");
+        return denialWitness.run().put("relayClosedBeforeDiagnostic",true);
+    }
     JSONObject report() { return responseReport().put("bytesForwarded",bytes()).put("requests",requests.get())
             .put("rejectedRequests",rejected.get()).put("streamFailures",failures.get()).put("activeRequests",exchanges.size())
             .put("tracks",new JSONObject(tracks.entrySet().stream().collect(java.util.stream.Collectors.toMap(Map.Entry::getKey,e->{var t=e.getValue().snapshot(); return new JSONObject().put("bytes",t.bytes()).put("readMs",t.readMs()).put("writeMs",t.writeMs()).put("pendingReadMs",t.pendingReadMs()).put("pendingWriteMs",t.pendingWriteMs()).put("requests",t.requests()).put("failures",t.failures());}))))
