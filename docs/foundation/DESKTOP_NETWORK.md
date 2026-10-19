@@ -177,3 +177,18 @@ Compile `tools/foundation/ProviderDenialControl.java` with the installed spike c
 Diagnostic exceptions after cleanup are recorded as `diagnostic_error` with only the exception class; they do not replace the original playback result or failed stage. The witness also requires the relay executor to have terminated and its handler set to be empty. If that condition is not met, it makes no diagnostic request.
 
 The diagnostic enforces one network exchange per call in a network interceptor, independently of redirect/connection-retry settings. OkHttp 5.4.0 can otherwise follow a 503 with Retry-After zero; see its [pinned follow-up implementation](https://raw.githubusercontent.com/square/okhttp/parent-5.4.0/okhttp/src/commonJvmAndroid/kotlin/okhttp3/internal/http/RetryAndFollowUpInterceptor.kt). A blocked follow-up retains the first observed status and reports `followUpBlocked` plus an error class, without another provider request. A local 503 regression verifies that bound. HTTP timeouts are configured library limits; the unchanged supervisor remains the hard whole-process deadline.
+
+
+## Native denial lifecycle controls
+
+The HTTP boundary controls above do not initialize libVLC. To check denial handling through the real supervisor, native player and cleanup sequence, run the synthetic paired fixture control:
+
+```powershell
+& $Python tools/foundation/denial_lifecycle.py --java-home $JavaHome --distribution $Distribution --fixture-directory <generated-paired-fixture> --output-directory D:\tmp\dd\<fresh-control-directory>
+```
+
+Use a generated directory containing `sync-video.mp4` and `sync-audio.m4a` (both longer than the normal transport test). This command starts a temporary literal-loopback HTTP origin and runs three sequential dummy-output workers: normal delivery, a video 403, then an audio 403. The last two origins deliberately return 206 only for the witness's VisionOS User-Agent. This is a constructed local header dependency, not a claim about YouTube. Each denied native worker must retain a nonzero exit and `failed/decode` result even when its later witness can read media bytes. The control requires clean native shutdown, post-cleanup ordering, exact separate request accounting and bounded 403/206/403 witness results. A failed native worker is an expected negative result; only the surrounding control suite reports `passed` after verifying it.
+
+The spike-only `--fixture-http-paired` entry point accepts two explicit `http://127.0.0.1:<port>/...` initial origins and requires `DD_PLAYER_NETWORK_FAULT=relay`. It rejects other hosts/schemes, implicit or invalid ports, user information, fragments and combined outage modes before native allocation. It does not extract provider media. The fixture origin and all native/control logs live in disposable storage; portable results contain no origin address, request targets or media bytes. Normal YouTube selection and relay HTTP policy are unchanged.
+
+The passive observer also accepts `-NetworkDownSeconds 5..45` (default 25), forwards it to the existing Python/worker option and records the requested duration. For example, append `-NetworkDownSeconds 45` to an existing disconnect command. This changes the explicit application-scoped outage duration; the 30-second recovery deadline, single restart and terminal-progress checks remain unchanged.

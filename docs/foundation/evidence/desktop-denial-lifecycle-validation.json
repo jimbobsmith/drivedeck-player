@@ -1,0 +1,6980 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-19",
+  "issue": 2,
+  "baselineMainCommit": "47c2987b1d4df238cd38081660e0237a0aec495b",
+  "extractorPin": "c68e10e2e97495877832d8df6cbac55478083019",
+  "qualifiedRuntime": {
+    "workerJarSha256": "9089f328397125488c5efc42bc2a323ad1e39577b62d0f4a62a36bc305c25dca",
+    "javaTests": 65,
+    "pythonTests": 46,
+    "totalTests": 111,
+    "distributionBuildPassed": true,
+    "buildCompletedBeforeProbes": true
+  },
+  "nativeDenialControls": {
+    "schemaVersion": 1,
+    "result": "passed",
+    "syntheticLoopbackOnly": true,
+    "nativePlaybackAttempted": true,
+    "output": "dummy_decode_only",
+    "realYouTube403Reproduced": false,
+    "providerRootCauseProven": false,
+    "cases": [
+      {
+        "control": "baseline",
+        "processExit": 0,
+        "worker": {
+          "pauseStable": true,
+          "javaVersion": "25.0.4.1",
+          "providerDenialWitnessRequested": true,
+          "lengthMs": 210000,
+          "beforeSeekDecodedVideo": 547,
+          "avSyncProven": false,
+          "beforeSeekDecodedAudio": 483,
+          "output": "dummy_decode_only",
+          "vlcVersion": "3.0.24 Vetinari",
+          "result": "passed",
+          "postSeekPositionMs": 7679,
+          "postSeekDecodedVideo": 896,
+          "demuxPolicy": "avformat",
+          "networkCacheMs": 1000,
+          "seekWaitMs": 804,
+          "postSeekDecodedAudio": 677,
+          "seekWorked": true,
+          "resumeAdvanced": true,
+          "schemaVersion": 2,
+          "pairedAudio": true,
+          "seekReadyClockAdvancedMs": 679,
+          "relay": {
+            "bytesForwarded": 9629965,
+            "closed": true,
+            "upstreamResponses": [
+              {
+                "redirectCount": 0,
+                "rangeStart": 0,
+                "method": "GET",
+                "requestElapsedMs": 50,
+                "declaredContentLength": 8386747,
+                "expiryKnown": false,
+                "track": "video",
+                "sourceAgeMs": 1421,
+                "rangeKind": "open",
+                "status": 206
+              },
+              {
+                "redirectCount": 0,
+                "rangeStart": 0,
+                "method": "GET",
+                "requestElapsedMs": 2,
+                "declaredContentLength": 1243218,
+                "expiryKnown": false,
+                "track": "audio",
+                "sourceAgeMs": 3031,
+                "rangeKind": "open",
+                "status": 206
+              }
+            ],
+            "droppedUpstreamResponses": 0,
+            "requests": 2,
+            "streamFailures": 0,
+            "loopbackOnly": true,
+            "upstreamHttpStatuses": {
+              "206": 2
+            },
+            "rejectedRequests": 0,
+            "activeRequests": 0,
+            "tracks": {
+              "audio": {
+                "failures": 0,
+                "bytes": 1243218,
+                "pendingWriteMs": 0,
+                "readMs": 5,
+                "requests": 1,
+                "writeMs": 3,
+                "pendingReadMs": 0
+              },
+              "video": {
+                "failures": 0,
+                "bytes": 8386747,
+                "pendingWriteMs": 0,
+                "readMs": 18,
+                "requests": 1,
+                "writeMs": 51,
+                "pendingReadMs": 0
+              }
+            }
+          },
+          "audioOutputRequested": "dummy",
+          "cleanShutdown": true,
+          "decodedVideo": 371,
+          "jnaVersion": "5.14.0",
+          "decodedAudio": 347,
+          "providerDenialWitness": {
+            "sourceUrlSaved": false,
+            "relayClosedBeforeDiagnostic": true,
+            "rootCauseProven": false,
+            "rawBodySaved": false,
+            "requests": [],
+            "enabled": true,
+            "retryOnConnectionFailure": false,
+            "result": "not_triggered",
+            "maximumBytesReadPerRequest": 1024,
+            "followRedirects": false,
+            "playbackRetriedByWitness": false,
+            "callTimeoutMs": 3000,
+            "nativeCleanupPrecededDiagnostic": true,
+            "maximumRequests": 3
+          },
+          "decoderPolicy": "software_avcodec",
+          "seekTargetMs": 7000,
+          "stage": "complete",
+          "seekable": true,
+          "nativeProcessIsolated": true,
+          "processExitCode": 0,
+          "syntheticLoopbackHttpFixture": true,
+          "positionMs": 2530
+        },
+        "originRequests": [
+          {
+            "track": "video",
+            "method": "GET",
+            "visionosUserAgent": false,
+            "status": 206,
+            "responseBytes": 8386747
+          },
+          {
+            "track": "audio",
+            "method": "GET",
+            "visionosUserAgent": false,
+            "status": 206,
+            "responseBytes": 1243218
+          }
+        ],
+        "droppedOriginRequests": 0
+      },
+      {
+        "control": "video",
+        "processExit": 1,
+        "worker": {
+          "schemaVersion": 2,
+          "pairedAudio": true,
+          "errorType": "IOException",
+          "providerDenialWitnessRequested": true,
+          "lengthMs": 0,
+          "relay": {
+            "bytesForwarded": 0,
+            "closed": true,
+            "upstreamResponses": [
+              {
+                "redirectCount": 0,
+                "rangeStart": 0,
+                "method": "GET",
+                "requestElapsedMs": 40,
+                "declaredContentLength": 0,
+                "expiryKnown": false,
+                "track": "video",
+                "sourceAgeMs": 628,
+                "rangeKind": "open",
+                "status": 403
+              },
+              {
+                "redirectCount": 0,
+                "rangeStart": 0,
+                "method": "GET",
+                "requestElapsedMs": 1,
+                "declaredContentLength": 0,
+                "expiryKnown": false,
+                "track": "video",
+                "sourceAgeMs": 692,
+                "rangeKind": "open",
+                "status": 403
+              },
+              {
+                "redirectCount": 0,
+                "method": "GET",
+                "requestElapsedMs": 0,
+                "declaredContentLength": 0,
+                "expiryKnown": false,
+                "track": "video",
+                "sourceAgeMs": 739,
+                "rangeKind": "none",
+                "status": 403
+              },
+              {
+                "redirectCount": 0,
+                "method": "GET",
+                "requestElapsedMs": 0,
+                "declaredContentLength": 0,
+                "expiryKnown": false,
+                "track": "video",
+                "sourceAgeMs": 752,
+                "rangeKind": "none",
+                "status": 403
+              }
+            ],
+            "droppedUpstreamResponses": 0,
+            "requests": 4,
+            "streamFailures": 0,
+            "loopbackOnly": true,
+            "upstreamHttpStatuses": {
+              "403": 4
+            },
+            "rejectedRequests": 0,
+            "activeRequests": 0,
+            "tracks": {
+              "audio": {
+                "failures": 0,
+                "bytes": 0,
+                "pendingWriteMs": 0,
+                "readMs": 0,
+                "requests": 0,
+                "writeMs": 0,
+                "pendingReadMs": 0
+              },
+              "video": {
+                "failures": 0,
+                "bytes": 0,
+                "pendingWriteMs": 0,
+                "readMs": 0,
+                "requests": 4,
+                "writeMs": 0,
+                "pendingReadMs": 0
+              }
+            }
+          },
+          "audioOutputRequested": "dummy",
+          "cleanShutdown": true,
+          "decodedVideo": 0,
+          "decodedAudio": 0,
+          "providerDenialWitness": {
+            "sourceUrlSaved": false,
+            "relayClosedBeforeDiagnostic": true,
+            "rootCauseProven": false,
+            "rawBodySaved": false,
+            "requests": [
+              {
+                "redirectCount": 0,
+                "rangeStart": 0,
+                "method": "GET",
+                "networkExchangeAttempts": 1,
+                "profile": "relay_default_first",
+                "expiryKnown": false,
+                "bytesRead": 0,
+                "followUpBlocked": false,
+                "sourceAgeMs": 30769,
+                "rangeKind": "open",
+                "status": 403,
+                "elapsedMs": 13
+              },
+              {
+                "redirectCount": 0,
+                "rangeStart": 0,
+                "method": "GET",
+                "networkExchangeAttempts": 1,
+                "profile": "visionos_user_agent",
+                "expiryKnown": false,
+                "bytesRead": 1024,
+                "followUpBlocked": false,
+                "sourceAgeMs": 30782,
+                "rangeKind": "open",
+                "status": 206,
+                "elapsedMs": 30
+              },
+              {
+                "redirectCount": 0,
+                "rangeStart": 0,
+                "method": "GET",
+                "networkExchangeAttempts": 1,
+                "profile": "relay_default_second",
+                "expiryKnown": false,
+                "bytesRead": 0,
+                "followUpBlocked": false,
+                "sourceAgeMs": 30813,
+                "rangeKind": "open",
+                "status": 403,
+                "elapsedMs": 1
+              }
+            ],
+            "enabled": true,
+            "sourceClientClass": "VISIONOS",
+            "retryOnConnectionFailure": false,
+            "result": "completed",
+            "maximumBytesReadPerRequest": 1024,
+            "originalDenial": {
+              "redirectCount": 0,
+              "rangeStart": 0,
+              "method": "GET",
+              "requestElapsedMs": 40,
+              "declaredContentLength": 0,
+              "expiryKnown": false,
+              "track": "video",
+              "sourceAgeMs": 628,
+              "rangeKind": "open",
+              "status": 403
+            },
+            "followRedirects": false,
+            "playbackRetriedByWitness": false,
+            "callTimeoutMs": 3000,
+            "track": "video",
+            "nativeCleanupPrecededDiagnostic": true,
+            "maximumRequests": 3
+          },
+          "result": "failed",
+          "stage": "decode",
+          "nativeProcessIsolated": true,
+          "networkCacheMs": 1000,
+          "processExitCode": 1,
+          "syntheticLoopbackHttpFixture": true,
+          "positionMs": 0
+        },
+        "originRequests": [
+          {
+            "track": "video",
+            "method": "GET",
+            "visionosUserAgent": false,
+            "status": 403,
+            "responseBytes": 0
+          },
+          {
+            "track": "video",
+            "method": "GET",
+            "visionosUserAgent": false,
+            "status": 403,
+            "responseBytes": 0
+          },
+          {
+            "track": "video",
+            "method": "GET",
+            "visionosUserAgent": false,
+            "status": 403,
+            "responseBytes": 0
+          },
+          {
+            "track": "video",
+            "method": "GET",
+            "visionosUserAgent": false,
+            "status": 403,
+            "responseBytes": 0
+          },
+          {
+            "track": "video",
+            "method": "GET",
+            "visionosUserAgent": false,
+            "status": 403,
+            "responseBytes": 0
+          },
+          {
+            "track": "video",
+            "method": "GET",
+            "visionosUserAgent": true,
+            "status": 206,
+            "responseBytes": 8386747
+          },
+          {
+            "track": "video",
+            "method": "GET",
+            "visionosUserAgent": false,
+            "status": 403,
+            "responseBytes": 0
+          }
+        ],
+        "droppedOriginRequests": 0
+      },
+      {
+        "control": "audio",
+        "processExit": 1,
+        "worker": {
+          "schemaVersion": 2,
+          "pairedAudio": true,
+          "errorType": "IOException",
+          "providerDenialWitnessRequested": true,
+          "lengthMs": 210000,
+          "relay": {
+            "bytesForwarded": 10998896,
+            "closed": true,
+            "upstreamResponses": [
+              {
+                "redirectCount": 0,
+                "rangeStart": 0,
+                "method": "GET",
+                "requestElapsedMs": 43,
+                "declaredContentLength": 8386747,
+                "expiryKnown": false,
+                "track": "video",
+                "sourceAgeMs": 660,
+                "rangeKind": "open",
+                "status": 206
+              },
+              {
+                "redirectCount": 0,
+                "rangeStart": 8386743,
+                "method": "GET",
+                "requestElapsedMs": 2,
+                "declaredContentLength": 4,
+                "expiryKnown": false,
+                "track": "video",
+                "sourceAgeMs": 745,
+                "rangeKind": "open",
+                "status": 206
+              },
+              {
+                "redirectCount": 0,
+                "rangeStart": 1103,
+                "method": "GET",
+                "requestElapsedMs": 1,
+                "declaredContentLength": 8385644,
+                "expiryKnown": false,
+                "track": "video",
+                "sourceAgeMs": 750,
+                "rangeKind": "open",
+                "status": 206
+              },
+              {
+                "redirectCount": 0,
+                "rangeStart": 0,
+                "method": "GET",
+                "requestElapsedMs": 1,
+                "declaredContentLength": 0,
+                "expiryKnown": false,
+                "track": "audio",
+                "sourceAgeMs": 772,
+                "rangeKind": "open",
+                "status": 403
+              },
+              {
+                "redirectCount": 0,
+                "rangeStart": 0,
+                "method": "GET",
+                "requestElapsedMs": 0,
+                "declaredContentLength": 0,
+                "expiryKnown": false,
+                "track": "audio",
+                "sourceAgeMs": 777,
+                "rangeKind": "open",
+                "status": 403
+              },
+              {
+                "redirectCount": 0,
+                "method": "GET",
+                "requestElapsedMs": 0,
+                "declaredContentLength": 0,
+                "expiryKnown": false,
+                "track": "audio",
+                "sourceAgeMs": 781,
+                "rangeKind": "none",
+                "status": 403
+              },
+              {
+                "redirectCount": 0,
+                "method": "GET",
+                "requestElapsedMs": 0,
+                "declaredContentLength": 0,
+                "expiryKnown": false,
+                "track": "audio",
+                "sourceAgeMs": 793,
+                "rangeKind": "none",
+                "status": 403
+              }
+            ],
+            "droppedUpstreamResponses": 0,
+            "requests": 7,
+            "streamFailures": 1,
+            "loopbackOnly": true,
+            "upstreamHttpStatuses": {
+              "403": 4,
+              "206": 3
+            },
+            "rejectedRequests": 0,
+            "activeRequests": 0,
+            "tracks": {
+              "audio": {
+                "failures": 0,
+                "bytes": 0,
+                "pendingWriteMs": 0,
+                "readMs": 0,
+                "requests": 4,
+                "writeMs": 0,
+                "pendingReadMs": 0
+              },
+              "video": {
+                "failures": 1,
+                "bytes": 10998896,
+                "pendingWriteMs": 0,
+                "readMs": 19,
+                "requests": 3,
+                "writeMs": 31,
+                "pendingReadMs": 0
+              }
+            }
+          },
+          "audioOutputRequested": "dummy",
+          "cleanShutdown": true,
+          "decodedVideo": 3651,
+          "decodedAudio": 0,
+          "providerDenialWitness": {
+            "sourceUrlSaved": false,
+            "relayClosedBeforeDiagnostic": true,
+            "rootCauseProven": false,
+            "rawBodySaved": false,
+            "requests": [
+              {
+                "redirectCount": 0,
+                "rangeStart": 0,
+                "method": "GET",
+                "networkExchangeAttempts": 1,
+                "profile": "relay_default_first",
+                "expiryKnown": false,
+                "bytesRead": 0,
+                "followUpBlocked": false,
+                "sourceAgeMs": 30799,
+                "rangeKind": "open",
+                "status": 403,
+                "elapsedMs": 8
+              },
+              {
+                "redirectCount": 0,
+                "rangeStart": 0,
+                "method": "GET",
+                "networkExchangeAttempts": 1,
+                "profile": "visionos_user_agent",
+                "expiryKnown": false,
+                "bytesRead": 1024,
+                "followUpBlocked": false,
+                "sourceAgeMs": 30807,
+                "rangeKind": "open",
+                "status": 206,
+                "elapsedMs": 7
+              },
+              {
+                "redirectCount": 0,
+                "rangeStart": 0,
+                "method": "GET",
+                "networkExchangeAttempts": 1,
+                "profile": "relay_default_second",
+                "expiryKnown": false,
+                "bytesRead": 0,
+                "followUpBlocked": false,
+                "sourceAgeMs": 30815,
+                "rangeKind": "open",
+                "status": 403,
+                "elapsedMs": 0
+              }
+            ],
+            "enabled": true,
+            "sourceClientClass": "VISIONOS",
+            "retryOnConnectionFailure": false,
+            "result": "completed",
+            "maximumBytesReadPerRequest": 1024,
+            "originalDenial": {
+              "redirectCount": 0,
+              "rangeStart": 0,
+              "method": "GET",
+              "requestElapsedMs": 1,
+              "declaredContentLength": 0,
+              "expiryKnown": false,
+              "track": "audio",
+              "sourceAgeMs": 772,
+              "rangeKind": "open",
+              "status": 403
+            },
+            "followRedirects": false,
+            "playbackRetriedByWitness": false,
+            "callTimeoutMs": 3000,
+            "track": "audio",
+            "nativeCleanupPrecededDiagnostic": true,
+            "maximumRequests": 3
+          },
+          "result": "failed",
+          "stage": "decode",
+          "nativeProcessIsolated": true,
+          "networkCacheMs": 1000,
+          "processExitCode": 1,
+          "syntheticLoopbackHttpFixture": true,
+          "positionMs": 29884
+        },
+        "originRequests": [
+          {
+            "track": "video",
+            "method": "GET",
+            "visionosUserAgent": false,
+            "status": 206,
+            "responseBytes": 8386747
+          },
+          {
+            "track": "video",
+            "method": "GET",
+            "visionosUserAgent": false,
+            "status": 206,
+            "responseBytes": 4
+          },
+          {
+            "track": "video",
+            "method": "GET",
+            "visionosUserAgent": false,
+            "status": 206,
+            "responseBytes": 8385644
+          },
+          {
+            "track": "audio",
+            "method": "GET",
+            "visionosUserAgent": false,
+            "status": 403,
+            "responseBytes": 0
+          },
+          {
+            "track": "audio",
+            "method": "GET",
+            "visionosUserAgent": false,
+            "status": 403,
+            "responseBytes": 0
+          },
+          {
+            "track": "audio",
+            "method": "GET",
+            "visionosUserAgent": false,
+            "status": 403,
+            "responseBytes": 0
+          },
+          {
+            "track": "audio",
+            "method": "GET",
+            "visionosUserAgent": false,
+            "status": 403,
+            "responseBytes": 0
+          },
+          {
+            "track": "audio",
+            "method": "GET",
+            "visionosUserAgent": false,
+            "status": 403,
+            "responseBytes": 0
+          },
+          {
+            "track": "audio",
+            "method": "GET",
+            "visionosUserAgent": true,
+            "status": 206,
+            "responseBytes": 1243218
+          },
+          {
+            "track": "audio",
+            "method": "GET",
+            "visionosUserAgent": false,
+            "status": 403,
+            "responseBytes": 0
+          }
+        ],
+        "droppedOriginRequests": 0
+      }
+    ]
+  },
+  "generatedFixture": {
+    "recipe": {
+      "durationSeconds": 210,
+      "fps": 60,
+      "width": 1920,
+      "height": 1080,
+      "sampleRate": 48000,
+      "pulsePeriodMs": 4000,
+      "flashDurationMs": 66.66666666666667,
+      "toneDurationMs": 20,
+      "continuousCarrierHz": 300,
+      "continuousCarrierAmplitude": 0.005,
+      "toneBaseHz": 1000,
+      "toneStepPerIdHz": 100,
+      "maximumPulseId": 52,
+      "audioDelayMs": 0,
+      "videoSha256": "6937dde237b90c370ec97a07b5bd80834338feaa3d6fbd3dbe55c5d9be3e67cd",
+      "audioSha256": "46f5ba5e56a838f53b2d874a66f0442d41852533779a0b793517bd3b1f105dae",
+      "unfragmentedVideoSha256": "3e0fb4cd4bbd331bb7d1bcb3103c3bda63c065a1594fb7cdd303721148268f7e",
+      "videoPacketIdentity": {
+        "payloadSha256": "829ee4be9523b4cadf4363c943b6d8af4c21a56f728d784582d8480d263a000d",
+        "timelineSha256": "bcab1c10a502902f11879e530a51ce886c380200d48af94df3c8da47405ae275",
+        "packetCount": 12600,
+        "first": [
+          0,
+          0,
+          256,
+          "1/15360"
+        ],
+        "last": [
+          3225344,
+          3225344,
+          256,
+          "1/15360"
+        ]
+      },
+      "unfragmentedAudioSha256": "6aace8dcf4a76489bf75c4e9279861dcd9d47600ddb5b522bb3bae77e65cfffe",
+      "generator": "fragment-sync-fixture.py",
+      "pyavVersion": "19.0.1",
+      "fragmentDurationMs": 10000,
+      "fragmentVideo": true,
+      "muxOptions": {
+        "movflags": "delay_moov+default_base_moof+global_sidx",
+        "frag_duration": "10000000"
+      },
+      "packetIdentity": {
+        "payloadSha256": "91412b1afc76c34a85bd8a673c83c3b3c37cd070bc30a322836000e72389e49b",
+        "timelineSha256": "23422084a21110952e58f51d79a051fb26c0652e7bb7df5c24df66aaf33919bb",
+        "packetCount": 9845,
+        "first": [
+          -1024,
+          -1024,
+          1024,
+          "1/48000"
+        ],
+        "last": [
+          10079232,
+          10079232,
+          768,
+          "1/48000"
+        ]
+      },
+      "encodedPacketsAndTimelineIdentical": true
+    },
+    "sha256": {
+      "sync-video.mp4": "6937dde237b90c370ec97a07b5bd80834338feaa3d6fbd3dbe55c5d9be3e67cd",
+      "sync-audio.m4a": "46f5ba5e56a838f53b2d874a66f0442d41852533779a0b793517bd3b1f105dae"
+    }
+  },
+  "actualProviderTrial": {
+    "case": "600_second_disconnect_45_second_outage",
+    "worker": {
+      "result": "passed",
+      "stage": "complete",
+      "cleanShutdown": true,
+      "processExitCode": 0,
+      "pauseStable": true,
+      "resumeAdvanced": true,
+      "seekWorked": true,
+      "videoResolution": "1080p60",
+      "selectedHeight": 1080,
+      "selectedFps": 60,
+      "selectedCodec": "avc1.64002A",
+      "selectedAudioSampleRate": 44100,
+      "observationRequestedSeconds": 600,
+      "observationWallMs": 605842,
+      "observationClockAdvancedMs": 550053,
+      "providerDenialWitnessRequested": true,
+      "providerDenialWitness": {
+        "sourceUrlSaved": false,
+        "relayClosedBeforeDiagnostic": true,
+        "rootCauseProven": false,
+        "rawBodySaved": false,
+        "requests": [],
+        "enabled": true,
+        "retryOnConnectionFailure": false,
+        "result": "not_triggered",
+        "maximumBytesReadPerRequest": 1024,
+        "followRedirects": false,
+        "playbackRetriedByWitness": false,
+        "callTimeoutMs": 3000,
+        "nativeCleanupPrecededDiagnostic": true,
+        "maximumRequests": 3
+      },
+      "networkScenario": {
+        "confirmedAudioHolds": 9,
+        "blockedBytesAfterSettling": 0,
+        "paintedFramesAtCut": 1286,
+        "outageRequestedSeconds": 45,
+        "diagnosticSamples": 600,
+        "pendingAudioBatchMs": 0,
+        "recoveryValidation": "confirmed_audio_batches_v2",
+        "cutPositionMs": 30760,
+        "confirmedRecoveredMs": 523565,
+        "mode": "disconnect",
+        "recoverySamplesComplete": false,
+        "explicitRestartAttempts": 1,
+        "maximumAudioBatchWindowMs": 2250,
+        "lastObservationElapsedMs": 605841,
+        "events": [
+          {
+            "event": "network_down",
+            "elapsedMs": 15090,
+            "positionMs": 30760
+          },
+          {
+            "event": "output_stall_observed",
+            "elapsedMs": 26152,
+            "positionMs": -1
+          },
+          {
+            "event": "network_up",
+            "elapsedMs": 60861,
+            "positionMs": -1
+          },
+          {
+            "event": "explicit_recovery_restart",
+            "elapsedMs": 71108,
+            "positionMs": 40634
+          },
+          {
+            "event": "output_recovered",
+            "elapsedMs": 82276,
+            "positionMs": 42044
+          }
+        ],
+        "maximumDecisionIntervalMs": 1250,
+        "recoveryLatencyMs": 21415,
+        "resumeCheckpointMs": 40634,
+        "recoverySamples": [
+          [
+            83280,
+            43085,
+            1041,
+            43,
+            61,
+            60,
+            802800,
+            1004
+          ],
+          [
+            84287,
+            44107,
+            1022,
+            44,
+            61,
+            60,
+            819200,
+            1007
+          ],
+          [
+            85292,
+            45110,
+            1003,
+            43,
+            62,
+            60,
+            720896,
+            1005
+          ],
+          [
+            86296,
+            46127,
+            1017,
+            43,
+            61,
+            60,
+            802800,
+            1004
+          ],
+          [
+            87301,
+            47172,
+            1045,
+            44,
+            61,
+            61,
+            819200,
+            1005
+          ],
+          [
+            88305,
+            48177,
+            1005,
+            43,
+            62,
+            60,
+            802816,
+            1004
+          ],
+          [
+            89311,
+            49194,
+            1017,
+            43,
+            61,
+            60,
+            802800,
+            1006
+          ],
+          [
+            90317,
+            49960,
+            766,
+            43,
+            46,
+            61,
+            819200,
+            1006
+          ],
+          [
+            91324,
+            51004,
+            1044,
+            44,
+            61,
+            60,
+            802800,
+            1007
+          ],
+          [
+            92330,
+            52012,
+            1008,
+            43,
+            62,
+            60,
+            802816,
+            1006
+          ],
+          [
+            93333,
+            53029,
+            1017,
+            43,
+            61,
+            61,
+            819200,
+            1003
+          ],
+          [
+            94338,
+            54069,
+            1040,
+            43,
+            61,
+            60,
+            802800,
+            1005
+          ],
+          [
+            95342,
+            55090,
+            1021,
+            44,
+            61,
+            60,
+            720896,
+            1004
+          ],
+          [
+            96346,
+            56094,
+            1004,
+            43,
+            62,
+            60,
+            655360,
+            1004
+          ],
+          [
+            97350,
+            57112,
+            1018,
+            43,
+            61,
+            61,
+            966640,
+            1004
+          ],
+          [
+            98355,
+            58155,
+            1043,
+            43,
+            61,
+            60,
+            802816,
+            1005
+          ],
+          [
+            99375,
+            59160,
+            1005,
+            44,
+            62,
+            60,
+            819184,
+            1020
+          ],
+          [
+            100381,
+            60178,
+            1018,
+            43,
+            61,
+            60,
+            802816,
+            1006
+          ],
+          [
+            101386,
+            61220,
+            1042,
+            44,
+            61,
+            61,
+            819200,
+            1005
+          ],
+          [
+            102390,
+            62228,
+            1008,
+            43,
+            62,
+            60,
+            802800,
+            1004
+          ],
+          [
+            103395,
+            63244,
+            1016,
+            43,
+            61,
+            60,
+            802816,
+            1005
+          ],
+          [
+            104399,
+            64286,
+            1042,
+            44,
+            61,
+            61,
+            770032,
+            1004
+          ],
+          [
+            105403,
+            65307,
+            1021,
+            43,
+            61,
+            60,
+            770048,
+            1004
+          ],
+          [
+            106408,
+            66310,
+            1003,
+            43,
+            62,
+            60,
+            802816,
+            1005
+          ],
+          [
+            107415,
+            67078,
+            768,
+            43,
+            46,
+            61,
+            819184,
+            1007
+          ],
+          [
+            108418,
+            68094,
+            1016,
+            44,
+            61,
+            60,
+            589824,
+            1003
+          ],
+          [
+            109423,
+            69139,
+            1045,
+            43,
+            61,
+            60,
+            1015808,
+            1005
+          ],
+          [
+            110428,
+            70143,
+            1004,
+            43,
+            62,
+            60,
+            753648,
+            1005
+          ],
+          [
+            111431,
+            71161,
+            1018,
+            43,
+            61,
+            60,
+            786432,
+            1003
+          ],
+          [
+            112437,
+            72203,
+            1042,
+            44,
+            61,
+            61,
+            802800,
+            1006
+          ],
+          [
+            113440,
+            73211,
+            1008,
+            43,
+            61,
+            60,
+            802816,
+            1003
+          ],
+          [
+            114445,
+            74228,
+            1017,
+            43,
+            62,
+            60,
+            819200,
+            1005
+          ],
+          [
+            115449,
+            75269,
+            1041,
+            44,
+            61,
+            61,
+            802800,
+            1004
+          ],
+          [
+            116455,
+            76291,
+            1022,
+            43,
+            61,
+            60,
+            720896,
+            1006
+          ],
+          [
+            117460,
+            77294,
+            1003,
+            43,
+            62,
+            60,
+            819200,
+            1005
+          ],
+          [
+            118466,
+            78311,
+            1017,
+            43,
+            61,
+            60,
+            663536,
+            1006
+          ],
+          [
+            119470,
+            79356,
+            1045,
+            44,
+            61,
+            60,
+            786432,
+            1004
+          ],
+          [
+            120474,
+            80360,
+            1004,
+            43,
+            62,
+            60,
+            786432,
+            1004
+          ],
+          [
+            121481,
+            81378,
+            1018,
+            44,
+            61,
+            60,
+            876528,
+            1007
+          ],
+          [
+            122486,
+            82145,
+            767,
+            43,
+            46,
+            61,
+            434176,
+            1005
+          ],
+          [
+            123491,
+            83187,
+            1042,
+            43,
+            61,
+            60,
+            393216,
+            1005
+          ],
+          [
+            124496,
+            84194,
+            1007,
+            44,
+            62,
+            60,
+            253952,
+            1005
+          ],
+          [
+            125500,
+            85211,
+            1017,
+            43,
+            61,
+            60,
+            131072,
+            1004
+          ],
+          [
+            126505,
+            86251,
+            1040,
+            43,
+            61,
+            61,
+            139248,
+            1005
+          ],
+          [
+            127511,
+            87275,
+            1024,
+            44,
+            62,
+            60,
+            0,
+            1006
+          ],
+          [
+            128514,
+            88278,
+            1003,
+            43,
+            61,
+            60,
+            253952,
+            1003
+          ],
+          [
+            129518,
+            89294,
+            1016,
+            43,
+            61,
+            61,
+            131072,
+            1004
+          ],
+          [
+            130522,
+            90339,
+            1045,
+            43,
+            61,
+            60,
+            0,
+            1004
+          ],
+          [
+            131527,
+            91344,
+            1005,
+            44,
+            62,
+            60,
+            393216,
+            1005
+          ],
+          [
+            132531,
+            92362,
+            1018,
+            43,
+            61,
+            60,
+            262144,
+            1004
+          ],
+          [
+            133538,
+            93403,
+            1041,
+            43,
+            61,
+            61,
+            262144,
+            1007
+          ],
+          [
+            134544,
+            94411,
+            1008,
+            44,
+            61,
+            60,
+            0,
+            1006
+          ],
+          [
+            135549,
+            95429,
+            1018,
+            43,
+            62,
+            60,
+            0,
+            1005
+          ],
+          [
+            136553,
+            96469,
+            1040,
+            43,
+            61,
+            61,
+            131072,
+            1004
+          ],
+          [
+            137559,
+            97235,
+            766,
+            44,
+            46,
+            60,
+            131072,
+            1006
+          ],
+          [
+            138564,
+            98257,
+            1022,
+            43,
+            61,
+            60,
+            393216,
+            1005
+          ],
+          [
+            139571,
+            99261,
+            1004,
+            43,
+            62,
+            61,
+            0,
+            1007
+          ],
+          [
+            140577,
+            100277,
+            1016,
+            44,
+            61,
+            60,
+            139248,
+            1006
+          ],
+          [
+            141582,
+            101321,
+            1044,
+            43,
+            62,
+            61,
+            385024,
+            1005
+          ],
+          [
+            142587,
+            102328,
+            1007,
+            43,
+            61,
+            60,
+            385024,
+            1005
+          ]
+        ],
+        "paintedFramesAtRecovery": 2148,
+        "recoverySampleColumns": [
+          "elapsedMs",
+          "positionMs",
+          "clockDeltaMs",
+          "audioBufferDelta",
+          "pictureDelta",
+          "paintDelta",
+          "relayByteDelta",
+          "wallDeltaMs"
+        ],
+        "audibleContinuityProven": false,
+        "longestConsecutiveRecoveredSeconds": 523,
+        "terminalReason": "",
+        "recovered": true,
+        "steadyRecoveredSeconds": 523,
+        "stallObserved": true,
+        "faultInjected": true,
+        "totalRecoveryDecisionSamples": 521,
+        "longestConfirmedRecoveredMs": 523565,
+        "restored": true,
+        "recoveryDecisionSidecar": "recovery-decisions.csv"
+      },
+      "audioTimeline": {
+        "rawMessagesSaved": false,
+        "droppedEvents": 0,
+        "optIn": true,
+        "samplePeriodTargetMs": 200,
+        "outputConsumptionClock": false,
+        "nativeLogDetached": true,
+        "samples": 3000,
+        "events": 18,
+        "droppedSamples": 0
+      },
+      "relay": {
+        "bytesForwarded": 275892192,
+        "closed": true,
+        "upstreamResponses": [
+          {
+            "redirectCount": 0,
+            "rangeStart": 0,
+            "method": "GET",
+            "requestElapsedMs": 448,
+            "declaredContentLength": 257619653,
+            "expiryKnown": true,
+            "expirySecondsAtResponse": 21597,
+            "track": "video",
+            "sourceAgeMs": 1300,
+            "rangeKind": "open",
+            "status": 206
+          },
+          {
+            "redirectCount": 0,
+            "rangeStart": 0,
+            "method": "GET",
+            "requestElapsedMs": 349,
+            "declaredContentLength": 10271496,
+            "expiryKnown": true,
+            "expirySecondsAtResponse": 21596,
+            "track": "audio",
+            "sourceAgeMs": 2266,
+            "rangeKind": "open",
+            "status": 206
+          },
+          {
+            "redirectCount": 0,
+            "rangeStart": 5812488,
+            "method": "GET",
+            "requestElapsedMs": 54,
+            "declaredContentLength": 251807165,
+            "expiryKnown": true,
+            "expirySecondsAtResponse": 21590,
+            "track": "video",
+            "sourceAgeMs": 8813,
+            "rangeKind": "open",
+            "status": 206
+          },
+          {
+            "redirectCount": 0,
+            "rangeStart": 0,
+            "method": "GET",
+            "requestElapsedMs": 294,
+            "declaredContentLength": 257619653,
+            "expiryKnown": true,
+            "expirySecondsAtResponse": 21513,
+            "track": "video",
+            "sourceAgeMs": 85541,
+            "rangeKind": "open",
+            "status": 206
+          },
+          {
+            "redirectCount": 0,
+            "rangeStart": 0,
+            "method": "GET",
+            "requestElapsedMs": 523,
+            "declaredContentLength": 10271496,
+            "expiryKnown": true,
+            "expirySecondsAtResponse": 21512,
+            "track": "audio",
+            "sourceAgeMs": 86148,
+            "rangeKind": "open",
+            "status": 206
+          },
+          {
+            "redirectCount": 0,
+            "rangeStart": 17298696,
+            "method": "GET",
+            "requestElapsedMs": 208,
+            "declaredContentLength": 240320957,
+            "expiryKnown": true,
+            "expirySecondsAtResponse": 21511,
+            "track": "video",
+            "sourceAgeMs": 87670,
+            "rangeKind": "open",
+            "status": 206
+          }
+        ],
+        "droppedUpstreamResponses": 0,
+        "requests": 6,
+        "streamFailures": 4,
+        "loopbackOnly": true,
+        "upstreamHttpStatuses": {
+          "206": 6
+        },
+        "rejectedRequests": 1,
+        "activeRequests": 0,
+        "tracks": {
+          "audio": {
+            "failures": 0,
+            "bytes": 20542992,
+            "pendingWriteMs": 0,
+            "readMs": 7701,
+            "requests": 2,
+            "writeMs": 107,
+            "pendingReadMs": 0
+          },
+          "video": {
+            "failures": 4,
+            "bytes": 255349200,
+            "pendingWriteMs": 0,
+            "readMs": 84237,
+            "requests": 4,
+            "writeMs": 478251,
+            "pendingReadMs": 0
+          }
+        }
+      }
+    },
+    "measurement": {
+      "result": "passed",
+      "timestampErrors": 0,
+      "captureDiscontinuities": 0,
+      "wallClockMappingChangeMs": 0.104,
+      "providerAVSyncProven": false,
+      "rawAudioSaved": false,
+      "physicalMicrophoneOpened": false,
+      "multimediaSchedulingRestored": true
+    },
+    "observer": {
+      "schemaVersion": 1,
+      "result": "completed",
+      "harnessExit": 0,
+      "keepDisplayAwake": true,
+      "networkFault": "disconnect",
+      "networkDownSeconds": 45
+    },
+    "audit": {
+      "schemaVersion": 2,
+      "recoveryValidation": "confirmed_audio_batches_v2",
+      "counterBatchAudit": {
+        "longestConfirmedMs": 523565,
+        "terminalConfirmedMs": 523565,
+        "pendingMs": 0,
+        "confirmedHolds": 9,
+        "resetDecisions": 0,
+        "qualified": true,
+        "audibleContinuityProven": false,
+        "matchesWorkerDurations": true
+      },
+      "strictPerTickAuditOnly": true,
+      "source": "worker_recovery_decisions",
+      "workerResult": "passed",
+      "terminalReason": "",
+      "decisionSampleCount": 521,
+      "decisionSource": "full_numeric_sidecar",
+      "failedDecisionCount": 9,
+      "recomputedLongestStableSamples": 279,
+      "recomputedTerminalStableSamples": 119,
+      "reportedLongestStableSamples": 523,
+      "reportedTerminalStableSamples": 523,
+      "terminalStabilityQualified": true,
+      "failures": [
+        {
+          "elapsedMs": 363680,
+          "failedComponents": [
+            "audio_not_advanced"
+          ],
+          "clockDeltaMs": 766,
+          "audioDelta": 0,
+          "pictureDelta": 46,
+          "paintDelta": 60
+        },
+        {
+          "elapsedMs": 379761,
+          "failedComponents": [
+            "audio_not_advanced"
+          ],
+          "clockDeltaMs": 766,
+          "audioDelta": 0,
+          "pictureDelta": 46,
+          "paintDelta": 60
+        },
+        {
+          "elapsedMs": 393824,
+          "failedComponents": [
+            "audio_not_advanced"
+          ],
+          "clockDeltaMs": 766,
+          "audioDelta": 0,
+          "pictureDelta": 46,
+          "paintDelta": 60
+        },
+        {
+          "elapsedMs": 409910,
+          "failedComponents": [
+            "audio_not_advanced"
+          ],
+          "clockDeltaMs": 767,
+          "audioDelta": 0,
+          "pictureDelta": 46,
+          "paintDelta": 60
+        },
+        {
+          "elapsedMs": 424983,
+          "failedComponents": [
+            "audio_not_advanced"
+          ],
+          "clockDeltaMs": 767,
+          "audioDelta": 0,
+          "pictureDelta": 46,
+          "paintDelta": 60
+        },
+        {
+          "elapsedMs": 440050,
+          "failedComponents": [
+            "audio_not_advanced"
+          ],
+          "clockDeltaMs": 767,
+          "audioDelta": 0,
+          "pictureDelta": 46,
+          "paintDelta": 61
+        },
+        {
+          "elapsedMs": 455119,
+          "failedComponents": [
+            "audio_not_advanced"
+          ],
+          "clockDeltaMs": 779,
+          "audioDelta": 0,
+          "pictureDelta": 45,
+          "paintDelta": 61
+        },
+        {
+          "elapsedMs": 471208,
+          "failedComponents": [
+            "audio_not_advanced"
+          ],
+          "clockDeltaMs": 765,
+          "audioDelta": 0,
+          "pictureDelta": 46,
+          "paintDelta": 60
+        },
+        {
+          "elapsedMs": 486282,
+          "failedComponents": [
+            "audio_not_advanced"
+          ],
+          "clockDeltaMs": 767,
+          "audioDelta": 0,
+          "pictureDelta": 46,
+          "paintDelta": 60
+        }
+      ],
+      "rootCauseProven": false,
+      "interpretation": "Strict per-tick failures are legacy comparison only for version 2; its counterBatchAudit identifies the active publication gate. Neither audit proves native cause or audible continuity/source alignment."
+    },
+    "fullRecoveryDecisionRows": [
+      [
+        83280,
+        43085,
+        1041,
+        43,
+        61,
+        60,
+        802800,
+        1004
+      ],
+      [
+        84287,
+        44107,
+        1022,
+        44,
+        61,
+        60,
+        819200,
+        1007
+      ],
+      [
+        85292,
+        45110,
+        1003,
+        43,
+        62,
+        60,
+        720896,
+        1005
+      ],
+      [
+        86296,
+        46127,
+        1017,
+        43,
+        61,
+        60,
+        802800,
+        1004
+      ],
+      [
+        87301,
+        47172,
+        1045,
+        44,
+        61,
+        61,
+        819200,
+        1005
+      ],
+      [
+        88305,
+        48177,
+        1005,
+        43,
+        62,
+        60,
+        802816,
+        1004
+      ],
+      [
+        89311,
+        49194,
+        1017,
+        43,
+        61,
+        60,
+        802800,
+        1006
+      ],
+      [
+        90317,
+        49960,
+        766,
+        43,
+        46,
+        61,
+        819200,
+        1006
+      ],
+      [
+        91324,
+        51004,
+        1044,
+        44,
+        61,
+        60,
+        802800,
+        1007
+      ],
+      [
+        92330,
+        52012,
+        1008,
+        43,
+        62,
+        60,
+        802816,
+        1006
+      ],
+      [
+        93333,
+        53029,
+        1017,
+        43,
+        61,
+        61,
+        819200,
+        1003
+      ],
+      [
+        94338,
+        54069,
+        1040,
+        43,
+        61,
+        60,
+        802800,
+        1005
+      ],
+      [
+        95342,
+        55090,
+        1021,
+        44,
+        61,
+        60,
+        720896,
+        1004
+      ],
+      [
+        96346,
+        56094,
+        1004,
+        43,
+        62,
+        60,
+        655360,
+        1004
+      ],
+      [
+        97350,
+        57112,
+        1018,
+        43,
+        61,
+        61,
+        966640,
+        1004
+      ],
+      [
+        98355,
+        58155,
+        1043,
+        43,
+        61,
+        60,
+        802816,
+        1005
+      ],
+      [
+        99375,
+        59160,
+        1005,
+        44,
+        62,
+        60,
+        819184,
+        1020
+      ],
+      [
+        100381,
+        60178,
+        1018,
+        43,
+        61,
+        60,
+        802816,
+        1006
+      ],
+      [
+        101386,
+        61220,
+        1042,
+        44,
+        61,
+        61,
+        819200,
+        1005
+      ],
+      [
+        102390,
+        62228,
+        1008,
+        43,
+        62,
+        60,
+        802800,
+        1004
+      ],
+      [
+        103395,
+        63244,
+        1016,
+        43,
+        61,
+        60,
+        802816,
+        1005
+      ],
+      [
+        104399,
+        64286,
+        1042,
+        44,
+        61,
+        61,
+        770032,
+        1004
+      ],
+      [
+        105403,
+        65307,
+        1021,
+        43,
+        61,
+        60,
+        770048,
+        1004
+      ],
+      [
+        106408,
+        66310,
+        1003,
+        43,
+        62,
+        60,
+        802816,
+        1005
+      ],
+      [
+        107415,
+        67078,
+        768,
+        43,
+        46,
+        61,
+        819184,
+        1007
+      ],
+      [
+        108418,
+        68094,
+        1016,
+        44,
+        61,
+        60,
+        589824,
+        1003
+      ],
+      [
+        109423,
+        69139,
+        1045,
+        43,
+        61,
+        60,
+        1015808,
+        1005
+      ],
+      [
+        110428,
+        70143,
+        1004,
+        43,
+        62,
+        60,
+        753648,
+        1005
+      ],
+      [
+        111431,
+        71161,
+        1018,
+        43,
+        61,
+        60,
+        786432,
+        1003
+      ],
+      [
+        112437,
+        72203,
+        1042,
+        44,
+        61,
+        61,
+        802800,
+        1006
+      ],
+      [
+        113440,
+        73211,
+        1008,
+        43,
+        61,
+        60,
+        802816,
+        1003
+      ],
+      [
+        114445,
+        74228,
+        1017,
+        43,
+        62,
+        60,
+        819200,
+        1005
+      ],
+      [
+        115449,
+        75269,
+        1041,
+        44,
+        61,
+        61,
+        802800,
+        1004
+      ],
+      [
+        116455,
+        76291,
+        1022,
+        43,
+        61,
+        60,
+        720896,
+        1006
+      ],
+      [
+        117460,
+        77294,
+        1003,
+        43,
+        62,
+        60,
+        819200,
+        1005
+      ],
+      [
+        118466,
+        78311,
+        1017,
+        43,
+        61,
+        60,
+        663536,
+        1006
+      ],
+      [
+        119470,
+        79356,
+        1045,
+        44,
+        61,
+        60,
+        786432,
+        1004
+      ],
+      [
+        120474,
+        80360,
+        1004,
+        43,
+        62,
+        60,
+        786432,
+        1004
+      ],
+      [
+        121481,
+        81378,
+        1018,
+        44,
+        61,
+        60,
+        876528,
+        1007
+      ],
+      [
+        122486,
+        82145,
+        767,
+        43,
+        46,
+        61,
+        434176,
+        1005
+      ],
+      [
+        123491,
+        83187,
+        1042,
+        43,
+        61,
+        60,
+        393216,
+        1005
+      ],
+      [
+        124496,
+        84194,
+        1007,
+        44,
+        62,
+        60,
+        253952,
+        1005
+      ],
+      [
+        125500,
+        85211,
+        1017,
+        43,
+        61,
+        60,
+        131072,
+        1004
+      ],
+      [
+        126505,
+        86251,
+        1040,
+        43,
+        61,
+        61,
+        139248,
+        1005
+      ],
+      [
+        127511,
+        87275,
+        1024,
+        44,
+        62,
+        60,
+        0,
+        1006
+      ],
+      [
+        128514,
+        88278,
+        1003,
+        43,
+        61,
+        60,
+        253952,
+        1003
+      ],
+      [
+        129518,
+        89294,
+        1016,
+        43,
+        61,
+        61,
+        131072,
+        1004
+      ],
+      [
+        130522,
+        90339,
+        1045,
+        43,
+        61,
+        60,
+        0,
+        1004
+      ],
+      [
+        131527,
+        91344,
+        1005,
+        44,
+        62,
+        60,
+        393216,
+        1005
+      ],
+      [
+        132531,
+        92362,
+        1018,
+        43,
+        61,
+        60,
+        262144,
+        1004
+      ],
+      [
+        133538,
+        93403,
+        1041,
+        43,
+        61,
+        61,
+        262144,
+        1007
+      ],
+      [
+        134544,
+        94411,
+        1008,
+        44,
+        61,
+        60,
+        0,
+        1006
+      ],
+      [
+        135549,
+        95429,
+        1018,
+        43,
+        62,
+        60,
+        0,
+        1005
+      ],
+      [
+        136553,
+        96469,
+        1040,
+        43,
+        61,
+        61,
+        131072,
+        1004
+      ],
+      [
+        137559,
+        97235,
+        766,
+        44,
+        46,
+        60,
+        131072,
+        1006
+      ],
+      [
+        138564,
+        98257,
+        1022,
+        43,
+        61,
+        60,
+        393216,
+        1005
+      ],
+      [
+        139571,
+        99261,
+        1004,
+        43,
+        62,
+        61,
+        0,
+        1007
+      ],
+      [
+        140577,
+        100277,
+        1016,
+        44,
+        61,
+        60,
+        139248,
+        1006
+      ],
+      [
+        141582,
+        101321,
+        1044,
+        43,
+        62,
+        61,
+        385024,
+        1005
+      ],
+      [
+        142587,
+        102328,
+        1007,
+        43,
+        61,
+        60,
+        385024,
+        1005
+      ],
+      [
+        143592,
+        103344,
+        1016,
+        44,
+        61,
+        60,
+        516096,
+        1005
+      ],
+      [
+        144598,
+        104386,
+        1042,
+        43,
+        61,
+        60,
+        0,
+        1006
+      ],
+      [
+        145603,
+        105395,
+        1009,
+        44,
+        62,
+        61,
+        262144,
+        1005
+      ],
+      [
+        146609,
+        106412,
+        1017,
+        43,
+        61,
+        60,
+        262144,
+        1006
+      ],
+      [
+        147613,
+        107452,
+        1040,
+        44,
+        61,
+        60,
+        270320,
+        1004
+      ],
+      [
+        148619,
+        108473,
+        1021,
+        43,
+        62,
+        61,
+        253952,
+        1006
+      ],
+      [
+        149622,
+        109478,
+        1005,
+        44,
+        61,
+        60,
+        262144,
+        1003
+      ],
+      [
+        150629,
+        110496,
+        1018,
+        43,
+        61,
+        60,
+        262144,
+        1007
+      ],
+      [
+        151633,
+        111537,
+        1041,
+        43,
+        62,
+        61,
+        262144,
+        1004
+      ],
+      [
+        152640,
+        112544,
+        1007,
+        44,
+        61,
+        60,
+        262144,
+        1007
+      ],
+      [
+        153646,
+        113311,
+        767,
+        43,
+        46,
+        60,
+        262144,
+        1006
+      ],
+      [
+        154652,
+        114328,
+        1017,
+        43,
+        61,
+        61,
+        532464,
+        1006
+      ],
+      [
+        155655,
+        115369,
+        1041,
+        43,
+        61,
+        60,
+        253952,
+        1003
+      ],
+      [
+        156662,
+        116377,
+        1008,
+        44,
+        62,
+        60,
+        262144,
+        1007
+      ],
+      [
+        157666,
+        117394,
+        1017,
+        44,
+        61,
+        61,
+        262144,
+        1004
+      ],
+      [
+        158669,
+        118412,
+        1018,
+        43,
+        61,
+        60,
+        524288,
+        1003
+      ],
+      [
+        159673,
+        119456,
+        1044,
+        43,
+        62,
+        60,
+        262144,
+        1004
+      ],
+      [
+        160679,
+        120461,
+        1005,
+        44,
+        61,
+        60,
+        786416,
+        1006
+      ],
+      [
+        161684,
+        121479,
+        1018,
+        43,
+        61,
+        61,
+        524288,
+        1005
+      ],
+      [
+        162689,
+        122520,
+        1041,
+        43,
+        61,
+        60,
+        524288,
+        1005
+      ],
+      [
+        163694,
+        123529,
+        1009,
+        43,
+        62,
+        60,
+        262144,
+        1005
+      ],
+      [
+        164706,
+        124544,
+        1015,
+        45,
+        58,
+        58,
+        532464,
+        1012
+      ],
+      [
+        165713,
+        125585,
+        1041,
+        43,
+        61,
+        60,
+        253952,
+        1007
+      ],
+      [
+        166717,
+        126595,
+        1010,
+        43,
+        62,
+        61,
+        262144,
+        1004
+      ],
+      [
+        167723,
+        127613,
+        1018,
+        44,
+        61,
+        60,
+        0,
+        1006
+      ],
+      [
+        168727,
+        128378,
+        765,
+        43,
+        46,
+        60,
+        516096,
+        1004
+      ],
+      [
+        169731,
+        129395,
+        1017,
+        43,
+        61,
+        60,
+        262144,
+        1004
+      ],
+      [
+        170734,
+        130447,
+        1052,
+        43,
+        62,
+        61,
+        262144,
+        1003
+      ],
+      [
+        171741,
+        131460,
+        1013,
+        44,
+        62,
+        60,
+        262144,
+        1007
+      ],
+      [
+        172747,
+        132505,
+        1045,
+        44,
+        61,
+        60,
+        270320,
+        1006
+      ],
+      [
+        173752,
+        133512,
+        1007,
+        43,
+        62,
+        61,
+        253952,
+        1005
+      ],
+      [
+        174755,
+        134527,
+        1015,
+        43,
+        61,
+        60,
+        262144,
+        1003
+      ],
+      [
+        175758,
+        135572,
+        1045,
+        43,
+        61,
+        60,
+        262144,
+        1003
+      ],
+      [
+        176762,
+        136578,
+        1006,
+        44,
+        62,
+        60,
+        524288,
+        1004
+      ],
+      [
+        177764,
+        137595,
+        1017,
+        43,
+        61,
+        60,
+        262144,
+        1002
+      ],
+      [
+        178772,
+        138635,
+        1040,
+        43,
+        61,
+        61,
+        262144,
+        1008
+      ],
+      [
+        179776,
+        139658,
+        1023,
+        44,
+        61,
+        60,
+        270320,
+        1004
+      ],
+      [
+        180782,
+        140661,
+        1003,
+        43,
+        62,
+        61,
+        516096,
+        1006
+      ],
+      [
+        181787,
+        141678,
+        1017,
+        43,
+        61,
+        60,
+        524288,
+        1005
+      ],
+      [
+        182793,
+        142445,
+        767,
+        43,
+        46,
+        60,
+        262144,
+        1006
+      ],
+      [
+        183799,
+        143488,
+        1043,
+        44,
+        61,
+        61,
+        262144,
+        1006
+      ],
+      [
+        184805,
+        144494,
+        1006,
+        43,
+        62,
+        60,
+        532464,
+        1006
+      ],
+      [
+        185809,
+        145510,
+        1016,
+        43,
+        61,
+        60,
+        253952,
+        1004
+      ],
+      [
+        186814,
+        146554,
+        1044,
+        43,
+        61,
+        60,
+        262144,
+        1005
+      ],
+      [
+        187820,
+        147562,
+        1008,
+        44,
+        62,
+        61,
+        786432,
+        1006
+      ],
+      [
+        188824,
+        148578,
+        1016,
+        43,
+        61,
+        60,
+        0,
+        1004
+      ],
+      [
+        189828,
+        149618,
+        1040,
+        44,
+        61,
+        60,
+        0,
+        1004
+      ],
+      [
+        190830,
+        150642,
+        1024,
+        43,
+        62,
+        60,
+        516096,
+        1002
+      ],
+      [
+        191835,
+        151644,
+        1002,
+        43,
+        61,
+        61,
+        0,
+        1005
+      ],
+      [
+        192840,
+        152661,
+        1017,
+        44,
+        61,
+        60,
+        524272,
+        1005
+      ],
+      [
+        193845,
+        153705,
+        1044,
+        43,
+        61,
+        60,
+        262144,
+        1005
+      ],
+      [
+        194850,
+        154712,
+        1007,
+        44,
+        62,
+        61,
+        524288,
+        1005
+      ],
+      [
+        195853,
+        155727,
+        1015,
+        43,
+        61,
+        60,
+        524288,
+        1003
+      ],
+      [
+        196858,
+        156771,
+        1044,
+        43,
+        61,
+        60,
+        262144,
+        1005
+      ],
+      [
+        197862,
+        157537,
+        766,
+        43,
+        46,
+        60,
+        270320,
+        1004
+      ],
+      [
+        198865,
+        158546,
+        1009,
+        44,
+        62,
+        60,
+        0,
+        1003
+      ],
+      [
+        199873,
+        159562,
+        1016,
+        43,
+        61,
+        61,
+        253952,
+        1008
+      ],
+      [
+        200879,
+        160602,
+        1040,
+        43,
+        61,
+        60,
+        0,
+        1006
+      ],
+      [
+        201883,
+        161624,
+        1022,
+        43,
+        61,
+        61,
+        262144,
+        1004
+      ],
+      [
+        202888,
+        162630,
+        1006,
+        44,
+        62,
+        60,
+        262144,
+        1005
+      ],
+      [
+        203893,
+        163645,
+        1015,
+        43,
+        61,
+        60,
+        262144,
+        1005
+      ],
+      [
+        204899,
+        164689,
+        1044,
+        43,
+        61,
+        60,
+        524288,
+        1006
+      ],
+      [
+        205906,
+        165695,
+        1006,
+        43,
+        62,
+        61,
+        262144,
+        1007
+      ],
+      [
+        206910,
+        166714,
+        1019,
+        44,
+        61,
+        60,
+        270320,
+        1004
+      ],
+      [
+        207914,
+        167754,
+        1040,
+        43,
+        62,
+        60,
+        253952,
+        1004
+      ],
+      [
+        208921,
+        168761,
+        1007,
+        44,
+        61,
+        61,
+        262144,
+        1007
+      ],
+      [
+        209927,
+        169778,
+        1017,
+        43,
+        61,
+        60,
+        262144,
+        1006
+      ],
+      [
+        210934,
+        170819,
+        1041,
+        44,
+        61,
+        61,
+        262144,
+        1007
+      ],
+      [
+        211939,
+        171841,
+        1022,
+        43,
+        62,
+        60,
+        262144,
+        1005
+      ],
+      [
+        212942,
+        172845,
+        1004,
+        43,
+        61,
+        60,
+        0,
+        1003
+      ],
+      [
+        213949,
+        173612,
+        767,
+        44,
+        46,
+        60,
+        262144,
+        1007
+      ],
+      [
+        214955,
+        174628,
+        1016,
+        43,
+        61,
+        61,
+        0,
+        1006
+      ],
+      [
+        215961,
+        175672,
+        1044,
+        44,
+        62,
+        60,
+        262144,
+        1006
+      ],
+      [
+        216968,
+        176678,
+        1006,
+        43,
+        61,
+        61,
+        270320,
+        1007
+      ],
+      [
+        217973,
+        177695,
+        1017,
+        44,
+        61,
+        60,
+        516096,
+        1005
+      ],
+      [
+        218978,
+        178737,
+        1042,
+        43,
+        61,
+        60,
+        524288,
+        1005
+      ],
+      [
+        219983,
+        179744,
+        1007,
+        43,
+        62,
+        61,
+        516096,
+        1005
+      ],
+      [
+        220990,
+        180760,
+        1016,
+        44,
+        61,
+        60,
+        0,
+        1007
+      ],
+      [
+        221994,
+        181801,
+        1041,
+        43,
+        61,
+        60,
+        532464,
+        1004
+      ],
+      [
+        222999,
+        182824,
+        1023,
+        43,
+        62,
+        60,
+        516096,
+        1005
+      ],
+      [
+        224002,
+        183827,
+        1003,
+        44,
+        61,
+        61,
+        524288,
+        1003
+      ],
+      [
+        225007,
+        184844,
+        1017,
+        43,
+        61,
+        60,
+        524288,
+        1005
+      ],
+      [
+        226012,
+        185888,
+        1044,
+        44,
+        61,
+        60,
+        532464,
+        1005
+      ],
+      [
+        227019,
+        186894,
+        1006,
+        43,
+        62,
+        61,
+        253952,
+        1007
+      ],
+      [
+        228023,
+        187912,
+        1018,
+        43,
+        61,
+        60,
+        786432,
+        1004
+      ],
+      [
+        229028,
+        188679,
+        767,
+        43,
+        46,
+        60,
+        524288,
+        1005
+      ],
+      [
+        230031,
+        189720,
+        1041,
+        44,
+        61,
+        60,
+        786416,
+        1003
+      ],
+      [
+        231038,
+        190731,
+        1011,
+        43,
+        62,
+        61,
+        262144,
+        1007
+      ],
+      [
+        232043,
+        191745,
+        1014,
+        43,
+        61,
+        60,
+        0,
+        1005
+      ],
+      [
+        233047,
+        192784,
+        1039,
+        44,
+        61,
+        60,
+        0,
+        1004
+      ],
+      [
+        234054,
+        193820,
+        1036,
+        43,
+        61,
+        59,
+        524288,
+        1007
+      ],
+      [
+        235059,
+        194851,
+        1031,
+        44,
+        61,
+        60,
+        524288,
+        1005
+      ],
+      [
+        236064,
+        195873,
+        1022,
+        43,
+        62,
+        60,
+        532464,
+        1005
+      ],
+      [
+        237069,
+        196877,
+        1004,
+        43,
+        61,
+        61,
+        253952,
+        1005
+      ],
+      [
+        238074,
+        197894,
+        1017,
+        43,
+        61,
+        60,
+        1048576,
+        1005
+      ],
+      [
+        239077,
+        198937,
+        1043,
+        44,
+        61,
+        60,
+        0,
+        1003
+      ],
+      [
+        240082,
+        199944,
+        1007,
+        43,
+        62,
+        60,
+        253952,
+        1005
+      ],
+      [
+        241086,
+        200962,
+        1018,
+        44,
+        61,
+        61,
+        262144,
+        1004
+      ],
+      [
+        242091,
+        202002,
+        1040,
+        43,
+        61,
+        60,
+        270320,
+        1005
+      ],
+      [
+        243097,
+        202770,
+        768,
+        43,
+        46,
+        60,
+        253952,
+        1006
+      ],
+      [
+        244105,
+        203790,
+        1020,
+        44,
+        61,
+        61,
+        262144,
+        1008
+      ],
+      [
+        245110,
+        204795,
+        1005,
+        43,
+        62,
+        60,
+        0,
+        1005
+      ],
+      [
+        246116,
+        205811,
+        1016,
+        43,
+        61,
+        60,
+        262144,
+        1006
+      ],
+      [
+        247123,
+        206855,
+        1044,
+        43,
+        61,
+        61,
+        0,
+        1007
+      ],
+      [
+        248128,
+        207862,
+        1007,
+        44,
+        62,
+        60,
+        524288,
+        1005
+      ],
+      [
+        249133,
+        208880,
+        1018,
+        43,
+        61,
+        61,
+        262144,
+        1005
+      ],
+      [
+        250137,
+        209921,
+        1041,
+        43,
+        61,
+        60,
+        262144,
+        1004
+      ],
+      [
+        251141,
+        210927,
+        1006,
+        43,
+        62,
+        60,
+        491504,
+        1004
+      ],
+      [
+        252146,
+        211945,
+        1018,
+        44,
+        61,
+        60,
+        0,
+        1005
+      ],
+      [
+        253151,
+        212986,
+        1041,
+        43,
+        61,
+        61,
+        16384,
+        1005
+      ],
+      [
+        254156,
+        213995,
+        1009,
+        44,
+        62,
+        60,
+        491520,
+        1005
+      ],
+      [
+        255161,
+        215011,
+        1016,
+        43,
+        61,
+        60,
+        720896,
+        1005
+      ],
+      [
+        256165,
+        216029,
+        1018,
+        43,
+        61,
+        61,
+        0,
+        1004
+      ],
+      [
+        257169,
+        217072,
+        1043,
+        44,
+        61,
+        60,
+        1114096,
+        1004
+      ],
+      [
+        258172,
+        217840,
+        768,
+        43,
+        46,
+        60,
+        1777648,
+        1003
+      ],
+      [
+        259175,
+        218845,
+        1005,
+        43,
+        62,
+        60,
+        253952,
+        1003
+      ],
+      [
+        260178,
+        219862,
+        1017,
+        44,
+        61,
+        60,
+        262144,
+        1003
+      ],
+      [
+        261180,
+        220903,
+        1041,
+        43,
+        61,
+        60,
+        262144,
+        1002
+      ],
+      [
+        262187,
+        221911,
+        1008,
+        43,
+        62,
+        61,
+        262144,
+        1007
+      ],
+      [
+        263190,
+        222929,
+        1018,
+        44,
+        61,
+        60,
+        262144,
+        1003
+      ],
+      [
+        264198,
+        223968,
+        1039,
+        43,
+        61,
+        61,
+        0,
+        1008
+      ],
+      [
+        265202,
+        224990,
+        1022,
+        43,
+        61,
+        60,
+        524288,
+        1004
+      ],
+      [
+        266206,
+        225996,
+        1006,
+        43,
+        62,
+        60,
+        270320,
+        1004
+      ],
+      [
+        267210,
+        227010,
+        1014,
+        44,
+        61,
+        60,
+        516096,
+        1004
+      ],
+      [
+        268215,
+        228055,
+        1045,
+        43,
+        61,
+        60,
+        524288,
+        1005
+      ],
+      [
+        269221,
+        229062,
+        1007,
+        43,
+        62,
+        60,
+        524288,
+        1006
+      ],
+      [
+        270226,
+        230078,
+        1016,
+        44,
+        61,
+        60,
+        0,
+        1005
+      ],
+      [
+        271229,
+        231121,
+        1043,
+        43,
+        61,
+        60,
+        532464,
+        1003
+      ],
+      [
+        272232,
+        232127,
+        1006,
+        43,
+        62,
+        60,
+        253952,
+        1003
+      ],
+      [
+        273237,
+        232895,
+        768,
+        43,
+        46,
+        61,
+        0,
+        1005
+      ],
+      [
+        274241,
+        233912,
+        1017,
+        44,
+        61,
+        60,
+        262144,
+        1004
+      ],
+      [
+        275246,
+        234952,
+        1040,
+        43,
+        61,
+        60,
+        262144,
+        1005
+      ],
+      [
+        276251,
+        235974,
+        1022,
+        43,
+        61,
+        61,
+        262144,
+        1005
+      ],
+      [
+        277257,
+        236977,
+        1003,
+        44,
+        62,
+        60,
+        262144,
+        1006
+      ],
+      [
+        278262,
+        237995,
+        1018,
+        43,
+        61,
+        60,
+        0,
+        1005
+      ],
+      [
+        279269,
+        239039,
+        1044,
+        44,
+        61,
+        61,
+        262144,
+        1007
+      ],
+      [
+        280273,
+        240044,
+        1005,
+        43,
+        62,
+        60,
+        0,
+        1004
+      ],
+      [
+        281277,
+        241062,
+        1018,
+        43,
+        61,
+        60,
+        0,
+        1004
+      ],
+      [
+        282281,
+        242105,
+        1043,
+        44,
+        61,
+        60,
+        262144,
+        1004
+      ],
+      [
+        283287,
+        243112,
+        1007,
+        43,
+        62,
+        61,
+        270320,
+        1006
+      ],
+      [
+        284292,
+        244128,
+        1016,
+        43,
+        61,
+        60,
+        1032192,
+        1005
+      ],
+      [
+        285295,
+        245169,
+        1041,
+        43,
+        61,
+        60,
+        1056752,
+        1003
+      ],
+      [
+        286299,
+        246190,
+        1021,
+        44,
+        61,
+        60,
+        778240,
+        1004
+      ],
+      [
+        287302,
+        247195,
+        1005,
+        43,
+        62,
+        61,
+        524288,
+        1003
+      ],
+      [
+        288307,
+        247962,
+        767,
+        43,
+        46,
+        60,
+        262144,
+        1005
+      ],
+      [
+        289311,
+        248978,
+        1016,
+        43,
+        61,
+        60,
+        532464,
+        1004
+      ],
+      [
+        290318,
+        250021,
+        1043,
+        44,
+        62,
+        61,
+        516096,
+        1007
+      ],
+      [
+        291324,
+        251027,
+        1006,
+        43,
+        61,
+        60,
+        524288,
+        1006
+      ],
+      [
+        292331,
+        252044,
+        1017,
+        44,
+        60,
+        59,
+        262144,
+        1007
+      ],
+      [
+        293337,
+        253088,
+        1044,
+        43,
+        61,
+        61,
+        262144,
+        1006
+      ],
+      [
+        294342,
+        254095,
+        1007,
+        43,
+        62,
+        60,
+        532464,
+        1005
+      ],
+      [
+        295347,
+        255111,
+        1016,
+        43,
+        61,
+        60,
+        516096,
+        1005
+      ],
+      [
+        296352,
+        256151,
+        1040,
+        44,
+        61,
+        61,
+        262144,
+        1005
+      ],
+      [
+        297357,
+        257173,
+        1022,
+        43,
+        61,
+        60,
+        262144,
+        1005
+      ],
+      [
+        298360,
+        258179,
+        1006,
+        44,
+        62,
+        60,
+        262144,
+        1003
+      ],
+      [
+        299365,
+        259195,
+        1016,
+        43,
+        61,
+        60,
+        524288,
+        1005
+      ],
+      [
+        300369,
+        260239,
+        1044,
+        43,
+        61,
+        60,
+        270320,
+        1004
+      ],
+      [
+        301372,
+        261244,
+        1005,
+        43,
+        62,
+        60,
+        516096,
+        1003
+      ],
+      [
+        302376,
+        262261,
+        1017,
+        44,
+        61,
+        60,
+        253952,
+        1004
+      ],
+      [
+        303382,
+        263028,
+        767,
+        43,
+        46,
+        61,
+        262144,
+        1006
+      ],
+      [
+        304386,
+        264069,
+        1041,
+        43,
+        61,
+        60,
+        262144,
+        1004
+      ],
+      [
+        305390,
+        265078,
+        1009,
+        44,
+        62,
+        60,
+        524288,
+        1004
+      ],
+      [
+        306394,
+        266094,
+        1016,
+        43,
+        61,
+        60,
+        0,
+        1004
+      ],
+      [
+        307399,
+        267135,
+        1041,
+        43,
+        61,
+        61,
+        270320,
+        1005
+      ],
+      [
+        308403,
+        268157,
+        1022,
+        44,
+        61,
+        60,
+        516096,
+        1004
+      ],
+      [
+        309408,
+        269161,
+        1004,
+        43,
+        62,
+        60,
+        0,
+        1005
+      ],
+      [
+        310409,
+        270177,
+        1016,
+        43,
+        61,
+        60,
+        524288,
+        1001
+      ],
+      [
+        311414,
+        271222,
+        1045,
+        43,
+        61,
+        60,
+        0,
+        1005
+      ],
+      [
+        312418,
+        272229,
+        1007,
+        44,
+        62,
+        61,
+        1056752,
+        1004
+      ],
+      [
+        313423,
+        273245,
+        1016,
+        43,
+        61,
+        60,
+        778240,
+        1005
+      ],
+      [
+        314427,
+        274287,
+        1042,
+        43,
+        61,
+        60,
+        786432,
+        1004
+      ],
+      [
+        315432,
+        275295,
+        1008,
+        44,
+        62,
+        61,
+        786416,
+        1005
+      ],
+      [
+        316436,
+        276310,
+        1015,
+        43,
+        61,
+        60,
+        262144,
+        1004
+      ],
+      [
+        317442,
+        277352,
+        1042,
+        43,
+        61,
+        60,
+        262144,
+        1006
+      ],
+      [
+        318446,
+        278119,
+        767,
+        44,
+        46,
+        60,
+        524288,
+        1004
+      ],
+      [
+        319450,
+        279140,
+        1021,
+        43,
+        62,
+        61,
+        524288,
+        1004
+      ],
+      [
+        320455,
+        280144,
+        1004,
+        43,
+        61,
+        60,
+        524272,
+        1005
+      ],
+      [
+        321462,
+        281161,
+        1017,
+        44,
+        61,
+        60,
+        262144,
+        1007
+      ],
+      [
+        322466,
+        282205,
+        1044,
+        43,
+        62,
+        60,
+        778240,
+        1004
+      ],
+      [
+        323472,
+        283212,
+        1007,
+        43,
+        61,
+        61,
+        262144,
+        1006
+      ],
+      [
+        324477,
+        284228,
+        1016,
+        44,
+        61,
+        60,
+        262144,
+        1005
+      ],
+      [
+        325484,
+        285269,
+        1041,
+        43,
+        61,
+        61,
+        524272,
+        1007
+      ],
+      [
+        326488,
+        286277,
+        1008,
+        43,
+        62,
+        60,
+        524288,
+        1004
+      ],
+      [
+        327491,
+        287293,
+        1016,
+        43,
+        61,
+        60,
+        0,
+        1003
+      ],
+      [
+        328495,
+        288334,
+        1041,
+        44,
+        61,
+        60,
+        0,
+        1004
+      ],
+      [
+        329499,
+        289357,
+        1023,
+        43,
+        61,
+        61,
+        0,
+        1004
+      ],
+      [
+        330503,
+        290361,
+        1004,
+        43,
+        62,
+        60,
+        516096,
+        1004
+      ],
+      [
+        331507,
+        291379,
+        1018,
+        43,
+        61,
+        60,
+        0,
+        1004
+      ],
+      [
+        332514,
+        292421,
+        1042,
+        44,
+        61,
+        60,
+        262144,
+        1007
+      ],
+      [
+        333519,
+        293189,
+        768,
+        43,
+        46,
+        61,
+        0,
+        1005
+      ],
+      [
+        334524,
+        294195,
+        1006,
+        44,
+        62,
+        60,
+        262144,
+        1005
+      ],
+      [
+        335531,
+        295211,
+        1016,
+        43,
+        61,
+        61,
+        524272,
+        1007
+      ],
+      [
+        336537,
+        296253,
+        1042,
+        43,
+        61,
+        60,
+        524288,
+        1006
+      ],
+      [
+        337540,
+        297262,
+        1009,
+        43,
+        62,
+        60,
+        524288,
+        1003
+      ],
+      [
+        338545,
+        298278,
+        1016,
+        44,
+        61,
+        60,
+        262144,
+        1005
+      ],
+      [
+        339549,
+        299318,
+        1040,
+        43,
+        61,
+        61,
+        262144,
+        1004
+      ],
+      [
+        340555,
+        300339,
+        1021,
+        43,
+        61,
+        60,
+        270320,
+        1006
+      ],
+      [
+        341559,
+        301345,
+        1006,
+        43,
+        62,
+        60,
+        0,
+        1004
+      ],
+      [
+        342567,
+        302361,
+        1016,
+        44,
+        61,
+        60,
+        1040384,
+        1008
+      ],
+      [
+        343573,
+        303405,
+        1044,
+        43,
+        61,
+        61,
+        786432,
+        1006
+      ],
+      [
+        344577,
+        304412,
+        1007,
+        43,
+        62,
+        60,
+        786416,
+        1004
+      ],
+      [
+        345586,
+        305428,
+        1016,
+        44,
+        61,
+        61,
+        1048576,
+        1009
+      ],
+      [
+        346590,
+        306470,
+        1042,
+        43,
+        61,
+        60,
+        1048560,
+        1004
+      ],
+      [
+        347594,
+        307479,
+        1009,
+        43,
+        62,
+        60,
+        262144,
+        1004
+      ],
+      [
+        348599,
+        308495,
+        1016,
+        44,
+        61,
+        61,
+        253952,
+        1005
+      ],
+      [
+        349603,
+        309263,
+        768,
+        43,
+        46,
+        60,
+        786432,
+        1004
+      ],
+      [
+        350608,
+        310278,
+        1015,
+        43,
+        61,
+        60,
+        524272,
+        1005
+      ],
+      [
+        351612,
+        311323,
+        1045,
+        44,
+        62,
+        61,
+        262144,
+        1004
+      ],
+      [
+        352623,
+        312329,
+        1006,
+        43,
+        61,
+        60,
+        262144,
+        1011
+      ],
+      [
+        353629,
+        313345,
+        1016,
+        44,
+        61,
+        60,
+        262144,
+        1006
+      ],
+      [
+        354634,
+        314388,
+        1043,
+        43,
+        62,
+        61,
+        786432,
+        1005
+      ],
+      [
+        355639,
+        315395,
+        1007,
+        43,
+        61,
+        60,
+        786416,
+        1005
+      ],
+      [
+        356642,
+        316412,
+        1017,
+        44,
+        61,
+        60,
+        524288,
+        1003
+      ],
+      [
+        357646,
+        317453,
+        1041,
+        43,
+        61,
+        60,
+        524288,
+        1004
+      ],
+      [
+        358652,
+        318466,
+        1013,
+        43,
+        58,
+        53,
+        532464,
+        1006
+      ],
+      [
+        359657,
+        319520,
+        1054,
+        44,
+        49,
+        49,
+        516096,
+        1005
+      ],
+      [
+        360664,
+        320541,
+        1021,
+        43,
+        62,
+        60,
+        524288,
+        1007
+      ],
+      [
+        361668,
+        321544,
+        1003,
+        43,
+        61,
+        60,
+        524288,
+        1004
+      ],
+      [
+        362673,
+        322562,
+        1018,
+        44,
+        61,
+        61,
+        786416,
+        1005
+      ],
+      [
+        363680,
+        323328,
+        766,
+        0,
+        46,
+        60,
+        524288,
+        1007
+      ],
+      [
+        364686,
+        324372,
+        1044,
+        44,
+        62,
+        61,
+        253952,
+        1006
+      ],
+      [
+        365690,
+        325378,
+        1006,
+        43,
+        61,
+        60,
+        524288,
+        1004
+      ],
+      [
+        366695,
+        326395,
+        1017,
+        87,
+        61,
+        60,
+        532464,
+        1005
+      ],
+      [
+        367703,
+        327437,
+        1042,
+        43,
+        61,
+        61,
+        253952,
+        1008
+      ],
+      [
+        368709,
+        328446,
+        1009,
+        44,
+        62,
+        60,
+        524288,
+        1006
+      ],
+      [
+        369714,
+        329461,
+        1015,
+        43,
+        61,
+        60,
+        1048576,
+        1005
+      ],
+      [
+        370718,
+        330504,
+        1043,
+        44,
+        61,
+        61,
+        524272,
+        1004
+      ],
+      [
+        371724,
+        331524,
+        1020,
+        43,
+        62,
+        60,
+        524288,
+        1006
+      ],
+      [
+        372730,
+        332528,
+        1004,
+        44,
+        61,
+        60,
+        262144,
+        1006
+      ],
+      [
+        373734,
+        333544,
+        1016,
+        43,
+        61,
+        61,
+        524288,
+        1004
+      ],
+      [
+        374737,
+        334589,
+        1045,
+        43,
+        62,
+        60,
+        262144,
+        1003
+      ],
+      [
+        375740,
+        335594,
+        1005,
+        44,
+        61,
+        60,
+        270320,
+        1003
+      ],
+      [
+        376745,
+        336613,
+        1019,
+        43,
+        61,
+        60,
+        253952,
+        1005
+      ],
+      [
+        377751,
+        337655,
+        1042,
+        44,
+        61,
+        61,
+        524288,
+        1006
+      ],
+      [
+        378756,
+        338662,
+        1007,
+        43,
+        62,
+        60,
+        524288,
+        1005
+      ],
+      [
+        379761,
+        339428,
+        766,
+        0,
+        46,
+        60,
+        0,
+        1005
+      ],
+      [
+        380765,
+        340444,
+        1016,
+        43,
+        61,
+        60,
+        0,
+        1004
+      ],
+      [
+        381770,
+        341485,
+        1041,
+        44,
+        61,
+        61,
+        524288,
+        1005
+      ],
+      [
+        382775,
+        342507,
+        1022,
+        43,
+        62,
+        60,
+        270320,
+        1005
+      ],
+      [
+        383779,
+        343512,
+        1005,
+        44,
+        61,
+        60,
+        253952,
+        1004
+      ],
+      [
+        384784,
+        344530,
+        1018,
+        43,
+        61,
+        60,
+        524288,
+        1005
+      ],
+      [
+        385791,
+        345572,
+        1042,
+        84,
+        62,
+        60,
+        516096,
+        1007
+      ],
+      [
+        386796,
+        346578,
+        1006,
+        47,
+        61,
+        60,
+        794608,
+        1005
+      ],
+      [
+        387801,
+        347595,
+        1017,
+        43,
+        61,
+        61,
+        1040384,
+        1005
+      ],
+      [
+        388805,
+        348636,
+        1041,
+        43,
+        61,
+        60,
+        786432,
+        1004
+      ],
+      [
+        389808,
+        349644,
+        1008,
+        44,
+        62,
+        60,
+        524272,
+        1003
+      ],
+      [
+        390813,
+        350662,
+        1018,
+        43,
+        61,
+        60,
+        524288,
+        1005
+      ],
+      [
+        391818,
+        351702,
+        1040,
+        43,
+        61,
+        61,
+        786432,
+        1005
+      ],
+      [
+        392821,
+        352724,
+        1022,
+        44,
+        61,
+        60,
+        786416,
+        1003
+      ],
+      [
+        393824,
+        353490,
+        766,
+        0,
+        46,
+        60,
+        786432,
+        1003
+      ],
+      [
+        394827,
+        354494,
+        1004,
+        43,
+        62,
+        60,
+        1056752,
+        1003
+      ],
+      [
+        395832,
+        355512,
+        1018,
+        43,
+        61,
+        60,
+        253952,
+        1005
+      ],
+      [
+        396838,
+        356554,
+        1042,
+        44,
+        61,
+        61,
+        524288,
+        1006
+      ],
+      [
+        397843,
+        357561,
+        1007,
+        43,
+        62,
+        60,
+        778240,
+        1005
+      ],
+      [
+        398849,
+        358579,
+        1018,
+        44,
+        61,
+        61,
+        532464,
+        1006
+      ],
+      [
+        399854,
+        359619,
+        1040,
+        43,
+        61,
+        60,
+        1040384,
+        1005
+      ],
+      [
+        400858,
+        360629,
+        1010,
+        43,
+        62,
+        60,
+        1056752,
+        1004
+      ],
+      [
+        401865,
+        361644,
+        1015,
+        44,
+        61,
+        60,
+        1302528,
+        1007
+      ],
+      [
+        402875,
+        362685,
+        1041,
+        57,
+        61,
+        61,
+        794608,
+        1010
+      ],
+      [
+        403880,
+        363707,
+        1022,
+        73,
+        61,
+        60,
+        253952,
+        1005
+      ],
+      [
+        404884,
+        364712,
+        1005,
+        43,
+        62,
+        61,
+        262144,
+        1004
+      ],
+      [
+        405889,
+        365728,
+        1016,
+        44,
+        61,
+        60,
+        262144,
+        1005
+      ],
+      [
+        406894,
+        366771,
+        1043,
+        43,
+        61,
+        60,
+        786432,
+        1005
+      ],
+      [
+        407899,
+        367777,
+        1006,
+        43,
+        62,
+        61,
+        786416,
+        1005
+      ],
+      [
+        408905,
+        368794,
+        1017,
+        43,
+        61,
+        60,
+        524288,
+        1006
+      ],
+      [
+        409910,
+        369561,
+        767,
+        0,
+        46,
+        60,
+        516096,
+        1005
+      ],
+      [
+        410916,
+        370603,
+        1042,
+        44,
+        61,
+        61,
+        524288,
+        1006
+      ],
+      [
+        411921,
+        371611,
+        1008,
+        43,
+        62,
+        60,
+        270320,
+        1005
+      ],
+      [
+        412926,
+        372627,
+        1016,
+        44,
+        61,
+        60,
+        778240,
+        1005
+      ],
+      [
+        413932,
+        373667,
+        1040,
+        43,
+        61,
+        60,
+        262144,
+        1006
+      ],
+      [
+        414936,
+        374690,
+        1023,
+        43,
+        62,
+        61,
+        262144,
+        1004
+      ],
+      [
+        415940,
+        375694,
+        1004,
+        43,
+        61,
+        60,
+        0,
+        1004
+      ],
+      [
+        416947,
+        376712,
+        1018,
+        44,
+        61,
+        60,
+        262144,
+        1007
+      ],
+      [
+        417949,
+        377754,
+        1042,
+        43,
+        61,
+        61,
+        0,
+        1002
+      ],
+      [
+        418955,
+        378762,
+        1008,
+        43,
+        62,
+        60,
+        262144,
+        1006
+      ],
+      [
+        419958,
+        379779,
+        1017,
+        87,
+        61,
+        60,
+        524272,
+        1003
+      ],
+      [
+        420964,
+        380819,
+        1040,
+        44,
+        61,
+        60,
+        0,
+        1006
+      ],
+      [
+        421970,
+        381828,
+        1009,
+        43,
+        62,
+        61,
+        262144,
+        1006
+      ],
+      [
+        422974,
+        382845,
+        1017,
+        43,
+        61,
+        60,
+        262144,
+        1004
+      ],
+      [
+        423978,
+        383885,
+        1040,
+        44,
+        61,
+        60,
+        262144,
+        1004
+      ],
+      [
+        424983,
+        384652,
+        767,
+        0,
+        46,
+        60,
+        0,
+        1005
+      ],
+      [
+        425988,
+        385672,
+        1020,
+        43,
+        61,
+        61,
+        0,
+        1005
+      ],
+      [
+        426991,
+        386678,
+        1006,
+        44,
+        62,
+        60,
+        262144,
+        1003
+      ],
+      [
+        427996,
+        387694,
+        1016,
+        43,
+        61,
+        60,
+        0,
+        1005
+      ],
+      [
+        429000,
+        388738,
+        1044,
+        43,
+        61,
+        61,
+        0,
+        1004
+      ],
+      [
+        430007,
+        389745,
+        1007,
+        43,
+        62,
+        60,
+        262144,
+        1007
+      ],
+      [
+        431012,
+        390762,
+        1017,
+        44,
+        61,
+        60,
+        262144,
+        1005
+      ],
+      [
+        432017,
+        391802,
+        1040,
+        43,
+        61,
+        60,
+        0,
+        1005
+      ],
+      [
+        433020,
+        392812,
+        1010,
+        43,
+        62,
+        60,
+        270320,
+        1003
+      ],
+      [
+        434025,
+        393830,
+        1018,
+        43,
+        61,
+        60,
+        516096,
+        1005
+      ],
+      [
+        435029,
+        394867,
+        1037,
+        44,
+        61,
+        60,
+        0,
+        1004
+      ],
+      [
+        436034,
+        395889,
+        1022,
+        43,
+        61,
+        61,
+        262144,
+        1005
+      ],
+      [
+        437038,
+        396895,
+        1006,
+        86,
+        62,
+        60,
+        0,
+        1004
+      ],
+      [
+        438042,
+        397910,
+        1015,
+        44,
+        61,
+        60,
+        262144,
+        1004
+      ],
+      [
+        439046,
+        398954,
+        1044,
+        43,
+        61,
+        60,
+        262144,
+        1004
+      ],
+      [
+        440050,
+        399721,
+        767,
+        0,
+        46,
+        61,
+        0,
+        1004
+      ],
+      [
+        441056,
+        400728,
+        1007,
+        44,
+        62,
+        60,
+        810992,
+        1006
+      ],
+      [
+        442060,
+        401745,
+        1017,
+        43,
+        61,
+        60,
+        499712,
+        1004
+      ],
+      [
+        443065,
+        402785,
+        1040,
+        43,
+        61,
+        61,
+        0,
+        1005
+      ],
+      [
+        444069,
+        403810,
+        1025,
+        43,
+        62,
+        60,
+        524288,
+        1004
+      ],
+      [
+        445073,
+        404812,
+        1002,
+        44,
+        61,
+        60,
+        262144,
+        1004
+      ],
+      [
+        446077,
+        405827,
+        1015,
+        43,
+        61,
+        60,
+        253952,
+        1004
+      ],
+      [
+        447081,
+        406873,
+        1046,
+        43,
+        61,
+        60,
+        532464,
+        1004
+      ],
+      [
+        448086,
+        407878,
+        1005,
+        43,
+        62,
+        61,
+        0,
+        1005
+      ],
+      [
+        449090,
+        408895,
+        1017,
+        44,
+        61,
+        60,
+        253952,
+        1004
+      ],
+      [
+        450094,
+        409937,
+        1042,
+        43,
+        61,
+        60,
+        262144,
+        1004
+      ],
+      [
+        451100,
+        410945,
+        1008,
+        43,
+        62,
+        61,
+        262144,
+        1006
+      ],
+      [
+        452105,
+        411961,
+        1016,
+        66,
+        61,
+        60,
+        524288,
+        1005
+      ],
+      [
+        453112,
+        413003,
+        1042,
+        64,
+        61,
+        60,
+        524288,
+        1007
+      ],
+      [
+        454115,
+        414011,
+        1008,
+        44,
+        62,
+        60,
+        524272,
+        1003
+      ],
+      [
+        455119,
+        414790,
+        779,
+        0,
+        45,
+        61,
+        0,
+        1004
+      ],
+      [
+        456123,
+        415794,
+        1004,
+        43,
+        62,
+        60,
+        262144,
+        1004
+      ],
+      [
+        457128,
+        416811,
+        1017,
+        44,
+        61,
+        60,
+        524288,
+        1005
+      ],
+      [
+        458133,
+        417855,
+        1044,
+        43,
+        61,
+        61,
+        524288,
+        1005
+      ],
+      [
+        459136,
+        418862,
+        1007,
+        43,
+        62,
+        60,
+        532464,
+        1003
+      ],
+      [
+        460141,
+        419878,
+        1016,
+        44,
+        61,
+        60,
+        253952,
+        1005
+      ],
+      [
+        461144,
+        420921,
+        1043,
+        43,
+        61,
+        60,
+        262144,
+        1003
+      ],
+      [
+        462147,
+        421928,
+        1007,
+        43,
+        62,
+        60,
+        786432,
+        1003
+      ],
+      [
+        463150,
+        422945,
+        1017,
+        44,
+        61,
+        61,
+        262144,
+        1003
+      ],
+      [
+        464153,
+        423986,
+        1041,
+        43,
+        61,
+        60,
+        1048560,
+        1003
+      ],
+      [
+        465159,
+        425009,
+        1023,
+        43,
+        62,
+        60,
+        786432,
+        1006
+      ],
+      [
+        466187,
+        426011,
+        1002,
+        43,
+        60,
+        61,
+        516096,
+        1028
+      ],
+      [
+        467190,
+        427028,
+        1017,
+        44,
+        61,
+        60,
+        270320,
+        1003
+      ],
+      [
+        468195,
+        428073,
+        1045,
+        78,
+        61,
+        60,
+        1146880,
+        1005
+      ],
+      [
+        469200,
+        429078,
+        1005,
+        51,
+        62,
+        61,
+        1449968,
+        1005
+      ],
+      [
+        470203,
+        430095,
+        1017,
+        44,
+        61,
+        60,
+        253952,
+        1003
+      ],
+      [
+        471208,
+        430860,
+        765,
+        0,
+        46,
+        60,
+        262144,
+        1005
+      ],
+      [
+        472212,
+        431904,
+        1044,
+        43,
+        61,
+        60,
+        524288,
+        1004
+      ],
+      [
+        473216,
+        432912,
+        1008,
+        43,
+        62,
+        61,
+        786416,
+        1004
+      ],
+      [
+        474223,
+        433928,
+        1016,
+        43,
+        61,
+        60,
+        1048576,
+        1007
+      ],
+      [
+        475226,
+        434969,
+        1041,
+        44,
+        61,
+        60,
+        794608,
+        1003
+      ],
+      [
+        476231,
+        435990,
+        1021,
+        43,
+        61,
+        60,
+        516096,
+        1005
+      ],
+      [
+        477236,
+        436996,
+        1006,
+        44,
+        62,
+        61,
+        524288,
+        1005
+      ],
+      [
+        478243,
+        438011,
+        1015,
+        43,
+        61,
+        60,
+        1056752,
+        1007
+      ],
+      [
+        479246,
+        439056,
+        1045,
+        43,
+        61,
+        60,
+        253952,
+        1003
+      ],
+      [
+        480251,
+        440061,
+        1005,
+        44,
+        62,
+        61,
+        524288,
+        1005
+      ],
+      [
+        481256,
+        441078,
+        1017,
+        43,
+        61,
+        60,
+        262144,
+        1005
+      ],
+      [
+        482263,
+        442121,
+        1043,
+        44,
+        61,
+        60,
+        0,
+        1007
+      ],
+      [
+        483269,
+        443128,
+        1007,
+        43,
+        62,
+        61,
+        262144,
+        1006
+      ],
+      [
+        484273,
+        444145,
+        1017,
+        43,
+        61,
+        60,
+        1302512,
+        1004
+      ],
+      [
+        485278,
+        445185,
+        1040,
+        87,
+        61,
+        60,
+        786432,
+        1005
+      ],
+      [
+        486282,
+        445952,
+        767,
+        0,
+        46,
+        60,
+        1310704,
+        1004
+      ],
+      [
+        487285,
+        446974,
+        1022,
+        43,
+        62,
+        61,
+        262144,
+        1003
+      ],
+      [
+        488290,
+        447978,
+        1004,
+        43,
+        61,
+        60,
+        262144,
+        1005
+      ],
+      [
+        489294,
+        448995,
+        1017,
+        43,
+        61,
+        60,
+        0,
+        1004
+      ],
+      [
+        490298,
+        450039,
+        1044,
+        44,
+        62,
+        60,
+        262144,
+        1004
+      ],
+      [
+        491302,
+        451046,
+        1007,
+        43,
+        61,
+        61,
+        0,
+        1004
+      ],
+      [
+        492306,
+        452060,
+        1014,
+        43,
+        61,
+        60,
+        262144,
+        1004
+      ],
+      [
+        493312,
+        453103,
+        1043,
+        44,
+        61,
+        60,
+        262144,
+        1006
+      ],
+      [
+        494318,
+        454112,
+        1009,
+        43,
+        58,
+        52,
+        524272,
+        1006
+      ],
+      [
+        495323,
+        455171,
+        1059,
+        44,
+        51,
+        53,
+        262144,
+        1005
+      ],
+      [
+        496330,
+        456178,
+        1007,
+        43,
+        61,
+        60,
+        0,
+        1007
+      ],
+      [
+        497334,
+        457194,
+        1016,
+        43,
+        61,
+        61,
+        0,
+        1004
+      ],
+      [
+        498338,
+        458236,
+        1042,
+        44,
+        62,
+        60,
+        262144,
+        1004
+      ],
+      [
+        499342,
+        459257,
+        1021,
+        76,
+        61,
+        60,
+        262144,
+        1004
+      ],
+      [
+        500346,
+        460023,
+        766,
+        10,
+        46,
+        60,
+        524288,
+        1004
+      ],
+      [
+        501351,
+        461029,
+        1006,
+        44,
+        61,
+        61,
+        262144,
+        1005
+      ],
+      [
+        502356,
+        462045,
+        1016,
+        43,
+        61,
+        60,
+        270320,
+        1005
+      ],
+      [
+        503362,
+        463088,
+        1043,
+        43,
+        62,
+        60,
+        253952,
+        1006
+      ],
+      [
+        504367,
+        464095,
+        1007,
+        44,
+        61,
+        61,
+        1048576,
+        1005
+      ],
+      [
+        505373,
+        465112,
+        1017,
+        43,
+        61,
+        60,
+        786416,
+        1006
+      ],
+      [
+        506377,
+        466153,
+        1041,
+        43,
+        62,
+        60,
+        778240,
+        1004
+      ],
+      [
+        507384,
+        467161,
+        1008,
+        43,
+        61,
+        61,
+        786432,
+        1007
+      ],
+      [
+        508388,
+        468178,
+        1017,
+        44,
+        61,
+        60,
+        786416,
+        1004
+      ],
+      [
+        509392,
+        469219,
+        1041,
+        43,
+        61,
+        60,
+        786432,
+        1004
+      ],
+      [
+        510395,
+        470239,
+        1020,
+        44,
+        62,
+        60,
+        786432,
+        1003
+      ],
+      [
+        511400,
+        471244,
+        1005,
+        43,
+        61,
+        61,
+        524272,
+        1005
+      ],
+      [
+        512404,
+        472261,
+        1017,
+        43,
+        61,
+        60,
+        786432,
+        1004
+      ],
+      [
+        513409,
+        473304,
+        1043,
+        43,
+        61,
+        60,
+        262144,
+        1005
+      ],
+      [
+        514414,
+        474312,
+        1008,
+        44,
+        62,
+        60,
+        262144,
+        1005
+      ],
+      [
+        515418,
+        475077,
+        765,
+        43,
+        46,
+        61,
+        0,
+        1004
+      ],
+      [
+        516424,
+        476095,
+        1018,
+        43,
+        61,
+        60,
+        532464,
+        1006
+      ],
+      [
+        517428,
+        477136,
+        1041,
+        44,
+        61,
+        60,
+        253952,
+        1004
+      ],
+      [
+        518432,
+        478145,
+        1009,
+        43,
+        62,
+        60,
+        262144,
+        1004
+      ],
+      [
+        519438,
+        479162,
+        1017,
+        44,
+        61,
+        61,
+        0,
+        1006
+      ],
+      [
+        520443,
+        480202,
+        1040,
+        43,
+        61,
+        60,
+        524288,
+        1005
+      ],
+      [
+        521448,
+        481224,
+        1022,
+        44,
+        62,
+        60,
+        262144,
+        1005
+      ],
+      [
+        522454,
+        482228,
+        1004,
+        43,
+        61,
+        61,
+        262144,
+        1006
+      ],
+      [
+        523459,
+        483244,
+        1016,
+        43,
+        61,
+        60,
+        0,
+        1005
+      ],
+      [
+        524462,
+        484288,
+        1044,
+        44,
+        61,
+        60,
+        262144,
+        1003
+      ],
+      [
+        525468,
+        485294,
+        1006,
+        43,
+        62,
+        61,
+        0,
+        1006
+      ],
+      [
+        526472,
+        486311,
+        1017,
+        43,
+        61,
+        60,
+        262128,
+        1004
+      ],
+      [
+        527476,
+        487353,
+        1042,
+        43,
+        61,
+        60,
+        253952,
+        1004
+      ],
+      [
+        528481,
+        488362,
+        1009,
+        44,
+        62,
+        60,
+        262144,
+        1005
+      ],
+      [
+        529485,
+        489379,
+        1017,
+        43,
+        61,
+        61,
+        262144,
+        1004
+      ],
+      [
+        530490,
+        490145,
+        766,
+        44,
+        46,
+        60,
+        0,
+        1005
+      ],
+      [
+        531495,
+        491161,
+        1016,
+        43,
+        61,
+        60,
+        262144,
+        1005
+      ],
+      [
+        532501,
+        492205,
+        1044,
+        43,
+        61,
+        61,
+        262144,
+        1006
+      ],
+      [
+        533506,
+        493211,
+        1006,
+        43,
+        62,
+        60,
+        262144,
+        1005
+      ],
+      [
+        534511,
+        494228,
+        1017,
+        44,
+        61,
+        60,
+        262144,
+        1005
+      ],
+      [
+        535514,
+        495271,
+        1043,
+        43,
+        61,
+        60,
+        270320,
+        1003
+      ],
+      [
+        536519,
+        496277,
+        1006,
+        43,
+        62,
+        61,
+        0,
+        1005
+      ],
+      [
+        537523,
+        497294,
+        1017,
+        43,
+        61,
+        60,
+        253952,
+        1004
+      ],
+      [
+        538526,
+        498335,
+        1041,
+        44,
+        61,
+        60,
+        262144,
+        1003
+      ],
+      [
+        539532,
+        499345,
+        1010,
+        43,
+        62,
+        60,
+        262144,
+        1006
+      ],
+      [
+        540537,
+        500361,
+        1016,
+        44,
+        61,
+        61,
+        262144,
+        1005
+      ],
+      [
+        541543,
+        501377,
+        1016,
+        43,
+        61,
+        60,
+        262144,
+        1006
+      ],
+      [
+        542546,
+        502422,
+        1045,
+        43,
+        61,
+        60,
+        262144,
+        1003
+      ],
+      [
+        543552,
+        503427,
+        1005,
+        44,
+        62,
+        61,
+        262144,
+        1006
+      ],
+      [
+        544558,
+        504444,
+        1017,
+        43,
+        61,
+        60,
+        524272,
+        1006
+      ],
+      [
+        545563,
+        505211,
+        767,
+        43,
+        46,
+        60,
+        262144,
+        1005
+      ],
+      [
+        546567,
+        506254,
+        1043,
+        44,
+        61,
+        61,
+        262144,
+        1004
+      ],
+      [
+        547571,
+        507262,
+        1008,
+        43,
+        62,
+        60,
+        524288,
+        1004
+      ],
+      [
+        548575,
+        508278,
+        1016,
+        43,
+        61,
+        60,
+        262144,
+        1004
+      ],
+      [
+        549580,
+        509318,
+        1040,
+        44,
+        61,
+        60,
+        532464,
+        1005
+      ],
+      [
+        550582,
+        510340,
+        1022,
+        43,
+        62,
+        60,
+        516096,
+        1002
+      ],
+      [
+        551586,
+        511344,
+        1004,
+        43,
+        61,
+        61,
+        524288,
+        1004
+      ],
+      [
+        552591,
+        512361,
+        1017,
+        43,
+        61,
+        60,
+        262144,
+        1005
+      ],
+      [
+        553595,
+        513405,
+        1044,
+        43,
+        61,
+        60,
+        524288,
+        1004
+      ],
+      [
+        554601,
+        514412,
+        1007,
+        44,
+        62,
+        61,
+        262128,
+        1006
+      ],
+      [
+        555605,
+        515428,
+        1016,
+        43,
+        61,
+        60,
+        516096,
+        1004
+      ],
+      [
+        556611,
+        516470,
+        1042,
+        43,
+        61,
+        60,
+        262144,
+        1006
+      ],
+      [
+        557616,
+        517478,
+        1008,
+        44,
+        62,
+        60,
+        524288,
+        1005
+      ],
+      [
+        558621,
+        518495,
+        1017,
+        43,
+        61,
+        61,
+        524288,
+        1005
+      ],
+      [
+        559626,
+        519535,
+        1040,
+        43,
+        61,
+        60,
+        524272,
+        1005
+      ],
+      [
+        560633,
+        520302,
+        767,
+        44,
+        46,
+        61,
+        262144,
+        1007
+      ],
+      [
+        561637,
+        521324,
+        1022,
+        43,
+        62,
+        60,
+        786432,
+        1004
+      ],
+      [
+        562642,
+        522328,
+        1004,
+        43,
+        61,
+        60,
+        262144,
+        1005
+      ],
+      [
+        563645,
+        523344,
+        1016,
+        44,
+        61,
+        60,
+        532464,
+        1003
+      ],
+      [
+        564650,
+        524388,
+        1044,
+        43,
+        61,
+        61,
+        253952,
+        1005
+      ],
+      [
+        565656,
+        525395,
+        1007,
+        43,
+        62,
+        60,
+        786432,
+        1006
+      ],
+      [
+        566661,
+        526411,
+        1016,
+        43,
+        61,
+        60,
+        524288,
+        1005
+      ],
+      [
+        567668,
+        527454,
+        1043,
+        43,
+        61,
+        61,
+        532464,
+        1007
+      ],
+      [
+        568672,
+        528461,
+        1007,
+        44,
+        62,
+        60,
+        253952,
+        1004
+      ],
+      [
+        569675,
+        529479,
+        1018,
+        43,
+        61,
+        60,
+        524288,
+        1003
+      ],
+      [
+        570681,
+        530519,
+        1040,
+        43,
+        61,
+        60,
+        262144,
+        1006
+      ],
+      [
+        571687,
+        531541,
+        1022,
+        43,
+        61,
+        61,
+        524288,
+        1006
+      ],
+      [
+        572692,
+        532544,
+        1003,
+        44,
+        62,
+        60,
+        532464,
+        1005
+      ],
+      [
+        573698,
+        533560,
+        1016,
+        43,
+        61,
+        61,
+        245760,
+        1006
+      ],
+      [
+        574702,
+        534606,
+        1046,
+        44,
+        61,
+        60,
+        524288,
+        1004
+      ],
+      [
+        575706,
+        535371,
+        765,
+        43,
+        46,
+        60,
+        786432,
+        1004
+      ],
+      [
+        576711,
+        536377,
+        1006,
+        43,
+        62,
+        60,
+        532464,
+        1005
+      ],
+      [
+        577717,
+        537395,
+        1018,
+        44,
+        61,
+        61,
+        778240,
+        1006
+      ],
+      [
+        578721,
+        538437,
+        1042,
+        43,
+        61,
+        60,
+        524288,
+        1004
+      ],
+      [
+        579728,
+        539445,
+        1008,
+        43,
+        62,
+        60,
+        524288,
+        1007
+      ],
+      [
+        580731,
+        540461,
+        1016,
+        43,
+        61,
+        60,
+        524272,
+        1003
+      ],
+      [
+        581734,
+        541502,
+        1041,
+        44,
+        61,
+        61,
+        786432,
+        1003
+      ],
+      [
+        582738,
+        542524,
+        1022,
+        43,
+        61,
+        60,
+        524288,
+        1004
+      ],
+      [
+        583741,
+        543529,
+        1005,
+        43,
+        62,
+        60,
+        532464,
+        1003
+      ],
+      [
+        584744,
+        544545,
+        1016,
+        43,
+        61,
+        60,
+        516096,
+        1003
+      ],
+      [
+        585747,
+        545588,
+        1043,
+        44,
+        61,
+        60,
+        524288,
+        1003
+      ],
+      [
+        586752,
+        546595,
+        1007,
+        43,
+        62,
+        61,
+        524288,
+        1005
+      ],
+      [
+        587757,
+        547611,
+        1016,
+        43,
+        61,
+        60,
+        532464,
+        1005
+      ],
+      [
+        588760,
+        548653,
+        1042,
+        44,
+        61,
+        60,
+        507904,
+        1003
+      ],
+      [
+        589764,
+        549661,
+        1008,
+        43,
+        62,
+        60,
+        524288,
+        1004
+      ],
+      [
+        590768,
+        550427,
+        766,
+        43,
+        46,
+        61,
+        524288,
+        1004
+      ],
+      [
+        591772,
+        551445,
+        1018,
+        44,
+        61,
+        60,
+        786416,
+        1004
+      ],
+      [
+        592777,
+        552485,
+        1040,
+        43,
+        61,
+        60,
+        524288,
+        1005
+      ],
+      [
+        593782,
+        553506,
+        1021,
+        43,
+        61,
+        60,
+        524288,
+        1005
+      ],
+      [
+        594788,
+        554511,
+        1005,
+        44,
+        62,
+        61,
+        794608,
+        1006
+      ],
+      [
+        595792,
+        555527,
+        1016,
+        43,
+        61,
+        60,
+        778240,
+        1004
+      ],
+      [
+        596795,
+        556572,
+        1045,
+        43,
+        61,
+        60,
+        786432,
+        1003
+      ],
+      [
+        597800,
+        557579,
+        1007,
+        44,
+        62,
+        61,
+        786416,
+        1005
+      ],
+      [
+        598808,
+        558594,
+        1015,
+        43,
+        61,
+        60,
+        786432,
+        1008
+      ],
+      [
+        599812,
+        559638,
+        1044,
+        43,
+        61,
+        60,
+        524288,
+        1004
+      ],
+      [
+        600815,
+        560645,
+        1007,
+        44,
+        62,
+        60,
+        778224,
+        1003
+      ],
+      [
+        601820,
+        561660,
+        1015,
+        43,
+        61,
+        61,
+        524288,
+        1005
+      ],
+      [
+        602826,
+        562701,
+        1041,
+        43,
+        61,
+        60,
+        786432,
+        1006
+      ],
+      [
+        603832,
+        563723,
+        1022,
+        44,
+        61,
+        61,
+        532464,
+        1006
+      ],
+      [
+        604835,
+        564727,
+        1004,
+        43,
+        62,
+        60,
+        516096,
+        1003
+      ],
+      [
+        605841,
+        565495,
+        768,
+        43,
+        46,
+        60,
+        524288,
+        1006
+      ]
+    ],
+    "workerProtocolBytes": 30131,
+    "artifactSha256": {
+      "worker.json": "4b7d024f0e7c5296576a69e918e558232c6f8a8cfdc9d8d22f5ff9e1fca1eb6b",
+      "presentation-result.json": "8404f85b15e8cd7fc636d2f455efe2bfa5ded2249ff40510b284a053d63ba6f5",
+      "recovery-decisions.csv": "0a7a516bac01909f99c912f0724ad0642cf9534930c1b4492ca16a65c9ed73ab",
+      "recovery-diagnostics.csv": "266afe319ffa27326ba18fc90eb69c78adfa9a2e8e58afa4c6e289b391859eac",
+      "audio-timeline.csv": "2f3511b007c20d0f6c8f3925ddf31d33fe30a969a0c2260fbac43e994214df53",
+      "audio-native-events.csv": "d1adcdc2c3ef0bc7a79c030a4856b0da3b02732c1dcfb9f67630ad6e916a4f8c",
+      "phases.csv": "b59c47b83993e77281dca382a3113965aef7056dfa3f4f27a9b3ecbdab443241"
+    }
+  },
+  "sourceSha256Utf8Lf": {
+    "desktop-spike/src/main/java/com/drivedeck/player/spike/DesktopSpike.java": "ed3618f1a9cc1fa558b76b1e69fe23f66d1214d17259ea22e1ed8b4344e480e7",
+    "desktop-spike/src/main/java/com/drivedeck/player/spike/FixtureHttpSource.java": "05bed4f52c1289a4e92026c112ec8edf6ebfdb2e4c8785f78e189d3bc14d4bef",
+    "desktop-spike/src/main/java/com/drivedeck/player/spike/ProbeRelay.java": "dd3fad24a94789de618508d8a9c8fe27729a5e48378fb1d490504dba8aadf226",
+    "desktop-spike/src/main/java/com/drivedeck/player/spike/ProviderDenialWitness.java": "bcf144ce40157eedc534545fd21ce9ea17b8caa308833da9f16942170cf25d37",
+    "desktop-spike/src/main/java/com/drivedeck/player/spike/NetworkScenario.java": "dcc72b45c20f6d842dd1cd969eb21893da0e331472f35845f5b61aadbf92311b",
+    "desktop-spike/src/main/java/com/drivedeck/player/spike/RecoveryProgress.java": "c5afc62d350babccfb52b727ae1400f9c18d3a806633451285c097afaaa5c483",
+    "desktop-spike/src/main/java/com/drivedeck/player/spike/WorkerSupervisor.java": "dbefed60ae6c99b6b737db414e87dedc34be7b1f1b364b66ab4af34cb4f7abd3",
+    "tools/foundation/denial_lifecycle.py": "73de658f327ced98a71bc09c079bd457757649477d31f5757ae72b12ae464ff7",
+    "tools/foundation/test_denial_lifecycle.py": "8367e9008c201a73c7772c6043104daab87755f3cba1c13416797c3a3acb190c",
+    "tools/foundation/observe-presentation.ps1": "1958ef76f4afb93d3427138221b21337f51b2806ae3dedbea32b37619b8c4dcb",
+    "tools/foundation/recovery_diagnostics.py": "27348c47c8797a5a66f24a740501efe0a752dbb1d55e5b5f12d89be22a3912e0"
+  },
+  "nativeBinaryHashes": [
+    {
+      "name": "libvlc.dll",
+      "sha256": "c0b1bedbc8e11267b39111733920a6af73d08791e333e4f8902eaffe4daf6db9"
+    },
+    {
+      "name": "libvlccore.dll",
+      "sha256": "c089f281affe1e85c61edd5996c2b496191f82fa5cdc7ef709b0c09bf754cdbe"
+    },
+    {
+      "name": "libmmdevice_plugin.dll",
+      "sha256": "1cc801b4eb4ad6eea3227ae668b76469a5e68d6681e39af7540753444522e9e6"
+    },
+    {
+      "name": "libwasapi_plugin.dll",
+      "sha256": "c971dda80399d72bf501f33d62919cd50576588849f9d9c05cbc1e5da74e0d53"
+    },
+    {
+      "name": "libdirectsound_plugin.dll",
+      "sha256": "40a99b3efbd5422159c39df55ad856e7442a754d69add8ddedc3db6b660e706a"
+    }
+  ],
+  "actualProvider403Responses": 0,
+  "realYouTube403Reproduced": false,
+  "provider403RootCauseProven": false,
+  "limitations": {
+    "localDenialsAreSynthetic": true,
+    "syntheticDiagnosticSuccessDoesNotRepairNativeFailure": true,
+    "providerSourceAvSyncProven": false,
+    "exclusiveProviderAudibleContinuityProven": false,
+    "nativeWaitStackCaptured": false,
+    "abruptNativeCrashMayPreventWitness": true,
+    "productionHeadersAndRetryPolicyUnchanged": true,
+    "historicalFailuresUnchanged": true
+  }
+}
