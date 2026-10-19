@@ -4,6 +4,8 @@
     android:key="general_preferences"
     android:title="@string/settings">
 
+    <PreferenceScreen android:fragment="org.schabi.newpipe.settings.MediaSyncSettingsFragment" android:title="@string/media_sync_title" app:iconSpaceReserved="false" />
+
     <PreferenceScreen
         android:fragment="org.schabi.newpipe.settings.VideoAudioSettingsFragment"
         android:icon="@drawable/ic_headset"

@@ -1,7 +1,9 @@
 package org.schabi.newpipe.database;
 
 import static org.schabi.newpipe.database.Migrations.DB_VER_6;
-import static org.schabi.newpipe.database.Migrations.DB_VER_901;
+import static org.schabi.newpipe.database.Migrations.DB_VER_902;
+import org.schabi.newpipe.mediasync.MediaSyncState;
+import org.schabi.newpipe.mediasync.MediaSyncStateDAO;
 
 import androidx.room.Database;
 import androidx.room.RoomDatabase;
@@ -33,16 +35,18 @@ import org.schabi.newpipe.database.subscription.SubscriptionEntity;
 @TypeConverters({Converters.class})
 @Database(
         entities = {
-                SubscriptionEntity.class, SearchHistoryEntry.class,
+                MediaSyncState.class, SubscriptionEntity.class, SearchHistoryEntry.class,
                 StreamEntity.class, StreamHistoryEntity.class, StreamStateEntity.class,
                 PlaylistEntity.class, PlaylistStreamEntity.class, PlaylistRemoteEntity.class,
                 FeedEntity.class, FeedGroupEntity.class, FeedGroupSubscriptionEntity.class,
                 FeedLastUpdatedEntity.class
         },
-        version = DB_VER_901
+        version = DB_VER_902
 )
 public abstract class AppDatabase extends RoomDatabase {
     public static final String DATABASE_NAME = "newpipe.db";
+
+    public abstract MediaSyncStateDAO mediaSyncStateDAO();
 
     public abstract SearchHistoryDAO searchHistoryDAO();
 

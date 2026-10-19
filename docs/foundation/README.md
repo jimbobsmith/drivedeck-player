@@ -87,3 +87,11 @@ adb -s emulator-5580 shell am instrument -w -e disableAnalytics true -e class or
 ```
 
 The test starts its own public video through ACTION_VIEW with a temporary Video player router choice, restores that choice, and uses adopted shell media-control authority only within the instrumentation process. It rejects physical hardware. Run on an explicitly chosen emulator and never use `connectedDebugAndroidTest` while personal devices are attached.
+
+## Subsequent optional metadata integration
+
+The custom desktop feasibility harness above remains parked. Player issue #17
+adds manual shared subscription/resume metadata to the actual Android app,
+paired with the FreeTube fork. See [../media-sync/README.md](../media-sync/README.md)
+for the Room migration, protected enrollment, evidence and field/hosting gates.
+The existing playback engine, media session and extractor pin remain intact.

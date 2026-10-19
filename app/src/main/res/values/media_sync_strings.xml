@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="media_sync_title">Personal media sync</string>
+    <string name="media_sync_description">Optional manual subscription and resume sync with your self-hosted service. Playback and DD control remain local.</string>
+    <string name="media_sync_import">Import protected enrollment</string>
+    <string name="media_sync_import_summary">Choose the owner-created enrollment file and enter its passphrase. Keep the protected recovery copy private. No provider accounts or automatic playback.</string>
+    <string name="media_sync_passphrase">Enrollment passphrase</string>
+    <string name="media_sync_now">Sync now</string>
+    <string name="media_sync_keep_local">Use this device for all conflicts</string>
+    <string name="media_sync_use_remote">Use service versions for all conflicts</string>
+    <string name="media_sync_disconnect">Disconnect and forget enrollment</string>
+    <string name="media_sync_confirm">This affects sync enrollment or resolves all current conflicts. Local playback remains available. Continue?</string>
+    <string name="media_sync_disconnected">Disconnected. Your library remains local.</string>
+    <string name="media_sync_ready">Enrolled. Select Sync now to exchange subscriptions and resume positions.</string>
+    <string name="media_sync_synced">Sync complete.</string>
+    <string name="media_sync_offline">Service unavailable. Local playback and pending changes remain available.</string>
+    <string name="media_sync_pending">Local changes are waiting. Select Sync now to send them.</string>
+    <string name="media_sync_conflict">Conflicting changes are retained locally. Choose which versions to keep for all conflicts.</string>
+    <string name="media_sync_restored">Service restore detected. Uploads are paused; local changes are retained and reconciliation is required.</string>
+    <string name="media_sync_failed">Sync could not finish. Local data is retained. Check enrollment, service availability and storage limits.</string>
+    <string name="media_sync_requires_android">Media sync requires Android 8 or newer. Local playback is unaffected.</string>
+</resources>

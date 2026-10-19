@@ -51,6 +51,7 @@
     <application
         android:name=".App"
         android:allowBackup="false"
+        android:networkSecurityConfig="@xml/media_sync_network_security"
         android:banner="@mipmap/tv_banner"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
