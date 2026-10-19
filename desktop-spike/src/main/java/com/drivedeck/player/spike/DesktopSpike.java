@@ -75,8 +75,8 @@ public final class DesktopSpike {
         boolean present = args.length > 0 && args[0].equals("--present");
         if (present) args = Arrays.copyOfRange(args, 1, args.length);
         if (args.length < 2 || !(args[0].equals("--youtube") || args[0].equals("--youtube-paired")
-                || args[0].equals("--fixture") || args[0].equals("--fixture-paired"))
-                || args.length != (args[0].equals("--fixture-paired") ? 3 : 2)) {
+                || args[0].equals("--fixture") || args[0].equals("--fixture-paired") || args[0].equals("--fixture-http-paired"))
+                || args.length != (args[0].equals("--fixture-paired") || args[0].equals("--fixture-http-paired") ? 3 : 2)) {
             throw new IllegalArgumentException("Use --youtube VIDEO_ID or --fixture TEST_MEDIA_PATH");
         }
         var audioOutputPolicy = AudioOutputPolicy.from(System.getenv(),present);
@@ -142,6 +142,12 @@ public final class DesktopSpike {
                 output.put("playbackProfile", present ? settings.profile() : "headless_probe");
                 media = selected.getContent();
             }
+        } else if (args[0].equals("--fixture-http-paired")) {
+            stage("fixture");
+            var sources = FixtureHttpSource.from(args[1], args[2], network.usesRelay(), network.enabled());
+            media = sources.video();
+            audioMedia = sources.audio();
+            output.put("pairedAudio", true).put("syntheticLoopbackHttpFixture", true);
         } else {
             stage("fixture");
             var fixture = java.nio.file.Path.of(args[1]).toAbsolutePath();
