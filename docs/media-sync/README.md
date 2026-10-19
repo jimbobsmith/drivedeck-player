@@ -32,6 +32,21 @@ Use pinned JDK 25 / Gradle 9.5.1 / Android SDK 37 from the foundation guide:
 gradle :app:assembleDebug :app:assembleDebugAndroidTest :app:testDebugUnitTest
 ```
 
-Actual cross-client validation is orchestrated by desktop `tools/fork/validate-media-sync.cjs` against the packaged FreeTube executable and the matching Test APKs on the explicitly selected `DD_Player_Foundation_API36` emulator. The helper rejects physical hardware and all other AVD names. Install only on that dedicated emulator; never invoke an unqualified connected-device task while a personal phone is attached. The Test identity remains `com.drivedeck.player.test`; extractor source pin remains `c68e10e2e97495877832d8df6cbac55478083019`.
+Actual cross-client validation is orchestrated by desktop `tools/fork/validate-media-sync.cjs` against the packaged FreeTube executable and the matching Test APKs on the explicitly selected `DD_Player_Foundation_API36` emulator. The default helper rejects physical hardware and all other AVD names. A separately authorized fresh-phone path is described below. Install only on that dedicated emulator; never invoke an unqualified connected-device task while a personal phone is attached. The Test identity remains `com.drivedeck.player.test`; extractor source pin remains `c68e10e2e97495877832d8df6cbac55478083019`.
 
-`MediaSyncIntegrationTest` uses the actual default app DB and Android Keystore, verifies the ordinary HistoryRecordManager read, checks protected Node→Android enrollment/record interoperability and changed-key rejection, migrates a reconstructed 901 schema without losing the existing library, and exercises real settings in portrait/landscape. Named phases cover bidirectional exchange, removal/rewind, offline edits, process-stop retry and explicit concurrent-resume resolution. Synthetic credentials are staged in the Test app's private cache. The helper resets only task-owned sync state and its own synthetic rows; never run it against a personal app profile. No installer, personal-device installation, release or hosting is performed by this slice. Build success is not an A/V or audible-output claim.
+`MediaSyncIntegrationTest` uses the actual default app DB and Android Keystore, verifies the ordinary HistoryRecordManager read, checks protected Node→Android enrollment/record interoperability and changed-key rejection, migrates a reconstructed 901 schema without losing the existing library, and exercises real settings in portrait/landscape. Named phases cover bidirectional exchange, removal/rewind, offline edits, process-stop retry and explicit concurrent-resume resolution. Synthetic credentials are staged in the Test app's private cache. The helper resets only task-owned sync state and its own synthetic rows; never run it against a personal app profile. That original emulator slice performed no installer, personal-device installation, release or hosting; the explicitly authorized phone follow-up is recorded below. Build success is not an A/V or audible-output claim.
+
+
+## Physical-phone follow-up
+
+Approved PR #18 is integrated at e74c24db4bc469065424ec7d2df73375f04fe60c;
+desktop #5 and platform #29 are also merged. The fresh ARM64 Test install
+passes the physical-phone subscription/resume sequence and native settings
+import, Sync now and disconnect controls. MediaSyncPhoneValidationTest is
+separately guarded by a private random permit and an empty-library preflight;
+MediaSyncIntegrationTest remains emulator-only. Process-local UI inspection
+avoids the shared phone-wide automation service. See
+[PHONE_VALIDATION.md](PHONE_VALIDATION.md) and
+[phone-evidence.json](phone-evidence.json) for exact evidence and limitations.
+The real DocumentsUI choice is intercepted, full provider gestures/playback and
+existing-library upgrade remain unproved, and no service is deployed.

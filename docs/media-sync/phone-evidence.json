@@ -1,0 +1,244 @@
+{
+  "schema": "drivedeck.media-sync.physical-phone.v1",
+  "date": "2026-10-19",
+  "result": "passed",
+  "issues": {
+    "desktop": 4,
+    "android": 17,
+    "platform": 27,
+    "parent": 244
+  },
+  "integrated": {
+    "desktop": {
+      "pr": 5,
+      "commit": "c3892fc0bb1fd8231b734a85be710660b34154b0"
+    },
+    "android": {
+      "pr": 18,
+      "commit": "e74c24db4bc469065424ec7d2df73375f04fe60c"
+    },
+    "platform": {
+      "pr": 29,
+      "commit": "3ce9e91f6b68b9ebc2e6876f6c11dcc01ad8694d"
+    }
+  },
+  "target": {
+    "physical": true,
+    "abi": "arm64-v8a",
+    "androidSdk": 37,
+    "applicationId": "com.drivedeck.player.test",
+    "freshInstallationProved": true,
+    "existingPackagesProtected": true,
+    "personalAppDataReset": false,
+    "uninstalled": false,
+    "personalLibraryUsed": false
+  },
+  "transport": {
+    "loopbackOnly": true,
+    "adbReverseExplicitTarget": true,
+    "hosted": false,
+    "networkAdapterOrRadioChanged": false
+  },
+  "checks": {
+    "schema": "drivedeck.media-sync.actual-apps.v1",
+    "result": "passed",
+    "syntheticDataOnly": true,
+    "actualPackagedDesktop": true,
+    "actualAndroidAppDatabase": true,
+    "physicalDeviceTouched": true,
+    "deployed": false,
+    "playbackQualification": false,
+    "guard": {
+      "beforeReady": true,
+      "protocolGuard": true,
+      "filePickerOnlyStubbed": true
+    },
+    "desktopEnrollment": {
+      "enabled": true,
+      "code": "ready",
+      "pending": 0,
+      "conflicts": 0
+    },
+    "initialDesktopSync": {
+      "enabled": true,
+      "code": "synced",
+      "pending": 0,
+      "conflicts": 0
+    },
+    "androidNativeEnrollmentDialogAndSyncButton": true,
+    "androidFileChoiceIntercepted": true,
+    "androidReceiveAndPublish": true,
+    "bidirectionalAppModels": true,
+    "subscriptionRemovalAndDeliberateRewind": true,
+    "acknowledgedSubscriptionReadd": true,
+    "desktopOfflineLocalEditRetained": true,
+    "desktopOfflineRetryControlsRetained": true,
+    "androidOutboxSurvivesProcessStop": true,
+    "offlineRestartRecovery": true,
+    "explicitConcurrentResumeResolution": true,
+    "desktopSyncButtonPassed": true,
+    "androidSettingsBothOrientations": true,
+    "desktopSettingsButtonAndStatus": true,
+    "noDesktopAutoplay": true,
+    "androidDisconnectedWithoutLibraryLoss": true,
+    "runtime": {
+      "electron": "42.5.2",
+      "node": "24.17.0",
+      "protocolGuard": {
+        "set": 1,
+        "remove": 1
+      }
+    },
+    "desktopExit": 0
+  },
+  "tests": {
+    "androidUniqueMethods": 6,
+    "androidSuccessfulInvocations": 11,
+    "androidDataPhases": [
+      "receive",
+      "rewind",
+      "readd",
+      "offline",
+      "retry",
+      "conflict"
+    ],
+    "androidAuxiliaryPhases": [
+      "fresh-install-empty",
+      "native-enrollment",
+      "secrets",
+      "native-settings-orientations",
+      "disconnect"
+    ],
+    "androidUnitTests": {
+      "passed": 2,
+      "note": "Existing suite reported UP-TO-DATE; no new unit-test count claimed."
+    },
+    "desktopActualNeDbUnitTests": 8,
+    "androidBuild": "assembleDebug, assembleDebugAndroidTest, testDebugUnitTest passed",
+    "desktopSyntax": "Both harnesses passed node --check",
+    "negativeSafetyChecks": [
+      "Existing Test package refused before installation and evidence-directory creation",
+      "Missing fresh-install permit refused before database access"
+    ]
+  },
+  "scope": {
+    "nativeAndroidSettingsControls": true,
+    "androidMaskedPassphrase": true,
+    "androidKeystore": true,
+    "realDefaultRoomDatabase": true,
+    "realFreeTubeIpcAndNeDb": true,
+    "androidNormalHistoryRecordManagerLookup": true,
+    "syntheticAppModelWrites": true,
+    "fullProviderSubscribeGestures": false,
+    "playerPlaybackOrResumeExecution": false,
+    "desktopFileChoiceIntercepted": true,
+    "androidFileChoiceIntercepted": true,
+    "androidUiActions": "Process-local native views; ACTION_OPEN_DOCUMENT selection intercepted only",
+    "screenshots": "Rendered own Android Activity decor view, excluding other apps/status UI"
+  },
+  "dataChecks": {
+    "desktopToPhoneResumeMs": 90000,
+    "phoneToDesktopResumeMs": 20000,
+    "deliberateRewindMs": 15000,
+    "offlineDesktopResumeMs": 12000,
+    "offlinePhoneResumeMs": 8000,
+    "explicitPhoneConflictWinnerMs": 7000,
+    "subscriptionRemoveAndAcknowledgedReadd": true
+  },
+  "cleanup": {
+    "serviceListenerStopped": true,
+    "adbReverseRemoved": true,
+    "ownDesktopExited": 0,
+    "phoneEnrollmentForgottenThroughNativeUi": true,
+    "phoneSyncStateClearedByExplicitDisconnect": true,
+    "normalSyntheticLibraryRetained": true,
+    "privateStagedBundleAndPermitRemoved": true,
+    "otherTargetsUntouched": true
+  },
+  "attempts": [
+    {
+      "attempt": 1,
+      "result": "failed",
+      "code": "AndroidDeadline",
+      "cause": "File-picker monitor matched null-action Settings launch",
+      "fix": "Explicit MAIN action for the test Settings launch; stop only owned app/client on instrumentation timeout"
+    },
+    {
+      "attempt": 2,
+      "result": "failed",
+      "code": "AndroidPhaseFailed",
+      "cause": "File-picker monitor omitted MIME type; external picker launched instead of intercepted file selection",
+      "fix": "Wildcard MIME type on ACTION_OPEN_DOCUMENT monitor"
+    },
+    {
+      "attempt": 3,
+      "result": "failed",
+      "code": "AndroidPhaseFailed",
+      "cause": "Phone-wide UiAutomation service already registered",
+      "fix": "Process-local native view actions and own-window rendering; no global UiAutomation connection"
+    },
+    {
+      "attempt": 4,
+      "result": "passed",
+      "note": "Updated instrumentation on the same task-owned empty Test install; no app reset/reinstall/uninstall. Prior successful empty-library preflight plus absent enrollment proved retry scope."
+    }
+  ],
+  "remaining": [
+    "Real DocumentsUI file selection (only chooser result intercepted)",
+    "Full provider subscription gestures and actual playback checkpoint/resume execution",
+    "Existing real-library enrollment/upgrade and initial-library limits",
+    "DD live-control validation with sync disconnected; TV/tablet and additional OS vault matrix",
+    "Remote HTTPS operations, hosting, security review, restore/key migration and retention UX"
+  ],
+  "artifacts": {
+    "desktopExecutable": {
+      "sha256": "06119da09a3d11ed7734b92d0e6a698271ca09ab2d73142a1b29d526654c09fa",
+      "signed": false
+    },
+    "desktopAsar": {
+      "sha256": "bcfab78c56b55968ffc529314f69c0e479113a19638c7172a750d9f21a898af3"
+    },
+    "androidArm64DebugApk": {
+      "sha256": "f1a3a82680dd0c2f70f8adecf4b6901d1096efe6e1b4baaeddd2f55f984c3709"
+    },
+    "androidInstrumentationApk": {
+      "sha256": "7bd4f02653c1ef6a61761d8d0abc2bcf3df9c4332429b06df71f5548bcfc5d96"
+    }
+  },
+  "sourceFiles": {
+    "desktopHarness": "8c4bfe077550dec37f5cbf118e494cb4a5d561b93e4a20b295f6c0c1f193a85f",
+    "freshPhoneWrapper": "0992e0db27ba349ac08b921da46bb197e05958f4fcdd51f91867386eaea01643",
+    "phoneTests": "93403d6c7d77a659b14a3a30155ce91fc37523e4f48eb2db5c656a5c3bb6f6c1",
+    "androidAdapter": "3e0d5d9ae60e6eef4c4d34101044fec0f99af4f8f7b9041b8485aef55719eca0",
+    "desktopAdapter": "0fd9da15210df5f0daa9ae9fb148e690577cc048bee48e1af504040bce3e20b9",
+    "service": "46ba84b53bdb8bc997329d95d7575219e4fcf7e7f31e4797f4241b00c1495652"
+  },
+  "rawEvidence": {
+    "scratchOnly": true,
+    "resultSha256": "bd47802c892aa60eafef4dafc62856f2570004ee7b97b8091bdc48791e0ac1b8",
+    "androidLogs": {
+      "reset": "75748e307ad8e04bbee019d039e5c70ebe6ef0cf30f3a9073ee41b5978795982",
+      "enroll": "30fb6a9f095e5402221e2d2c5abf12ba7a01db3028c2e8fe63ac6bca53099bc8",
+      "receive": "1362b241f7b917d21c23f14cc9c06caf18a879f569d30de3f275922f228b61e7",
+      "rewind": "ff36c47b8047d417736cecd313b44c09154672bb66ea8458e0d129219269f439",
+      "readd": "7e78966c9aee37fc19bfc95fea6de7409414a7ed575a62fc5246484ae09c8a35",
+      "offline": "c2005c34899943c1e56f22ef228466ac124cad5a6af775dca9d4907c32c257bc",
+      "retry": "594a4c4bf4bc6b231fde4a2fd872ec68bc33368a7055708194f77a5c7e83d86b",
+      "conflict": "e19adf6928b74fcf1e5cee1a73921352f11b8f2b41ba103504dee0dbcf3aa8ba",
+      "secrets": "31423e1d497a76fc9c6ce429ff96f89918db416e38fffdc37ad200586533de42",
+      "ui": "2549ead9ae5f9da4686c79c77b6f2203da6e440df93eb822d60379a3c76c9b31",
+      "disconnect": "3a11867717dbe345a9094476ed3bee1b194d82694d6632da9c70b59535ee324f"
+    },
+    "screenshots": {
+      "android-settings-portrait.png": "62d7d8a1bb39d87b5873f70bf8f82cb53cee3dd8cef7a99dfe961d600359f924",
+      "android-settings-landscape.png": "c500ca2cad28aa59beab9d5de3284e0db6e48903892275659e8f0a7c65e722b6",
+      "desktop-settings-synced.png": "945c08bf2ea2b350eff74e1997a5c180d4d6b0db9120f5d7513fbe9550014ac9"
+    }
+  },
+  "privacy": {
+    "deviceIdentifiersIncluded": false,
+    "tokensOrLibraryKeysIncluded": false,
+    "privateProfileOrDatabaseIncluded": false,
+    "providerCredentialsOrResolvedUrlsIncluded": false
+  }
+}
