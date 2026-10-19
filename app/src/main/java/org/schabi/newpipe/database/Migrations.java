@@ -30,6 +30,14 @@ public final class Migrations {
     public static final int DB_VER_900 = 900;
     public static final int DB_VER_901 = 901;
 
+    public static final int DB_VER_902 = 902;
+    public static final Migration MIGRATION_901_902 = new Migration(DB_VER_901, DB_VER_902) {
+        @Override
+        public void migrate(@NonNull final SupportSQLiteDatabase database) {
+            database.execSQL("CREATE TABLE IF NOT EXISTS dd_media_sync (id INTEGER NOT NULL, body TEXT NOT NULL, PRIMARY KEY(id))");
+        }
+    };
+
     private static final String TAG = Migrations.class.getName();
     public static final boolean DEBUG = MainActivity.DEBUG;
 

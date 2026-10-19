@@ -1,0 +1,183 @@
+{
+  "schema": "drivedeck.media-sync.app-integration-evidence.v1",
+  "date": "2026-10-19",
+  "repositories": {
+    "desktop": {
+      "issue": "jimbobsmith/drivedeck-desktop#4",
+      "baseCommit": "89ea7a21dcc42068279cd5c2a033eaeca59bf0cf",
+      "branch": "codex/issue-4-media-sync"
+    },
+    "android": {
+      "issue": "jimbobsmith/drivedeck-player#17",
+      "baseCommit": "27e5c39dd75bf962a26bdde190e577d127913d47",
+      "branch": "codex/issue-17-media-sync",
+      "extractorPin": "c68e10e2e97495877832d8df6cbac55478083019"
+    },
+    "platform": {
+      "issue": "jimbobsmith/drivedeck-platform#27",
+      "integratedServiceCommit": "a032d084b23aacdf5a503e343e034ea8acade6b2",
+      "branch": "codex/issue-27-app-integration"
+    }
+  },
+  "runtime": {
+    "buildNode": "24.18.0",
+    "pnpm": "10.34.7",
+    "electron": "42.5.2",
+    "embeddedNode": "24.17.0",
+    "jdk": "25.0.4.1+1",
+    "gradle": "9.5.1",
+    "androidCompileSdk": 37,
+    "androidEmulatorApi": 36,
+    "avdName": "DD_Player_Foundation_API36"
+  },
+  "checks": {
+    "platformFocused": {
+      "tests": 22,
+      "passed": 22
+    },
+    "platformRegression": {
+      "tests": 229,
+      "passed": 229
+    },
+    "desktopActualNeDbUnit": {
+      "tests": 8,
+      "passed": 8
+    },
+    "desktopUpstreamLint": "passed",
+    "desktopSyncCoreLint": "passed",
+    "desktopProductionPack": "passed with the three inherited bundle-size warnings",
+    "desktopUnpackedPackaging": "passed with upstream ebuilder config; NotSigned; no installer run",
+    "androidDebugAndInstrumentationBuild": "passed",
+    "androidAppUnit": {
+      "tests": 2,
+      "passed": 2
+    },
+    "androidInstrumented": {
+      "uniqueMethods": 4,
+      "phases": [
+        "receive",
+        "rewind",
+        "offline",
+        "retry",
+        "conflict"
+      ],
+      "result": "4/4 in each phase; reset and final UI helper selections separately pass",
+      "covers": [
+        "real default Room/Keystore cross-client flow",
+        "protected enrollment and changed-key rejection",
+        "existing-library migration 901 to 902",
+        "portrait/landscape settings layout"
+      ]
+    },
+    "androidExistingMediaSessionWithSyncServiceOffline": {
+      "tests": 1,
+      "passed": 1,
+      "interpretation": "Existing public-test-video media session/control test, not the complete DD phone-link/vehicle matrix or source A/V qualification."
+    },
+    "stagedWhitespace": "passed"
+  },
+  "crossClientResults": {
+    "result": "passed",
+    "syntheticDataOnly": true,
+    "actualPackagedDesktop": true,
+    "actualAndroidAppDatabase": true,
+    "physicalDeviceTouched": false,
+    "deployed": false,
+    "playbackQualification": false,
+    "guard": {
+      "beforeReady": true,
+      "protocolGuard": true,
+      "filePickerOnlyStubbed": true
+    },
+    "androidReceiveAndPublish": true,
+    "bidirectionalAppModels": true,
+    "subscriptionRemovalAndDeliberateRewind": true,
+    "desktopOfflineLocalEditRetained": true,
+    "desktopOfflineRetryControlsRetained": true,
+    "androidOutboxSurvivesProcessStop": true,
+    "offlineRestartRecovery": true,
+    "explicitConcurrentResumeResolution": true,
+    "desktopSyncButtonPassed": true,
+    "androidSettingsBothOrientations": true,
+    "desktopSettingsButtonAndStatus": true,
+    "noDesktopAutoplay": true,
+    "desktopExit": 0
+  },
+  "evidenceBoundary": {
+    "desktopModelEdits": "Real shipped renderer IPC and existing NeDB handlers; native chooser selection only is stubbed to a protected test bundle. Actual desktop import and Sync now DOM controls are exercised, including offline retry controls.",
+    "androidModelEdits": "Real default app Room/DAOs, ordinary HistoryRecordManager read and actual Android Keystore. Settings layout/control presence exercised; document-picker/passphrase and preference gesture end-to-end still need human/device confirmation.",
+    "data": "Disposable synthetic subscription/checkpoint scenario; the dedicated emulator may also retain the known public media-session test clip from its controlled playback validation, never a personal library.",
+    "isolation": "Fresh desktop profile with protocol registration suppressed; dedicated named emulator only; no personal phone touched.",
+    "noNewPlaybackClaim": true,
+    "noHostingOrRelease": true,
+    "keyProtection": "Standard client-side AES-GCM, protected enrollment and OS stores; no independent audit/E2EE certification claim."
+  },
+  "initialOutcomesRetained": [
+    {
+      "trial": "initial app check",
+      "result": "failed",
+      "reason": "Test harness used blocking adb instrumentation in the same event loop as its HTTP service, producing a false offline result; migration fixture also assumed every entity had indices. Harness became asynchronous and optional index arrays were handled."
+    },
+    {
+      "trial": "second app check",
+      "result": "metadata flow passed, final capture failed",
+      "reason": "Chromium UnknownVizError on reload/capture; UI import was subsequently exercised directly and capture waited for visible presentation."
+    },
+    {
+      "trial": "third app check",
+      "result": "passed"
+    },
+    {
+      "trial": "fourth app check",
+      "result": "passed including explicit conflict resolution"
+    },
+    {
+      "trial": "final app check",
+      "result": "passed including actual desktop offline/retry UI regression"
+    }
+  ],
+  "sourceSha256": {
+    "desktop": {
+      "package.json": "7268333449d4ffb43878940631a69d87a3a6ad431eb948afa727e79ed112afda",
+      "pnpm-lock.yaml": "cc4f359edfd0bba0ff12fd57485cde82e67a053bf1a648b6e82de3151984dbd7",
+      "src/main/index.js": "5b513aa58bfd2374e3c9afb68e650faa9c13c62f770f7e321826e8a289316435",
+      "src/datastores/handlers/base.js": "e2f573342ba87623d0589bcf6a9a81a03b64bf5c6e9cd16d6b0740559ed4d2bd",
+      "src/preload/interface.js": "2457142473a6b4a4720b85383d74f0c74b0cfa3526ea7943afad9a73adcf871a",
+      "src/renderer/views/Settings/Settings.vue": "4c08eeb64cf73a33ee2fb304934379cd43e4193a67b62c3ba463d02dd269af38",
+      "src/renderer/components/MediaSyncSettings.vue": "db076391b441f1ba4c01b3fdeec68e7c063603d03cd9a239f818c5fb8180f8eb",
+      "src/main/media-sync/app-sync.mjs": "0fd9da15210df5f0daa9ae9fb148e690577cc048bee48e1af504040bce3e20b9",
+      "src/main/media-sync/client.mjs": "9ebc5650722a5ca0800a0c030a1bf84ba320d2f6c060f6feda3dc9162f1206e5",
+      "src/main/media-sync/electron.mjs": "ab4fc3ff7fe051af1668d973ffe59924dba258b1b4329099cae3a6cf4c3052c4",
+      "src/main/media-sync/enrollment.mjs": "f46ca62c912cc5334d347556d7e1bc8cefbef361462ca2e51daf3fcb1aa31f9f",
+      "src/main/media-sync/protocol.mjs": "6d072aaf77c134e40b0455d8c7edc0a56361f1cae1536bc4e1263421ccbb6849",
+      "src/main/media-sync/store.mjs": "367f9617462626c1920f29ff69cd09d291d13886d58889c6832a386ee06c3076"
+    },
+    "android": {
+      "app/build.gradle": "7e0f131fb1abcb2fee7bed9d584da04702ca166be6eb2650a531f6df973b5af4",
+      "app/src/main/AndroidManifest.xml": "082d825047dccc58c441a386c020f1712ab51f81469297ecb4615457c4ff388b",
+      "app/src/main/java/org/schabi/newpipe/database/AppDatabase.java": "90d7a0479cdab90fcfc200521c50252d1629370e0e510b18dc3ba7da54e2b43f",
+      "app/src/main/java/org/schabi/newpipe/database/Migrations.java": "366f5744e1fee20e5e5d77ae2640548c1a4824614a54b822b8061c8c5af5611a",
+      "app/src/main/java/org/schabi/newpipe/NewPipeDatabase.java": "cfa9b52a71f9f0d5253b089d136ab1087c4f96de382a763e4808081df856ebc5",
+      "app/src/main/java/org/schabi/newpipe/settings/MediaSyncSettingsFragment.kt": "7f6fe874c7c7ba0ec9565906d02e1a91c50015c4eee440eab1ba90c9150aa490",
+      "app/src/main/res/xml/media_sync_network_security.xml": "42c435c435ebd30c9bf6be60e67f2b4c49ea662e1f6fca9eba9cb7cad4b59e0e",
+      "app/schemas/org.schabi.newpipe.database.AppDatabase/902.json": "96436dde1b146ef78ba8b6364716371b4beee79a9b3e3ad472e62bec6641e3d9",
+      "app/src/main/java/org/schabi/newpipe/mediasync/MediaSyncClient.kt": "3e0d5d9ae60e6eef4c4d34101044fec0f99af4f8f7b9041b8485aef55719eca0",
+      "app/src/main/java/org/schabi/newpipe/mediasync/MediaSyncCrypto.kt": "06f0da823408d3076aabf0d88988c279b749ac8902922bd7fe2609329a87f95b",
+      "app/src/main/java/org/schabi/newpipe/mediasync/MediaSyncSecrets.kt": "0effbafb311e0a909cfc4101c0ab7dd428e2f78983f3efe06cbda378e37f4aa6",
+      "app/src/main/java/org/schabi/newpipe/mediasync/MediaSyncState.kt": "7f8e3a530e74e07ec769b5f7d3ea9ca8e1f2d62baa203098e87963a0f85e4d8f"
+    }
+  },
+  "artifactSha256": {
+    "desktopExecutable": "06119da09a3d11ed7734b92d0e6a698271ca09ab2d73142a1b29d526654c09fa",
+    "desktopAppAsar": "bcfab78c56b55968ffc529314f69c0e479113a19638c7172a750d9f21a898af3",
+    "androidX64DebugApk": "249e9ba62ac964accf2174b8b79fb319714f026d5e5363e6422b3cbcde125b3d",
+    "androidInstrumentationApk": "92ef5add8f481753bdd820e3a51e430b6e583145e89894523cd30c3a2cebf583"
+  },
+  "remainingGates": [
+    "Review/merge of fork-local implementation PRs and platform reference-client follow-up.",
+    "Actual personal-phone/TV/DD phone-link field matrix and Android enrollment/Sync preference gestures.",
+    "External security review, protected recovery/migration UX hardening and automated restore reconciliation/retention.",
+    "Remote verified HTTPS operations/hosting and public or multi-user enrollment.",
+    "Fork identity/upgrade/signing/installer/release gates."
+  ]
+}
