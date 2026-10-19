@@ -1,0 +1,208 @@
+{
+  "schema": "drivedeck.media-sync.physical-tablet.v1",
+  "date": "2026-10-19",
+  "result": "passed",
+  "issues": {
+    "desktop": 4,
+    "android": 17,
+    "platform": 27,
+    "parent": 244
+  },
+  "reviewPrs": {
+    "desktop": 6,
+    "android": 19,
+    "platform": 30
+  },
+  "sourceCommits": {
+    "desktop": "2834ef798d826e0fb498c0cbe43277bb1340d6c6",
+    "android": "ad5e98850fdc3bf22f6b2a0f2f7485f4e357a534",
+    "platform": "150d901797ecddffda27624789b7469b428cd177"
+  },
+  "target": {
+    "physical": true,
+    "formFactor": "tablet",
+    "family": "Fire",
+    "androidSdk": 30,
+    "abi": "arm64-v8a",
+    "applicationId": "com.drivedeck.player.test",
+    "freshInstallAndEmptyLibraryProved": true
+  },
+  "coordination": {
+    "chatTitle": "DD Spotify API Player",
+    "explicitTabletOnlyReleaseBeforeTesting": true,
+    "phoneReservedToOtherChat": true,
+    "phoneAccessDuringTabletWindow": false,
+    "pairingOrRolesChanged": false,
+    "keepAwakeChanged": false,
+    "mediaCommandsSent": false,
+    "ddTestOrSpotifyPackageChanged": false,
+    "ddHomeRestored": true
+  },
+  "compatibilityFix": {
+    "finding": "Previous enrollment importer retained direct API33 InputStream.readNBytes(int) call; tablet is API30",
+    "source": "https://developer.android.com/sdk/api_diff/33/changes/java.io.InputStream",
+    "reproducedAsTabletCrash": false,
+    "fix": "API-compatible bounded MediaSyncEnrollmentInput; same 16384-byte admission cap and one-byte oversize probe",
+    "compiledCallAuditPassed": true,
+    "unitRegressions": 4,
+    "androidTotalUnitTestsPassed": 6,
+    "cryptoFormatOrMinimumSdkChanged": false
+  },
+  "checks": {
+    "schema": "drivedeck.media-sync.actual-apps.v1",
+    "result": "passed",
+    "syntheticDataOnly": true,
+    "actualPackagedDesktop": true,
+    "actualAndroidAppDatabase": true,
+    "physicalDeviceTouched": true,
+    "formFactor": "tablet",
+    "deployed": false,
+    "playbackQualification": false,
+    "guard": {
+      "beforeReady": true,
+      "protocolGuard": true,
+      "filePickerOnlyStubbed": true
+    },
+    "desktopEnrollment": {
+      "enabled": true,
+      "code": "ready",
+      "pending": 0,
+      "conflicts": 0
+    },
+    "initialDesktopSync": {
+      "enabled": true,
+      "code": "synced",
+      "pending": 0,
+      "conflicts": 0
+    },
+    "androidNativeEnrollmentDialogAndSyncButton": true,
+    "androidFileChoiceIntercepted": true,
+    "androidReceiveAndPublish": true,
+    "bidirectionalAppModels": true,
+    "subscriptionRemovalAndDeliberateRewind": true,
+    "acknowledgedSubscriptionReadd": true,
+    "desktopOfflineLocalEditRetained": true,
+    "desktopOfflineRetryControlsRetained": true,
+    "androidOutboxSurvivesProcessStop": true,
+    "offlineRestartRecovery": true,
+    "explicitConcurrentResumeResolution": true,
+    "desktopSyncButtonPassed": true,
+    "androidSettingsBothOrientations": true,
+    "desktopSettingsButtonAndStatus": true,
+    "noDesktopAutoplay": true,
+    "androidDisconnectedWithoutLibraryLoss": true,
+    "runtime": {
+      "electron": "42.5.2",
+      "node": "24.17.0",
+      "protocolGuard": {
+        "set": 1,
+        "remove": 1
+      }
+    },
+    "desktopExit": 0
+  },
+  "scope": {
+    "syntheticDataOnly": true,
+    "actualPackagedDesktop": true,
+    "realNeDbAndRoom": true,
+    "nativeAndroidEnrollmentDialogAndControls": true,
+    "androidKeystore": true,
+    "desktopDpapi": true,
+    "fileChoiceInterceptedOnBothClients": true,
+    "processLocalNativeWindowsOnly": true,
+    "normalHistoryLookup": true,
+    "fullProviderSubscribeGestures": false,
+    "actualProviderPlaybackOrResumeExecution": false,
+    "embeddedDdPresentationOrLiveControl": false,
+    "hosted": false,
+    "threeWaySimultaneousConvergence": false,
+    "note": "Independent desktop/phone and desktop/tablet runs use separate disposable owners. This proves standalone Player metadata on display hardware; restoring DD Home is not embedded-player/control proof."
+  },
+  "tests": {
+    "androidUniqueMethods": 6,
+    "successfulAndroidInvocations": 11,
+    "dataPhases": [
+      "receive",
+      "rewind",
+      "readd",
+      "offline",
+      "retry",
+      "conflict"
+    ],
+    "auxiliaryPhases": [
+      "fresh-install-empty",
+      "native-enrollment",
+      "secrets",
+      "native-settings-orientations",
+      "disconnect"
+    ],
+    "androidUnitTestsPassed": 6,
+    "newInputUnitRegressions": 4,
+    "desktopUnitTestsPassed": 8,
+    "tabletAttempts": 1,
+    "build": "App/test assembly and all six Android unit tests passed; compiled importer invokes bounded helper"
+  },
+  "cleanup": {
+    "serviceStopped": true,
+    "scopedReverseRemoved": true,
+    "desktopExit": 0,
+    "tabletNativeDisconnectPreservedLibrary": true,
+    "stagedBundleAndPermitRemoved": true,
+    "testAppRemainsInstalledDisconnected": true,
+    "ddHomeRestored": true,
+    "otherTargetsUntouched": true
+  },
+  "artifacts": {
+    "desktopExecutable": "06119da09a3d11ed7734b92d0e6a698271ca09ab2d73142a1b29d526654c09fa",
+    "desktopAsar": "bcfab78c56b55968ffc529314f69c0e479113a19638c7172a750d9f21a898af3",
+    "androidArm64DebugApk": "30ed7b6f5acf181f897cae7d192ad5f6f1fa2fa03e379fc8cf22c652d573e763",
+    "androidInstrumentationApk": "7bd4f02653c1ef6a61761d8d0abc2bcf3df9c4332429b06df71f5548bcfc5d96"
+  },
+  "sourceFiles": {
+    "desktopHarness": "7fb3eea38ee20745797522529073cd45eccb1b1cd77ebbd4f051f7e20764295a",
+    "freshDeviceWrapper": "5f39713fcbba1551100da82d7670744e9871049a64892239e3b6b0c81ed5db5d",
+    "nativeTests": "93403d6c7d77a659b14a3a30155ce91fc37523e4f48eb2db5c656a5c3bb6f6c1",
+    "boundedInput": "032b684f20801dc86f11a37575931b0e4606d5a06fd3f5cd88e466fb63224029",
+    "inputTests": "c50f0b9cddac3b256380eb3fb3bb1cafa60748e9d711d195b11a9ce6cec04bb6",
+    "settingsImporter": "bd831c39e11d9042ed5a81e37610a100b71cd91f09e6b2455d4c4f88ebc7e004",
+    "service": "46ba84b53bdb8bc997329d95d7575219e4fcf7e7f31e4797f4241b00c1495652"
+  },
+  "rawEvidence": {
+    "scratchOnly": true,
+    "resultSha256": "82d74ffd6404edc290d32ce3c1b55cee8eeb40b7e5b1816fd5685af5f4f10e03",
+    "restoreLogSha256": "31722f94a08e7424ef3b58bebcadfab743c5df2b2ddd510d79b90ef60a71e677",
+    "compiledApiAuditSha256": "08374c43ab359c1bd59da93540cf188ba765a047870dcef85fd47c34145adcb1",
+    "logs": {
+      "reset": "5f7a59d9315a30db0b965b59a2bc84cbb946598b1c193ddb59bbca2aa50fa741",
+      "enroll": "ce766a776fe4da7c294a7f6fdb2ba3b7f3ec4cf7eb0bdbe1799fb7666ea9d636",
+      "receive": "1f45de4f3ad1885b9e9fdd621b1ebf6dd9bd3b529954b2f80c1b0d25bc65e149",
+      "rewind": "5fe4d3ee5584541feb7a7911fccc401ba519348591ee314f7bf2c89a392d5101",
+      "readd": "3071f04cf3716c5c3e39559435fc76098a66b38cfe7cb04a8d4a32f44df9c556",
+      "offline": "929a40cf9a9d5fb9a0bbbdfc15d67f183bb000fef0bf98a97475e02236373c36",
+      "retry": "dea345497d92663ecc71a95598bf29babb1a21d34700e16f3c16b4cf1d6022f5",
+      "conflict": "7a911e0bf2088fd9a96b6b7971fe2a92146851b7afc9425f1ee4cc2550bfe2d6",
+      "secrets": "a6d446bf1201a0f6e066520de28f167f20fe1da2aa451d97a68fe1b2561f232d",
+      "ui": "ce6fd57e685cb576912e589bd41962f1f37defc5343db84e8a6b220697debb87",
+      "disconnect": "bc60583add9d5d953b334fb66559b9e77f1824e0d4d63694359cd66ea5954894"
+    },
+    "screenshots": {
+      "android-settings-portrait.png": "34c90fa1a8b2876d3b2924b01079dc86fd61133d00f3ef991f771a6a5b1610ef",
+      "android-settings-landscape.png": "24d279795ac9d1f41295afc075112453b88e23dd350af27115c3a6228924d303",
+      "desktop-settings-synced.png": "7b685586a6b48b151cf006a1b4bd87a6721b18b87dbd85b41a16e4318c83b7dd"
+    }
+  },
+  "remaining": [
+    "Actual DocumentsUI chooser navigation",
+    "Real-library setup/upgrade and large-library limits",
+    "Full provider subscribe gestures and actual playback-resume execution",
+    "Embedded DD presentation/live-control and explicit display authority",
+    "Three-way simultaneous convergence under one owner",
+    "TV/additional OS vault matrix; hosted HTTPS/security/key restore/retention UX"
+  ],
+  "privacy": {
+    "deviceIdentifiersIncluded": false,
+    "tokensOrKeysIncluded": false,
+    "privateProfilesOrDatabasesIncluded": false,
+    "providerCredentialsOrUrlsIncluded": false
+  }
+}
