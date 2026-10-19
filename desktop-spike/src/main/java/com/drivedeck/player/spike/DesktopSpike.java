@@ -85,6 +85,8 @@ public final class DesktopSpike {
         if (audioTimelineRequested && !present) throw new IllegalArgumentException("Audio timeline needs presentation");
         var network = new NetworkScenario(System.getenv(), settings.observationSeconds());
         if (network.enabled() && !present) throw new IllegalArgumentException("Network fault needs presentation");
+        boolean denialWitnessRequested=ProviderDenialWitness.requested(System.getenv(),network.usesRelay());
+        output.put("providerDenialWitnessRequested",denialWitnessRequested);
         String media;
         String audioMedia = null;
         var mediaOptions = new ArrayList<String>();
@@ -154,7 +156,7 @@ public final class DesktopSpike {
         }
         ProbeRelay relay = null;
         if (network.usesRelay()) {
-            relay = new ProbeRelay();
+            relay = new ProbeRelay(denialWitnessRequested);
             String relaySource = media.startsWith("https:") || media.startsWith("http:") ? media : java.nio.file.Path.of(media).toUri().toString();
             media = relay.add("video",relaySource);
             if (audioMedia != null) audioMedia = relay.add("audio",audioMedia);
@@ -328,6 +330,15 @@ public final class DesktopSpike {
             if (presentation != null) presentation.close();
             output.put("cleanShutdown", true);
             if (audioTimeline != null) audioTimeline.save(output);
+            if(denialWitnessRequested && relay!=null) {
+                stage("provider_denial_witness");
+                try {
+                    output.put("providerDenialWitness",relay.runDenialWitness().put("nativeCleanupPrecededDiagnostic",true));
+                } catch(Exception | LinkageError diagnosticFailure) {
+                    output.put("providerDenialWitness",ProviderDenialWitness.diagnosticFailure(diagnosticFailure)
+                            .put("nativeCleanupPrecededDiagnostic",true));
+                }
+            }
             stage(failedStage);
         }
         return null;
