@@ -95,3 +95,7 @@ adds manual shared subscription/resume metadata to the actual Android app,
 paired with the FreeTube fork. See [../media-sync/README.md](../media-sync/README.md)
 for the Room migration, protected enrollment, evidence and field/hosting gates.
 The existing playback engine, media session and extractor pin remain intact.
+
+## Fork artwork
+
+The approved provisional DD Android icons and their build/field evidence are documented in [branding](../branding/README.md) (issue #20).
