@@ -19,4 +19,8 @@
     <string name="media_sync_restored">Service restore detected. Uploads are paused; local changes are retained and reconciliation is required.</string>
     <string name="media_sync_failed">Sync could not finish. Local data is retained. Check enrollment, service availability and storage limits.</string>
     <string name="media_sync_requires_android">Media sync requires Android 8 or newer. Local playback is unaffected.</string>
+    <string name="media_sync_library">Include playlists, Watch Later and history</string>
+    <string name="media_sync_library_confirm">Also sync playlist names, ordered YouTube videos (up to 200 per list), Watch Later and latest per-video watch times? A separate shared Watch Later list is created; existing names are not matched. Update and opt in every connected client. Disconnect to stop; existing remote copies remain.</string>
+    <string name="media_sync_library_upgrade">Update the service and every client, then enable playlists, Watch Later and history on this device.</string>
+    <string name="media_sync_library_limit">A playlist cannot sync. Lists must contain at most 200 YouTube videos and a nonempty name of at most 160 UTF-8 bytes. Nothing was truncated.</string>
 </resources>
