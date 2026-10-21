@@ -4,9 +4,9 @@ Issue [#24](https://github.com/jimbobsmith/drivedeck-player/issues/24). This opt
 
 ## Tablet setup and operation
 
-The published alpha01 Test APK has no updater. After the alpha02 bootstrap is approved and published, install its universal APK over Player Test once on each device, using the [normal APK installation](../install/ANDROID.md). Keep the existing app/data; do not uninstall. The Test package and signer must match. The bootstrap universal version code is **204**, higher than every alpha01 ABI/universal code (101â€“104).
+The published alpha01 Test APK has no updater. The [alpha02 bootstrap is published](https://github.com/jimbobsmith/drivedeck-player/releases/tag/player-test-v0.1.0-alpha02). Install its universal APK over Player Test once on each device, using the [normal APK installation](../install/ANDROID.md). Keep the existing app/data; do not uninstall. The Test package and signer must match. The bootstrap universal version code is **204**, higher than every alpha01 ABI/universal code (101–104).
 
-Open **Settings â†’ Updates**, enable **Check for DD Player updates automatically** and, if desired, **Download updates on unmetered networks**. Checks are requested daily with an online/battery-not-low constraint. Downloads require an unmetered connection, battery not low and storage not low. WorkManager/Android decide the actual execution time. Enabling checks also checks immediately. Both options default off. Disabling checks cancels scheduled work; cancelling or disabling a background operation leaves no partial install candidate. Already verified downloads remain available for manual installation.
+Open **Settings → Updates**, enable **Check for DD Player updates automatically** and, if desired, **Download updates on unmetered networks**. Checks are requested daily with an online/battery-not-low constraint. Downloads require an unmetered connection, battery not low and storage not low. WorkManager/Android decide the actual execution time. Enabling checks also checks immediately. Both options default off. Disabling checks cancels scheduled work; cancelling or disabling a background operation leaves no partial install candidate. Already verified downloads remain available for manual installation.
 
 Updates produce a notification when the OS permits notifications. The Updates page also offers Check now, download, cancel and install actions. Allow Player to install unknown apps when Android requests it, then return and choose **Install verified update**. Android still presents its own Update confirmation. This is automatic discovery/download with a confirmed installation; no silent installer or device-owner privilege is used. Vendor restrictions, denied notifications and battery limits may require opening Updates manually. If a vendor cannot open the installer/settings activity, the verified APK remains staged and a message is shown.
 
@@ -24,7 +24,7 @@ The current Test candidate uses the previously published alpha01 local debug sig
 
 ## Preparing future releases
 
-Build normally with the pinned JDK25/Gradle9.5.1/SDK37 toolchain. Increment `ddPlayerVersionBase` for every offered update; the universal code is `100 Ã— base + 4`. The alpha02 default base is 2. Supply a matching `ddPlayerVersionName`. The publisher emits a **universal-only** manifest so every ABI observes the same manifest/APK version code.
+Build normally with the pinned JDK25/Gradle9.5.1/SDK37 toolchain. Increment `ddPlayerVersionBase` for every offered update; the universal code is `100 × base + 4`. The alpha02 default base is 2. Supply a matching `ddPlayerVersionName`. The publisher emits a **universal-only** manifest so every ABI observes the same manifest/APK version code.
 
 From a clean reviewed commit:
 
@@ -40,7 +40,7 @@ Run `:app:testDebugUnitTest :app:assembleDebug :app:assembleDebugAndroidTest :ap
 
 The opt-in `tools/updates/validate-emulator.py` requires a fresh named **DDPlayerUpdaterApi36** AVD, an explicit emulator serial, a private one-time permit and controlled APK fixtures. It refuses physical devices before installing anything, does not clear an existing installation and runs only the chosen instrumentation method. Fixtures include a higher-version same-signer APK, a re-signed APK, another package and the current version. Native UI confirmation is a separate observed step. Wait for Android to report App installed before invoking assertUpgradeRetained; instrumentation started while the package is being replaced can be killed by the installer. No connected-device Gradle task is used.
 
-See [evidence.json](evidence.json) for measured builds, verifier negative controls, background work/cancellation, process restoration, both orientations and the synthetic-library upgrade. Physical tablet/phone/Fire OS and API23â€“27 installer behavior, a real newer public manifest/download, production signing, and notification/OS scheduling across vendors remain field gates. No A/V, playback or provider behavior is recertified by updater tests. Issue #24 stays open with field-validation until the applicable device/channel gates pass.
+See [evidence.json](evidence.json) for measured builds, verifier negative controls, background work/cancellation, process restoration, both orientations and the synthetic-library upgrade. [Physical Pixel/API37 and Fire/API30 bootstrap preservation](PHYSICAL_BOOTSTRAP.md) now passes with non-empty libraries. Browser/in-app installer confirmation on those devices and API23–27 installer behavior, a real newer public manifest/download, production signing, and notification/OS scheduling across vendors remain field gates. No A/V, playback or provider behavior is recertified by updater tests. Issue #24 stays open with field-validation until the applicable device/channel gates pass.
 
 ## Source provenance
 
