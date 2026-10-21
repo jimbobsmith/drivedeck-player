@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-20",
+  "issue": "https://github.com/jimbobsmith/drivedeck-player/issues/22",
+  "baseCommit": "1786efc10bcd528ef9cdac6619ba2d3d5791c442",
+  "build": {
+    "result": "passed",
+    "duration": "47s",
+    "tasks": [
+      ":app:assembleDebug",
+      ":app:testDebugUnitTest",
+      ":app:writeFoundationRuntimeAudit"
+    ],
+    "unitTests": {
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "taskUpToDate": true
+    }
+  },
+  "apk": {
+    "file": "DriveDeckPlayer_0.1.0-alpha01-universal-debug.apk",
+    "bytes": 89600279,
+    "sha256": "c0a34984515f8344e73046886072f15bae0dcf4d50e857fba779d9306bf09b20",
+    "package": "com.drivedeck.player.test",
+    "label": "DriveDeck Player Test",
+    "allowBackup": false,
+    "allowedAndroidAutoMetadata": [
+      "com.google.android.gms.car.application",
+      "com.google.android.gms.car.notification.SmallIcon"
+    ]
+  },
+  "installability": {
+    "file": "DriveDeckPlayer_0.1.0-alpha01-universal-debug.apk",
+    "versionCode": 104,
+    "maxAbiVersionCode": 104,
+    "abis": [
+      "arm64-v8a",
+      "armeabi-v7a",
+      "x86",
+      "x86_64"
+    ],
+    "signatureVerified": true
+  },
+  "signature": {
+    "verified": true,
+    "v1": true,
+    "v2": true,
+    "signerCount": 1,
+    "subject": "C=US, O=Android, CN=Android Debug",
+    "certificateSha256": "e7ed1f8a11ae706f798b2c592edbdef82b2185c17846ccb6fc83a7fed2555bd2",
+    "productionSigning": false
+  },
+  "sameVersionOutputs": [
+    {
+      "type": "UNIVERSAL",
+      "abi": "universal",
+      "versionCode": 104
+    },
+    {
+      "type": "ONE_OF_MANY",
+      "abi": "armeabi-v7a",
+      "versionCode": 101
+    },
+    {
+      "type": "ONE_OF_MANY",
+      "abi": "x86_64",
+      "versionCode": 103
+    },
+    {
+      "type": "ONE_OF_MANY",
+      "abi": "arm64-v8a",
+      "versionCode": 104
+    },
+    {
+      "type": "ONE_OF_MANY",
+      "abi": "x86",
+      "versionCode": 102
+    }
+  ],
+  "runtimeDependencyAuditSha256": "2a4b448cd29dd47eb523f6c35da85a2032d567c94f33ae304309fcff178ff19b",
+  "physicalInstallationObserved": false,
+  "phoneTabletIconCheck": "Pending: no physical ADB devices available; maintainer requested manual APK distribution.",
+  "releasePublished": false,
+  "privacy": {
+    "newPermissions": false,
+    "googleRuntimeAdded": false,
+    "providerOrSyncCodeChanged": false,
+    "identityChanged": false
+  },
+  "remaining": [
+    "Maintainer review and merge of installer packaging",
+    "Maintainer authorization to publish a Test download",
+    "Physical phone/tablet manual installation and launcher appearance"
+  ]
+}
