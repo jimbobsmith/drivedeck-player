@@ -111,7 +111,9 @@ public class SettingsActivity extends AppCompatActivity implements
             }
         } else {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.settings_fragment_holder, new MainSettingsFragment())
+                    .replace(R.id.settings_fragment_holder, getIntent().getBooleanExtra(
+                            org.schabi.newpipe.updates.PlayerUpdateManager.OPEN_UPDATES, false)
+                            ? new UpdateSettingsFragment() : new MainSettingsFragment())
                     .commit();
         }
 

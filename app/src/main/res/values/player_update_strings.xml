@@ -1,0 +1,15 @@
+<resources>
+    <string name="player_update_status">Update status</string>
+    <string name="player_auto_updates">Check for DD Player updates automatically</string>
+    <string name="player_auto_updates_summary">Check daily when online and the battery is not low. Notify when a verified update is available.</string>
+    <string name="player_auto_download">Download updates on unmetered networks</string>
+    <string name="player_auto_download_summary">Prepare verified updates automatically when storage and battery allow. Android still asks you to confirm installation.</string>
+    <string name="player_update_check">Check now</string>
+    <string name="player_update_download">Download update</string>
+    <string name="player_update_install">Install verified update</string>
+    <string name="player_update_permission">Allow DD Player to install updates</string>
+    <string name="player_update_cancel">Cancel current check or download</string>
+    <string name="player_update_source">Independent DD Player updates</string>
+    <string name="player_update_source_summary">Updates come from the public jimbobsmith/drivedeck-player GitHub releases. No account, DD installation or debugging is needed. App identity, version, checksum and signing certificate are checked before installation.</string>
+    <string name="player_update_installer_unavailable">Android could not open the installer. Check this app’s install permission in system settings, then try again.</string>
+</resources>

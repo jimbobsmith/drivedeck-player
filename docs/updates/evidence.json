@@ -1,0 +1,174 @@
+{
+  "schemaVersion": 1,
+  "issue": "https://github.com/jimbobsmith/drivedeck-player/issues/24",
+  "date": "2026-10-20",
+  "branch": "codex/issue-24-standalone-updates",
+  "baseline": "a72f77e3d426fd581a34d4e596991ac33e7942b6",
+  "updaterCoreProvenance": "jimbobsmith/drivedeckg@a552c0c5029c16c0ce1153aa113441a441156c5d (GPL-3.0-or-later)",
+  "extractorCommit": "c68e10e2e97495877832d8df6cbac55478083019",
+  "apk": {
+    "name": "DriveDeckPlayer_0.1.0-alpha02-universal-debug.apk",
+    "bytes": 89668465,
+    "sha256": "2cbe15d8bea4d581b8248e7f7abf99e7d509d50bc648142bcb2876bb5c01b010",
+    "packageName": "com.drivedeck.player.test",
+    "versionCode": 204,
+    "versionName": "0.1.0-alpha02",
+    "signerCertificateSha256": "e7ed1f8a11ae706f798b2c592edbdef82b2185c17846ccb6fc83a7fed2555bd2",
+    "apkV2Verified": true,
+    "published": false
+  },
+  "build": {
+    "result": "passed",
+    "toolchain": {
+      "java": "Temurin 25.0.4.1+1",
+      "gradle": "9.5.1",
+      "compileSdk": 37,
+      "targetSdk": 36,
+      "minSdk": 23
+    },
+    "tasks": [
+      ":app:testDebugUnitTest",
+      ":app:assembleDebug",
+      ":app:assembleDebugAndroidTest",
+      ":app:writeFoundationRuntimeAudit"
+    ],
+    "configurationCache": false,
+    "unitTests": {
+      "tests": 46,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "publisherContractTests": {
+      "tests": 4,
+      "failures": 0
+    },
+    "runtimeDependencyInventorySha256": "2a4b448cd29dd47eb523f6c35da85a2032d567c94f33ae304309fcff178ff19b",
+    "ffmpegAarSha256": "19d064dd952a51dd3015007007bf7740c66ce65c09812abbe573a3ec6858f968",
+    "newRuntimeDependencies": [],
+    "logSha256": "70aa0eef0b508235f23d9f6f918c6d30bd4aaf6898049cf972bf0057ece767d3"
+  },
+  "manifest": {
+    "testLabel": true,
+    "allowBackup": false,
+    "newPermission": "android.permission.REQUEST_INSTALL_PACKAGES",
+    "reason": "Android-confirmed installation of an explicitly chosen verified self-update",
+    "updateProviderExported": false,
+    "packageReplacedReceiverExported": false,
+    "googleRuntimeServicesAdded": false,
+    "upstreamUpdaterEnabled": false
+  },
+  "runtime": {
+    "deviceType": "isolated emulator",
+    "avd": "DDPlayerUpdaterApi36",
+    "androidApi": 36,
+    "googleFreeSystemImage": true,
+    "freshInstallation": true,
+    "personalDevicesTouched": false,
+    "defaultAutomaticChecks": false,
+    "defaultAutomaticDownloads": false,
+    "methods": {
+      "verifyCandidatesAndDefaultOff": {
+        "result": "passed",
+        "logSha256": "59c9c32273331cfa9738558cab8445ca45356e7ba05c9d72cc4ea7af98a335b4"
+      },
+      "automaticJobsAndVerifiedBackgroundDownload": {
+        "result": "passed",
+        "logSha256": "3774909a8f1725d91413bae89146b7f6aa3aefdc660595d7d2937671c455116f"
+      },
+      "cancelledWorkerCanRetry": {
+        "result": "passed",
+        "logSha256": "433ebd5371a50d7a94cdc0de7b7c04f65469bd875471fd238693817063a5fd57"
+      },
+      "stagePreparedAndLibrary": {
+        "result": "passed",
+        "logSha256": "e16d5bbd5cddc0df435c5fda84d24ab4ab140e7a2b9db90769d54483c55a1d21"
+      },
+      "settingsPreparedPortraitLandscapeAndInstallIntent": {
+        "result": "passed",
+        "logSha256": "88e9860fadef556b4445ce5bc2001fdb035f7adbbab44277362359de265ac25a"
+      },
+      "assertUpgradeRetained": {
+        "result": "passed",
+        "logSha256": "35295335409e1329273e5079faf521a32574cd42ec4a5c22dd1cd0fbbe8ba6da"
+      }
+    },
+    "upgrade": {
+      "fromVersionCode": 204,
+      "toVersionCode": 304,
+      "fixtureApkSha256": "163a9beeea72f7da74769fb7ec9725313ffac06721ef872976e95fa9a54eb9b1",
+      "fixturePublished": false,
+      "androidUnknownSourcesUiObserved": true,
+      "androidUpdateConfirmationObserved": true,
+      "installerCancelKeptCandidate": true,
+      "androidReportedInstalled": true,
+      "syntheticSubscriptionRetained": true,
+      "syntheticResumePositionMs": 42000,
+      "syntheticPreferenceRetained": true,
+      "autoDownloadPreferenceRetained": true,
+      "equalInstalledCandidateNotInstallable": true
+    },
+    "layout": {
+      "portrait": "passed",
+      "landscape": "passed",
+      "primaryActionMinimumDp": 72,
+      "captures": {
+        "portrait": "ebb2524a67a46ea184c7801f7761e021c920c682841af62d76df768c4dddc8d6",
+        "landscape": "bb34ede3aef086078ed87a78cc5e3ee448018d72065cad5c39510e0017a8875e"
+      }
+    },
+    "negativeControls": [
+      "wrong signing certificate",
+      "different package",
+      "equal version",
+      "checksum mismatch",
+      "size mismatch",
+      "FileProvider outside update directory",
+      "truncated download",
+      "cancelled download",
+      "malicious redirect",
+      "oversized JSON listing and manifest",
+      "deep JSON nesting",
+      "wrong release channel",
+      "other-repository asset",
+      "physical-device harness input"
+    ],
+    "livePublicFeedCheck": {
+      "result": "passed",
+      "action": "Check now in installed final-source fixture",
+      "observedStatus": "No newer verified update is available.",
+      "automaticEnabled": false,
+      "newerManifestPublished": false,
+      "scope": "Anonymous live discovery and legacy-release handling only; newer public APK path remains a field gate"
+    }
+  },
+  "retainedEarlierOutcomes": [
+    "Initial copied tests referenced an excluded private credential store; the unsupported test was removed before successful build.",
+    "Initial copied default-repository/error-classification assumptions failed; adaptation and diagnostics corrected before successful build.",
+    "One build invoked the existing runtime audit with configuration cache enabled; repeated with its required --no-configuration-cache setting.",
+    "A final upgrade observer started while Android was replacing the app and returned Process crashed. Version304 and App installed were then observed; the separate repeated retention test passed. This was not counted as a passing first attempt.",
+    "The first real release-tool run rejected current aapt2 minSdkVersion badging because its parser expected legacy sdkVersion. Both formats are now regression-tested; APK verification/build/runtime were unaffected."
+  ],
+  "remainingGates": [
+    "maintainer approval to merge and publish bootstrap",
+    "real newer public manifest/download update between releases",
+    "physical phone/tablet and Fire OS install/notifications",
+    "API23-27 and vendor installer behavior",
+    "real daily scheduling under OS battery/network conditions",
+    "durable production signing identity"
+  ],
+  "notEstablished": [
+    "silent or unattended installation",
+    "physical-device acceptance",
+    "production signing readiness",
+    "playback/A-V/provider recertification"
+  ],
+  "portableEvidenceExcludes": [
+    "device identifiers",
+    "personal media/library data",
+    "private permits",
+    "signing material",
+    "signed stream/CDN URLs",
+    "raw private logs"
+  ]
+}
