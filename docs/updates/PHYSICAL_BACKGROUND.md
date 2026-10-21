@@ -2,6 +2,8 @@
 
 Issue [#24](https://github.com/jimbobsmith/drivedeck-player/issues/24); shared-device queue [DD #257](https://github.com/jimbobsmith/drivedeckg/issues/257). PR #29 is merged and verified on main at `05fd21e5224c15985b9556c3a7ab6b82b4c89cf9`. Control Tower granted a bounded no-install Pixel/Fire slot after Spotify's paused handback. This report records partial observations; notification, toggle and naturally elapsed scheduling tests remain pending.
 
+> Follow-up: the fresh [notification/settings slot](PHYSICAL_NOTIFICATION_CONTROLS.md) now passes notification routing and policy toggles on both devices. It deliberately restarted first eligibility to October 22 about 4:10 p.m. phone /4:22 p.m. Fire, superseding the timestamps below. This report retains the historical interrupted baseline.
+
 ## Observed registration
 
 Both installed Player APKs are alpha03/code304 and hash-identical to the [published Test release](https://github.com/jimbobsmith/drivedeck-player/releases/tag/player-test-v0.1.0-alpha03), source `5a3c22b561c7fc14c1374a6c1d2f7ce5681b21a8`. Its previously verified certificate is the existing Test/debug signer. No application, dependency, version or signing change is included here.
