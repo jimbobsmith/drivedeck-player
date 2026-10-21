@@ -22,8 +22,10 @@ class ReleaseContractTest(unittest.TestCase):
             release.verified_signer(text.replace("true", "false"), "a" * 64)
 
     def test_badging_is_taken_from_actual_package_metadata(self):
-        metadata = release.parse_badging("package: name='com.drivedeck.player.test' versionCode='204' versionName='0.1.0-alpha02'\nsdkVersion:'23'\n")
+        metadata = release.parse_badging("package: name='com.drivedeck.player.test' versionCode='204' versionName='0.1.0-alpha02'\nminSdkVersion:'23'\n")
         self.assertEqual(204, metadata["versionCode"])
+        legacy = release.parse_badging("package: name='com.drivedeck.player.test' versionCode='204' versionName='0.1.0-alpha02'\nsdkVersion:'23'\n")
+        self.assertEqual(metadata, legacy)
         with self.assertRaises(ValueError):
             release.parse_badging("package: name='x' versionCode='0' versionName='x'\nsdkVersion:'30'\n")
 

@@ -24,7 +24,7 @@ def parse_badging(text):
     match = re.search(r"^package: name='([^']+)' versionCode='(\d+)' versionName='([^']+)'", text, re.M)
     if not match:
         raise ValueError("APK package/version metadata missing")
-    minimum = re.search(r"^sdkVersion:'(\d+)'", text, re.M)
+    minimum = re.search(r"^(?:minSdkVersion|sdkVersion):'(\d+)'", text, re.M)
     if not minimum or int(minimum[1]) > 23:
         raise ValueError("Unexpected minimum Android SDK")
     return {"packageName": match[1], "versionCode": int(match[2]), "versionName": match[3]}

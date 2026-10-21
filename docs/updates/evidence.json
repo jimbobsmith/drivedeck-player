@@ -146,7 +146,8 @@
     "Initial copied tests referenced an excluded private credential store; the unsupported test was removed before successful build.",
     "Initial copied default-repository/error-classification assumptions failed; adaptation and diagnostics corrected before successful build.",
     "One build invoked the existing runtime audit with configuration cache enabled; repeated with its required --no-configuration-cache setting.",
-    "A final upgrade observer started while Android was replacing the app and returned Process crashed. Version304 and App installed were then observed; the separate repeated retention test passed. This was not counted as a passing first attempt."
+    "A final upgrade observer started while Android was replacing the app and returned Process crashed. Version304 and App installed were then observed; the separate repeated retention test passed. This was not counted as a passing first attempt.",
+    "The first real release-tool run rejected current aapt2 minSdkVersion badging because its parser expected legacy sdkVersion. Both formats are now regression-tested; APK verification/build/runtime were unaffected."
   ],
   "remainingGates": [
     "maintainer approval to merge and publish bootstrap",
