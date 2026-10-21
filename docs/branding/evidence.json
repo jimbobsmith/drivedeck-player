@@ -1,0 +1,219 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-20",
+  "artworkApproval": "Maintainer: ok, lets use those for now",
+  "authoringTools": {
+    "node": "24.18.0",
+    "sharp": "0.35.5",
+    "librsvg": "2.63.2"
+  },
+  "regeneration": {
+    "result": "passed",
+    "filesCompared": 65,
+    "identical": true
+  },
+  "playbackCodeChanged": false,
+  "identityMigration": false,
+  "dependencyChanges": false,
+  "personalDeviceInstallation": false,
+  "releasePublished": false,
+  "issue": "https://github.com/jimbobsmith/drivedeck-player/issues/20",
+  "baseCommit": "5022c62140d79718b30063772cf08435d5337357",
+  "toolchain": {
+    "jdk": "Temurin 25.0.4.1+1",
+    "gradle": "9.5.1",
+    "compileSdk": "37.0",
+    "buildTools": "36.0.0"
+  },
+  "assetChecks": {
+    "adaptive": {
+      "viewport": 108,
+      "safeCircleRadius": 33,
+      "observedNontransparentRadius": 29.43477959829154,
+      "alphaThreshold": 8,
+      "passed": true
+    },
+    "legacySizes": [
+      48,
+      72,
+      96,
+      144,
+      192
+    ],
+    "hashes": {
+      "docs/branding/dd-player.svg": "8ef6472fa01d6681a68bbe98cdb3e3d7d800a342d8f94cf0a84d606d67aa6d39",
+      "tools/branding/generate.cjs": "cb311c084716993853ae670cff8a157b942e77d1e6b764722f21140b981149be",
+      "app/src/main/res/drawable/dd_launcher_background.xml": "8952edcd573247a5a3019fef7566677e539db2240bc247e11d023d63bcc6c3f2",
+      "app/src/main/res/drawable/ic_launcher_monochrome.xml": "e219008c1408f2f15b129cf3e94fa1f377110f01c56cb4eeb085c92e75f97ec3",
+      "app/src/main/res/mipmap-xxxhdpi/ic_launcher.png": "e9b6d17954be5a53aff7e6dd346fdbae6d86d6301e5abc730b9fc4339a22df86",
+      "app/src/main/res/mipmap-xxxhdpi/ic_launcher_foreground.png": "96d7b0a99c1328665362363b9fdce5f476d5802aafac85199f75e838827689fa",
+      "app/src/main/res/mipmap-xhdpi/tv_banner.png": "98bd2481ac14e146b242de75ad2f667fc3fd330310fe28188694305aee5a9405"
+    }
+  },
+  "build": {
+    "result": "passed",
+    "tasks": [
+      ":app:assembleDebug",
+      ":app:testDebugUnitTest",
+      ":app:writeFoundationRuntimeAudit"
+    ],
+    "duration": "4m 30s",
+    "unitTests": {
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "warnings": "Inherited AGP/Kotlin/Gradle deprecation and missing-default translation resource warnings retained."
+  },
+  "apkAudits": [
+    {
+      "abi": "armeabi-v7a",
+      "file": "DriveDeckPlayer_0.1.0-alpha01-armeabi-v7a-debug.apk",
+      "bytes": 68160083,
+      "sha256": "a1f16f0aa15e84f2d535d1b66bc93a13afe4365487b72e6aa05814ff72fbb097",
+      "package": "com.drivedeck.player.test",
+      "label": "DriveDeck Player Test",
+      "allowBackup": false,
+      "allowedAndroidAutoMetadata": [
+        "com.google.android.gms.car.application",
+        "com.google.android.gms.car.notification.SmallIcon"
+      ]
+    },
+    {
+      "abi": "x86_64",
+      "file": "DriveDeckPlayer_0.1.0-alpha01-x86_64-debug.apk",
+      "bytes": 69117318,
+      "sha256": "9acdbe2185b052a0d2be5420d676fefa5b189af596b2d031bd3fe6e6f12e819a",
+      "package": "com.drivedeck.player.test",
+      "label": "DriveDeck Player Test",
+      "allowBackup": false,
+      "allowedAndroidAutoMetadata": [
+        "com.google.android.gms.car.application",
+        "com.google.android.gms.car.notification.SmallIcon"
+      ]
+    },
+    {
+      "abi": "arm64-v8a",
+      "file": "DriveDeckPlayer_0.1.0-alpha01-arm64-v8a-debug.apk",
+      "bytes": 68299584,
+      "sha256": "1e4849cd249fc15bb3847218b48e37df60386064811a5afca3051ce794978bd1",
+      "package": "com.drivedeck.player.test",
+      "label": "DriveDeck Player Test",
+      "allowBackup": false,
+      "allowedAndroidAutoMetadata": [
+        "com.google.android.gms.car.application",
+        "com.google.android.gms.car.notification.SmallIcon"
+      ]
+    },
+    {
+      "abi": "x86",
+      "file": "DriveDeckPlayer_0.1.0-alpha01-x86-debug.apk",
+      "bytes": 68562144,
+      "sha256": "e1233f745a19dd9deeb53552351d52c5d67e977ad8f7ef63276bf2aede359f8f",
+      "package": "com.drivedeck.player.test",
+      "label": "DriveDeck Player Test",
+      "allowBackup": false,
+      "allowedAndroidAutoMetadata": [
+        "com.google.android.gms.car.application",
+        "com.google.android.gms.car.notification.SmallIcon"
+      ]
+    }
+  ],
+  "packagedIcons": {
+    "result": "passed",
+    "packagedPNGCount": 11,
+    "resources": [
+      {
+        "resource": "res/mipmap-hdpi-v4/ic_launcher.png",
+        "width": 72,
+        "height": 72,
+        "sourcePixelsMatch": true
+      },
+      {
+        "resource": "res/mipmap-hdpi-v4/ic_launcher_foreground.png",
+        "width": 162,
+        "height": 162,
+        "sourcePixelsMatch": true
+      },
+      {
+        "resource": "res/mipmap-mdpi-v4/ic_launcher.png",
+        "width": 48,
+        "height": 48,
+        "sourcePixelsMatch": true
+      },
+      {
+        "resource": "res/mipmap-mdpi-v4/ic_launcher_foreground.png",
+        "width": 108,
+        "height": 108,
+        "sourcePixelsMatch": true
+      },
+      {
+        "resource": "res/mipmap-xhdpi-v4/ic_launcher.png",
+        "width": 96,
+        "height": 96,
+        "sourcePixelsMatch": true
+      },
+      {
+        "resource": "res/mipmap-xhdpi-v4/ic_launcher_foreground.png",
+        "width": 216,
+        "height": 216,
+        "sourcePixelsMatch": true
+      },
+      {
+        "resource": "res/mipmap-xhdpi-v4/tv_banner.png",
+        "width": 320,
+        "height": 180,
+        "sourcePixelsMatch": true
+      },
+      {
+        "resource": "res/mipmap-xxhdpi-v4/ic_launcher.png",
+        "width": 144,
+        "height": 144,
+        "sourcePixelsMatch": true
+      },
+      {
+        "resource": "res/mipmap-xxhdpi-v4/ic_launcher_foreground.png",
+        "width": 324,
+        "height": 324,
+        "sourcePixelsMatch": true
+      },
+      {
+        "resource": "res/mipmap-xxxhdpi-v4/ic_launcher.png",
+        "width": 192,
+        "height": 192,
+        "sourcePixelsMatch": true
+      },
+      {
+        "resource": "res/mipmap-xxxhdpi-v4/ic_launcher_foreground.png",
+        "width": 432,
+        "height": 432,
+        "sourcePixelsMatch": true
+      }
+    ],
+    "compiledAdaptiveReferences": {
+      "background": "drawable/dd_launcher_background",
+      "foreground": "mipmap/ic_launcher_foreground",
+      "monochrome": "drawable/ic_launcher_monochrome"
+    },
+    "regenerationIdentical": true
+  },
+  "extractorCommit": "c68e10e2e97495877832d8df6cbac55478083019",
+  "retainedFFmpeg": {
+    "file": "ffmpeg/ffmpeg-kit.aar",
+    "bytes": 33408111,
+    "sha256": "19d064dd952a51dd3015007007bf7740c66ce65c09812abbe573a3ec6858f968"
+  },
+  "runtimeDependencies": {
+    "file": "app/build/reports/foundation/runtime-dependencies.txt",
+    "bytes": 8727,
+    "sha256": "2a4b448cd29dd47eb523f6c35da85a2032d567c94f33ae304309fcff178ff19b"
+  },
+  "setupCorrections": [
+    "Initial audit used a non-existent single APK filename; corrected invocation uses the ABI output metadata. All four actual APK audits pass."
+  ],
+  "unobservedFieldGates": [
+    "Actual Android launcher caching, tint and adaptive animation",
+    "TV home-screen banner presentation"
+  ]
+}
