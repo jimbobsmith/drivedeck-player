@@ -15,7 +15,7 @@ cd drivedeck-player
 
 No hosted sync or finished desktop client is implemented by this milestone. The desktop module is an executable extraction/decoding/transport feasibility harness. It uses an installed VLC 3.x runtime; it does not download or redistribute VLC. An opt-in `-Present` validation window and controlled A/V timing tools are described in [the presentation guide](docs/foundation/DESKTOP_PRESENTATION.md).
 
-Upstream automatic update/announcement checks are disabled in this fork. Install only reviewed fork builds manually until an independently signed update channel exists. No signing key or release artifact is published here.
+Upstream automatic update/announcement checks are disabled in this fork. The [published alpha03 Test installer](https://github.com/jimbobsmith/drivedeck-player/releases/tag/player-test-v0.1.0-alpha03) includes the separate opt-in [DD Player updater](docs/updates/README.md). It downloads matching Test releases and uses Android confirmation to install. The [phone/tablet in-app update check](docs/updates/IN_APP_UPDATE.md) preserved subscriptions, history and resume positions. Durable production signing remains a separate gate.
 
 Work queue: [desktop playback #2](https://github.com/jimbobsmith/drivedeck-player/issues/2), [foundation #1](https://github.com/jimbobsmith/drivedeck-player/issues/1), [cross-product design DD #244](https://github.com/jimbobsmith/drivedeckg/issues/244), [hosted sync Platform #27](https://github.com/jimbobsmith/drivedeck-platform/issues/27).
 
