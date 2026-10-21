@@ -1,5 +1,7 @@
 # Physical bootstrap preservation - 2026-10-21
 
+Follow-up: the [alpha02-to-alpha03 in-app update](IN_APP_UPDATE.md) now passes on both devices with human-confirmed Android installers. The record below describes the earlier ADB-installed bootstrap.
+
 Issue [#24](https://github.com/jimbobsmith/drivedeck-player/issues/24). The maintainer requested testing the published bootstrap on the actual phone and tablet and verifying subscriptions, history and resume positions. This branch starts from integrated main `0b7b5445b675b67c4ab0a8ead13d7a9c53751f13`; no application code, dependency, version, signing or release asset changes are included.
 
 ## Measured result

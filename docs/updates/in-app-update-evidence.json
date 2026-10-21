@@ -1,0 +1,256 @@
+{
+  "schemaVersion": 1,
+  "issue": "https://github.com/jimbobsmith/drivedeck-player/issues/24",
+  "date": "2026-10-21",
+  "result": "passed for the two observed in-app updates",
+  "integratedBaseline": "5a3c22b561c7fc14c1374a6c1d2f7ce5681b21a8",
+  "mergedPR": "https://github.com/jimbobsmith/drivedeck-player/pull/28",
+  "release": {
+    "url": "https://github.com/jimbobsmith/drivedeck-player/releases/tag/player-test-v0.1.0-alpha03",
+    "tag": "player-test-v0.1.0-alpha03",
+    "publishedAtUtc": "2026-10-21T16:34:43Z",
+    "publicPrerelease": true,
+    "packageName": "com.drivedeck.player.test",
+    "versionName": "0.1.0-alpha03",
+    "versionCode": 304,
+    "apkName": "DriveDeckPlayer_0.1.0-alpha03-universal-debug.apk",
+    "apkSizeBytes": 89677202,
+    "apkSha256": "bbef3a7987f22650ac446299497fca9cde6104869f15f534b19aba63ef2fbb95",
+    "signerCertificateSha256": "e7ed1f8a11ae706f798b2c592edbdef82b2185c17846ccb6fc83a7fed2555bd2",
+    "explicitBuildProperties": {
+      "ddPlayerVersionBase": 3,
+      "ddPlayerVersionName": "0.1.0-alpha03"
+    },
+    "sourceDefaultsRemain": "base 2 / alpha02",
+    "runtimeSourceMatchesAlpha02": true,
+    "uploadedAssets": 7,
+    "allUploadedAssetDigestsAndSizesMatched": true,
+    "anonymousPublicApkDownloadMatched": true,
+    "installedApkHashMatchedOnBothDevices": true
+  },
+  "build": {
+    "jvmTests": 46,
+    "jvmFailures": 0,
+    "jvmErrors": 0,
+    "jvmSkipped": 0,
+    "publisherContractTests": 4,
+    "publisherFailures": 0,
+    "assembleDebug": "passed",
+    "foundationRuntimeAudit": "passed",
+    "apkSignatureManifestAndUniversalAbiAudit": "passed",
+    "runtimeDependencyInventorySha256": "2a4b448cd29dd47eb523f6c35da85a2032d567c94f33ae304309fcff178ff19b",
+    "extractorCommit": "c68e10e2e97495877832d8df6cbac55478083019"
+  },
+  "method": {
+    "download": "Player checks public feed and automatically downloads on unmetered network; both showed verified ready at 100 percent",
+    "installation": "Player FileProvider handoff to Android package installer; maintainer confirmed both native prompts",
+    "adbUse": "explicitly authorized UI navigation, screenshots, package/preferences/service observations and stable database reads only",
+    "adbInstallUsed": false,
+    "forceStopUsed": false,
+    "uninstallOrClearUsed": false,
+    "libraryFixtureOrRestoreUsed": false,
+    "playbackOrSeekingUsed": false,
+    "instrumentationOrEmulatorUsed": false,
+    "credentialFilesRead": false,
+    "libraryComparison": "all subscriptions, stream_history and stream_state rows and columns plus exact service/content references; not merely counts",
+    "snapshotStability": "hash complete DB/WAL set before and after reads and compare copied bytes; no volatile SHM copied; local read-only SQLite replay",
+    "privateEvidenceExcluded": [
+      "database rows and hashes",
+      "content titles and URLs",
+      "saved positions and timestamps",
+      "device/network identifiers",
+      "UI captures",
+      "private preference data"
+    ]
+  },
+  "devices": [
+    {
+      "role": "phone",
+      "model": "Pixel 9 Pro XL",
+      "androidApi": 37,
+      "observedOrientation": "portrait",
+      "fromVersionCode": 204,
+      "toVersionCode": 304,
+      "sqliteSchemaVersions": {
+        "before": 902,
+        "after-install": 902,
+        "after-open": 902
+      },
+      "quickCheck": "ok at all three snapshots",
+      "stableReadAttempts": {
+        "before": 1,
+        "after-install": 1,
+        "after-open": 1
+      },
+      "preservation": {
+        "after-install": {
+          "subscriptions": {
+            "beforeCount": 2,
+            "afterCount": 2,
+            "allRowsAndColumnsEqual": true
+          },
+          "stream_history": {
+            "beforeCount": 2,
+            "afterCount": 2,
+            "allRowsAndColumnsEqual": true
+          },
+          "stream_state": {
+            "beforeCount": 4,
+            "afterCount": 4,
+            "allRowsAndColumnsEqual": true
+          },
+          "contentReferencesEqual": true
+        },
+        "after-open": {
+          "subscriptions": {
+            "beforeCount": 2,
+            "afterCount": 2,
+            "allRowsAndColumnsEqual": true
+          },
+          "stream_history": {
+            "beforeCount": 2,
+            "afterCount": 2,
+            "allRowsAndColumnsEqual": true
+          },
+          "stream_state": {
+            "beforeCount": 4,
+            "afterCount": 4,
+            "allRowsAndColumnsEqual": true
+          },
+          "contentReferencesEqual": true
+        }
+      },
+      "subscriptionsUI": {
+        "role": "phone",
+        "subscriptionCount": 2,
+        "allOriginalNamesVisible": true,
+        "visibleSubscriptionRows": 2
+      },
+      "historyUI": {
+        "role": "phone",
+        "historyItemCount": 2,
+        "allOriginalTitlesVisible": true,
+        "visibleHistoryRows": 2,
+        "visibleProgressViews": 2
+      },
+      "updater": {
+        "role": "phone",
+        "automaticChecksRetained": true,
+        "automaticUnmeteredDownloadsRetained": true,
+        "installedApkMatchesPublicRelease": true,
+        "installedApkSha256": "bbef3a7987f22650ac446299497fca9cde6104869f15f534b19aba63ef2fbb95",
+        "publicFeedCheck": "no-newer-verified-update"
+      },
+      "handoff": {
+        "role": "phone",
+        "originalDDTestMainActivityRestored": true,
+        "playerPlaybackServiceRunning": false,
+        "remainingNonPlaybackService": "Chromium sandbox",
+        "confirmedAtUtc": "2026-10-21T16:46:26.820519+00:00"
+      },
+      "installerPackage": "com.android.packageinstaller",
+      "installerConfirmation": "maintainer confirmed on device; explicitly reported in chat",
+      "firstPostInstallSnapshot": "after installer had reopened the app"
+    },
+    {
+      "role": "tablet",
+      "model": "Fire KFTUWI",
+      "androidApi": 30,
+      "observedOrientation": "landscape",
+      "fromVersionCode": 204,
+      "toVersionCode": 304,
+      "sqliteSchemaVersions": {
+        "before": 902,
+        "after-install": 902,
+        "after-open": 902
+      },
+      "quickCheck": "ok at all three snapshots",
+      "stableReadAttempts": {
+        "before": 1,
+        "after-install": 1,
+        "after-open": 1
+      },
+      "preservation": {
+        "after-install": {
+          "subscriptions": {
+            "beforeCount": 3,
+            "afterCount": 3,
+            "allRowsAndColumnsEqual": true
+          },
+          "stream_history": {
+            "beforeCount": 1,
+            "afterCount": 1,
+            "allRowsAndColumnsEqual": true
+          },
+          "stream_state": {
+            "beforeCount": 3,
+            "afterCount": 3,
+            "allRowsAndColumnsEqual": true
+          },
+          "contentReferencesEqual": true
+        },
+        "after-open": {
+          "subscriptions": {
+            "beforeCount": 3,
+            "afterCount": 3,
+            "allRowsAndColumnsEqual": true
+          },
+          "stream_history": {
+            "beforeCount": 1,
+            "afterCount": 1,
+            "allRowsAndColumnsEqual": true
+          },
+          "stream_state": {
+            "beforeCount": 3,
+            "afterCount": 3,
+            "allRowsAndColumnsEqual": true
+          },
+          "contentReferencesEqual": true
+        }
+      },
+      "subscriptionsUI": {
+        "role": "tablet",
+        "subscriptionCount": 3,
+        "allOriginalNamesVisible": true,
+        "visibleSubscriptionRows": 3
+      },
+      "historyUI": {
+        "role": "tablet",
+        "historyItemCount": 1,
+        "allOriginalTitlesVisible": true,
+        "visibleHistoryRows": 1,
+        "visibleProgressViews": 1
+      },
+      "updater": {
+        "role": "tablet",
+        "automaticChecksRetained": true,
+        "automaticUnmeteredDownloadsRetained": true,
+        "installedApkMatchesPublicRelease": true,
+        "installedApkSha256": "bbef3a7987f22650ac446299497fca9cde6104869f15f534b19aba63ef2fbb95",
+        "publicFeedCheck": "no-newer-verified-update"
+      },
+      "handoff": {
+        "role": "tablet",
+        "originalDDTestMainActivityRestored": true,
+        "playerPlaybackServiceRunning": false,
+        "remainingNonPlaybackService": "Chromium sandbox",
+        "confirmedAtUtc": "2026-10-21T16:46:27.041173+00:00"
+      },
+      "installerPackage": "com.android.packageinstaller",
+      "installerConfirmation": "maintainer confirmed on device; explicitly reported in chat",
+      "firstPostInstallSnapshot": "after installer had reopened the app"
+    }
+  ],
+  "remainingFieldGates": [
+    "elapsed daily/background and vendor notification delivery",
+    "API23-27 installer compatibility",
+    "browser/file-manager bootstrap installer path on these devices",
+    "durable separate production signing and production-channel upgrades",
+    "wider vendor routes and non-debuggable fleet observations"
+  ],
+  "notRecertified": [
+    "playback seeking or A/V timing",
+    "provider streaming",
+    "optional metadata sync service"
+  ]
+}
