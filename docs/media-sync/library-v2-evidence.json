@@ -1,0 +1,183 @@
+{
+  "schema": "drivedeck.media-sync.library-v2.evidence.v1",
+  "date": "2026-10-20",
+  "baselines": {
+    "platform": "fb9368d4d55aa63a491804fbc4e42aba92bf9622",
+    "desktop": "9d73430962fa291666b8099b81f824e0d117867b",
+    "player": "a72f77e3d426fd581a34d4e596991ac33e7942b6"
+  },
+  "issues": {
+    "platform": 31,
+    "desktop": 9,
+    "player": 25
+  },
+  "scope": "Opt-in local YouTube playlist/order/Watch Later/latest-per-video history metadata; no hosting or playback-engine changes",
+  "toolchain": {
+    "node": "v24.18.0",
+    "gradle": "9.5.1",
+    "jdk": "25.0.4.1+1",
+    "androidCompileSdk": "37.0",
+    "runtimeEmulator": "API36 x86_64, task-owned",
+    "extractorPin": "c68e10e2e97495877832d8df6cbac55478083019"
+  },
+  "checks": {
+    "platformFocused": {
+      "passed": 27,
+      "failed": 0,
+      "command": "node --test services/media-sync/*.test.mjs api/media-sync/*.test.mjs"
+    },
+    "platformExisting": {
+      "passed": 229,
+      "failed": 0
+    },
+    "desktopRealNeDB": {
+      "passed": 14,
+      "failed": 0
+    },
+    "desktopScopedLint": "pass; production sync modules + changed main/Vue/store files",
+    "desktopProductionPack": "main, renderer, preload, BotGuard and allowed-path injection pass; renderer retains three bundle-size warnings",
+    "androidAssembly": "debug app + AndroidTest pass",
+    "androidExistingUnitTests": {
+      "passed": 6,
+      "failed": 0
+    },
+    "androidGoogleFreeAudit": "pass; unchanged resolved dependency set",
+    "androidRoomRuntime": {
+      "uniqueMethods": 4,
+      "successfulInvocations": 4,
+      "storage": "in-memory actual Room schema"
+    },
+    "crossClient": {
+      "schema": 1,
+      "scope": "real NeDB + dedicated Room database, synthetic library, local HTTP; no provider or playback proof",
+      "phases": [
+        "receive",
+        "offline",
+        "retry-conflict",
+        "desktop-final-convergence"
+      ],
+      "passed": true,
+      "androidUniqueMethods": 1,
+      "androidSuccessfulInvocations": 3,
+      "desktop": "production AppSync + actual NeDB handlers, isolated profile",
+      "android": "production MediaSyncClient + dedicated persistent Room database",
+      "notClaimed": "packaged Electron UI or protected enrollment/Keystore exercise"
+    },
+    "androidSettings": {
+      "uniqueMethods": 1,
+      "successfulInvocations": 1,
+      "orientations": [
+        "portrait",
+        "landscape"
+      ],
+      "observed": "new control label readable; disconnected state correctly disabled",
+      "notClaimed": "enrolled-state confirmation tap or physical device"
+    }
+  },
+  "artifacts": {
+    "androidApp": {
+      "bytes": 63658714,
+      "sha256": "747fdb9bd295dd3f4092785bdb0042dc22cd2299890e5056217df057edf8dc27"
+    },
+    "androidTests": {
+      "bytes": 571064,
+      "sha256": "f14da559b1b80f98f6c3dc71af703e8b94daa4a1d1d1b5bc8246aefc47898127"
+    },
+    "desktopMain": {
+      "bytes": 149976,
+      "sha256": "accbbd6268a1d389deb4286b7ae8ff6c30b12a81abe08cf290e492907bc53421"
+    },
+    "desktopRenderer": {
+      "bytes": 2741119,
+      "sha256": "113e6c38d085d03a9edb58a504bfede5246654d5a445956d4c1c5f795e882844"
+    }
+  },
+  "productSources": {
+    "drivedeck-platform/services/media-sync/protocol.mjs": {
+      "bytes": 6463,
+      "sha256": "3d4d78f431ece23ff8c586fb2c9980b1eebcbb05fba0fe2f4cb70bece7db295a"
+    },
+    "drivedeck-platform/services/media-sync/client.mjs": {
+      "bytes": 9747,
+      "sha256": "80b29a117f0929aa7b7aabd00088a215f27f0e5a1de59bdbe5d5745ee3cc0ef9"
+    },
+    "drivedeck-platform/services/media-sync/server.mjs": {
+      "bytes": 4566,
+      "sha256": "0633c9ebb3a9defd8643eb0257be57a5c2140fbe4b629f572db53460d58d5adb"
+    },
+    "drivedeck-platform/services/media-sync/store.mjs": {
+      "bytes": 10937,
+      "sha256": "087a9e2a3702b01fb580a45e7a5bebcfb0df07bdac139889751276708077a831"
+    },
+    "drivedeck-desktop/src/main/media-sync/protocol.mjs": {
+      "bytes": 6428,
+      "sha256": "960b373efa6d90dcf6c779126d0bd0b127bdd97e2729ac0c0ab8db325bbc5239"
+    },
+    "drivedeck-desktop/src/main/media-sync/client.mjs": {
+      "bytes": 9733,
+      "sha256": "ba73738f98118e9b1180d603e9eaab4b696d03813136a94711728f21b3da5f05"
+    },
+    "drivedeck-desktop/src/main/media-sync/app-sync.mjs": {
+      "bytes": 8086,
+      "sha256": "4e8a5b8283c5586c2a3cbbcc0ee1193f1aada6c32ab13bc89a6cda653c2cc87d"
+    },
+    "drivedeck-desktop/src/main/media-sync/library.mjs": {
+      "bytes": 2891,
+      "sha256": "fb8c00c26c8408e1b18969178103072c00793781a356f651547609accbf167d5"
+    },
+    "drivedeck-desktop/src/main/media-sync/electron.mjs": {
+      "bytes": 5162,
+      "sha256": "6a8e87da71043ccde81337b6a26848a3936a40449e102214b6337bbc1139642a"
+    },
+    "drivedeck-desktop/src/renderer/components/MediaSyncSettings.vue": {
+      "bytes": 3024,
+      "sha256": "c2d742fdede299fadaeaadadd2a8aacb5f0d6583df92e77a2f85b02fad3cb17c"
+    },
+    "drivedeck-desktop/src/main/index.js": {
+      "bytes": 79696,
+      "sha256": "25a9b5cb8a57251c2d8821e90ce7bba3ce6348c5e3d3ca4ea53ee7882a1807ae"
+    },
+    "drivedeck-desktop/src/renderer/store/modules/settings.js": {
+      "bytes": 22821,
+      "sha256": "95407183763311dff0b236c21852dd78e7fa646f1c086ff52e9c9b1473cb476a"
+    },
+    "drivedeck-player/app/src/main/java/org/schabi/newpipe/mediasync/MediaSyncCrypto.kt": {
+      "bytes": 9157,
+      "sha256": "ecaceee6be0f3dfde772f2316e14f365de2b87818020026319401c619f4c47b6"
+    },
+    "drivedeck-player/app/src/main/java/org/schabi/newpipe/mediasync/MediaSyncClient.kt": {
+      "bytes": 17388,
+      "sha256": "16fb3e63d3df6f0b96726508051238ddb48f0e028bad41db9f71a0d821685013"
+    },
+    "drivedeck-player/app/src/main/java/org/schabi/newpipe/mediasync/MediaSyncLibrary.kt": {
+      "bytes": 6458,
+      "sha256": "7cd224d507e2d03e5f75ce9c42031a08b279ffacea365c0fe3c0a1ce80389481"
+    },
+    "drivedeck-player/app/src/main/java/org/schabi/newpipe/mediasync/MediaSyncState.kt": {
+      "bytes": 591,
+      "sha256": "6746705126d84c42d5c8644c04b52d3c944e0214f27e0e0c2e638f71fd42d4d4"
+    },
+    "drivedeck-player/app/src/main/java/org/schabi/newpipe/settings/MediaSyncSettingsFragment.kt": {
+      "bytes": 6873,
+      "sha256": "b1bb068e58558a72ea4919ac549dae7d689b878e206a53fc1f2e7cfad5635aad"
+    }
+  },
+  "initialFailures": [
+    "Initial scratch submodule reference rejected because the reference was shallow; initialized the exact pinned commit instead.",
+    "Initial Android SDK path did not contain 37.0; switched to the already installed pinned scratch SDK.",
+    "First compile caught Room execSQL API misuse; corrected to openHelper.writableDatabase.",
+    "Test compilation caught AppDatabase not implementing Closeable; added explicit finally-close test helper.",
+    "Initial Room test hung on a reactive read inside its own transaction; stopped only the task emulator process and replaced the test read with synchronous SQL. Corrected four-method invocation passes.",
+    "Initial desktop lint caught duplicate imports/control-regex/dynamic translation-key issues; corrected and final scoped lint passes.",
+    "Initial full platform run lacked dependency links in the fresh checkout; reused unchanged installed dependencies and all 229 existing tests pass."
+  ],
+  "remainingGates": [
+    "Physical phone/Fire/TV and personal-library upgrade/setup.",
+    "Enrolled-state confirmation UI and packaged desktop opt-in/library refresh gestures.",
+    "Provider metadata hydration and ordinary playback from imported lists/history.",
+    "Large-library chunking/exclusions/retention beyond explicit prototype bounds.",
+    "Hosted HTTPS, independent security acceptance, restore reconciliation and retention remain platform #27 gates."
+  ],
+  "privacy": "Only synthetic test identities. No personal devices, profiles, provider accounts, stream URLs or media requests. Keys, tokens, raw DBs/logs/screenshots remain outside Git.",
+  "integration": "Issue branches are review candidates. No merge, release, installer execution, hosted deployment or personal-device install authorized/performed."
+}

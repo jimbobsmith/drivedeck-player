@@ -13,5 +13,5 @@ data class MediaSyncState(@PrimaryKey val id: Int = 1, val body: String)
 interface MediaSyncStateDAO {
     @Query("SELECT body FROM dd_media_sync WHERE id=1") fun read(): String?
     @Insert(onConflict = OnConflictStrategy.REPLACE) fun write(state: MediaSyncState)
-    @Query("DELETE FROM dd_media_sync") fun clear()
+    @Query("DELETE FROM dd_media_sync WHERE id=1") fun clear()
 }

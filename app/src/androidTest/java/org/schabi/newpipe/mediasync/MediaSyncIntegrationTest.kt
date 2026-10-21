@@ -94,7 +94,7 @@ class MediaSyncIntegrationTest {
                 scenario.onActivity { it.requestedOrientation = orientation }; SystemClock.sleep(1200)
                 scenario.onActivity {
                     val fragment = it.supportFragmentManager.findFragmentById(R.id.settings_fragment_holder) as MediaSyncSettingsFragment
-                    assertNotNull(fragment.findPreference<Preference>("media_sync_sync")); assertNotNull(fragment.findPreference<Preference>("media_sync_disconnect"))
+                    assertNotNull(fragment.findPreference<Preference>("media_sync_library")); assertNotNull(fragment.findPreference<Preference>("media_sync_sync")); assertNotNull(fragment.findPreference<Preference>("media_sync_disconnect"))
                     assertEquals(it.getString(R.string.media_sync_title), fragment.preferenceScreen.title)
                 }
                 val screenshot = InstrumentationRegistry.getInstrumentation().uiAutomation.takeScreenshot()

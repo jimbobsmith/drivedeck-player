@@ -63,3 +63,6 @@ native enrollment, two-way sync, recovery, both orientations and safe disconnect
 DD Home was restored; see [TABLET_VALIDATION.md](TABLET_VALIDATION.md) and
 [tablet-evidence.json](tablet-evidence.json) for exact scope and the preserved
 display/phone ownership boundary.
+## Expanded library follow-up
+
+Playlists, Watch Later and latest per-video watch history are an explicit opt-in follow-up; see [library v2 contract](LIBRARY_V2.md). Existing subscription/resume enrollment does not silently enable the new data.

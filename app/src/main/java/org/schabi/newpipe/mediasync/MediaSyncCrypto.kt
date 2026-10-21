@@ -17,6 +17,7 @@ import javax.crypto.spec.SecretKeySpec
 
 /** Interoperable platform issue 27 envelope. No provider credentials, URLs or player commands. */
 object MediaSyncCrypto {
+    val libraryKinds = setOf("playlist", "watch-later", "history")
     const val SCHEMA = "drivedeck.media-sync.enrollment.v1"
     private val uuidPattern = Regex("[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}")
     private val random = SecureRandom()
@@ -39,6 +40,20 @@ object MediaSyncCrypto {
     fun fingerprint(keys: JSONObject) = sha(decode(keys.getString("encryptionKey"), 32) + decode(keys.getString("routingKey"), 32))
     fun validatePayload(p: JSONObject): JSONObject {
         val kind = p.getString("kind")
+        if (kind in libraryKinds) {
+            if (kind == "history") exact(p, "kind", "provider", "id", "version", "watchedAtMs")
+            else if (kind == "playlist") exact(p, "kind", "provider", "id", "version", "name", "items")
+            else exact(p, "kind", "provider", "id", "version", "items")
+            check(p.get("version") == 2 && p.getString("provider") == "youtube", "unsupported_library_version")
+            if (kind == "history") check(p.getString("id").matches(Regex("[A-Za-z0-9_-]{11}")) && number(p, "watchedAtMs") in 1..8640000000000000L, "invalid_history")
+            else {
+                check(if (kind == "playlist") uuid(p.get("id")) else p.getString("id") == "watch-later", "invalid_playlist_identity")
+                if (kind == "playlist") { val name = p.getString("name"); check(name.isNotBlank() && name.toByteArray(UTF_8).size <= 160 && name.none { it.code < 32 || it.code == 127 }, "invalid_playlist_name") }
+                val items = p.getJSONArray("items"); check(items.length() <= 200, "playlist_not_portable")
+                for (i in 0 until items.length()) check(items.get(i) is String && items.getString(i).matches(Regex("[A-Za-z0-9_-]{11}")), "playlist_not_portable")
+            }
+            return p
+        }
         if (kind == "subscription") exact(p, "kind", "provider", "id")
         else exact(p, "kind", "provider", "id", "positionMs", "sessionId", "checkpointSeq")
         check(p.getString("provider") == "youtube" && kind in listOf("subscription", "resume"))
@@ -58,7 +73,8 @@ object MediaSyncCrypto {
     fun validateMutation(m: JSONObject) {
         exact(m, "protocol", "serverGeneration", "mutationId", "recordKey", "kind", "operation", "baseRevision", "resumeEpoch", "envelope")
         check(m.get("protocol") == 1 && uuid(m.get("serverGeneration")) && uuid(m.get("mutationId")))
-        check(m.getString("recordKey").matches(Regex("[a-f0-9]{64}")) && m.getString("kind") in listOf("subscription", "resume") && m.getString("operation") in listOf("put", "remove"))
+        check(m.getString("recordKey").matches(Regex("[a-f0-9]{64}")) && m.getString("kind") in (listOf("subscription", "resume") + libraryKinds) && m.getString("operation") in listOf("put", "remove"))
+        check(m.getString("kind") != "watch-later" || m.getString("operation") == "put", "watch_later_clear_with_empty_list")
         number(m, "baseRevision"); number(m, "resumeEpoch")
         val e = m.getJSONObject("envelope"); exact(e, "keyEpoch", "nonce", "ciphertext"); check(e.get("keyEpoch") == 1)
         decode(e.getString("nonce"), 12); decode(e.getString("ciphertext"), 16, 4096)
