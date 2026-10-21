@@ -1,0 +1,130 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-21",
+  "issue": "https://github.com/jimbobsmith/drivedeck-player/issues/24",
+  "coordinationIssue": "https://github.com/jimbobsmith/drivedeckg/issues/257",
+  "mainBaseline": "a4e6e93f73190e3ee358aa1fb6781c78c190f7cf",
+  "player": {
+    "packageName": "com.drivedeck.player.test",
+    "versionName": "0.1.0-alpha03",
+    "versionCode": 304,
+    "sourceCommit": "5a3c22b561c7fc14c1374a6c1d2f7ce5681b21a8",
+    "apkSha256": "bbef3a7987f22650ac446299497fca9cde6104869f15f534b19aba63ef2fbb95",
+    "publicArtifactSignerSha256": "e7ed1f8a11ae706f798b2c592edbdef82b2185c17846ccb6fc83a7fed2555bd2"
+  },
+  "otherParticipatingPackages": {
+    "com.drivedeck.g.test": {
+      "code": 2026102101,
+      "name": "0.1.0-alpha.261021.353",
+      "sha256": "df6291db8678f35d431fd4862f7fb761094b3174420127ae0df316235145e3ef"
+    },
+    "com.drivedeck.g": {
+      "code": 2026102101,
+      "name": "0.1.0-alpha.261021.353",
+      "sha256": "583c03e89eab037f85aa885e6ff8cb0670c76d15bdd778ee3022961395b4884f"
+    },
+    "com.drivedeck.g.spotify": {
+      "code": 2,
+      "name": "0.1.0-alpha.2",
+      "sha256": "7fdf98b6cd2f2c9dec0f70c15e1b6ebb7de97afc52f4411a53e30ea353bf367b"
+    }
+  },
+  "ddTestInstalledSource": "34f1552b as identified by granted slot and matching installed APK hash",
+  "method": {
+    "adb": "explicit-role UI navigation and read-only package/hash/preferences/OS-job observations",
+    "rawUi": "Transient in-memory hierarchy with only allowlisted generic controls; Fire launcher/shade navigation used explicitly approved local-only screenshots, excluded from Git.",
+    "personalLibraryDatabaseRead": false,
+    "installOrForceStop": false,
+    "injectedNotificationOrForcedJob": false,
+    "networkClockLockRolePairingAccountChanges": false,
+    "emulatorOrPixel9aTouched": false,
+    "freshPlaybackOrAvOrSyncAcceptance": false,
+    "musicPlaybackOrSelectionCommands": false,
+    "screenshotsCommitted": false,
+    "notificationTypeTested": "UPDATED from genuine earlier alpha03 installation; not AVAILABLE or READY"
+  },
+  "phone": {
+    "role": "phone",
+    "genuineUpdatedNotificationObserved": true,
+    "notificationOpenedPlayerUpdates": true,
+    "notificationAbsentAfterTap": true,
+    "notificationNavigationRetainedOriginalJob": true,
+    "automaticOffRemovedOsJob": true,
+    "automaticOnCreatedOneNewOsJob": true,
+    "downloadTogglePersistedAndRestored": true,
+    "downloadToggleKeptDailyJobIdentity": true,
+    "originalPolicyRestored": true,
+    "finalPolicy": {
+      "auto_download": true,
+      "automatic": true
+    },
+    "participatingApkHashesUnchanged": true,
+    "noPlayerPlaybackServiceAtChecks": true,
+    "originalDDTestActivityRestored": true,
+    "firstDelayRestarted": true,
+    "newFirstEligibleApproximate": "2026-10-22 16:10 America/Winnipeg",
+    "naturalDailyExecutionProven": false,
+    "availableReadyUpdateNotificationProven": false,
+    "freshLibraryRowsCompared": false,
+    "localCapturesExcludedFromGit": true,
+    "finalObservedAtUtc": "2026-10-21T21:23:54.223469+00:00",
+    "finalRegisteredOsJobs": 1,
+    "notificationPermission": true,
+    "localNavigationScreenshotsTaken": false,
+    "model": "Pixel 9 Pro XL",
+    "androidApi": 37,
+    "foregroundDetail": "Original DD Test MainActivity restored; specific Home destination not independently asserted."
+  },
+  "tablet": {
+    "role": "tablet",
+    "genuineUpdatedNotificationObserved": true,
+    "notificationOpenedPlayerUpdates": true,
+    "notificationAbsentAfterTap": true,
+    "notificationNavigationRetainedOriginalJob": true,
+    "automaticOffRemovedOsJob": true,
+    "automaticOnCreatedOneNewOsJob": true,
+    "downloadTogglePersistedAndRestored": true,
+    "downloadToggleKeptDailyJobIdentity": true,
+    "originalPolicyRestored": true,
+    "finalPolicy": {
+      "auto_download": true,
+      "automatic": true
+    },
+    "participatingApkHashesUnchanged": true,
+    "noPlayerPlaybackServiceAtChecks": true,
+    "originalDDTestActivityRestored": true,
+    "firstDelayRestarted": true,
+    "newFirstEligibleApproximate": "2026-10-22 16:22 America/Winnipeg",
+    "naturalDailyExecutionProven": false,
+    "availableReadyUpdateNotificationProven": false,
+    "freshLibraryRowsCompared": false,
+    "localCapturesExcludedFromGit": true,
+    "finalObservedAtUtc": "2026-10-21T21:23:51.926638+00:00",
+    "finalRegisteredOsJobs": 1,
+    "notificationPermission": "not-runtime-gated",
+    "localNavigationScreenshotsTaken": true,
+    "model": "Fire KFTUWI",
+    "androidApi": 30,
+    "uiInspectorLimitation": "Native launcher and shade could not reach idle state; local screenshots enabled navigation, Player Settings UI hierarchy worked.",
+    "foregroundDetail": "Original DD Test MainActivity restored with All apps drawer closed."
+  },
+  "remainingGates": [
+    "naturally elapsed periodic execution",
+    "available/ready notification from genuinely newer approved release",
+    "vendor/background network delivery over time",
+    "API23-27/browser-bootstrap and production signing"
+  ],
+  "handback": {
+    "state": "READY",
+    "allDeviceCallsStopped": true,
+    "controlTowerUpdated": true,
+    "queueComment": "https://github.com/jimbobsmith/drivedeckg/issues/257#issuecomment-6326893340",
+    "ddTestMainActivityRestoredOnBoth": true,
+    "policyRestoredOnBoth": true,
+    "musicState": "Earlier scoped read observed Fire paused; phone unresolved. No playback/selection commands issued; no fresh playback or authentication acceptance."
+  },
+  "observedWindowUtc": {
+    "start": "2026-10-21T21:06:00Z",
+    "end": "2026-10-21T21:24:00Z"
+  }
+}
