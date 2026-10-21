@@ -10,8 +10,9 @@ def keyPath = System.getenv("DD_PLAYER_KEY_PATH")
 def keyStorePassword = System.getenv("DD_PLAYER_KEY_STORE_PASSWORD")
 def signingKeyAlias = System.getenv("DD_PLAYER_KEY_ALIAS")
 def signingKeyPassword = System.getenv("DD_PLAYER_KEY_PASSWORD")
-def baseVersionCode = 1
-def appVersionName = "0.1.0-alpha01"
+def baseVersionCode = (findProperty("ddPlayerVersionBase") ?: "2").toInteger()
+if (baseVersionCode < 2 || baseVersionCode > 20000000) throw new GradleException("Invalid DD Player version base")
+def appVersionName = findProperty("ddPlayerVersionName") ?: "0.1.0-alpha02"
 def abiCodes = ['armeabi-v7a': 1, 'x86': 2, 'x86_64': 3, 'arm64-v8a': 4]
 def stableBuildConfigVersionCode =
         (100 * baseVersionCode) + abiCodes['armeabi-v7a']

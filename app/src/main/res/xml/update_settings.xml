@@ -1,29 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:title="@string/settings_category_updates_title">
-
-    <SwitchPreferenceCompat
-        android:defaultValue="true"
-        android:key="@string/update_app_key"
-        android:summary="@string/updates_setting_description"
-        android:title="@string/updates_setting_title"
-        app:singleLineTitle="false"
-        app:iconSpaceReserved="false" />
-
-    <SwitchPreferenceCompat
-            android:defaultValue="false"
-            android:key="@string/show_prerelease_key"
-            android:summary="@string/show_prerelease_description"
-            android:title="@string/show_prerelease_title"
-            app:singleLineTitle="false"
-            app:iconSpaceReserved="false" />
-
-    <Preference
-        android:key="@string/manual_update_key"
-        android:summary="@string/manual_update_description"
-        android:title="@string/manual_update_title"
-        app:singleLineTitle="false"
-        app:iconSpaceReserved="false" />
-
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:title="@string/settings_category_updates_title">
+    <Preference android:key="player_update_status" android:title="@string/player_update_status" android:selectable="false" app:iconSpaceReserved="false" />
+    <SwitchPreferenceCompat android:key="player_auto_updates" android:defaultValue="false" android:title="@string/player_auto_updates" android:summary="@string/player_auto_updates_summary" app:singleLineTitle="false" app:iconSpaceReserved="false" />
+    <SwitchPreferenceCompat android:key="player_auto_download" android:defaultValue="false" android:title="@string/player_auto_download" android:summary="@string/player_auto_download_summary" app:singleLineTitle="false" app:iconSpaceReserved="false" />
+    <org.schabi.newpipe.updates.UpdateActionPreference android:key="player_update_check" android:title="@string/player_update_check" app:iconSpaceReserved="false" />
+    <org.schabi.newpipe.updates.UpdateActionPreference android:key="player_update_download" android:title="@string/player_update_download" app:iconSpaceReserved="false" />
+    <org.schabi.newpipe.updates.UpdateActionPreference android:key="player_update_install" android:title="@string/player_update_install" app:iconSpaceReserved="false" />
+    <org.schabi.newpipe.updates.UpdateActionPreference android:key="player_update_cancel" android:title="@string/player_update_cancel" app:iconSpaceReserved="false" />
+    <Preference android:title="@string/player_update_source" android:summary="@string/player_update_source_summary" android:selectable="false" app:singleLineTitle="false" app:iconSpaceReserved="false" />
 </PreferenceScreen>

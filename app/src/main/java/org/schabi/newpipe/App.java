@@ -140,6 +140,7 @@ public class App extends MultiDexApplication {
 
         StateSaver.init(this);
         initNotificationChannels();
+        org.schabi.newpipe.updates.PlayerUpdateManager.get(this).reconcileSchedule();
 
         ServiceHelper.initServices(this);
         LocalDomPoTokenProvider.initialize(this);

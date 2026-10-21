@@ -1,11 +1,11 @@
 # Install DD Player without ADB
 
-A normal Android APK installer works with USB debugging disabled. This fork's current development installer is **DriveDeck Player Test** (`com.drivedeck.player.test`); it has the blue/mint DD icon. It is separate from PipePipe, DD and Spotify. This is a Test build, not the production distribution or an automatic-update channel.
+A normal Android APK installer works with USB debugging disabled. This fork's current development installer is **DriveDeck Player Test** (`com.drivedeck.player.test`); it has the blue/mint DD icon. It is separate from PipePipe, DD and Spotify. This is a Test build, separate from the production distribution. The published alpha01 installer predates the [standalone updater](../updates/README.md); alpha02 prepares its one-time bootstrap.
 
 ## On each phone or tablet
 
 1. Download the **universal-debug.apk** from the approved Test prerelease, or copy that same APK to Downloads using ordinary USB file transfer, a network share or your preferred file-transfer app. One universal APK covers ARM64, ARM32, x86 and x86_64; there is no CPU-specific download to choose.
-2. Open the APK from Downloads or your file manager. If Android asks, allow that browser/file manager to install unknown apps. On Fire OS this is under Settings → Security & Privacy → Apps from Unknown Sources; other Android devices usually show Install unknown apps under Special app access. Follow the device's installer prompt. Developer options and USB debugging are not needed.
+2. Open the APK from Downloads or your file manager. If Android asks, allow that browser/file manager to install unknown apps. On Fire OS this is under Settings Ã¢†’ Security & Privacy Ã¢†’ Apps from Unknown Sources; other Android devices usually show Install unknown apps under Special app access. Follow the device's installer prompt. Developer options and USB debugging are not needed.
 3. Choose **Install** (or **Update** if Player Test is already installed), then **Open**. The launcher should show the blue/mint D/play mark and the label **DriveDeck Player Test**.
 4. If desired, turn off the browser/file manager's install permission afterwards. It is separate from the Player's own permissions.
 
@@ -17,7 +17,7 @@ Install over the existing **Player Test** app to retain its subscriptions, histo
 
 If Android reports a package/signature conflict, keep the existing app and data and obtain a matching installer. Do not uninstall or clear data as an installation workaround. Compatibility with other machines' independently generated debug keys is not promised.
 
-The current fork disables upstream update checks. To update this Test channel, install a newer approved APK through the same manual process; it does not yet offer automatic downloads or in-app updates. A durable production signing identity and separate opt-in updater are later, separately scoped work.
+Upstream PipePipe updates remain disabled. The published alpha01 app must receive one newer approved bootstrap APK manually. Alpha02 adds the separate opt-in DD Player updater described in [Updates](../updates/README.md); after enabling it, future matching releases can be checked/downloaded in-app with Android installation confirmation. The bootstrap is not a published download until explicitly approved. Durable production signing remains a separate gate.
 
 ## Build and evidence
 
