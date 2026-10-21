@@ -99,3 +99,7 @@ The existing playback engine, media session and extractor pin remain intact.
 ## Fork artwork
 
 The approved provisional DD Android icons and their build/field evidence are documented in [branding](../branding/README.md) (issue #20).
+
+## Install on tablets without debugging
+
+Use the normal Android APK installer with the universal Test APK; see [manual installation](../install/ANDROID.md) (issue #22).

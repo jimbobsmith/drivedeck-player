@@ -43,6 +43,7 @@ android {
             reset()
             enable true
             include "armeabi-v7a", "arm64-v8a", "x86_64", "x86"
+            universalApk true
         }
     }
 
@@ -151,7 +152,8 @@ androidComponents.onVariants(androidComponents.selector().all()) { variant ->
     variant.outputs.each { output ->
         def outputFileName = output.outputFileName.get()
         def abi = abiCodes.keySet().sort { -it.length() }.find { outputFileName.contains(it) }
-        def versionCode = 100 * baseVersionCode
+        // A universal APK must update any same-version ABI build without a downgrade.
+        def versionCode = 100 * baseVersionCode + (abi == null ? abiCodes.values().max() : 0)
         if (abi != null) {
             versionCode += abiCodes[abi]
         }
