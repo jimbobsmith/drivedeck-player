@@ -1,0 +1,192 @@
+{
+  "schemaVersion": 1,
+  "issue": "https://github.com/jimbobsmith/drivedeck-player/issues/24",
+  "date": "2026-10-21",
+  "sourceCommit": "0b7b5445b675b67c4ab0a8ead13d7a9c53751f13",
+  "branch": "codex/issue-24-device-bootstrap-validation",
+  "authority": "Maintainer explicitly requested bootstrap testing on the phone and tablet with subscriptions/history/resume preservation",
+  "coordination": {
+    "spotifyChatExplicitPhysicalWindow": true,
+    "physicalWindowReturned": true,
+    "spotifyEmulatorUntouched": true
+  },
+  "release": {
+    "tag": "player-test-v0.1.0-alpha02",
+    "url": "https://github.com/jimbobsmith/drivedeck-player/releases/tag/player-test-v0.1.0-alpha02",
+    "apkSha256": "aaacec51ffe53bf64e99c5acd544a2e1c8a707aff7138344af9e395d75a51afc",
+    "packageName": "com.drivedeck.player.test",
+    "signerCertificateSha256": "e7ed1f8a11ae706f798b2c592edbdef82b2185c17846ccb6fc83a7fed2555bd2"
+  },
+  "method": {
+    "installation": "Explicitly scoped ADB replace of the published APK on authorized existing physical installations",
+    "snapshot": "Force-stop only Player Test; copy its newpipe.db and extant WAL/SHM to private local scratch, verify stable transport hashes and SQLite quick_check, then query a read-only local connection",
+    "comparison": "All columns and rows of subscriptions, stream_history and stream_state, plus exact service/content reference for each resume row; repeated after normal app opening",
+    "noUninstallOrDataClear": true,
+    "noFixtureSeeding": true,
+    "noPhysicalInstrumentation": true,
+    "noPlaybackStarted": true,
+    "dbSchemaBeforeAndAfter": 902
+  },
+  "devices": {
+    "phone": {
+      "model": "Pixel 9 Pro XL",
+      "androidApi": 37,
+      "fromVersionCode": 104,
+      "fromVersionName": "0.1.0-alpha01",
+      "toVersionCode": 204,
+      "toVersionName": "0.1.0-alpha02",
+      "installedApkSignerVerified": true,
+      "result": "passed",
+      "comparisons": {
+        "after-install": {
+          "subscriptions": {
+            "beforeCount": 2,
+            "afterCount": 2,
+            "columnsEqual": true,
+            "allRowsEqual": true
+          },
+          "stream_history": {
+            "beforeCount": 2,
+            "afterCount": 2,
+            "columnsEqual": true,
+            "allRowsEqual": true
+          },
+          "stream_state": {
+            "beforeCount": 4,
+            "afterCount": 4,
+            "columnsEqual": true,
+            "allRowsEqual": true
+          },
+          "resumeContentReferencesEqual": true
+        },
+        "after-open": {
+          "subscriptions": {
+            "beforeCount": 2,
+            "afterCount": 2,
+            "columnsEqual": true,
+            "allRowsEqual": true
+          },
+          "stream_history": {
+            "beforeCount": 2,
+            "afterCount": 2,
+            "columnsEqual": true,
+            "allRowsEqual": true
+          },
+          "stream_state": {
+            "beforeCount": 4,
+            "afterCount": 4,
+            "columnsEqual": true,
+            "allRowsEqual": true
+          },
+          "resumeContentReferencesEqual": true
+        }
+      },
+      "appUi": {
+        "subscriptionsVisible": 2,
+        "subscriptionNamesMatchBaseline": true,
+        "historyDistinctItemsVisible": 2,
+        "historyItemsMatchBaseline": true,
+        "livePublicFeedCheck": "No newer verified update is available.",
+        "automaticChecksEnabled": true,
+        "unmeteredDownloadsEnabled": true
+      },
+      "handoff": {
+        "ddTestMainActivityConfirmed": true,
+        "playerPlaybackServiceRunning": false,
+        "ddSpotifySettingsSigninsRolesPairingNetworkUnchanged": true
+      }
+    },
+    "tablet": {
+      "model": "KFTUWI",
+      "androidApi": 30,
+      "fromVersionCode": 104,
+      "fromVersionName": "0.1.0-alpha01",
+      "toVersionCode": 204,
+      "toVersionName": "0.1.0-alpha02",
+      "installedApkSignerVerified": true,
+      "result": "passed",
+      "comparisons": {
+        "after-install": {
+          "subscriptions": {
+            "beforeCount": 3,
+            "afterCount": 3,
+            "columnsEqual": true,
+            "allRowsEqual": true
+          },
+          "stream_history": {
+            "beforeCount": 1,
+            "afterCount": 1,
+            "columnsEqual": true,
+            "allRowsEqual": true
+          },
+          "stream_state": {
+            "beforeCount": 3,
+            "afterCount": 3,
+            "columnsEqual": true,
+            "allRowsEqual": true
+          },
+          "resumeContentReferencesEqual": true
+        },
+        "after-open": {
+          "subscriptions": {
+            "beforeCount": 3,
+            "afterCount": 3,
+            "columnsEqual": true,
+            "allRowsEqual": true
+          },
+          "stream_history": {
+            "beforeCount": 1,
+            "afterCount": 1,
+            "columnsEqual": true,
+            "allRowsEqual": true
+          },
+          "stream_state": {
+            "beforeCount": 3,
+            "afterCount": 3,
+            "columnsEqual": true,
+            "allRowsEqual": true
+          },
+          "resumeContentReferencesEqual": true
+        }
+      },
+      "appUi": {
+        "subscriptionsVisible": 3,
+        "subscriptionNamesMatchBaseline": true,
+        "historyDistinctItemsVisible": 1,
+        "historyItemsMatchBaseline": true,
+        "livePublicFeedCheck": "No newer verified update is available.",
+        "automaticChecksEnabled": true,
+        "unmeteredDownloadsEnabled": true
+      },
+      "handoff": {
+        "ddTestMainActivityConfirmed": true,
+        "playerPlaybackServiceRunning": false,
+        "ddSpotifySettingsSigninsRolesPairingNetworkUnchanged": true
+      }
+    }
+  },
+  "observedScopeLimits": [
+    "ADB package replacement was tested; the phone/tablet browser/unknown-source installer flow was not tested",
+    "Exact saved progress values and displayed history progress bars were retained; no video was started to recertify playback seek or A/V sync",
+    "Actual future update notification/download/install and daily job execution require a higher public release and elapsed OS scheduling time"
+  ],
+  "remainingGates": [
+    "next higher-version public update through in-app download/installer",
+    "browser and unknown-source installer behavior on physical devices",
+    "actual update notification delivery and daily scheduling under vendor constraints",
+    "API23-27 behavior",
+    "durable production signing identity"
+  ],
+  "retainedEarlierOutcomes": [
+    "The initial upgrade guard rejected the installed alpha01 APK hash because both installed code artifacts differed from the public alpha01 universal file. No install occurred on that attempt. Both installed APKs were then copied privately and individually passed package/version/apksigner v2 verification with the same certificate as the public bootstrap before installation.",
+    "A final foreground assertion ran during an activity transition and failed before its loop reached the tablet restart. A premature coordination handback was corrected. Settled read-only checks then confirmed both original DD Test activities and no Player playback service; no competing physical writes were made after the window was returned."
+  ],
+  "privacy": {
+    "rawDatabasesOutsideGit": true,
+    "installedApksOutsideGit": true,
+    "screensAndTitlesOutsideGit": true,
+    "noDeviceIdentifiersOrAddressesInPortableEvidence": true,
+    "noProviderOrSyncCredentialsRead": true,
+    "portableLibraryFingerprintsExcluded": true
+  }
+}
