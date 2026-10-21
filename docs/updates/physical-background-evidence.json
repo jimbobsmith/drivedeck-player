@@ -1,0 +1,129 @@
+{
+  "date": "2026-10-21",
+  "issue": "https://github.com/jimbobsmith/drivedeck-player/issues/24",
+  "coordinationIssue": "https://github.com/jimbobsmith/drivedeckg/issues/257",
+  "mainBaseline": "05fd21e5224c15985b9556c3a7ab6b82b4c89cf9",
+  "result": "scheduler-registration-observed; notification/toggle/natural-execution gates pending",
+  "devices": [
+    {
+      "role": "phone",
+      "versionCode": 304,
+      "observedAtUtc": "2026-10-21T17:15:46+00:00",
+      "oneEnqueuedDailyCheck": true,
+      "oneMappedOsJob": true,
+      "systemJobMappingMatched": true,
+      "intervalHours": 24,
+      "firstDelayHours": 24,
+      "network": "connected",
+      "batteryNotLow": true,
+      "currentlyBlockedOnlyByInitialTimeDelay": true,
+      "firstEligibleAtUtc": "2026-10-22T16:14:49.386000+00:00",
+      "automaticCheck": true,
+      "automaticDownload": true,
+      "priorVerifiedDownloadWorkerSucceeded": true,
+      "notificationPermissionGranted": true,
+      "libraryBaselineCounts": {
+        "subscriptions": 2,
+        "stream_history": 2,
+        "stream_state": 4
+      },
+      "libraryIntegrity": "ok",
+      "librarySchema": 902,
+      "settingsChanged": false,
+      "notificationUiOpened": false,
+      "notificationTapRouteTested": false,
+      "dailyWorkerElapsedRunTested": false
+    },
+    {
+      "role": "tablet",
+      "versionCode": 304,
+      "observedAtUtc": "2026-10-21T17:15:51+00:00",
+      "oneEnqueuedDailyCheck": true,
+      "oneMappedOsJob": true,
+      "systemJobMappingMatched": true,
+      "intervalHours": 24,
+      "firstDelayHours": 24,
+      "network": "connected",
+      "batteryNotLow": true,
+      "currentlyBlockedOnlyByInitialTimeDelay": true,
+      "firstEligibleAtUtc": "2026-10-22T16:14:55.545000+00:00",
+      "automaticCheck": true,
+      "automaticDownload": true,
+      "priorVerifiedDownloadWorkerSucceeded": true,
+      "notificationPermissionGranted": "not-runtime-gated",
+      "libraryBaselineCounts": {
+        "subscriptions": 3,
+        "stream_history": 1,
+        "stream_state": 3
+      },
+      "libraryIntegrity": "ok",
+      "librarySchema": 902,
+      "settingsChanged": false,
+      "notificationUiOpened": false,
+      "notificationTapRouteTested": false,
+      "dailyWorkerElapsedRunTested": false
+    }
+  ],
+  "boundary": "No further physical calls after official DD v353 download UI observed on phone; no Player/OS/DD/Spotify setting changed, no installs, no force-stop, no playback, no injected notification, no emulator. User activity invalidates original foreground baseline. Do not treat this as notification or naturally elapsed background execution acceptance.",
+  "handoff": {
+    "status": "READY for user; Player tests BLOCKED",
+    "owner": "Control Tower/user under DD issue257",
+    "newDeviceGrantRequired": true,
+    "playerSettingsChanged": false,
+    "playerSettingsRestorationNeeded": false,
+    "firstDelayRestarted": false,
+    "phoneLastObserved": "official DD352 Updates downloading v353",
+    "tabletLastObserved": "DD Test Home with paused Play card",
+    "stateAfterOfficialDdActivity": "not re-measured; previous foreground/package baseline must not be assumed current",
+    "newPlaybackAuthorizationOrRecordingStarted": false,
+    "furtherPhysicalCallsAfterIntervention": false
+  },
+  "playerArtifact": {
+    "packageName": "com.drivedeck.player.test",
+    "versionName": "0.1.0-alpha03",
+    "versionCode": 304,
+    "sourceCommit": "5a3c22b561c7fc14c1374a6c1d2f7ce5681b21a8",
+    "apkSha256": "bbef3a7987f22650ac446299497fca9cde6104869f15f534b19aba63ef2fbb95",
+    "bothInstalledApkHashesMatchPublicRelease": true,
+    "knownPublicArtifactCertificateSha256": "e7ed1f8a11ae706f798b2c592edbdef82b2185c17846ccb6fc83a7fed2555bd2",
+    "certificateEvidence": "public APK independently verified during alpha03 publication; installed bytes match that APK",
+    "channel": "Test/debug signer",
+    "runtimeSourceChanged": false
+  },
+  "otherAppsBeforeIntervention": {
+    "ddTest": {
+      "packageName": "com.drivedeck.g.test",
+      "versionName": "0.1.0-alpha.261017.352",
+      "versionCode": 2026101701,
+      "sourceAndCertificate": "not measured in this slice"
+    },
+    "ddOfficial": {
+      "packageName": "com.drivedeck.g",
+      "versionName": "0.1.0-alpha.261017.352",
+      "versionCode": 2026101701,
+      "sourceAndCertificate": "not measured in this slice"
+    },
+    "spotify": {
+      "packageName": "com.drivedeck.g.spotify",
+      "versionName": "0.1.0-alpha.2",
+      "versionCode": 2,
+      "sourceAndSigningChannel": "source53a71849 / signed production as reported by coordinated handback; certificate not independently re-measured here"
+    }
+  },
+  "observationLimits": [
+    "No naturally elapsed periodic check observed; Android may defer beyond eligibility.",
+    "No fresh higher release, available/ready update notification or notification tap route tested in this slice.",
+    "No toggle/cancellation/re-enqueue/restoration test started; original true/true preferences untouched.",
+    "Library integrity/counts observed only at baseline; no new after-action comparison claimed.",
+    "An OS dump did not expose WorkSpec UUID; registration matched by package/service and WorkManager SystemIdInfo job ID.",
+    "OS constraint satisfaction does not prove actual background network delivery or vendor notification behavior.",
+    "Observed phone official-update UI invalidates foreground baseline; no further calls made to determine final DD version."
+  ],
+  "portableEvidenceExcludes": [
+    "device/network/account identifiers",
+    "WorkSpec UUIDs and per-device job IDs",
+    "raw OS dumps and UI captures",
+    "library rows, URLs, names, positions and timestamps",
+    "credential/preferences files"
+  ]
+}
