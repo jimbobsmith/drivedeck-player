@@ -1,0 +1,52 @@
+{
+  "issue": "jimbobsmith/drivedeck-player#34",
+  "date": "2026-10-22",
+  "status": "runtime_acceptance_passed_review_pending",
+  "source": "8de7c5c851a44ee63bbd04d337e740aa4fdc12dc",
+  "base": "e7692ff51b2f6d9037bf5dd608c5adccac7f7c73",
+  "scope": {
+    "productionChange": "four global subscription URL identity predicates changed from LIKE to equality",
+    "schemaVersion": 903,
+    "schemaChanges": false,
+    "nameSearchChanged": false,
+    "newDependencies": 0
+  },
+  "toolchain": { "java": "25.0.4.1+1", "gradle": "9.5.1", "androidCompileSdk": 37 },
+  "build": {
+    "tasks": ["assembleDebug", "assembleDebugAndroidTest", "testDebugUnitTest", "writeFoundationRuntimeAudit"],
+    "passed": true,
+    "offline": true,
+    "dependencyCoordinatesAudited": 195
+  },
+  "jvm": { "tests": 50, "suites": 8, "failures": 0, "errors": 0, "skipped": 0 },
+  "artifacts": {
+    "channel": "local_debug_test_only_not_a_release",
+    "appSha256": "aef411e80517f82fdbc2db76a27eb9c32896502394841ab5254421184e352b05",
+    "instrumentationSha256": "a482c3008fec5785023fb118782a3553e2d35de93eb19ee7e8e9658fa9d80eb0",
+    "signaturesVerified": true
+  },
+  "instrumentation": {
+    "environment": "new_disposable_default_android_api36_x86_64_emulator",
+    "tests": 5,
+    "passed": 5,
+    "failed": 0,
+    "newIdentityTests": 3,
+    "existingProfileCompatibilityTests": 2,
+    "coverage": [
+      "canonical underscore versus letter channel IDs and case-distinct IDs remain separate in one-shot and observed reads",
+      "same URL on another service remains isolated",
+      "targeted unsubscribe removes one row, updates a retained observer and preserves other channel and profile memberships",
+      "upsert resolves the exact existing UID without rewriting a look-alike or another service",
+      "name search retains existing pattern behavior",
+      "active profile subscribe/unsubscribe keeps global invariant and feed follows selection",
+      "profile deletion keeps global channels and suppresses stale concurrent membership"
+    ],
+    "ownedEmulatorShutdownConfirmed": true,
+    "personalOrSharedDevicesOperated": false,
+    "providerNetworkPlaybackOrAuthenticationTested": false
+  },
+  "remaining": [
+    "maintainer review and explicit merge approval for issue 34",
+    "related profile and personal-library field gates remain open on issues 17 and 32"
+  ]
+}
