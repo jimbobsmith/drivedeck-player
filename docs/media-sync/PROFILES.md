@@ -82,8 +82,25 @@ restart, profile delete plus stale concurrent member, global unsubscribe,
 non-YouTube preservation, disconnect mapping and strict schema rejection.
 The existing migration test now verifies the complete 901 → 902 → 903 chain.
 
-Build/test outcomes are recorded on issue #32 and the pull request. Compiling
-instrumentation tests does not execute Room or prove UI behavior. No personal
-phone, tablet, TV or emulator is operated by this change. Dedicated runtime,
-portrait/landscape UI, personal-library upgrade, physical devices and hosted
-three-client profile synchronization remain explicit field-validation gates.
+The exact source `4c63f85a0dcc3df7223f046ded6b4e76c028c1cc` passes the full app
+and instrumentation APK build, all 50 JVM tests across 8 suites (4 new profile
+validation tests) and the 195-coordinate runtime dependency audit. All 12
+selected instrumented tests pass on a newly created disposable API 36 emulator:
+11 profile tests plus the complete 901 → 903 migration. This includes a retained
+Room observer receiving subscribe/remove/resubscribe updates, existing feed
+view-model selection propagation, and production profile editor/opt-in controls
+in portrait and landscape. These are assertions on synthetic data, not a manual
+visual review or a personal-device claim.
+
+Public synthetic vectors produced by the real desktop crypto implementation
+decrypt and match routing keys in the real Android implementation, including a
+Unicode name. Android then seals counterparts; the production desktop decryptor
+and routing-key generator verify both profile and member payloads in reverse.
+No test key or identity is suitable for enrollment or real user data.
+
+Curated source, build and test evidence is in [profiles-evidence.json](profiles-evidence.json).
+The owned disposable emulator was shut down and its processes exited. No
+personal phone, tablet, TV or shared emulator was operated. Full profile HTTP
+round trips through the Android client and desktop/service, personal-library
+upgrade, manual visual review, physical devices and hosted deployment remain
+explicit field-validation gates. Profile sync stays disabled by default.
