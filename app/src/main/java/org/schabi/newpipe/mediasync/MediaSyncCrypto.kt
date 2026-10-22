@@ -40,6 +40,22 @@ object MediaSyncCrypto {
     fun fingerprint(keys: JSONObject) = sha(decode(keys.getString("encryptionKey"), 32) + decode(keys.getString("routingKey"), 32))
     fun validatePayload(p: JSONObject): JSONObject {
         val kind = p.getString("kind")
+        if (kind == "profile-member") {
+            exact(p, "kind", "provider", "id", "version", "profileId", "channelId")
+            check(p.get("version") == 3 && p.getString("provider") == "youtube", "unsupported_profiles_version")
+            check(ProfileRecordRules.validMembership(p.getString("id"), p.getString("profileId"), p.getString("channelId")), "invalid_profile_identity")
+            return p
+        }
+        if (kind == "profile") {
+            exact(p, "kind", "provider", "id", "version", "name", "bgColor", "textColor")
+            check(p.get("version") == 3 && p.getString("provider") == "youtube", "unsupported_profiles_version")
+            check(uuid(p.get("id")), "invalid_profile_identity")
+            check(p.get("name") is String, "profile_not_portable")
+            val name = p.getString("name")
+            check(ProfileRecordRules.validName(name), "profile_not_portable")
+            for (color in listOf("bgColor", "textColor")) check(ProfileRecordRules.validColor(p.getString(color)), "profile_not_portable")
+            return p
+        }
         if (kind in libraryKinds) {
             if (kind == "history") exact(p, "kind", "provider", "id", "version", "watchedAtMs")
             else if (kind == "playlist") exact(p, "kind", "provider", "id", "version", "name", "items")
@@ -73,7 +89,7 @@ object MediaSyncCrypto {
     fun validateMutation(m: JSONObject) {
         exact(m, "protocol", "serverGeneration", "mutationId", "recordKey", "kind", "operation", "baseRevision", "resumeEpoch", "envelope")
         check(m.get("protocol") == 1 && uuid(m.get("serverGeneration")) && uuid(m.get("mutationId")))
-        check(m.getString("recordKey").matches(Regex("[a-f0-9]{64}")) && m.getString("kind") in (listOf("subscription", "resume") + libraryKinds) && m.getString("operation") in listOf("put", "remove"))
+        check(m.getString("recordKey").matches(Regex("[a-f0-9]{64}")) && m.getString("kind") in (listOf("subscription", "resume", "profile", "profile-member") + libraryKinds) && m.getString("operation") in listOf("put", "remove"))
         check(m.getString("kind") != "watch-later" || m.getString("operation") == "put", "watch_later_clear_with_empty_list")
         number(m, "baseRevision"); number(m, "resumeEpoch")
         val e = m.getJSONObject("envelope"); exact(e, "keyEpoch", "nonce", "ciphertext"); check(e.get("keyEpoch") == 1)

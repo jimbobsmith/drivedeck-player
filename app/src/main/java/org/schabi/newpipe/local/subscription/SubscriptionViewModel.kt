@@ -12,10 +12,14 @@ import org.schabi.newpipe.local.subscription.item.ChannelItem
 import org.schabi.newpipe.local.subscription.item.FeedGroupCardItem
 import org.schabi.newpipe.util.DEFAULT_THROTTLE_TIMEOUT
 import java.util.concurrent.TimeUnit
+import org.schabi.newpipe.database.feed.model.FeedGroupEntity
 
 class SubscriptionViewModel(application: Application) : AndroidViewModel(application) {
     private var feedDatabaseManager: FeedDatabaseManager = FeedDatabaseManager(application)
     private var subscriptionManager = SubscriptionManager(application)
+    fun selectProfile(id: Long) {
+        ProfileSelection.select(getApplication(), id)
+    }
 
     private val mutableStateLiveData = MutableLiveData<SubscriptionState>()
     private val mutableFeedGroupsLiveData = MutableLiveData<List<Group>>()
@@ -78,7 +82,8 @@ class SubscriptionViewModel(application: Application) : AndroidViewModel(applica
             { mutableStateLiveData.postValue(SubscriptionState.ErrorState(it)) }
         )
 
-    private var stateItemsDisposable = subscriptionManager.subscriptions()
+    private var stateItemsDisposable = ProfileSelection.observe(application, feedDatabaseManager.database())
+        .switchMap { subscriptionManager.getSubscriptions(it.uid) }
         .throttleLatest(DEFAULT_THROTTLE_TIMEOUT, TimeUnit.MILLISECONDS)
         .map { it.map { entity -> ChannelItem(entity.toChannelInfoItem(), entity.uid, ChannelItem.ItemVersion.MINI) } }
         .subscribeOn(Schedulers.io())

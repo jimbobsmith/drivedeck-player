@@ -1,0 +1,60 @@
+{
+  "issue": "jimbobsmith/drivedeck-player#32",
+  "date": "2026-10-22",
+  "status": "implemented_review_pending_field_validation_open",
+  "source": "4c63f85a0dcc3df7223f046ded6b4e76c028c1cc",
+  "base": "5e09cb1",
+  "toolchain": { "java": "25.0.4.1+1", "gradle": "9.5.1", "androidCompileSdk": 37 },
+  "build": {
+    "tasks": ["assembleDebug", "assembleDebugAndroidTest", "testDebugUnitTest", "writeFoundationRuntimeAudit"],
+    "passed": true,
+    "offline": true,
+    "dependencyCoordinatesAudited": 195,
+    "newRuntimeDependencies": 0
+  },
+  "jvm": { "tests": 50, "suites": 8, "failures": 0, "errors": 0, "skipped": 0, "newProfileTests": 4 },
+  "artifacts": {
+    "channel": "local_debug_test_only_not_a_release",
+    "appSha256": "02d5734fff9e2937ba748f9d9c1edeecf3711765334f604e715fbfc9a60c351a",
+    "instrumentationSha256": "c1cee11cbcf0963f04110ffbacdc69b0519af20930e652ddc8c18355da10e03f",
+    "signaturesVerified": true
+  },
+  "instrumentation": {
+    "environment": "new_disposable_default_android_api36_x86_64_emulator",
+    "tests": 12,
+    "passed": 12,
+    "failed": 0,
+    "profileTests": 11,
+    "migrationTests": 1,
+    "coverage": [
+      "103 independent profile memberships and distinct same-name profiles",
+      "member before global subscription and metadata survives adapter restart without subscribing globally",
+      "profile delete suppresses stale concurrent membership and keeps global channels",
+      "global unsubscribe clears deferred membership and prevents stale resurrection",
+      "membership removal preserves other profiles, global subscriptions, non-YouTube and noncanonical local aliases",
+      "disconnect preserves portable identity mapping and empty profiles",
+      "device-local selection persists across observers and deleted selection falls back to All Channels",
+      "strict metadata and membership schemas reject private fields, invalid types and identities",
+      "production profile dialog and independent opt-in controls exposed in portrait and landscape",
+      "active named subscribe/unsubscribe keeps global invariant; retained Room observer updates and existing feed model follows selection",
+      "desktop encrypted profile and membership vectors decrypt and route in Android",
+      "Room 901 to 902 to 903 migration preserves group, sort order, memberships and default colors"
+    ],
+    "ownedEmulatorShutdownConfirmed": true,
+    "personalOrSharedDevicesOperated": false
+  },
+  "interop": {
+    "fixtureWarning": "PUBLIC SYNTHETIC TEST KEYS ONLY; never use for real data or enrollment",
+    "desktopToAndroid": { "cases": 2, "decryptAndRoutingMatch": true },
+    "androidToDesktop": { "cases": 2, "decryptAndRoutingMatch": true },
+    "reverseFixtureSha256": "989326c0f05f4ab564878fd37df05b4e909d08ec9748207bb357636e40e5c7b8"
+  },
+  "remainingGates": [
+    "maintainer review and explicit merge approval",
+    "full profile HTTP round trips using Android client plus desktop and service",
+    "manual visual and personal-library migration review",
+    "physical phone/tablet/TV validation",
+    "hosted deployment and compatibility rollout for every enrolled client"
+  ],
+  "defaults": { "profileSyncEnabled": false, "activeSelectionSynced": false, "watchHistoryIsShared": true }
+}

@@ -328,7 +328,7 @@ class SubscriptionListFragment : BaseStateFragment<FeedState>() {
 
     private fun unsubscribeChannel(channel: ChannelInfoItem) {
         disposables.add(
-            subscriptionManager.deleteSubscription(channel.serviceId, channel.url)
+            subscriptionManager.deleteGlobalSubscription(channel.serviceId, channel.url)
                 .subscribe(
                     {
                         Toast.makeText(

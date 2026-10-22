@@ -1,5 +1,8 @@
 # PipePipe Android media sync (#17)
 
+Named subscription profiles and the independent encrypted profile opt-in are
+documented in [PROFILES.md](PROFILES.md) (issue #32).
+
 The maintainer approved merging platform PR #28 and continuing actual FreeTube/PipePipe integration on 2026-10-19. This accepts the local contract implementation direction, not an independent security audit or hosted-production claim. This branch starts from player main `27e5c39dd75bf962a26bdde190e577d127913d47`; integrated platform service baseline is `a032d084b23aacdf5a503e343e034ea8acade6b2`. Desktop application work is desktop #4; the cross-client service remains platform #27 and parent drivedeckg#244.
 
 ## Use

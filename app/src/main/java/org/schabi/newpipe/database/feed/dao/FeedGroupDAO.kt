@@ -42,6 +42,9 @@ abstract class FeedGroupDAO {
     @Query("DELETE FROM feed_group_subscription_join WHERE group_id = :groupId")
     abstract fun deleteSubscriptionsFromGroup(groupId: Long): Int
 
+    @Query("DELETE FROM feed_group_subscription_join WHERE group_id=:groupId AND subscription_id IN (SELECT uid FROM subscriptions WHERE service_id=:serviceId AND url=:url)")
+    abstract fun removeSubscription(groupId: Long, serviceId: Int, url: String): Int
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     abstract fun insertSubscriptionsToGroup(entities: List<FeedGroupSubscriptionEntity>): List<Long>
 

@@ -42,18 +42,19 @@ class MediaSyncSettingsFragment : BasePreferenceFragment() {
         findPreference<Preference>("media_sync_import")!!.setOnPreferenceClickListener {
             if (!busy) picker.launch(arrayOf("application/json", "text/plain", "application/octet-stream")); true
         }
-        for (action in listOf("sync", "keep-local", "use-remote", "disconnect", "library")) {
+        for (action in listOf("sync", "keep-local", "use-remote", "disconnect", "library", "profiles")) {
             findPreference<Preference>("media_sync_$action")!!.setOnPreferenceClickListener {
                 val run = {
                     perform {
                         val db = NewPipeDatabase.getInstance(requireContext()); val secrets = MediaSyncSecrets(requireContext())
                         if (action == "disconnect") { db.runInTransaction { db.mediaSyncStateDAO().clear() }; secrets.delete(); JSONObject().put("enabled", false).put("code", "disconnected") }
                         else if (action == "library") MediaSyncClient(db, secrets.load()).enableLibrary()
+                        else if (action == "profiles") MediaSyncClient(db, secrets.load()).enableProfiles()
                         else MediaSyncClient(db, secrets.load()).sync(if (action == "sync") null else action)
                     }
                 }
                 if (action == "sync") run()
-                else AlertDialog.Builder(requireContext()).setMessage(if (action == "library") R.string.media_sync_library_confirm else R.string.media_sync_confirm).setNegativeButton(R.string.cancel, null).setPositiveButton(android.R.string.ok) { _, _ -> run() }.show()
+                else AlertDialog.Builder(requireContext()).setMessage(when(action) { "library" -> R.string.media_sync_library_confirm; "profiles" -> R.string.media_sync_profiles_confirm; else -> R.string.media_sync_confirm }).setNegativeButton(R.string.cancel, null).setPositiveButton(android.R.string.ok) { _, _ -> run() }.show()
                 true
             }
         }
@@ -67,10 +68,10 @@ class MediaSyncSettingsFragment : BasePreferenceFragment() {
     private fun perform(operation: () -> JSONObject) {
         if (busy) return
         if (Build.VERSION.SDK_INT < 26) { findPreference<Preference>("media_sync_status")!!.setSummary(R.string.media_sync_requires_android); return }
-        busy = true; for (key in listOf("import", "sync", "keep-local", "use-remote", "disconnect", "library")) findPreference<Preference>("media_sync_$key")!!.isEnabled = false
+        busy = true; for (key in listOf("import", "sync", "keep-local", "use-remote", "disconnect", "library", "profiles")) findPreference<Preference>("media_sync_$key")!!.isEnabled = false
         val application = requireActivity().application
         executor.execute {
-            val result = try { operation() } catch (e: Exception) { JSONObject().put("enabled", MediaSyncSecrets(application).exists()).put("code", if (e is org.schabi.newpipe.mediasync.SyncFailure && e.code in listOf("restored_service", "library_upgrade_required", "playlist_not_portable", "invalid_playlist_name")) e.code else "failed") }
+            val result = try { operation() } catch (e: Exception) { JSONObject().put("enabled", MediaSyncSecrets(application).exists()).put("code", if (e is org.schabi.newpipe.mediasync.SyncFailure && e.code in listOf("restored_service", "library_upgrade_required", "profiles_upgrade_required", "profile_not_portable", "playlist_not_portable", "invalid_playlist_name")) e.code else "failed") }
             activity?.runOnUiThread {
                 if (!isAdded) return@runOnUiThread
                 busy = false
@@ -83,6 +84,8 @@ class MediaSyncSettingsFragment : BasePreferenceFragment() {
                     "pending" -> R.string.media_sync_pending
                     "conflict" -> R.string.media_sync_conflict
                     "library_upgrade_required" -> R.string.media_sync_library_upgrade
+                    "profiles_upgrade_required" -> R.string.media_sync_profiles_upgrade
+                    "profile_not_portable" -> R.string.media_sync_profiles_limit
                     "playlist_not_portable", "invalid_playlist_name" -> R.string.media_sync_library_limit
                     "restored_service" -> R.string.media_sync_restored
                     else -> R.string.media_sync_failed
@@ -90,6 +93,7 @@ class MediaSyncSettingsFragment : BasePreferenceFragment() {
                 findPreference<Preference>("media_sync_status")!!.setSummary(text)
                 findPreference<Preference>("media_sync_import")!!.isEnabled = !enabled
                 findPreference<Preference>("media_sync_library")!!.isEnabled = enabled && !result.optBoolean("libraryEnabled")
+                findPreference<Preference>("media_sync_profiles")!!.isEnabled = enabled && !result.optBoolean("profilesEnabled")
                 findPreference<Preference>("media_sync_sync")!!.isEnabled = enabled
                 findPreference<Preference>("media_sync_disconnect")!!.isEnabled = enabled
                 for (key in listOf("keep-local", "use-remote")) findPreference<Preference>("media_sync_$key")!!.isEnabled = enabled && result.optInt("conflicts") > 0

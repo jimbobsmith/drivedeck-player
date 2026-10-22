@@ -247,8 +247,7 @@ public class ChannelVideosFragment extends BaseListInfoFragment<StreamInfoItem, 
         };
 
         final Observable<List<SubscriptionEntity>> observable = subscriptionManager
-                .subscriptionTable()
-                .getSubscriptionFlowable(info.getServiceId(), info.getUrl())
+                .activeSubscriptionFlowable(info.getServiceId(), info.getUrl())
                 .toObservable();
 
         disposables.add(observable

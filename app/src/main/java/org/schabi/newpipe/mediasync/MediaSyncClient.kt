@@ -47,7 +47,8 @@ class MediaSyncClient(private val db: AppDatabase, config: JSONObject) {
     private fun list(a: JSONArray) = (0 until a.length()).map { a.getJSONObject(it) }
     private fun key(p: JSONObject) = MediaSyncCrypto.recordKey(keys, p)
     private val library = MediaSyncLibrary(db)
-    private fun same(a: JSONObject?, b: JSONObject?) = a?.optString("kind") == b?.optString("kind") && a?.optString("id") == b?.optString("id") && a?.optLong("positionMs", -1) == b?.optLong("positionMs", -1) && a?.optLong("watchedAtMs", -1) == b?.optLong("watchedAtMs", -1) && a?.optString("name") == b?.optString("name") && a?.optJSONArray("items")?.toString() == b?.optJSONArray("items")?.toString()
+    private val profiles = MediaSyncProfiles(db)
+    private fun same(a: JSONObject?, b: JSONObject?) = a?.optString("kind") == b?.optString("kind") && a?.optString("id") == b?.optString("id") && a?.optLong("positionMs", -1) == b?.optLong("positionMs", -1) && a?.optLong("watchedAtMs", -1) == b?.optLong("watchedAtMs", -1) && a?.optString("name") == b?.optString("name") && a?.optJSONArray("items")?.toString() == b?.optJSONArray("items")?.toString() && a?.optString("bgColor") == b?.optString("bgColor") && a?.optString("textColor") == b?.optString("textColor") && a?.optJSONArray("subscriptions")?.toString() == b?.optJSONArray("subscriptions")?.toString()
     private fun snapshot(): JSONObject {
         val result = JSONObject()
         db.query("SELECT url FROM subscriptions WHERE service_id=0 LIMIT 5001", null).use { c ->
@@ -69,6 +70,15 @@ class MediaSyncClient(private val db: AppDatabase, config: JSONObject) {
             }
         }
         if (state.optBoolean("libraryEnabled")) for (p in library.snapshot()) result.put(key(p), p)
+        if (state.optBoolean("profilesEnabled")) {
+            // Compare global memberships before reading deferred profile members. Local global
+            // deletion wins even if the user made it while offline or before restarting the app.
+            for (k in map("baseline").keys().asSequence().toList()) {
+                val old = map("baseline").getJSONObject(k)
+                if (old.getString("kind") == "subscription" && !result.has(k)) profiles.removeChannel(old.getString("id"))
+            }
+            for (p in profiles.snapshot()) result.put(key(p), p)
+        }
         return result
     }
     private fun enqueue(p: JSONObject, operation: String, base: Long? = null) {
@@ -94,6 +104,7 @@ class MediaSyncClient(private val db: AppDatabase, config: JSONObject) {
     private fun request(path: String, mutation: JSONObject? = null): Pair<Int, JSONObject> {
         val builder = Request.Builder().url(endpoint + path).header("Authorization", "Bearer ${credential.getString("deviceId")}.${credential.getString("token")}").header("x-dd-sync-version", "1")
         if (state.optBoolean("libraryEnabled")) builder.header("x-dd-sync-library", "2")
+        if (state.optBoolean("profilesEnabled")) builder.header("x-dd-sync-profiles", "1")
         if (mutation != null) builder.post(mutation.toString().toRequestBody("application/json".toMediaType()))
         val result = http.newCall(builder.build()).execute().use { response ->
             check(response.code !in 300..399, "redirect_rejected")
@@ -104,6 +115,7 @@ class MediaSyncClient(private val db: AppDatabase, config: JSONObject) {
         }
         check(result.second.get("protocol") == 1, "unsupported_protocol")
         check(result.second.optString("code") != "library_upgrade_required", "library_upgrade_required")
+        check(result.second.optString("code") != "profiles_upgrade_required", "profiles_upgrade_required")
         if (result.second.optString("code") == "server_generation_changed") { atomic { state.put("blocked", true) }; throw SyncFailure("restored_service") }
         return result
     }
@@ -132,10 +144,22 @@ class MediaSyncClient(private val db: AppDatabase, config: JSONObject) {
     }
     private fun project(record: JSONObject) {
         val p = record.getJSONObject("payload"); val id = p.getString("id"); val remove = record.getString("operation") == "remove"
+        if (p.getString("kind") in listOf("profile", "profile-member")) {
+            check(state.optBoolean("profilesEnabled"), "profiles_upgrade_required")
+            profiles.project(record, explicitlyUnsubscribed = { channel ->
+                val subscription = JSONObject().put("kind", "subscription").put("provider", "youtube").put("id", channel)
+                map("local").optJSONObject(key(subscription))?.optString("operation") == "remove"
+            }, profileDeleted = { profile ->
+                val metadata = JSONObject().put("kind", "profile").put("provider", "youtube").put("version", 3).put("id", profile)
+                    .put("name", "Profile").put("bgColor", "#333333").put("textColor", "#FFFFFF")
+                map("local").optJSONObject(key(metadata))?.optString("operation") == "remove"
+            })
+            return
+        }
         if (p.getString("kind") in MediaSyncCrypto.libraryKinds) { check(state.optBoolean("libraryEnabled"), "library_upgrade_required"); library.project(record); return }
         if (p.getString("kind") == "subscription") {
             val url = "https://www.youtube.com/channel/$id"
-            if (remove) db.subscriptionDAO().deleteSubscription(0, url)
+            if (remove) { db.subscriptionDAO().deleteSubscription(0, url); profiles.removeChannel(id) }
             else {
                 val exists = db.query("SELECT uid FROM subscriptions WHERE service_id=0 AND url=?", arrayOf(url)).use { it.moveToFirst() }
                 if (!exists) { val row = SubscriptionEntity(); row.serviceId = 0; row.url = url; row.name = id; row.avatarUrl = ""; row.notificationMode = 0; db.subscriptionDAO().insert(row) }
@@ -226,7 +250,8 @@ class MediaSyncClient(private val db: AppDatabase, config: JSONObject) {
         } catch (_: IOException) { return status().put("code", "offline") } finally { syncBase = null }
     }
     @Synchronized fun enableLibrary(): JSONObject { atomic { state.put("libraryEnabled", true) }; return status() }
-    fun status(): JSONObject = JSONObject().put("enabled", true).put("libraryEnabled", state.optBoolean("libraryEnabled")).put("pending", pending().length()).put("conflicts", map("conflicts").length())
+    @Synchronized fun enableProfiles(): JSONObject { atomic { state.put("profilesEnabled", true) }; return status() }
+    fun status(): JSONObject = JSONObject().put("enabled", true).put("libraryEnabled", state.optBoolean("libraryEnabled")).put("profilesEnabled", state.optBoolean("profilesEnabled")).put("pending", pending().length()).put("conflicts", map("conflicts").length())
         .put("code", if (state.getBoolean("blocked")) "restored_service" else if (map("conflicts").length() > 0) "conflict" else if (pending().length() > 0) "pending" else if (state.optBoolean("lastSyncComplete")) "synced" else "ready")
     companion object {
         private val http = OkHttpClient.Builder().followRedirects(false).followSslRedirects(false)

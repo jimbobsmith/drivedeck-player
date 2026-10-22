@@ -108,6 +108,9 @@ abstract class SubscriptionDAO : BasicDAO<SubscriptionEntity> {
     @Query("SELECT * FROM subscriptions WHERE url LIKE :url AND service_id = :serviceId")
     abstract fun getSubscriptionFlowable(serviceId: Int, url: String): Flowable<List<SubscriptionEntity>>
 
+    @Query("SELECT s.* FROM subscriptions s JOIN feed_group_subscription_join j ON s.uid=j.subscription_id WHERE s.service_id=:serviceId AND s.url=:url AND j.group_id=:profileId")
+    abstract fun getProfileSubscriptionFlowable(profileId: Long, serviceId: Int, url: String): Flowable<List<SubscriptionEntity>>
+
     @Query("SELECT * FROM subscriptions WHERE url LIKE :url AND service_id = :serviceId")
     abstract fun getSubscription(serviceId: Int, url: String): Maybe<SubscriptionEntity>
 
