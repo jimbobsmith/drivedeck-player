@@ -105,13 +105,13 @@ abstract class SubscriptionDAO : BasicDAO<SubscriptionEntity> {
         filter: String
     ): Flowable<List<SubscriptionEntity>>
 
-    @Query("SELECT * FROM subscriptions WHERE url LIKE :url AND service_id = :serviceId")
+    @Query("SELECT * FROM subscriptions WHERE url = :url AND service_id = :serviceId")
     abstract fun getSubscriptionFlowable(serviceId: Int, url: String): Flowable<List<SubscriptionEntity>>
 
     @Query("SELECT s.* FROM subscriptions s JOIN feed_group_subscription_join j ON s.uid=j.subscription_id WHERE s.service_id=:serviceId AND s.url=:url AND j.group_id=:profileId")
     abstract fun getProfileSubscriptionFlowable(profileId: Long, serviceId: Int, url: String): Flowable<List<SubscriptionEntity>>
 
-    @Query("SELECT * FROM subscriptions WHERE url LIKE :url AND service_id = :serviceId")
+    @Query("SELECT * FROM subscriptions WHERE url = :url AND service_id = :serviceId")
     abstract fun getSubscription(serviceId: Int, url: String): Maybe<SubscriptionEntity>
 
     @Query("SELECT * FROM subscriptions WHERE uid = :subscriptionId")
@@ -120,10 +120,10 @@ abstract class SubscriptionDAO : BasicDAO<SubscriptionEntity> {
     @Query("DELETE FROM subscriptions")
     abstract override fun deleteAll(): Int
 
-    @Query("DELETE FROM subscriptions WHERE url LIKE :url AND service_id = :serviceId")
+    @Query("DELETE FROM subscriptions WHERE url = :url AND service_id = :serviceId")
     abstract fun deleteSubscription(serviceId: Int, url: String): Int
 
-    @Query("SELECT uid FROM subscriptions WHERE url LIKE :url AND service_id = :serviceId")
+    @Query("SELECT uid FROM subscriptions WHERE url = :url AND service_id = :serviceId")
     internal abstract fun getSubscriptionIdInternal(serviceId: Int, url: String): Long?
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
