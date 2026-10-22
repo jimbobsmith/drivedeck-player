@@ -179,7 +179,7 @@ class SubscriptionFragment : BaseStateFragment<SubscriptionState>() {
         Section().apply {
             val carouselAdapter = GroupAdapter<GroupieViewHolder<*>>()
 
-            carouselAdapter.add(FeedGroupCardItem(-1, getString(R.string.all), FeedGroupIcon.RSS))
+            carouselAdapter.add(FeedGroupCardItem(-1, getString(R.string.profile_all_channels), FeedGroupIcon.RSS))
             carouselAdapter.add(feedGroupsSection)
             carouselAdapter.add(FeedGroupAddItem())
 
@@ -289,7 +289,7 @@ class SubscriptionFragment : BaseStateFragment<SubscriptionState>() {
         val commands = arrayOf(
             getString(R.string.share),
             getString(R.string.open_in_browser),
-            getString(R.string.unsubscribe)
+            getString(if (ProfileSelection.current(requireContext()) == FeedGroupEntity.GROUP_ALL_ID) R.string.unsubscribe else R.string.profile_remove_channel)
         )
 
         val actions = DialogInterface.OnClickListener { _, i ->
@@ -318,7 +318,7 @@ class SubscriptionFragment : BaseStateFragment<SubscriptionState>() {
     private fun deleteChannel(selectedItem: ChannelInfoItem) {
         disposables.add(
             subscriptionManager.deleteSubscription(selectedItem.serviceId, selectedItem.url).subscribe {
-                Toast.makeText(requireContext(), getString(R.string.channel_unsubscribed), Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(if (ProfileSelection.current(requireContext()) == FeedGroupEntity.GROUP_ALL_ID) R.string.channel_unsubscribed else R.string.channel_removed_from_group), Toast.LENGTH_SHORT).show()
             }
         )
     }
@@ -329,7 +329,10 @@ class SubscriptionFragment : BaseStateFragment<SubscriptionState>() {
     private val listenerFeedGroups = object : OnClickGesture<Item<*>>() {
         override fun selected(selectedItem: Item<*>?) {
             when (selectedItem) {
-                is FeedGroupCardItem -> NavigationHelper.openFeedFragment(fm, selectedItem.groupId, selectedItem.name)
+                is FeedGroupCardItem -> {
+                    viewModel.selectProfile(selectedItem.groupId)
+                    NavigationHelper.openFeedFragment(fm, selectedItem.groupId, selectedItem.name)
+                }
                 is FeedGroupAddItem -> FeedGroupDialog.newInstance().show(fm, null)
             }
         }

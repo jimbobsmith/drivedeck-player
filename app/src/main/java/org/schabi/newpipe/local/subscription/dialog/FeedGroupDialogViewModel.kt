@@ -36,7 +36,8 @@ class FeedGroupDialogViewModel(
         ) { t1: String, t2: Boolean -> Filter(t1, t2) }
         .distinctUntilChanged()
         .switchMap { (query, showOnlyUngrouped) ->
-            subscriptionManager.getSubscriptions(groupId, query, showOnlyUngrouped)
+            // Editing a profile must offer the global library so new members can be added.
+            subscriptionManager.getSubscriptions(if (showOnlyUngrouped) groupId else FeedGroupEntity.GROUP_ALL_ID, query, showOnlyUngrouped)
         }.map { list -> list.map { PickerSubscriptionItem(it) } }
 
     private val mutableGroupLiveData = MutableLiveData<FeedGroupEntity>()
@@ -66,19 +67,19 @@ class FeedGroupDialogViewModel(
         feedGroupDisposable.dispose()
     }
 
-    fun createGroup(name: String, selectedIcon: FeedGroupIcon, selectedSubscriptions: Set<Long>) {
+    fun createGroup(name: String, selectedIcon: FeedGroupIcon, selectedSubscriptions: Set<Long>, bgColor: String, textColor: String) {
         doAction(
-            feedDatabaseManager.createGroup(name, selectedIcon)
+            feedDatabaseManager.createGroup(name, selectedIcon, bgColor, textColor)
                 .flatMapCompletable {
                     feedDatabaseManager.updateSubscriptionsForGroup(it, selectedSubscriptions.toList())
                 }
         )
     }
 
-    fun updateGroup(name: String, selectedIcon: FeedGroupIcon, selectedSubscriptions: Set<Long>, sortOrder: Long) {
+    fun updateGroup(name: String, selectedIcon: FeedGroupIcon, selectedSubscriptions: Set<Long>, sortOrder: Long, bgColor: String, textColor: String) {
         doAction(
             feedDatabaseManager.updateSubscriptionsForGroup(groupId, selectedSubscriptions.toList())
-                .andThen(feedDatabaseManager.updateGroup(FeedGroupEntity(groupId, name, selectedIcon, sortOrder)))
+                .andThen(feedDatabaseManager.updateGroup(FeedGroupEntity(groupId, name, selectedIcon, sortOrder, bgColor, textColor)))
         )
     }
 

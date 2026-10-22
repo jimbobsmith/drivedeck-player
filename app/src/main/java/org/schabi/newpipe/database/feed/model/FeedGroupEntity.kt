@@ -24,7 +24,13 @@ data class FeedGroupEntity(
     var icon: FeedGroupIcon,
 
     @ColumnInfo(name = SORT_ORDER)
-    var sortOrder: Long = -1
+    var sortOrder: Long = -1,
+
+    @ColumnInfo(name = "bg_color", defaultValue = "'#333333'")
+    var bgColor: String = "#333333",
+
+    @ColumnInfo(name = "text_color", defaultValue = "'#FFFFFF'")
+    var textColor: String = "#FFFFFF"
 ) {
     companion object {
         const val FEED_GROUP_TABLE = "feed_group"

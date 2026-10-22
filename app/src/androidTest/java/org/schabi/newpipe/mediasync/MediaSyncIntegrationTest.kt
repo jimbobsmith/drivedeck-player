@@ -116,7 +116,7 @@ class MediaSyncIntegrationTest {
         try { MediaSyncClient(db, changed); fail("Changed keys accepted") } catch (_: SyncFailure) { }
         assertEquals(body, db.mediaSyncStateDAO().read()); assertNotNull(client.status())
     }
-    @Test fun migration901To902PreservesExistingLibrary() {
+    @Test fun migration901Through903PreservesExistingLibraryAndProfiles() {
         emulator()
         val name = "media-sync-migration-validation.db"; context.deleteDatabase(name)
         val schema = JSONObject(InstrumentationRegistry.getInstrumentation().context.assets.open("media-sync-schema-901.json").use { it.readBytes().toString(Charsets.UTF_8) }).getJSONObject("database")
@@ -129,10 +129,20 @@ class MediaSyncIntegrationTest {
                 val indexes = entity.optJSONArray("indices") ?: JSONArray(); for (j in 0 until indexes.length()) raw.execSQL(indexes.getJSONObject(j).getString("createSql").replace("${'$'}{TABLE_NAME}", table))
             }
             val setup = schema.getJSONArray("setupQueries"); for (i in 0 until setup.length()) raw.execSQL(setup.getString(i))
-            raw.execSQL("INSERT INTO subscriptions(service_id,url,name,notification_mode) VALUES(0,?,'Preserved migration title',0)", arrayOf("https://www.youtube.com/channel/$channelA")); raw.version = 901
+            raw.execSQL("INSERT INTO subscriptions(service_id,url,name,notification_mode) VALUES(0,?,'Preserved migration title',0)", arrayOf("https://www.youtube.com/channel/$channelA"))
+            raw.execSQL("INSERT INTO feed_group(uid,name,icon_id,sort_order) VALUES(1,'Preserved profile',16,3)")
+            raw.execSQL("INSERT INTO feed_group_subscription_join(group_id,subscription_id) SELECT 1,uid FROM subscriptions")
+            raw.version = 901
         } finally { raw.close() }
-        val migrated = Room.databaseBuilder(context, AppDatabase::class.java, name).addMigrations(Migrations.MIGRATION_901_902).build()
-        try { assertTrue(subscribed(migrated, channelA)); assertNull(migrated.mediaSyncStateDAO().read()); migrated.mediaSyncStateDAO().write(MediaSyncState(body = "{}")); assertEquals("{}", migrated.mediaSyncStateDAO().read()) }
+        val migrated = Room.databaseBuilder(context, AppDatabase::class.java, name).addMigrations(Migrations.MIGRATION_901_902, Migrations.MIGRATION_902_903).build()
+        try {
+            assertTrue(subscribed(migrated, channelA)); assertNull(migrated.mediaSyncStateDAO().read())
+            migrated.mediaSyncStateDAO().write(MediaSyncState(body = "{}")); assertEquals("{}", migrated.mediaSyncStateDAO().read())
+            val profile = migrated.feedGroupDAO().getGroup(1).blockingGet()!!
+            assertEquals("Preserved profile", profile.name); assertEquals(3L, profile.sortOrder)
+            assertEquals("#333333", profile.bgColor); assertEquals("#FFFFFF", profile.textColor)
+            assertEquals(1, migrated.feedGroupDAO().getSubscriptionIdsFor(1).blockingFirst().size)
+        }
         finally { migrated.close(); context.deleteDatabase(name) }
     }
 }

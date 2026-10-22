@@ -16,6 +16,7 @@ import org.schabi.newpipe.R
 import org.schabi.newpipe.database.feed.model.FeedGroupEntity
 import org.schabi.newpipe.database.stream.StreamWithState
 import org.schabi.newpipe.local.feed.item.StreamItem
+import org.schabi.newpipe.local.subscription.ProfileSelection
 import org.schabi.newpipe.local.feed.service.FeedEventManager
 import org.schabi.newpipe.local.feed.service.FeedEventManager.Event.ErrorResultEvent
 import org.schabi.newpipe.local.feed.service.FeedEventManager.Event.IdleEvent
@@ -27,7 +28,6 @@ import java.util.concurrent.TimeUnit
 
 class FeedViewModel(
     private val applicationContext: Context,
-    groupId: Long = FeedGroupEntity.GROUP_ALL_ID,
     initialShowPlayedItems: Boolean = true
 ) : ViewModel() {
     private var feedDatabaseManager: FeedDatabaseManager = FeedDatabaseManager(applicationContext)
@@ -39,9 +39,14 @@ class FeedViewModel(
 
     private val mutableStateLiveData = MutableLiveData<FeedState>()
     val stateLiveData: LiveData<FeedState> = mutableStateLiveData
+    private val mutableProfileLiveData = MutableLiveData<FeedGroupEntity>()
+    val profileLiveData: LiveData<FeedGroupEntity> = mutableProfileLiveData
 
-    private var combineDisposable = Flowable
-        .combineLatest(
+    private var combineDisposable = ProfileSelection.observe(applicationContext, feedDatabaseManager.database())
+        .doOnNext { mutableProfileLiveData.postValue(it) }
+        .switchMap { selected ->
+            val groupId = selected.uid
+            Flowable.combineLatest(
             FeedEventManager.events(),
             toggleShowPlayedItemsFlowable,
             feedDatabaseManager.notLoadedCount(groupId),
@@ -64,6 +69,7 @@ class FeedViewModel(
                 arrayListOf()
 
             CombineResultDataHolder(event, streamItems, notLoadedCount, oldestUpdate)
+        }
         }
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe { (event, listFromDB, notLoadedCount, oldestUpdate) ->
@@ -119,14 +125,12 @@ class FeedViewModel(
     }
 
     class Factory(
-        private val context: Context,
-        private val groupId: Long = FeedGroupEntity.GROUP_ALL_ID
+        private val context: Context
     ) : ViewModelProvider.Factory {
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return FeedViewModel(
                 context.applicationContext,
-                groupId,
                 // Read initial value from preferences
                 getShowPlayedItemsFromPreferences(context.applicationContext)
             ) as T

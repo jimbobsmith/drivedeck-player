@@ -1,12 +1,14 @@
 package org.schabi.newpipe.local.subscription
 
 import android.content.Context
+import androidx.preference.PreferenceManager
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import org.schabi.newpipe.NewPipeDatabase
 import org.schabi.newpipe.database.feed.model.FeedGroupEntity
+import org.schabi.newpipe.database.feed.model.FeedGroupSubscriptionEntity
 import org.schabi.newpipe.database.stream.model.StreamEntity
 import org.schabi.newpipe.database.subscription.NotificationMode
 import org.schabi.newpipe.database.subscription.SubscriptionDAO
@@ -21,9 +23,27 @@ import org.schabi.newpipe.local.feed.service.FeedUpdateInfo
 import org.schabi.newpipe.util.ExtractorHelper
 
 class SubscriptionManager(context: Context) {
+    private val applicationContext = context.applicationContext
     private val database = NewPipeDatabase.getInstance(context)
     private val subscriptionTable = database.subscriptionDAO()
     private val feedDatabaseManager = FeedDatabaseManager(context)
+    private val preferences = PreferenceManager.getDefaultSharedPreferences(context)
+    private fun activeProfile() = preferences.getLong("dd_active_profile", FeedGroupEntity.GROUP_ALL_ID)
+    fun activeSubscriptionFlowable(serviceId: Int, url: String): Flowable<List<SubscriptionEntity>> {
+        return ProfileSelection.observe(applicationContext, database).switchMap { profile ->
+            if (profile.uid == FeedGroupEntity.GROUP_ALL_ID) subscriptionTable.getSubscriptionFlowable(serviceId, url)
+            else subscriptionTable.getProfileSubscriptionFlowable(profile.uid, serviceId, url)
+        }
+    }
+    private fun validProfile(): Long {
+        val id = activeProfile()
+        return if (id > 0 && database.query("SELECT uid FROM feed_group WHERE uid=?", arrayOf(id)).use { it.moveToFirst() }) id else FeedGroupEntity.GROUP_ALL_ID
+    }
+    private fun removeFromActiveProfile(serviceId: Int, url: String) {
+        val profile = validProfile()
+        if (profile == FeedGroupEntity.GROUP_ALL_ID) subscriptionTable.deleteSubscription(serviceId, url)
+        else database.openHelper.writableDatabase.execSQL("DELETE FROM feed_group_subscription_join WHERE group_id=? AND subscription_id IN (SELECT uid FROM subscriptions WHERE service_id=? AND url=?)", arrayOf<Any>(profile, serviceId, url))
+    }
 
     fun subscriptionTable(): SubscriptionDAO = subscriptionTable
     fun subscriptions() = subscriptionTable.all
@@ -126,10 +146,15 @@ class SubscriptionManager(context: Context) {
     }
 
     fun deleteSubscription(serviceId: Int, url: String): Completable {
-        return Completable.fromCallable { subscriptionTable.deleteSubscription(serviceId, url) }
+        return Completable.fromAction { removeFromActiveProfile(serviceId, url) }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
     }
+
+    /** Explicit global unsubscribe in the profile channel menu, distinct from removing membership. */
+    fun deleteGlobalSubscription(serviceId: Int, url: String): Completable = Completable.fromAction {
+        subscriptionTable.deleteSubscription(serviceId, url)
+    }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
 
     fun deleteAllSubscriptions(): Completable {
         return Completable.fromAction { subscriptionTable.deleteAll() }
@@ -139,13 +164,16 @@ class SubscriptionManager(context: Context) {
 
     fun insertSubscription(subscriptionEntity: SubscriptionEntity, info: ChannelInfo) {
         database.runInTransaction {
-            val subscriptionId = subscriptionTable.insert(subscriptionEntity)
+            val existing = database.query("SELECT uid FROM subscriptions WHERE service_id=? AND url=?", arrayOf(subscriptionEntity.serviceId, subscriptionEntity.url)).use { if (it.moveToFirst()) it.getLong(0) else -1L }
+            val subscriptionId = if (existing > 0) existing else subscriptionTable.insert(subscriptionEntity)
+            val profile = validProfile()
+            if (profile > 0) database.feedGroupDAO().insertSubscriptionsToGroup(listOf(FeedGroupSubscriptionEntity(profile, subscriptionId)))
             feedDatabaseManager.upsertAll(subscriptionId, info.relatedItems)
         }
     }
 
     fun deleteSubscription(subscriptionEntity: SubscriptionEntity) {
-        subscriptionTable.delete(subscriptionEntity)
+        removeFromActiveProfile(subscriptionEntity.serviceId, subscriptionEntity.url)
     }
 
     /**

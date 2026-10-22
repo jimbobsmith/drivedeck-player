@@ -7,7 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
+import android.widget.EditText
+import android.widget.LinearLayout
+import androidx.appcompat.app.AlertDialog
+import java.util.Locale
 import androidx.core.content.getSystemService
 import androidx.core.os.bundleOf
 import androidx.core.view.isGone
@@ -51,6 +54,8 @@ class FeedGroupDialog : DialogFragment(), BackPressable {
     private var groupId: Long = NO_GROUP_SELECTED
     private var groupIcon: FeedGroupIcon? = null
     private var groupSortOrder: Long = -1
+    private var profileBackground = "#333333"
+    private var profileText = "#FFFFFF"
 
     sealed class ScreenState : Serializable {
         object InitialScreen : ScreenState()
@@ -77,6 +82,9 @@ class FeedGroupDialog : DialogFragment(), BackPressable {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (savedInstanceState != null) {
+            profileBackground = savedInstanceState.getString("profileBackground", "#333333")
+            profileText = savedInstanceState.getString("profileText", "#FFFFFF")
+            colorsEdited = savedInstanceState.getBoolean("profileColorsEdited", false)
             selectedIcon = savedInstanceState.getString("selectedIcon")?.let { FeedGroupIcon.valueOf(it) }
             selectedSubscriptions = HashSet(savedInstanceState.getLongArray("selectedSubscriptions")?.toList() ?: emptyList())
             wasSubscriptionSelectionChanged = savedInstanceState.getBoolean("wasSubscriptionSelectionChanged", false)
@@ -123,6 +131,9 @@ class FeedGroupDialog : DialogFragment(), BackPressable {
         subscriptionsListState = feedGroupCreateBinding.subscriptionsSelectorList.layoutManager?.onSaveInstanceState()
 
         outState.putString("selectedIcon", selectedIcon?.name)
+        outState.putString("profileBackground", profileBackground)
+        outState.putString("profileText", profileText)
+        outState.putBoolean("profileColorsEdited", colorsEdited)
         outState.putLongArray("selectedSubscriptions", selectedSubscriptions.toLongArray())
         outState.putBoolean("wasSubscriptionSelectionChanged", wasSubscriptionSelectionChanged)
         outState.putSerializable("currentScreen", currentScreen)
@@ -137,6 +148,7 @@ class FeedGroupDialog : DialogFragment(), BackPressable {
         super.onViewCreated(view, savedInstanceState)
         _feedGroupCreateBinding = DialogFeedGroupCreateBinding.bind(view)
         _searchLayoutBinding = feedGroupCreateBinding.subscriptionsHeaderSearchContainer
+        feedGroupCreateBinding.profileColorsButton.setOnClickListener { showProfileColors() }
 
         viewModel = ViewModelProvider(
             this,
@@ -297,14 +309,9 @@ class FeedGroupDialog : DialogFragment(), BackPressable {
             feedGroupCreateBinding.groupNameInputContainer.error = null
         }
 
-        if (selectedSubscriptions.isEmpty()) {
-            Toast.makeText(requireContext(), getString(R.string.feed_group_dialog_empty_selection), Toast.LENGTH_SHORT).show()
-            return
-        }
-
         when (groupId) {
-            NO_GROUP_SELECTED -> viewModel.createGroup(name, icon, selectedSubscriptions)
-            else -> viewModel.updateGroup(name, icon, selectedSubscriptions, groupSortOrder)
+            NO_GROUP_SELECTED -> viewModel.createGroup(name, icon, selectedSubscriptions, profileBackground, profileText)
+            else -> viewModel.updateGroup(name, icon, selectedSubscriptions, groupSortOrder, profileBackground, profileText)
         }
     }
 
@@ -313,6 +320,10 @@ class FeedGroupDialog : DialogFragment(), BackPressable {
         val name = feedGroupEntity?.name ?: ""
         groupIcon = feedGroupEntity?.icon
         groupSortOrder = feedGroupEntity?.sortOrder ?: -1
+        if (feedGroupEntity != null && !colorsEdited) {
+            profileBackground = feedGroupEntity.bgColor
+            profileText = feedGroupEntity.textColor
+        }
 
         val feedGroupIcon = if (selectedIcon == null) icon else selectedIcon!!
         feedGroupCreateBinding.iconPreview.setImageResource(feedGroupIcon.getDrawableRes())
@@ -320,6 +331,24 @@ class FeedGroupDialog : DialogFragment(), BackPressable {
         if (feedGroupCreateBinding.groupNameInput.text.isNullOrBlank()) {
             feedGroupCreateBinding.groupNameInput.setText(name)
         }
+    }
+
+    private var colorsEdited = false
+    private fun showProfileColors() {
+        val background = EditText(requireContext()).apply { hint = getString(R.string.profile_background_color); setText(profileBackground); maxLines = 1 }
+        val text = EditText(requireContext()).apply { hint = getString(R.string.profile_text_color); setText(profileText); maxLines = 1 }
+        val fields = LinearLayout(requireContext()).apply { orientation = LinearLayout.VERTICAL; setPadding(24, 8, 24, 8); addView(background); addView(text) }
+        val dialog = AlertDialog.Builder(requireContext()).setTitle(R.string.profile_colors).setView(fields)
+            .setNegativeButton(R.string.cancel, null).setPositiveButton(android.R.string.ok, null).create()
+        dialog.setOnShowListener {
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
+                val bg = background.text.toString(); val fg = text.text.toString()
+                if (!bg.matches(Regex("#[0-9A-Fa-f]{6}")) || !fg.matches(Regex("#[0-9A-Fa-f]{6}"))) {
+                    background.error = getString(R.string.profile_invalid_color)
+                } else { profileBackground = bg.uppercase(Locale.ROOT); profileText = fg.uppercase(Locale.ROOT); colorsEdited = true; dialog.dismiss() }
+            }
+        }
+        dialog.show()
     }
 
     private val subscriptionPickerItemListener = OnItemClickListener { item, view ->

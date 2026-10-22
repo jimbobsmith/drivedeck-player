@@ -1,0 +1,65 @@
+{
+  "schema": "drivedeck.media-sync.public-profile-test-vector.v1",
+  "warning": "PUBLIC SYNTHETIC TEST KEYS. Never use these keys/identities for enrollment or real user data.",
+  "keys": {
+    "encryptionKey": "BtDMJg13MCenQm1VUMM3-81HEiI7iI3J2LjuXRuxx84",
+    "routingKey": "h1qXv8CEwbC7keq8rflqOCjfJQ0y47Q7bXc3AjSgkDA"
+  },
+  "owner": "c36cfecf-a827-467f-8d92-5935e9bdd088",
+  "source": "DD FreeTube production src/main/media-sync/protocol.mjs",
+  "cases": [
+    {
+      "payload": {
+        "kind": "profile",
+        "provider": "youtube",
+        "version": 3,
+        "id": "f3e1b672-a70c-4661-92a1-8742e71dea8c",
+        "name": "Family café 🚗",
+        "bgColor": "#123456",
+        "textColor": "#FFFFFF"
+      },
+      "recordKey": "f3bec35a1013255d54485240f3b7901ecc7ac1218905c49f9ebaf5ebc1eb8283",
+      "mutation": {
+        "protocol": 1,
+        "serverGeneration": "e5ddeefa-6037-4e82-8c59-2a51bafe2cb1",
+        "mutationId": "e7554f96-74e4-4f3b-87ef-9abb717677f5",
+        "recordKey": "f3bec35a1013255d54485240f3b7901ecc7ac1218905c49f9ebaf5ebc1eb8283",
+        "kind": "profile",
+        "operation": "put",
+        "baseRevision": 0,
+        "resumeEpoch": 0,
+        "envelope": {
+          "keyEpoch": 1,
+          "nonce": "LF1PUjcZTu_GiA0y",
+          "ciphertext": "JAPnI1DbUuVF31qFKpxEBVYF-Ms9iw9kYpq7kIXvWPpx52PxzI_Xqal_w0B0CxfAEidJZsDIxQff9fgdKMZOOXI_WFFydJ5DUNoGyCeu-STDpIbKRsGLf_JtP9kTy3HB666D5fw6V374Gb7490JxawOikn_dR0AqpQrdG73dDFj7eXV6PidTbEKqH89EGS6l8lp9tKHi63liWpxidlvKMGCVna9chKS1rlKMYEm4oZoUOKts"
+        }
+      }
+    },
+    {
+      "payload": {
+        "kind": "profile-member",
+        "provider": "youtube",
+        "version": 3,
+        "id": "f3e1b672-a70c-4661-92a1-8742e71dea8c:UCabcdefghijklmnopqrstuv",
+        "profileId": "f3e1b672-a70c-4661-92a1-8742e71dea8c",
+        "channelId": "UCabcdefghijklmnopqrstuv"
+      },
+      "recordKey": "bda6b60d2c11ee72d8d507b992603fe560470d5fdeb9c2a1965aacbf4c8e3149",
+      "mutation": {
+        "protocol": 1,
+        "serverGeneration": "e5ddeefa-6037-4e82-8c59-2a51bafe2cb1",
+        "mutationId": "b0d6a24b-8750-454e-a991-2170276104a1",
+        "recordKey": "bda6b60d2c11ee72d8d507b992603fe560470d5fdeb9c2a1965aacbf4c8e3149",
+        "kind": "profile-member",
+        "operation": "put",
+        "baseRevision": 0,
+        "resumeEpoch": 0,
+        "envelope": {
+          "keyEpoch": 1,
+          "nonce": "UELukodQATvDbvlM",
+          "ciphertext": "NFoCgSeRCO16TrdTdXp4Sz53EkCKJCWaLXyhHXmHMsuiNv4C5D9sIVfJ8XUy3Yx3zdEvd4pcbyd_YIFu1VLliZmgcJJND1JAht43-CyUFkHdyzalRLxMpHlZvy1Az9RbHj_yUTsX6D1fae-ZkhzOFMNY_jdINH84NxZasn5Y4Ei4zg7DPWtBF2z4ZOO0E1OhmAhegBhvlt0oCI0GikLz-ZJS9MRA_UpMl4WyFZSsQrlBCtMvjNePHnS2nkszBhbglQnmovTR-F_6EZOWG-bbTHMkc9ywx8ez7_H7shq90NhJ19y4hCsNvOk"
+        }
+      }
+    }
+  ]
+}

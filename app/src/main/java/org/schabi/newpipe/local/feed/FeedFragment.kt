@@ -199,8 +199,13 @@ class FeedFragment : BaseStateFragment<FeedState>() {
             }
         })
 
-        val factory = FeedViewModel.Factory(requireContext(), groupId)
+        val factory = FeedViewModel.Factory(requireContext())
         viewModel = ViewModelProvider(this, factory).get(FeedViewModel::class.java)
+        viewModel.profileLiveData.observe(viewLifecycleOwner) { profile ->
+            groupId = profile.uid
+            groupName = profile.name
+            activity.supportActionBar?.title = if (groupName.isEmpty()) getString(R.string.fragment_feed_title) else groupName
+        }
         showPlayedItems = viewModel.getShowPlayedItemsFromPreferences()
         viewModel.stateLiveData.observe(viewLifecycleOwner) { it?.let(::handleResult) }
 

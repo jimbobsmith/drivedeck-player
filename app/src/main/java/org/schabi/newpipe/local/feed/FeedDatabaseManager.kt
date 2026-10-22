@@ -151,8 +151,8 @@ class FeedDatabaseManager(context: Context) {
             .observeOn(AndroidSchedulers.mainThread())
     }
 
-    fun createGroup(name: String, icon: FeedGroupIcon): Maybe<Long> {
-        return Maybe.fromCallable { feedGroupTable.insert(FeedGroupEntity(0, name, icon)) }
+    fun createGroup(name: String, icon: FeedGroupIcon, bgColor: String = "#333333", textColor: String = "#FFFFFF"): Maybe<Long> {
+        return Maybe.fromCallable { feedGroupTable.insert(FeedGroupEntity(0, name, icon, bgColor = bgColor, textColor = textColor)) }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
     }
