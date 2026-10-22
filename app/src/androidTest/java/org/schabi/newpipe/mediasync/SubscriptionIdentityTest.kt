@@ -11,6 +11,9 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.schabi.newpipe.database.AppDatabase
 import org.schabi.newpipe.database.subscription.SubscriptionEntity
+import org.schabi.newpipe.database.feed.model.FeedGroupEntity
+import org.schabi.newpipe.database.feed.model.FeedGroupSubscriptionEntity
+import org.schabi.newpipe.local.subscription.FeedGroupIcon
 
 /** Synthetic in-memory Room only. Run exclusively in an explicitly assigned disposable slot. */
 @RunWith(AndroidJUnit4::class)
@@ -54,6 +57,8 @@ class SubscriptionIdentityTest {
         val wanted = dao.insert(row(underscore, "Underscore channel"))
         val case = dao.insert(row(differentCase, "Case distinct channel"))
         val service = dao.insert(row(underscore, "Other service", 1))
+        val group = db.feedGroupDAO().insert(FeedGroupEntity(0, "Synthetic subset", FeedGroupIcon.PERSON))
+        db.feedGroupDAO().insertSubscriptionsToGroup(listOf(wanted, other, case, service).map { FeedGroupSubscriptionEntity(group, it) })
         val wantedObserver = dao.getSubscriptionFlowable(0, underscore).test()
         val otherObserver = dao.getSubscriptionFlowable(0, letter).test()
         try {
@@ -64,6 +69,7 @@ class SubscriptionIdentityTest {
             assertEquals(case, dao.getSubscription(0, differentCase).blockingGet()!!.uid)
             assertEquals(service, dao.getSubscription(1, underscore).blockingGet()!!.uid)
             assertEquals(3, dao.all.blockingFirst().size)
+            assertEquals(setOf(other, case, service), db.feedGroupDAO().getSubscriptionIdsFor(group).blockingFirst().toSet())
         } finally { wantedObserver.cancel(); otherObserver.cancel() }
     }
     @Test fun upsertFindsExactExistingUidAndDoesNotRewriteLookalikeOrOtherService() = database { db ->
