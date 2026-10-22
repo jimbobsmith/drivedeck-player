@@ -42,7 +42,7 @@ class SubscriptionManager(context: Context) {
     private fun removeFromActiveProfile(serviceId: Int, url: String) {
         val profile = validProfile()
         if (profile == FeedGroupEntity.GROUP_ALL_ID) subscriptionTable.deleteSubscription(serviceId, url)
-        else database.openHelper.writableDatabase.execSQL("DELETE FROM feed_group_subscription_join WHERE group_id=? AND subscription_id IN (SELECT uid FROM subscriptions WHERE service_id=? AND url=?)", arrayOf<Any>(profile, serviceId, url))
+        else database.feedGroupDAO().removeSubscription(profile, serviceId, url)
     }
 
     fun subscriptionTable(): SubscriptionDAO = subscriptionTable

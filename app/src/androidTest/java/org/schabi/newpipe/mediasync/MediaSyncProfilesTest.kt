@@ -93,9 +93,11 @@ class MediaSyncProfilesTest {
         profiles.project(record(metadata())); profiles.project(record(member()))
         val other = UUID.randomUUID().toString(); profiles.project(record(metadata(other))); profiles.project(record(member(other)))
         val uid = db.query("SELECT uid FROM feed_group ORDER BY uid LIMIT 1", null).use { it.moveToFirst(); it.getLong(0) }
-        db.feedGroupDAO().insertSubscriptionsToGroup(listOf(FeedGroupSubscriptionEntity(uid, foreign)))
+        val alias = SubscriptionEntity().apply { serviceId = 0; url = "https://www.youtube.com/@local-alias"; name = "Local alias"; avatarUrl = ""; notificationMode = 0 }
+        val aliasUid = db.subscriptionDAO().insert(alias)
+        db.feedGroupDAO().insertSubscriptionsToGroup(listOf(FeedGroupSubscriptionEntity(uid, foreign), FeedGroupSubscriptionEntity(uid, aliasUid)))
         profiles.project(record(member(), true))
-        assertEquals(2, count(db, "subscriptions")); assertEquals(2, count(db, "feed_group_subscription_join"))
+        assertEquals(3, count(db, "subscriptions")); assertEquals(3, count(db, "feed_group_subscription_join"))
         assertEquals(1, profiles.snapshot().count { it.getString("kind") == "profile-member" })
         assertTrue(sub > 0)
     }
@@ -179,6 +181,12 @@ class MediaSyncProfilesTest {
         val manager = SubscriptionManager(context)
         val store = ViewModelStore()
         val observed = AtomicLong(Long.MIN_VALUE)
+        var subscriptionObserver: io.reactivex.rxjava3.subscribers.TestSubscriber<List<SubscriptionEntity>>? = null
+        fun expectSubscriptionCount(expected: Int) {
+            val deadline = SystemClock.elapsedRealtime() + 5000
+            while (subscriptionObserver!!.values().lastOrNull()?.size != expected && SystemClock.elapsedRealtime() < deadline) SystemClock.sleep(25)
+            assertEquals(expected, subscriptionObserver!!.values().lastOrNull()?.size)
+        }
         lateinit var feed: FeedViewModel
         try {
             ProfileSelection.select(context, profile)
@@ -186,13 +194,18 @@ class MediaSyncProfilesTest {
                 feed = FeedViewModel(context); store.put("profile-feed-test", feed)
                 feed.profileLiveData.observeForever { observed.set(it.uid) }
             }
+            subscriptionObserver = manager.activeSubscriptionFlowable(0, url).test()
+            expectSubscriptionCount(0)
             manager.insertSubscription(row, info)
+            expectSubscriptionCount(1)
             assertEquals(1, manager.activeSubscriptionFlowable(0, url).blockingFirst().size)
             assertEquals(1, db.subscriptionDAO().getSubscriptionFlowable(0, url).blockingFirst().size)
             manager.deleteSubscription(row)
+            expectSubscriptionCount(0)
             assertTrue(manager.activeSubscriptionFlowable(0, url).blockingFirst().isEmpty())
             assertEquals(1, db.subscriptionDAO().getSubscriptionFlowable(0, url).blockingFirst().size)
             manager.insertSubscription(row, info)
+            expectSubscriptionCount(1)
             val deadline = SystemClock.elapsedRealtime() + 5000
             while (observed.get() != profile && SystemClock.elapsedRealtime() < deadline) SystemClock.sleep(25)
             assertEquals(profile, observed.get())
@@ -203,6 +216,7 @@ class MediaSyncProfilesTest {
             manager.deleteGlobalSubscription(0, url).blockingAwait()
             assertTrue(db.feedGroupDAO().getSubscriptionIdsFor(profile).blockingFirst().isEmpty())
         } finally {
+            subscriptionObserver?.cancel()
             instrumentation.runOnMainSync { store.clear() }
             ProfileSelection.select(context, FeedGroupEntity.GROUP_ALL_ID)
             db.feedGroupDAO().delete(profile); db.subscriptionDAO().deleteSubscription(0, url)

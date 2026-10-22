@@ -37,7 +37,8 @@ class MediaSyncProfiles(private val db: AppDatabase) {
                 db.query("SELECT s.url FROM subscriptions s JOIN feed_group_subscription_join j ON j.subscription_id=s.uid WHERE j.group_id=? AND s.service_id=0", arrayOf(uid)).use { subscriptions ->
                     while (subscriptions.moveToNext()) {
                         val channel = Regex("https://www\\.youtube\\.com/channel/(UC[A-Za-z0-9_-]{22})").matchEntire(subscriptions.getString(0))?.groupValues?.get(1)
-                        check(channel != null, "profile_not_portable"); channels.add(channel!!)
+                        // Alias/noncanonical identities remain local, like the global v1 adapter.
+                        if (channel != null) channels.add(channel)
                     }
                 }
                 val missing = deferred.optJSONArray(id) ?: JSONArray()
