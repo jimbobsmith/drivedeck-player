@@ -20,6 +20,12 @@ The fork starts at stable PipePipe v5.4.0, not the newer beta/development snapsh
 
 Use `git submodule update --init --recursive` after checkout. Source integration uses Gradle composite substitution; no extractor JitPack build is required. Other upstream JitPack dependencies still require their repositories. No floating extractor branch is consumed.
 
+## Public home inside DD
+
+Issue #36 adds a separate read-only public YouTube browse adapter for DD #275.
+See [the contract, trust boundary and acceptance gates](PUBLIC_YOUTUBE_HOME.md).
+Private catalogs/sync and explicit playback remain separate.
+
 ## Android identity and controls
 
 Release application ID is reserved as `com.drivedeck.player`; debug is `com.drivedeck.player.test` and labelled `DriveDeck Player Test`. Internal `org.schabi.newpipe` namespaces stay intact to reduce fork maintenance. Version starts at 0.1.0-alpha01. Release signing, if deliberately configured later, uses only `DD_PLAYER_KEY_*` variables rather than inheriting another project's generic signing variables. Debug signing is for development, not a release update trust root.

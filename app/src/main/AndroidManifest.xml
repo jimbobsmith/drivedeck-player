@@ -86,6 +86,10 @@
             android:name=".sleep.SleepTimerService"
             android:foregroundServiceType="mediaPlayback" />
 
+        <service android:name=".drivedeck.PublicYouTubeBrowserService" android:exported="true">
+            <meta-data android:name="com.drivedeck.media.presentation" android:value="youtube-public-v1" />
+        </service>
+
         <service
             android:name=".player.PlayerService"
             android:exported="false"
