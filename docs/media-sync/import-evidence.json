@@ -1,0 +1,69 @@
+{
+  "date": "2026-10-27",
+  "state": "unmerged-review-candidate",
+  "issueSet": {
+    "platform": 45,
+    "desktop": 15,
+    "player": 38
+  },
+  "devicesTouched": false,
+  "emulatorUsed": false,
+  "newReleasePublished": false,
+  "nasDeployed": false,
+  "browserUi": "unverified: two in-app preview tab attachment timeouts; HTTP APIs/assets pass",
+  "remainingGates": [
+    "browser worker/file-picker/confirm-cancel UI and responsive/theme visual checks",
+    "dedicated Android Room instrumentation and portrait/landscape import UI",
+    "personal-library/provider metadata and actual cross-device convergence",
+    "approved merge/publication, NAS pull/start/reboot/backup/restore and client enrollment"
+  ],
+  "tools": {
+    "node": "24.22.1",
+    "pnpm": "10.34.7",
+    "jdk": "25.0.4.1+1",
+    "gradle": "9.5.1",
+    "androidSdk": 37
+  },
+  "publishedImageSourceUnchanged": "9bae1c9ba093aa2733234e13f4888f5ff328d7c5",
+  "sourceHashes": "SHA-256 of LF-normalized changed product sources; binary hashes raw; evidence/docs excluded",
+  "repository": "jimbobsmith/drivedeck-player",
+  "issue": 38,
+  "baseRevision": "f6ee480bca4977ab91983f5817eedf12a65e46d4",
+  "sources": {
+    "app/build.gradle": "35c87122746dd90246b9aab35663679982515129fcad27a3b2b9fcbd25339d7b",
+    "app/src/androidTest/java/org/schabi/newpipe/mediasync/LibraryImportRoomTest.kt": "1f1155bd9638fc5ebcf7eff8978e160fd38bff636cae7d61565b269d87c948ac",
+    "app/src/main/AndroidManifest.xml": "1d791e7d878b4303ee8c1953684de6db4a48534f27282547b17c0b8dc57c0f3f",
+    "app/src/main/java/org/schabi/newpipe/mediasync/LibraryBackupReader.kt": "7b7e62546b8c7394e89668f636dca825eaddbd95315c9306a1c584490f43ab36",
+    "app/src/main/java/org/schabi/newpipe/mediasync/LibraryImportRules.kt": "717459e9c7785cdd6d5002777af6fde401158d5cc632e70f6d3f60e3a878b62f",
+    "app/src/main/java/org/schabi/newpipe/mediasync/LibraryImporter.kt": "d03f37d8d1ca1c84a9d9e90dd19c7423cf1c1f3d41fa9f845c4d46f2b93ef96c",
+    "app/src/main/java/org/schabi/newpipe/settings/BackupSettingsFragment.java": "4e2b022e923da24f72923c784d1d60a87c46bab4bbcfaf704f16b0d6250d17b5",
+    "app/src/main/java/org/schabi/newpipe/settings/LibraryImportActivity.kt": "4cadbd40288a05553548ed67fc334e01a9fbe707dee89ae4a73f6fc00a9cc0b6",
+    "app/src/main/res/values/strings.xml": "cf9f1f16ae7aa525e19bd3ab0c38dfabc96fb795d15696c50e89b6eee426ea4b",
+    "app/src/main/res/xml/backup_settings.xml": "bf8ce77bc493a58337da657120d33a49c523901856dfe4ad946cfb0f57eb250a",
+    "app/src/test/java/org/schabi/newpipe/mediasync/LibraryImportRulesTest.kt": "9e7fc1a7a53294ba33d8398f5876135bd515932d4359fc670dad16738132713c"
+  },
+  "checks": {
+    "assembleDebug": "passed",
+    "assembleDebugAndroidTest": "passed; compiled only, not executed",
+    "testDebugUnitTest": {
+      "passed": 66,
+      "failed": 0,
+      "importTests": 7
+    },
+    "writeFoundationRuntimeAudit": "passed; 195 resolved runtime artifacts, no forbidden services",
+    "audit-apk.ps1": "passed Test identity, allowBackup=false, no forbidden components"
+  },
+  "runtimeGraphSha256": "2a4b448cd29dd47eb523f6c35da85a2032d567c94f33ae304309fcff178ff19b",
+  "apk": {
+    "file": "DriveDeckPlayer_0.1.0-alpha02-arm64-v8a-debug.apk",
+    "bytes": 68662697,
+    "sha256": "e319d8ac2a02e983412705ef7df32133d8420f3d82488944fd5e10535ef69ad6",
+    "package": "com.drivedeck.player.test",
+    "label": "DriveDeck Player Test",
+    "allowBackup": false,
+    "allowedAndroidAutoMetadata": [
+      "com.google.android.gms.car.application",
+      "com.google.android.gms.car.notification.SmallIcon"
+    ]
+  }
+}

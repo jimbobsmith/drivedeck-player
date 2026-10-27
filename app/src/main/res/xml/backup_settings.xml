@@ -2,6 +2,7 @@
                   xmlns:app="http://schemas.android.com/apk/res-auto"
                   android:key="general_preferences"
                   android:title="@string/settings_category_backup_title">
+    <Preference android:key="dd_library_import" android:title="@string/library_import_title" android:summary="@string/library_import_description" app:singleLineTitle="false" app:iconSpaceReserved="false" />
     <Preference
             android:key="@string/import_data"
             android:summary="@string/import_data_summary"

@@ -297,6 +297,7 @@ dependencies {
 
 /** Instrumented integration tests **/
     testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.json:json:20240303' // Real JSON parser for local export-format tests; not in runtime.
     androidTestImplementation 'androidx.test:runner:1.7.0'
     androidTestImplementation 'androidx.test.ext:junit:1.3.0'
     androidTestImplementation 'junit:junit:4.13.2'

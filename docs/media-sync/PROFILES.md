@@ -104,3 +104,7 @@ personal phone, tablet, TV or shared emulator was operated. Full profile HTTP
 round trips through the Android client and desktop/service, personal-library
 upgrade, manual visual review, physical devices and hosted deployment remain
 explicit field-validation gates. Profile sync stays disabled by default.
+
+## Integration and import follow-up (2026-10-27)
+
+Native profiles are integrated through Player PR #33, desktop PR #14 and platform PR #44. The last published private image predates profiles. The [browser/import extension](IMPORTS.md), Player #38 / desktop #15 / platform #45, is under review. Device and personal-library gates remain open.
