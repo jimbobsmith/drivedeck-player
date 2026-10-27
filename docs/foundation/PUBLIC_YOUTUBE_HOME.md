@@ -4,6 +4,13 @@ Refs [Player #36](https://github.com/jimbobsmith/drivedeck-player/issues/36) and
 [DD #275](https://github.com/jimbobsmith/drivedeckg/issues/275).
 Baseline: Player main 70217ec0. Extractor c68e10e2 unchanged.
 
+Integration: maintainer-approved PR #37 merged to main at
+f29609571f7a8f17a2ffa54e89c16b894870219c; companion DD PR #276 merged to master
+at 497d878781ad7cddd0f12f02439084f2fee91368. Fetched remote merge trees match
+the reviewed heads (Player cc7db638, DD 17727e82). This is integrated source,
+with no accompanying release or installation. #36 remains open as
+field-validation for the actual cross-app/provider/device gates below.
+
 The maintainer requested a useful public YouTube home inside DD without adding
 subscriptions or history. The exported PublicYouTubeBrowserService serves only
 the pinned default YouTube kiosk (currently Recommended Lives), public search
