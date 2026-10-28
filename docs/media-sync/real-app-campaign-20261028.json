@@ -1,0 +1,1063 @@
+{
+  "date": "2026-10-28",
+  "status": "DATA_SCENARIOS_PASS_AND_INDEPENDENT_TEARDOWN_READY",
+  "productionBaselines": {
+    "platform": "d128ec1cf56baea5c8a619569bb5123fe50be460",
+    "desktop": "18e2a90d278442149447ff39ffe8450f9583bc86",
+    "player": "f6ee480bca4977ab91983f5817eedf12a65e46d4"
+  },
+  "testSourcePins": {
+    "service": "fc7116951acc45610f32ccc821b0cf26070a37f0",
+    "desktop": "34311303e0313700d4855a19fd8ba174f1851aca",
+    "player": "221d25003a0ad930ba61655c9d74b74425ec1230",
+    "sourceKind": "integrated main baselines plus test-only branches; import drafts excluded",
+    "syncTrigger": "manual production Sync actions; no automatic polling",
+    "portableSettings": "none implemented; all OS/provider/appearance/paths/credentials remain local"
+  },
+  "artifacts": {
+    "androidAppSha256": "c89f1102e913003cbc70912eba132fe699df2cd1447f0e24088404269887fce2",
+    "androidRunnerSha256": "cc48f1532691fa86a16db3dc940273183b5f81da1db00d2d5b756c11c4845e65",
+    "electronExeSha256": "e71eaf92b6ee2dede57851a532754f90fd087275484795773ae6b91c88cda258",
+    "electronAsarSha256": "befa7cb751625983bc0fc055888283fcc5fc17ffcbac0e47ad7be9481f135754"
+  },
+  "firstMilestone": [
+    {
+      "name": "FreeTube -> PipePipe subscription/category",
+      "passed": true,
+      "elapsedMs": 15631,
+      "expected": "channel A + Desktop science + membership, service accepted and actual Android UI visible"
+    },
+    {
+      "name": "PipePipe -> FreeTube subscription/category",
+      "passed": true,
+      "elapsedMs": 18087,
+      "expected": "channel B + Android projects + membership, service accepted and actual Electron UI visible"
+    }
+  ],
+  "expandedScenarios": [
+    {
+      "name": "category rename and independent membership",
+      "expected": "Android renames its category and replaces B membership with A; both global subscriptions survive",
+      "observed": {
+        "android": {
+          "subscriptions": [
+            "UCaaaaaaaaaaaaaaaaaaaaaa",
+            "UCbbbbbbbbbbbbbbbbbbbbbb"
+          ],
+          "resumes": [],
+          "library": [],
+          "localTheme": "auto_device_theme",
+          "profiles": [
+            {
+              "kind": "profile",
+              "provider": "youtube",
+              "version": 3,
+              "id": "c782d965-5f9c-4ca4-9668-434481117154",
+              "name": "Desktop science",
+              "bgColor": "#112233",
+              "textColor": "#FFFFFF"
+            },
+            {
+              "kind": "profile",
+              "provider": "youtube",
+              "version": 3,
+              "id": "07c2f190-a465-4e17-94cf-b5725f8595bc",
+              "name": "Android projects renamed",
+              "bgColor": "#224466",
+              "textColor": "#FFFFFF"
+            }
+          ],
+          "memberships": [
+            {
+              "kind": "profile-member",
+              "provider": "youtube",
+              "version": 3,
+              "id": "c782d965-5f9c-4ca4-9668-434481117154:UCaaaaaaaaaaaaaaaaaaaaaa",
+              "profileId": "c782d965-5f9c-4ca4-9668-434481117154",
+              "channelId": "UCaaaaaaaaaaaaaaaaaaaaaa"
+            },
+            {
+              "kind": "profile-member",
+              "provider": "youtube",
+              "version": 3,
+              "id": "07c2f190-a465-4e17-94cf-b5725f8595bc:UCaaaaaaaaaaaaaaaaaaaaaa",
+              "profileId": "07c2f190-a465-4e17-94cf-b5725f8595bc",
+              "channelId": "UCaaaaaaaaaaaaaaaaaaaaaa"
+            }
+          ],
+          "status": {
+            "enabled": true,
+            "libraryEnabled": false,
+            "profilesEnabled": true,
+            "pending": 0,
+            "conflicts": 0,
+            "code": "synced"
+          },
+          "phase": "rename-android",
+          "syncTrigger": "explicit production MediaSyncClient.sync (same settings action)",
+          "elapsedMs": 324,
+          "serviceResult": {
+            "enabled": true,
+            "libraryEnabled": false,
+            "profilesEnabled": true,
+            "pending": 0,
+            "conflicts": 0,
+            "code": "synced"
+          },
+          "extra": {},
+          "ui": {
+            "expectedText": "Android projects renamed",
+            "visible": true,
+            "screen": "production SubscriptionFragment"
+          }
+        },
+        "desktop": [
+          {
+            "name": "Desktop science",
+            "id": "c782d965-5f9c-4ca4-9668-434481117154",
+            "channels": [
+              "UCaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          },
+          {
+            "name": "All Channels",
+            "channels": [
+              "UCaaaaaaaaaaaaaaaaaaaaaa",
+              "UCbbbbbbbbbbbbbbbbbbbbbb"
+            ]
+          },
+          {
+            "name": "Android projects renamed",
+            "id": "07c2f190-a465-4e17-94cf-b5725f8595bc",
+            "channels": [
+              "UCaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          }
+        ],
+        "ui": {
+          "expectedText": "Android projects renamed",
+          "paintReady": true,
+          "screenshot": "D:\\tmp\\dd\\actual-sync-e2e-20261028\\run-06\\desktop\\ui-renamed-category.png"
+        }
+      },
+      "elapsedMs": 18949,
+      "passed": true
+    },
+    {
+      "name": "global unsubscribe",
+      "expected": "FreeTube removes A globally and from every category; Android retains B",
+      "observed": {
+        "android": {
+          "subscriptions": [
+            "UCbbbbbbbbbbbbbbbbbbbbbb"
+          ],
+          "resumes": [],
+          "library": [],
+          "localTheme": "auto_device_theme",
+          "profiles": [
+            {
+              "kind": "profile",
+              "provider": "youtube",
+              "version": 3,
+              "id": "c782d965-5f9c-4ca4-9668-434481117154",
+              "name": "Desktop science",
+              "bgColor": "#112233",
+              "textColor": "#FFFFFF"
+            },
+            {
+              "kind": "profile",
+              "provider": "youtube",
+              "version": 3,
+              "id": "07c2f190-a465-4e17-94cf-b5725f8595bc",
+              "name": "Android projects renamed",
+              "bgColor": "#224466",
+              "textColor": "#FFFFFF"
+            }
+          ],
+          "memberships": [],
+          "status": {
+            "enabled": true,
+            "libraryEnabled": false,
+            "profilesEnabled": true,
+            "pending": 0,
+            "conflicts": 0,
+            "code": "synced"
+          },
+          "phase": "repeat",
+          "syncTrigger": "explicit production MediaSyncClient.sync (same settings action)",
+          "elapsedMs": 194,
+          "serviceResult": {
+            "enabled": true,
+            "libraryEnabled": false,
+            "profilesEnabled": true,
+            "pending": 0,
+            "conflicts": 0,
+            "code": "synced"
+          },
+          "extra": {},
+          "ui": {
+            "expectedText": "Android projects renamed",
+            "visible": true,
+            "screen": "production SubscriptionFragment"
+          }
+        },
+        "desktop": [
+          {
+            "name": "Desktop science",
+            "id": "c782d965-5f9c-4ca4-9668-434481117154",
+            "channels": []
+          },
+          {
+            "name": "All Channels",
+            "channels": [
+              "UCbbbbbbbbbbbbbbbbbbbbbb"
+            ]
+          },
+          {
+            "name": "Android projects renamed",
+            "id": "07c2f190-a465-4e17-94cf-b5725f8595bc",
+            "channels": []
+          }
+        ]
+      },
+      "elapsedMs": 14845,
+      "passed": true
+    },
+    {
+      "name": "category deletion preserves subscriptions",
+      "expected": "Android deletes its named category; FreeTube removes only that category and keeps B globally",
+      "observed": {
+        "android": {
+          "subscriptions": [
+            "UCbbbbbbbbbbbbbbbbbbbbbb"
+          ],
+          "resumes": [],
+          "library": [],
+          "localTheme": "auto_device_theme",
+          "profiles": [
+            {
+              "kind": "profile",
+              "provider": "youtube",
+              "version": 3,
+              "id": "c782d965-5f9c-4ca4-9668-434481117154",
+              "name": "Desktop science",
+              "bgColor": "#112233",
+              "textColor": "#FFFFFF"
+            }
+          ],
+          "memberships": [],
+          "status": {
+            "enabled": true,
+            "libraryEnabled": false,
+            "profilesEnabled": true,
+            "pending": 0,
+            "conflicts": 0,
+            "code": "synced"
+          },
+          "phase": "delete-category",
+          "syncTrigger": "explicit production MediaSyncClient.sync (same settings action)",
+          "elapsedMs": 329,
+          "serviceResult": {
+            "enabled": true,
+            "libraryEnabled": false,
+            "profilesEnabled": true,
+            "pending": 0,
+            "conflicts": 0,
+            "code": "synced"
+          },
+          "extra": {},
+          "ui": {
+            "expectedText": "Desktop science",
+            "visible": true,
+            "screen": "production SubscriptionFragment"
+          }
+        },
+        "desktop": [
+          {
+            "name": "Desktop science",
+            "id": "c782d965-5f9c-4ca4-9668-434481117154",
+            "channels": []
+          },
+          {
+            "name": "All Channels",
+            "channels": [
+              "UCbbbbbbbbbbbbbbbbbbbbbb"
+            ]
+          }
+        ],
+        "ui": {
+          "expectedText": "Desktop science",
+          "paintReady": true,
+          "screenshot": "D:\\tmp\\dd\\actual-sync-e2e-20261028\\run-06\\desktop\\ui-after-category-delete.png"
+        }
+      },
+      "elapsedMs": 14635,
+      "passed": true
+    },
+    {
+      "name": "repeated manual sync is idempotent",
+      "expected": "Repeated commands append no service revision and no duplicate local records",
+      "observed": {
+        "sequence": 13,
+        "android": {
+          "subscriptions": [
+            "UCbbbbbbbbbbbbbbbbbbbbbb"
+          ],
+          "resumes": [],
+          "library": [],
+          "localTheme": "auto_device_theme",
+          "profiles": [
+            {
+              "kind": "profile",
+              "provider": "youtube",
+              "version": 3,
+              "id": "c782d965-5f9c-4ca4-9668-434481117154",
+              "name": "Desktop science",
+              "bgColor": "#112233",
+              "textColor": "#FFFFFF"
+            }
+          ],
+          "memberships": [],
+          "status": {
+            "enabled": true,
+            "libraryEnabled": false,
+            "profilesEnabled": true,
+            "pending": 0,
+            "conflicts": 0,
+            "code": "synced"
+          },
+          "phase": "repeat",
+          "syncTrigger": "explicit production MediaSyncClient.sync (same settings action)",
+          "elapsedMs": 150,
+          "serviceResult": {
+            "enabled": true,
+            "libraryEnabled": false,
+            "profilesEnabled": true,
+            "pending": 0,
+            "conflicts": 0,
+            "code": "synced"
+          },
+          "extra": {},
+          "ui": {
+            "expectedText": "Desktop science",
+            "visible": true,
+            "screen": "production SubscriptionFragment"
+          }
+        },
+        "desktop": [
+          {
+            "name": "Desktop science",
+            "id": "c782d965-5f9c-4ca4-9668-434481117154",
+            "channels": []
+          },
+          {
+            "name": "All Channels",
+            "channels": [
+              "UCbbbbbbbbbbbbbbbbbbbbbb"
+            ]
+          }
+        ]
+      },
+      "elapsedMs": 15169,
+      "passed": true
+    },
+    {
+      "name": "Android offline queue survives app restart",
+      "expected": "Only Android loses its reverse path; local rename queues durably, then reaches FreeTube after reconnect and process restart",
+      "observed": {
+        "offline": {
+          "subscriptions": [
+            "UCbbbbbbbbbbbbbbbbbbbbbb"
+          ],
+          "resumes": [],
+          "library": [],
+          "localTheme": "auto_device_theme",
+          "profiles": [
+            {
+              "kind": "profile",
+              "provider": "youtube",
+              "version": 3,
+              "id": "c782d965-5f9c-4ca4-9668-434481117154",
+              "name": "Android queued science",
+              "bgColor": "#112233",
+              "textColor": "#FFFFFF"
+            }
+          ],
+          "memberships": [],
+          "status": {
+            "enabled": true,
+            "libraryEnabled": false,
+            "profilesEnabled": true,
+            "pending": 1,
+            "conflicts": 0,
+            "code": "pending"
+          },
+          "phase": "offline-rename",
+          "syncTrigger": "explicit production MediaSyncClient.sync (same settings action)",
+          "elapsedMs": 313,
+          "serviceResult": {
+            "enabled": true,
+            "libraryEnabled": false,
+            "profilesEnabled": true,
+            "pending": 1,
+            "conflicts": 0,
+            "code": "offline"
+          },
+          "extra": {},
+          "ui": {
+            "expectedText": "Android queued science",
+            "visible": true,
+            "screen": "production SubscriptionFragment"
+          }
+        },
+        "reconnected": {
+          "subscriptions": [
+            "UCbbbbbbbbbbbbbbbbbbbbbb"
+          ],
+          "resumes": [],
+          "library": [],
+          "localTheme": "auto_device_theme",
+          "profiles": [
+            {
+              "kind": "profile",
+              "provider": "youtube",
+              "version": 3,
+              "id": "c782d965-5f9c-4ca4-9668-434481117154",
+              "name": "Android queued science",
+              "bgColor": "#112233",
+              "textColor": "#FFFFFF"
+            }
+          ],
+          "memberships": [],
+          "status": {
+            "enabled": true,
+            "libraryEnabled": false,
+            "profilesEnabled": true,
+            "pending": 0,
+            "conflicts": 0,
+            "code": "synced"
+          },
+          "phase": "repeat",
+          "syncTrigger": "explicit production MediaSyncClient.sync (same settings action)",
+          "elapsedMs": 300,
+          "serviceResult": {
+            "enabled": true,
+            "libraryEnabled": false,
+            "profilesEnabled": true,
+            "pending": 0,
+            "conflicts": 0,
+            "code": "synced"
+          },
+          "extra": {},
+          "ui": {
+            "expectedText": "Android queued science",
+            "visible": true,
+            "screen": "production SubscriptionFragment"
+          }
+        },
+        "desktop": [
+          {
+            "name": "Android queued science",
+            "id": "c782d965-5f9c-4ca4-9668-434481117154",
+            "channels": []
+          },
+          {
+            "name": "All Channels",
+            "channels": [
+              "UCbbbbbbbbbbbbbbbbbbbbbb"
+            ]
+          }
+        ],
+        "ui": {
+          "expectedText": "Android queued science",
+          "paintReady": true,
+          "screenshot": "D:\\tmp\\dd\\actual-sync-e2e-20261028\\run-06\\desktop\\ui-after-offline-restart.png"
+        }
+      },
+      "elapsedMs": 30249,
+      "passed": true
+    },
+    {
+      "name": "service restart preserves generation and state",
+      "expected": "Close/reopen the real service database; both clients keep identities and converge without replay",
+      "observed": {
+        "generationPreserved": true,
+        "sequence": 14,
+        "android": {
+          "subscriptions": [
+            "UCbbbbbbbbbbbbbbbbbbbbbb"
+          ],
+          "resumes": [],
+          "library": [],
+          "localTheme": "auto_device_theme",
+          "profiles": [
+            {
+              "kind": "profile",
+              "provider": "youtube",
+              "version": 3,
+              "id": "c782d965-5f9c-4ca4-9668-434481117154",
+              "name": "Android queued science",
+              "bgColor": "#112233",
+              "textColor": "#FFFFFF"
+            }
+          ],
+          "memberships": [],
+          "status": {
+            "enabled": true,
+            "libraryEnabled": false,
+            "profilesEnabled": true,
+            "pending": 0,
+            "conflicts": 0,
+            "code": "synced"
+          },
+          "phase": "repeat",
+          "syncTrigger": "explicit production MediaSyncClient.sync (same settings action)",
+          "elapsedMs": 125,
+          "serviceResult": {
+            "enabled": true,
+            "libraryEnabled": false,
+            "profilesEnabled": true,
+            "pending": 0,
+            "conflicts": 0,
+            "code": "synced"
+          },
+          "extra": {},
+          "ui": {
+            "expectedText": "Android queued science",
+            "visible": true,
+            "screen": "production SubscriptionFragment"
+          }
+        },
+        "desktop": [
+          {
+            "name": "Android queued science",
+            "id": "c782d965-5f9c-4ca4-9668-434481117154",
+            "channels": []
+          },
+          {
+            "name": "All Channels",
+            "channels": [
+              "UCbbbbbbbbbbbbbbbbbbbbbb"
+            ]
+          }
+        ]
+      },
+      "elapsedMs": 15049,
+      "passed": true
+    },
+    {
+      "name": "Electron restart preserves OS vault and converged profile",
+      "expected": "Quit/restart the real desktop with the same disposable profile and production encrypted vault",
+      "observed": {
+        "status": {
+          "enabled": true,
+          "libraryEnabled": false,
+          "profilesEnabled": true,
+          "code": "synced",
+          "pending": 0,
+          "conflicts": 0
+        },
+        "desktop": [
+          {
+            "name": "Android queued science",
+            "id": "c782d965-5f9c-4ca4-9668-434481117154",
+            "channels": []
+          },
+          {
+            "name": "All Channels",
+            "channels": [
+              "UCbbbbbbbbbbbbbbbbbbbbbb"
+            ]
+          }
+        ],
+        "ui": {
+          "expectedText": "Android queued science",
+          "paintReady": true,
+          "screenshot": "D:\\tmp\\dd\\actual-sync-e2e-20261028\\run-06\\desktop\\ui-after-electron-restart.png"
+        }
+      },
+      "elapsedMs": 5712,
+      "passed": true
+    },
+    {
+      "name": "explicit concurrent rename conflict",
+      "expected": "Both clients edit the same category; Android publishes first, FreeTube reports conflict, then explicit Use remote resolves",
+      "observed": {
+        "firstWriter": {
+          "subscriptions": [
+            "UCbbbbbbbbbbbbbbbbbbbbbb"
+          ],
+          "resumes": [],
+          "library": [],
+          "localTheme": "auto_device_theme",
+          "profiles": [
+            {
+              "kind": "profile",
+              "provider": "youtube",
+              "version": 3,
+              "id": "c782d965-5f9c-4ca4-9668-434481117154",
+              "name": "Android conflict choice",
+              "bgColor": "#112233",
+              "textColor": "#FFFFFF"
+            }
+          ],
+          "memberships": [],
+          "status": {
+            "enabled": true,
+            "libraryEnabled": false,
+            "profilesEnabled": true,
+            "pending": 0,
+            "conflicts": 0,
+            "code": "synced"
+          },
+          "phase": "conflict-rename",
+          "syncTrigger": "explicit production MediaSyncClient.sync (same settings action)",
+          "elapsedMs": 380,
+          "serviceResult": {
+            "enabled": true,
+            "libraryEnabled": false,
+            "profilesEnabled": true,
+            "pending": 0,
+            "conflicts": 0,
+            "code": "synced"
+          },
+          "extra": {},
+          "ui": {
+            "expectedText": "Android conflict choice",
+            "visible": true,
+            "screen": "production SubscriptionFragment"
+          }
+        },
+        "desktopConflict": {
+          "enabled": true,
+          "libraryEnabled": false,
+          "profilesEnabled": true,
+          "code": "conflict",
+          "pending": 1,
+          "conflicts": 1
+        },
+        "explicitResolution": "use-remote",
+        "resolved": {
+          "enabled": true,
+          "libraryEnabled": false,
+          "profilesEnabled": true,
+          "code": "synced",
+          "pending": 0,
+          "conflicts": 0
+        },
+        "android": {
+          "subscriptions": [
+            "UCbbbbbbbbbbbbbbbbbbbbbb"
+          ],
+          "resumes": [],
+          "library": [],
+          "localTheme": "auto_device_theme",
+          "profiles": [
+            {
+              "kind": "profile",
+              "provider": "youtube",
+              "version": 3,
+              "id": "c782d965-5f9c-4ca4-9668-434481117154",
+              "name": "Android conflict choice",
+              "bgColor": "#112233",
+              "textColor": "#FFFFFF"
+            }
+          ],
+          "memberships": [],
+          "status": {
+            "enabled": true,
+            "libraryEnabled": false,
+            "profilesEnabled": true,
+            "pending": 0,
+            "conflicts": 0,
+            "code": "synced"
+          },
+          "phase": "repeat",
+          "syncTrigger": "explicit production MediaSyncClient.sync (same settings action)",
+          "elapsedMs": 181,
+          "serviceResult": {
+            "enabled": true,
+            "libraryEnabled": false,
+            "profilesEnabled": true,
+            "pending": 0,
+            "conflicts": 0,
+            "code": "synced"
+          },
+          "extra": {},
+          "ui": {
+            "expectedText": "Android conflict choice",
+            "visible": true,
+            "screen": "production SubscriptionFragment"
+          }
+        },
+        "ui": {
+          "expectedText": "Android conflict choice",
+          "paintReady": true,
+          "screenshot": "D:\\tmp\\dd\\actual-sync-e2e-20261028\\run-06\\desktop\\ui-resolved-conflict.png"
+        }
+      },
+      "elapsedMs": 31304,
+      "passed": true
+    },
+    {
+      "name": "expanded library opt-in and initial Watch Later conflict",
+      "expected": "Enable the actual library feature independently; resolve any initial empty-list conflict explicitly",
+      "observed": {
+        "android": {
+          "subscriptions": [
+            "UCbbbbbbbbbbbbbbbbbbbbbb"
+          ],
+          "resumes": [],
+          "library": [
+            {
+              "kind": "watch-later",
+              "provider": "youtube",
+              "version": 2,
+              "id": "watch-later",
+              "items": []
+            }
+          ],
+          "localTheme": "auto_device_theme",
+          "profiles": [
+            {
+              "kind": "profile",
+              "provider": "youtube",
+              "version": 3,
+              "id": "c782d965-5f9c-4ca4-9668-434481117154",
+              "name": "Android conflict choice",
+              "bgColor": "#112233",
+              "textColor": "#FFFFFF"
+            }
+          ],
+          "memberships": [],
+          "status": {
+            "enabled": true,
+            "libraryEnabled": true,
+            "profilesEnabled": true,
+            "pending": 0,
+            "conflicts": 0,
+            "code": "synced"
+          },
+          "phase": "library-enable",
+          "syncTrigger": "explicit production MediaSyncClient.sync (same settings action)",
+          "elapsedMs": 208,
+          "serviceResult": {
+            "enabled": true,
+            "libraryEnabled": true,
+            "profilesEnabled": true,
+            "pending": 0,
+            "conflicts": 0,
+            "code": "synced"
+          },
+          "extra": {
+            "initialLibraryResult": {
+              "enabled": true,
+              "libraryEnabled": true,
+              "profilesEnabled": true,
+              "pending": 1,
+              "conflicts": 1,
+              "code": "conflict"
+            },
+            "explicitResolution": "use-remote for initial empty Watch Later"
+          },
+          "ui": {
+            "expectedText": "Android conflict choice",
+            "visible": true,
+            "screen": "production SubscriptionFragment"
+          }
+        },
+        "behavior": "initial empty Watch Later collision is surfaced and explicitly resolved, never hidden"
+      },
+      "elapsedMs": 15206,
+      "passed": true
+    },
+    {
+      "name": "FreeTube history and millisecond resume to Android",
+      "expected": "A real desktop history update reaches Android history/progress; actual History UI shows the synthetic video",
+      "observed": {
+        "android": {
+          "subscriptions": [
+            "UCbbbbbbbbbbbbbbbbbbbbbb"
+          ],
+          "resumes": [
+            {
+              "id": "abcdefghijk",
+              "positionMs": 12345
+            }
+          ],
+          "library": [
+            {
+              "kind": "watch-later",
+              "provider": "youtube",
+              "version": 2,
+              "id": "watch-later",
+              "items": []
+            },
+            {
+              "kind": "history",
+              "provider": "youtube",
+              "version": 2,
+              "id": "abcdefghijk",
+              "watchedAtMs": 1800000000000
+            }
+          ],
+          "localTheme": "auto_device_theme",
+          "profiles": [
+            {
+              "kind": "profile",
+              "provider": "youtube",
+              "version": 3,
+              "id": "c782d965-5f9c-4ca4-9668-434481117154",
+              "name": "Android conflict choice",
+              "bgColor": "#112233",
+              "textColor": "#FFFFFF"
+            }
+          ],
+          "memberships": [],
+          "status": {
+            "enabled": true,
+            "libraryEnabled": true,
+            "profilesEnabled": true,
+            "pending": 0,
+            "conflicts": 0,
+            "code": "synced"
+          },
+          "phase": "observe-history",
+          "syncTrigger": "explicit production MediaSyncClient.sync (same settings action)",
+          "elapsedMs": 197,
+          "serviceResult": {
+            "enabled": true,
+            "libraryEnabled": true,
+            "profilesEnabled": true,
+            "pending": 0,
+            "conflicts": 0,
+            "code": "synced"
+          },
+          "extra": {},
+          "ui": {
+            "expectedText": "abcdefghijk",
+            "visible": true,
+            "screen": "production SubscriptionFragment"
+          }
+        },
+        "desktop": [
+          {
+            "videoId": "abcdefghijk",
+            "title": "E2E progress fixture",
+            "author": "",
+            "authorId": "",
+            "published": 0,
+            "description": "",
+            "viewCount": 0,
+            "lengthSeconds": 100,
+            "timeWatched": 1800000000000,
+            "isLive": false,
+            "type": "video",
+            "watchProgress": 12.345,
+            "_id": "20JEgYBosHNvfrCu"
+          }
+        ]
+      },
+      "elapsedMs": 15287,
+      "passed": true
+    },
+    {
+      "name": "Android deliberate rewind and newer history to FreeTube",
+      "expected": "Real Android state/history repository updates send 5000 ms and newer history; the desktop keeps unrelated title metadata",
+      "observed": {
+        "android": {
+          "subscriptions": [
+            "UCbbbbbbbbbbbbbbbbbbbbbb"
+          ],
+          "resumes": [
+            {
+              "id": "abcdefghijk",
+              "positionMs": 5000
+            }
+          ],
+          "library": [
+            {
+              "kind": "watch-later",
+              "provider": "youtube",
+              "version": 2,
+              "id": "watch-later",
+              "items": []
+            },
+            {
+              "kind": "history",
+              "provider": "youtube",
+              "version": 2,
+              "id": "abcdefghijk",
+              "watchedAtMs": 1800000001000
+            }
+          ],
+          "localTheme": "auto_device_theme",
+          "profiles": [
+            {
+              "kind": "profile",
+              "provider": "youtube",
+              "version": 3,
+              "id": "c782d965-5f9c-4ca4-9668-434481117154",
+              "name": "Android conflict choice",
+              "bgColor": "#112233",
+              "textColor": "#FFFFFF"
+            }
+          ],
+          "memberships": [],
+          "status": {
+            "enabled": true,
+            "libraryEnabled": true,
+            "profilesEnabled": true,
+            "pending": 0,
+            "conflicts": 0,
+            "code": "synced"
+          },
+          "phase": "mutate-progress",
+          "syncTrigger": "explicit production MediaSyncClient.sync (same settings action)",
+          "elapsedMs": 212,
+          "serviceResult": {
+            "enabled": true,
+            "libraryEnabled": true,
+            "profilesEnabled": true,
+            "pending": 0,
+            "conflicts": 0,
+            "code": "synced"
+          },
+          "extra": {},
+          "ui": {
+            "expectedText": "abcdefghijk",
+            "visible": true,
+            "screen": "production SubscriptionFragment"
+          }
+        },
+        "desktop": [
+          {
+            "videoId": "abcdefghijk",
+            "title": "E2E progress fixture",
+            "author": "",
+            "authorId": "",
+            "published": 0,
+            "description": "",
+            "viewCount": 0,
+            "lengthSeconds": 100,
+            "timeWatched": 1800000001000,
+            "isLive": false,
+            "type": "video",
+            "watchProgress": 5,
+            "_id": "20JEgYBosHNvfrCu"
+          }
+        ]
+      },
+      "elapsedMs": 15466,
+      "passed": true
+    },
+    {
+      "name": "appearance settings stay local",
+      "expected": "No portable-settings kind exists: set desktop Light and Android Dark; manual sync must not overwrite either",
+      "observed": {
+        "desktopBaseTheme": "light",
+        "androidTheme": "dark_theme",
+        "serviceKinds": [
+          "subscription",
+          "profile",
+          "profile-member",
+          "watch-later",
+          "resume",
+          "history"
+        ],
+        "unsupported": "general portable settings and automatic sync remain unimplemented"
+      },
+      "elapsedMs": 14860,
+      "passed": true
+    }
+  ],
+  "trigger": "Explicit manual production Sync command; no automatic propagation",
+  "portableSettings": "None implemented. Desktop Light and Android Dark remained local.",
+  "coverageLimits": [
+    "Synthetic metadata only; no provider playback or audio qualification",
+    "Imports use separate draft sources; actual two-app campaign uses integrated baselines plus test-only drivers",
+    "Initial library opt-in surfaced an empty Watch Later conflict, explicitly resolved with Use remote",
+    "No nonempty playlist or Watch Later item roundtrip in this campaign",
+    "Full campaign executed as milestone then continuation, not yet one fresh full invocation",
+    "No personal phone, tablet, NAS, LAN HTTPS or production-library qualification"
+  ],
+  "invocations": 24,
+  "cap": 30,
+  "originalRunnerTeardown": {
+    "state": "BLOCKED",
+    "error": "CommandFailed:pwsh.exe:"
+  },
+  "reconciledTeardown": {
+    "state": "READY",
+    "verifiedAt": "2026-10-28T15:39:18.7091133Z",
+    "originalResult": "full-02/results.json",
+    "originalTeardownError": "CommandFailed:pwsh.exe: (empty Get-NetTCPConnection result caused nonzero PowerShell exit)",
+    "ownedEmulatorExited": true,
+    "ownedPrivateAdbExited": true,
+    "service8872Stopped": true,
+    "reservedPortsFree": true,
+    "verifiedProcessIds": [
+      38972,
+      20188,
+      45028
+    ],
+    "verifiedPorts": [
+      5594,
+      5595,
+      5067,
+      8872
+    ],
+    "personalDevicesTouched": false,
+    "additionalInstrumentationInvocations": 0,
+    "campaignInvocations": 24,
+    "retained": "Separate synthetic browser demo8861, HTTP health200"
+  },
+  "rawEvidenceHashes": {
+    "run-06/pins-before-install.json": "9f8a4e2a9f87371467b7ee1967156e1b3d6f220b6efe63ebf0b032c05828f905",
+    "run-06/receive-desktop-instrumentation.txt": "8c68c7d794e5a67610668e4eb77b0e15d83368deedbfaa860741de04709663fc",
+    "run-06/results.json": "9c5b5fcd6db792567e63639801fabdc66c098c3e20c132071fea03cd11fecd47",
+    "run-06/send-android-instrumentation.txt": "07e4e263b1c87cf834a229b318e8f3bce0b545a9896e0ff5ce585a4373abd709",
+    "full-01/failure.json": "73b9de280a4bd3a1da7590894b585cdf2e08b9c1c5522f8d7fcc9e7feeba4c38",
+    "full-01/pins-before-install.json": "133be4ba508e21cf21f4f267f424ae2fe46d0651b19906a17fa17ffcb79a346a",
+    "full-01/rename-android-instrumentation.txt": "073f191978a0f31dea281522b2d60cc9cf1a128a268871f74c73c5e7dac72e17",
+    "full-02/after-conflict-resolution-instrumentation.txt": "ccbc9a53470ee43f0b109e9e7526090244c0e296dd0bd7fe017dc2e901eb0ac4",
+    "full-02/after-offline-restart-instrumentation.txt": "772c9701233bb02db14f186356d4e595cafb0b23234ee72ca0580e330688d3d3",
+    "full-02/after-service-restart-instrumentation.txt": "8219381dc90451dc1f6dc94e282ffaad7e5db3d98d8b26db0e212071c96f41b3",
+    "full-02/after-unsubscribe-instrumentation.txt": "6a5cc583406d81fc4b03bea5804f038781b64ae3bf6533a27d501bccd01af17a",
+    "full-02/conflict-rename-instrumentation.txt": "4d95306b9675e95471af18fc4ea7c99d3a6eb8e7c9893b89ed9e9178ec731d40",
+    "full-02/delete-category-instrumentation.txt": "675f69c081dac03fa6a7a3ec2d7eeba15f905779aa901fc28d92f3f493e4d51a",
+    "full-02/idempotent-repeat-instrumentation.txt": "f436d777069bfc257d17756736f3de8718b59aad5e297e28a7da96b3ade0f55b",
+    "full-02/library-enable-instrumentation.txt": "88f356493e101a547ee55bdc910dffa81bfdbb9ad0ceaf6ffcd341a4c8eae968",
+    "full-02/mutate-progress-instrumentation.txt": "f8a4187d2b22730a2a46be9e0c33e9f06f0961436e9e1b668b947bf7ee389af3",
+    "full-02/observe-history-instrumentation.txt": "d0b88e3038be83b0abb3fb89723be54347e8a8e9d87b01078c0213286cb3cb02",
+    "full-02/offline-rename-instrumentation.txt": "a7634802a271d5b67f3f94ff97825733321ba4ecc60d57364dababd06b45c4de",
+    "full-02/pins-before-install.json": "bd7f77b80ef6a0996d5e7be19c6d49dc7a2c2112f6d8592cc91d555d9a26e656",
+    "full-02/rename-android-instrumentation.txt": "6eccb3187d0cf133fc698effd1e374363e3d7c1d7bd8d0d0f79f1351778b7014",
+    "full-02/results.json": "b7a17642f993d7c30036c29ce80833cdbaaffe6c269e90c8d684b6296a164b93",
+    "full-02/set-local-theme-instrumentation.txt": "2268fc952583d79b3772e6910ff569e1e15a31b9372959177ba6e0f690039810",
+    "full-02/teardown-reconciliation.json": "28100b22fadd1eefdfbd27d10d5d2f85936fbad33e7a31e259d44e2adeaf9640",
+    "run-06/desktop/ui-after-category-delete.png": "0cd88678fa92cd8582f2f0bd96440da31a2d96310bcb98adea96ce20976fca3a",
+    "run-06/desktop/ui-after-electron-restart.png": "ed652f70da1887ad48be1cc6bf672ff8461829e4186a7bc8db063aa450d98f9a",
+    "run-06/desktop/ui-after-offline-restart.png": "47e6888bc87287d9a892bd07e99994eea98dd1801f84d1a7be57b8930db1454d",
+    "run-06/desktop/ui-received-android-after-restart.png": "2cef5d88d89f56851b1d32414c8cefe57f9c570d927e9016414029db4c19dd1f",
+    "run-06/desktop/ui-received-android.png": "92a416b53668f866e97b27158d9eff123ad2ec83c2a348ccbd582192b2da5e49",
+    "run-06/desktop/ui-renamed-category.png": "28f5dab86b8d0de448efa793c2fa4d62f870a44841b06f91cc4a62a50aa66ab5",
+    "run-06/desktop/ui-resolved-conflict.png": "514074423f232092d8696f7cfe7eba3489f3ed909c1ff0f2a2b3e609a471a0fd",
+    "full-02/after-conflict-resolution-ui.png": "331cf6a70ababe47054b954436ab2ed302c6dda252a3d93a61101af8314f9c31",
+    "full-02/after-offline-restart-ui.png": "4c25157c475e318d4c2a90911f2d45216c533e20afcf50626f6145dcc1e4cb8c",
+    "full-02/after-service-restart-ui.png": "4c25157c475e318d4c2a90911f2d45216c533e20afcf50626f6145dcc1e4cb8c",
+    "full-02/after-unsubscribe-ui.png": "9fd546f8cd65f04521ae726f8579366ca38c312e5d7cb9fb3325e70d6f289fe1",
+    "full-02/conflict-rename-ui.png": "331cf6a70ababe47054b954436ab2ed302c6dda252a3d93a61101af8314f9c31",
+    "full-02/delete-category-ui.png": "07452024c1e7c246d76775126a6f69d112834fb7549a438bd5047a96fa063de9",
+    "full-02/idempotent-repeat-ui.png": "671be3f17cac46c5a044330d003feaad0ec74a9d9bc86ce174c8c804dd7349dd",
+    "full-02/library-enable-ui.png": "331cf6a70ababe47054b954436ab2ed302c6dda252a3d93a61101af8314f9c31",
+    "full-02/mutate-progress-ui.png": "3190e909264890c867196d8bc79cf0301f8d942ac2cf679b62409f8591ec2f6c",
+    "full-02/observe-history-ui.png": "40a4e4a0c6bdb7db950d017a5c671e8ace3ebcdccbabf6a3ab8c9a007ee047eb",
+    "full-02/offline-rename-ui.png": "8b9e1d390d1bdac51e11bc7fd2065e2cbfc54da601b2bc43740cb275682771ea",
+    "full-02/rename-android-ui.png": "ed764085ca0acf00de3bcf5d44dd225ff2ed841ac97805190bb1d6a7a4e73902",
+    "full-02/set-local-theme-ui.png": "345b02a3723e7a8aa92a83004bdc2201b80a7a7a5fdb10e0d730a44f09e8df8e",
+    "run-06/receive-desktop-ui.png": "710c7610a9fbabd28d9342ff881ece507ce55bdd26c70565bc78cc9301d50bee"
+  },
+  "personalDevicesTouched": false,
+  "nasTouched": false
+}

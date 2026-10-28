@@ -69,3 +69,14 @@ display/phone ownership boundary.
 ## Expanded library follow-up
 
 Playlists, Watch Later and latest per-video watch history are an explicit opt-in follow-up; see [library v2 contract](LIBRARY_V2.md). Existing subscription/resume enrollment does not silently enable the new data.
+
+
+## Real-app convergence campaign, 2026-10-28
+
+The [repeatable local campaign](REAL_APP_E2E.md) records actual Electron/Android/service
+checks for subscriptions/categories, offline/restart/conflict recovery and
+history/resume. All14 scenario rows passed; owned guest/privateADB/test service
+are stopped, independently reconciled READY at24/30 instrumentation attempts.
+These are test branches awaiting review, separate from import candidates.
+Sync is manual; no general settings propagation is implemented. Nonempty
+playlist/Watch Later item roundtrips and NAS/personal-library field gates remain.

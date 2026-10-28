@@ -1,27 +1,142 @@
-# Real local application convergence campaign (in progress)
+# Real local application convergence
 
-Issues: platform #47, desktop #17, Player #40. Parent DriveDeck #244.
+Refs platform #47, desktop #17, Player #40; parent DriveDeck #244.
 
-This test uses the real encrypted loopback service, a real Electron application with a fresh userData/DPAPI vault and a real DD PipePipe application in the separately reserved AOSP guest. It does not instantiate model-only client fixtures or prepopulate expected peer databases. Desktop actions go through the production preload IPC and actual NeDB handlers; Android actions use production subscription/feed repositories and MediaSyncClient with its real Room database and Keystore. Other-client storage and actual UI are observed separately from server acceptance.
+A real encrypted loopback service, an isolated real DD FreeTube Electron app, and
+an owned AOSP guest running the real DD PipePipe app completed the two-way campaign
+on 2026-10-28. The production sources are integrated main baselines; these branches
+add test drivers and evidence only. The import drafts platform46/desktop16/Player39
+are separate candidates, not silently substituted into this campaign.
 
-## Supported contract
+## Results
 
-The implemented kinds are subscription, resume, playlist, watch-later, history, profile and profile-member. Categories/profiles are named colored channel subsets, separate from video playlists. Provider titles/thumbnails, credentials, API tokens, device settings and paths remain local. No general portable preference/settings kind is implemented. Appearance, active profile, volume/output, download paths and provider/API credentials must not be described as syncing.
+| Action | Result | Whole action elapsed ms |
+|---|---|---:|
+| FreeTube -> PipePipe subscription/category | PASS | 15631 |
+| PipePipe -> FreeTube subscription/category | PASS | 18087 |
+| category rename and independent membership | PASS | 18949 |
+| global unsubscribe | PASS | 14845 |
+| category deletion preserves subscriptions | PASS | 14635 |
+| repeated manual sync is idempotent | PASS | 15169 |
+| Android offline queue survives app restart | PASS | 30249 |
+| service restart preserves generation and state | PASS | 15049 |
+| Electron restart preserves OS vault and converged profile | PASS | 5712 |
+| explicit concurrent rename conflict | PASS | 31304 |
+| expanded library opt-in and initial Watch Later conflict | PASS | 15206 |
+| FreeTube history and millisecond resume to Android | PASS | 15287 |
+| Android deliberate rewind and newer history to FreeTube | PASS | 15466 |
+| appearance settings stay local | PASS | 14860 |
 
-Both applications use explicit manual Sync actions. There is no automatic foreground/scheduled/real-time propagation. This campaign drives the same production sync commands and records trigger/latency; repeated manual actions check idempotency. Automatic propagation remains an unimplemented product choice.
+These are manual production Sync commands, not background propagation. Timings
+include app startup, instrumentation and UI observation; they are not pure network
+latency. Actual peer storage assertions are independent of service acceptance.
+Native Subscriptions/History and desktop Profile Manager screens are captured;
+this does not imply that every metadata field was visually inspected. The initial
+milestone desktop screenshot caught a fade; the later same-profile app restart
+waited for full paint and supplies readable UI proof.
 
-## Sources and invocation
+The concurrent rename conflict was surfaced and explicitly resolved with **Use
+remote**. Expanded library opt-in also exposed an initial empty Watch Later conflict,
+which was explicitly resolved and retained in the receipt. There is no blanket
+auto-resolution. History preserved an unrelated desktop title, converted 12.345s to
+12345ms, and propagated a deliberate Android rewind of 5000ms back as 5 seconds.
 
-The first milestone starts from integrated main baselines: platform d128ec1, desktop 18e2a90, Player f6ee480. Branches add test drivers only; the separate import drafts platform46/desktop16/Player39 are not silently substituted. Frozen test heads and app/runner hashes are recorded before installation. Room3 was a prior, explicitly recorded candidate run on the same owned guest; the runner clears ONLY its owned test app data before this clean transition.
+There is **no general portable settings kind** and **no automatic sync**. Desktop
+Light and Android Dark remained independent. Provider credentials, OS preferences,
+active profile, output/volume, file paths and provider metadata remain local.
+The protocol supports subscription/resume/playlist/watch-later/history/profile/
+profile-member, but this campaign does not qualify nonempty playlist or Watch Later
+item roundtrips, provider playback/audio, real personal libraries, LAN HTTPS, or NAS.
 
-After building the pinned desktop bundles and Android test APK, invoke from the platform checkout:
+Machine-readable expected/observed data, artifact/source pins and hashes of local
+raw logs/screenshots are in [real-app-campaign-20261028.json](real-app-campaign-20261028.json).
+The full campaign was executed as an initial milestone followed by a continuation
+of the same synthetic dataset; a fresh all-in-one invocation is supported by the
+runner but has not been executed as one uninterrupted campaign.
+
+All scenarios passed. The original final command returned failure because its
+PowerShell empty-listener query exited nonzero after the resources had stopped.
+The original result is retained. An independent read-only check verified the exact
+owned PIDs gone and ports5594/5595/5067/8872 free, reconciled the slot to READY, and
+consumed no extra device invocation. The reporter fix has five focused tests,
+including a real Windows empty-port inventory. Whole campaign:24/30 method attempts,
+including3 prior Room tests and conservatively counted setup failures. No personal
+device was enumerated or selected. The separately requested synthetic portal8861
+is intentionally retained; it is not the test database.
+
+## Reproduce
+
+Windows x64, Node24 (observed24.22.1), frozen pnpm10.34.7 dependencies, JDK25,
+Gradle9.5.1 and Android SDK37 are prerequisites. Keep checkouts and outputs in
+D:/tmp/dd. Use the three issue branches together. In the desktop checkout:
 
 ```powershell
-node tools/media-sync/real-app-e2e.mjs --desktop D:/tmp/dd/actual-sync-e2e-20261028/desktop --player D:/tmp/dd/actual-sync-e2e-20261028/player --slot D:/tmp/dd/sync-validation-20261028/android-test-set.json --output D:/tmp/dd/actual-sync-e2e-20261028/run-NEW
+pnpm install --frozen-lockfile
+pnpm run pack
+$env:CSC_IDENTITY_AUTO_DISCOVERY='false'
+# Clear any CSC_LINK/CSC_KEY_PASSWORD/WIN_CSC_LINK/WIN_CSC_KEY_PASSWORD variables
+# from this test shell before packaging. Never supply release signing credentials.
+pnpm exec electron-builder --config _scripts/ebuilder.config.mjs --win --x64 --dir --publish never
 ```
 
-A separately assigned OWN test set is mandatory: fresh API36 AOSP default x86_64, emulator5594, 2 cores/2560MiB/headless/no accounts/snapshots/audio; the private ADB server5067 filters USB and every call has an explicit serial. The runner verifies AVD/PID/creation identity, caps the campaign at30 method invocations (including prior3), and preserves production loopback-only HTTP validation through adb reverse. It does not create or claim arbitrary existing emulators. The loopback QA portal on8861 has a separate database and stays available for human inspection; E2E uses8872.
+In the Player checkout, initialize the pinned extractor submodule and build only
+(the build never discovers devices):
 
-First milestone: FreeTube subscription/category creation -> service -> Android storage/UI, then Android repository changes -> service -> desktop storage/UI. JSON results include expected/observed state, explicit sync trigger and elapsed time. Screenshots/logs/configs stay in fresh D:/tmp/dd output. Enrollment keys/tokens are random, protected and synthetic; never commit them. During the initial bounded milestone the owned guest remains reserved for follow-up, with a mandatory final teardown/READY receipt before handback. A final runner must provide complete process/resource teardown after the full campaign.
+```powershell
+git submodule update --init --recursive
+./gradlew.bat --no-daemon --max-workers=2 assembleDebug assembleDebugAndroidTest
+```
 
-Remaining expansion: membership/rename and deletion, idempotency, service/client restart, offline queue/reconnect and explicit conflicts; history/resume where supported. Actual isolated UI, source/adapter and service evidence remain distinct. Nothing here authorizes merge, release/signing, personal installations or NAS deployment.
+A separately reserved OWN fresh API36 default AOSP x86_64 guest is mandatory.
+The current bounded recipe deliberately requires emulator5594 (ports5594/5595),
+private ADB5067 with `--one-device DD_SYNC_NO_USB`,2 cores/2560MiB/headless/no
+accounts/no snapshots/no audio. Store its exact launcher/QEMU/privateADB PID,
+CreationDate and CommandLine receipt as `owned-processes-before-install.json`
+beside the slot. The slot JSON records guest identity, `invocationCap:30` and the
+current `invocations`. The checked evidence records its shape. Never reuse this
+completed READY slot or an arbitrary running emulator: reserve a fresh set with a
+new receipt. The script does not bootstrap or claim an existing AVD automatically.
+
+The coordinator currently uses the documented local tool locations
+`D:/tmp/dd/youtube-player-sdk/{platform-tools/adb.exe,build-tools/36.0.0/aapt2.exe}`;
+provision those before running. It verifies source cleanliness and all artifact,
+manifest/package/ABI/runner identities before installing ONLY the owned Test apps.
+No source edits while a build/campaign executes. From the platform checkout the
+single campaign command is:
+
+```powershell
+node tools/media-sync/real-app-e2e.mjs --desktop D:/tmp/dd/actual-sync-e2e-20261028/desktop --player D:/tmp/dd/actual-sync-e2e-20261028/player --slot D:/tmp/dd/sync-validation-NEW/android-test-set.json --output D:/tmp/dd/actual-sync-e2e-NEW
+```
+
+The default `--suite full` runs both initial directions and all expanded scenarios;
+`--suite milestone` runs only the first two directions and explicitly retains the
+reserved guest for bounded follow-up. A successful full run closes the Electron
+app, HTTP listener/database, owned emulator and private ADB, verifies released ports,
+and records READY. A failed data phase intentionally preserves the reserved guest
+for diagnosis: it must be explicitly reconciled/cleaned before handback. A process
+identity mismatch fails closed. Never kill an unverified replacement PID.
+
+`--continue <milestone-directory>` reuses only that exact protected synthetic
+owner/service/profile, without overwriting expected peer data. This is the mode
+actually used for the expanded evidence. `--resume <failed-full-directory>` with
+`--continue` can copy previously passed named receipts with their evidence origin;
+that optimization is implemented but not runtime-qualified. Do not call it a new
+fresh run. Outputs include results.json, RESULTS.md, pins-before-install.json,
+raw instrumentation/driver logs and actual UI PNGs. Protected enrollment files,
+vaults/databases and synthetic credentials stay out of Git.
+
+## Test boundaries
+
+Desktop mutations use production preload IPC and actual NeDB handlers; Android
+mutations use production subscription/feed/history/state repositories and the
+real NewPipeDatabase/Keystore/MediaSyncClient. No mocked sync engine or injected
+expected peer database is used. The driver disables background provider fetching
+and update checks only in its fresh synthetic profile, restricts test network
+requests to loopback, and suppresses protocol registration. The normal Electron
+sandbox and application assets remain. Literal127.0.0.1 HTTP uses the existing
+production validation via explicitly targeted adb reverse; no CA/TLS/firewall or
+host binding is weakened. Test-only notification permission is granted only to the
+disposable guest app so its unrelated first-run explanation cannot cover proof UI.
+
+Review/merge, distribution, signing, personal-device enrollment and NAS deployment
+remain separate gates. Related field-validation issues remain open.
