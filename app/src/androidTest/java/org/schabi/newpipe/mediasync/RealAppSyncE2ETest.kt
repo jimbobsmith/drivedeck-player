@@ -12,6 +12,13 @@ import org.json.JSONObject
 import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
+import androidx.preference.PreferenceManager
+import org.schabi.newpipe.R
+import org.schabi.newpipe.database.stream.model.StreamStateEntity
+import org.schabi.newpipe.database.history.model.StreamHistoryEntity
+import java.time.Instant
+import java.time.OffsetDateTime
+import java.time.ZoneOffset
 import org.schabi.newpipe.MainActivity
 import org.schabi.newpipe.NewPipeDatabase
 import org.schabi.newpipe.local.feed.FeedDatabaseManager
@@ -36,7 +43,11 @@ class RealAppSyncE2ETest {
         db.query("SELECT url FROM subscriptions WHERE service_id=0 ORDER BY url", null).use {
             while (it.moveToNext()) subscriptions.put(it.getString(0).substringAfterLast('/'))
         }
-        return JSONObject().put("subscriptions", subscriptions)
+        val resumes = JSONArray()
+        db.query("SELECT s.url,p.progress_time FROM streams s JOIN stream_state p ON p.stream_id=s.uid WHERE s.service_id=0", null).use { while(it.moveToNext()) resumes.put(JSONObject().put("id", it.getString(0).substringAfter("v=")).put("positionMs", it.getLong(1))) }
+        return JSONObject().put("subscriptions", subscriptions).put("resumes", resumes)
+            .put("library", JSONArray(if(client.status().optBoolean("libraryEnabled")) MediaSyncLibrary(db).snapshot() else emptyList<JSONObject>()))
+            .put("localTheme", PreferenceManager.getDefaultSharedPreferences(context).getString(context.getString(R.string.theme_key), "default"))
             .put("profiles", JSONArray(MediaSyncProfiles(db).snapshot().filter { it.getString("kind") == "profile" }))
             .put("memberships", JSONArray(MediaSyncProfiles(db).snapshot().filter { it.getString("kind") == "profile-member" }))
             .put("status", client.status())
@@ -44,7 +55,7 @@ class RealAppSyncE2ETest {
     private fun visibleProof(phase: String, expected: String): JSONObject {
         var visible = ""
         ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)).use { scenario ->
-            scenario.onActivity { NavigationHelper.openSubscriptionFragment(it.supportFragmentManager) }
+            scenario.onActivity { if (args.getString("screen") == "history") NavigationHelper.openStatisticFragment(it.supportFragmentManager) else NavigationHelper.openSubscriptionFragment(it.supportFragmentManager) }
             val deadline = SystemClock.elapsedRealtime() + 15000
             fun text(node: android.view.accessibility.AccessibilityNodeInfo?, depth: Int = 0): String {
                 if (node == null || depth > 30) return ""
@@ -85,6 +96,10 @@ class RealAppSyncE2ETest {
         client.enableProfiles()
         val started = SystemClock.elapsedRealtime()
         val result: JSONObject
+        val extra = JSONObject()
+        val repository = FeedDatabaseManager(context)
+        fun group(name: String): Long = db.query("SELECT uid FROM feed_group WHERE name=?", arrayOf(name)).use { require(it.moveToFirst()) { "Missing group: $name" }; it.getLong(0) }
+        fun rename(before: String, after: String): Long { val uid = group(before); val old = repository.getGroup(uid).blockingGet()!!; repository.updateGroup(old.copy(name = after)).blockingAwait(); return uid }
         when (phase) {
             "receive-desktop" -> {
                 result = client.sync()
@@ -110,6 +125,34 @@ class RealAppSyncE2ETest {
                 repository.updateSubscriptionsForGroup(uid, listOf(inserted.single().uid)).blockingAwait()
                 result = client.sync()
             }
+            "rename-android" -> {
+                val uid = rename("Android projects", "Android projects renamed")
+                val channelUid = db.query("SELECT uid FROM subscriptions WHERE service_id=0 AND url=?", arrayOf("https://www.youtube.com/channel/$channelA")).use { require(it.moveToFirst()); it.getLong(0) }
+                repository.updateSubscriptionsForGroup(uid, listOf(channelUid)).blockingAwait()
+                result = client.sync()
+            }
+            "delete-category" -> { repository.deleteGroup(group("Android projects renamed")).blockingAwait(); result = client.sync() }
+            "offline-rename" -> { rename("Desktop science", "Android queued science"); result = client.sync(); assertTrue(client.status().getInt("pending") > 0) }
+            "conflict-rename" -> { rename("Android queued science", "Android conflict choice"); result = client.sync() }
+            "library-enable" -> {
+                client.enableLibrary(); val initial = client.sync(); extra.put("initialLibraryResult", initial)
+                result = if(initial.optString("code") == "conflict") { assertEquals(1, initial.getInt("conflicts")); extra.put("explicitResolution", "use-remote for initial empty Watch Later"); client.sync("use-remote") } else initial
+            }
+            "observe-history" -> {
+                result = client.sync(); val state = snapshot(client)
+                assertTrue(state.getJSONArray("resumes").toString().contains("12345"))
+                assertTrue(state.getJSONArray("library").toString().contains("1800000000000"))
+            }
+            "mutate-progress" -> {
+                val uid = db.query("SELECT uid FROM streams WHERE service_id=0 AND url=?", arrayOf("https://www.youtube.com/watch?v=abcdefghijk")).use { require(it.moveToFirst()); it.getLong(0) }
+                db.streamStateDAO().upsert(StreamStateEntity(uid, 5000))
+                db.streamHistoryDAO().insert(StreamHistoryEntity(uid, OffsetDateTime.ofInstant(Instant.ofEpochMilli(1800000001000), ZoneOffset.UTC), 1))
+                result = client.sync()
+            }
+            "set-local-theme" -> {
+                PreferenceManager.getDefaultSharedPreferences(context).edit().putString(context.getString(R.string.theme_key), context.getString(R.string.dark_theme_key)).commit()
+                result = client.sync()
+            }
             "repeat" -> result = client.sync()
             "remove-android" -> {
                 SubscriptionManager(context).deleteGlobalSubscription(0, "https://www.youtube.com/channel/$channelB").blockingAwait()
@@ -117,10 +160,10 @@ class RealAppSyncE2ETest {
             }
             else -> error("unknown bounded phase")
         }
-        assertEquals("synced", result.getString("code"))
+        assertEquals(if(phase == "offline-rename") "offline" else "synced", result.getString("code"))
         val state = snapshot(client).put("phase", phase).put("syncTrigger", "explicit production MediaSyncClient.sync (same settings action)")
-            .put("elapsedMs", SystemClock.elapsedRealtime() - started).put("serviceResult", result)
-        state.put("ui", visibleProof(phase, if (phase == "receive-desktop") "Desktop science" else "Android projects"))
+            .put("elapsedMs", SystemClock.elapsedRealtime() - started).put("serviceResult", result).put("extra", extra)
+        state.put("ui", visibleProof(phase, args.getString("expectedUi") ?: if (phase == "receive-desktop") "Desktop science" else "Android projects"))
         File(context.filesDir, "e2e/$phase.json").writeText(state.toString(2))
         instrumentation.sendStatus(0, Bundle().apply { putString("dd_e2e_state", state.toString()) })
     }
