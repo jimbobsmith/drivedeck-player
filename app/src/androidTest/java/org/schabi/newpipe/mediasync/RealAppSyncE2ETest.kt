@@ -89,6 +89,16 @@ class RealAppSyncE2ETest {
             "receive-desktop" -> {
                 result = client.sync()
                 val state = snapshot(client)
+                val diagnostics = JSONObject().put("phase", phase).put("state", state).put("syncResult", result)
+                    .put("loopbackCleartextPermitted", android.security.NetworkSecurityPolicy.getInstance().isCleartextTrafficPermitted("127.0.0.1"))
+                try {
+                    val probe = okhttp3.OkHttpClient.Builder().connectTimeout(3, java.util.concurrent.TimeUnit.SECONDS).callTimeout(5, java.util.concurrent.TimeUnit.SECONDS).build()
+                    probe.newCall(okhttp3.Request.Builder().url(config.getString("endpoint") + "/healthz").build()).execute().use { diagnostics.put("healthStatus", it.code) }
+                } catch (error: Exception) { diagnostics.put("healthError", error.javaClass.simpleName + ": " + error.message?.take(200)) }
+                instrumentation.sendStatus(0, Bundle().apply { putString("dd_e2e_checkpoint", diagnostics.toString()) })
+                File(context.filesDir, "e2e").mkdirs()
+                File(context.filesDir, "e2e/$phase-checkpoint.json").writeText(diagnostics.toString(2))
+                assertEquals("Explicit production sync failed: " + diagnostics, "synced", result.optString("code"))
                 assertTrue(state.getJSONArray("subscriptions").toString().contains(channelA))
                 assertTrue(state.getJSONArray("profiles").toString().contains("Desktop science"))
             }
