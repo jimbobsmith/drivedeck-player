@@ -58,7 +58,7 @@ All scenarios passed. The original final command returned failure because its
 PowerShell empty-listener query exited nonzero after the resources had stopped.
 The original result is retained. An independent read-only check verified the exact
 owned PIDs gone and ports5594/5595/5067/8872 free, reconciled the slot to READY, and
-consumed no extra device invocation. The reporter fix has five focused tests,
+consumed no extra device invocation. The reporter fix has six focused tests,
 including a real Windows empty-port inventory. Whole campaign:24/30 method attempts,
 including3 prior Room tests and conservatively counted setup failures. No personal
 device was enumerated or selected. The separately requested synthetic portal8861
@@ -140,3 +140,9 @@ disposable guest app so its unrelated first-run explanation cannot cover proof U
 
 Review/merge, distribution, signing, personal-device enrollment and NAS deployment
 remain separate gates. Related field-validation issues remain open.
+
+
+Post-run harness hardening also rejects reusing a released READY slot and attempts
+HTTP/database closure even if Electron shutdown fails. These error paths have
+focused unit coverage; the passing full data campaign was not repeated for these
+reporting/cleanup-only changes.
