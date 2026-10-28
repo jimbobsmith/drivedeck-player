@@ -57,3 +57,7 @@ See `import-evidence.json`. Tests cover shipped WASM and native SQLite with DEFL
 Browser visual/worker-upload QA is unverified: two preview-tab attachments timed out despite HTTP/API/assets responding. No alternate control workaround was used. New Android instrumentation, portrait/landscape UI, personal libraries, provider metadata, real cross-device convergence and NAS/private pull/reboot/restore remain open. No shared device or emulator was used.
 
 Last verified private image remains source 9bae1c9, digest `sha256:c1589ea4c6e67c22d571158f533483094a1f61cb636c78f83f078f7dd1ec351f`. It predates profiles/imports. Review and authorized merges, separately approved image/client publication, NAS installation, compatible updates on every client and explicit enrollment/opt-in must precede personal use. No new release/deployment is claimed.
+
+## Room runtime checkpoint, 2026-10-28
+
+All three new LibraryImportRoomTest methods pass on one fresh, isolated AOSP API36 default x86_64 guest at frozen Player39 source 752decc. Actual target app and runner hashes were resolved before install; see `room-runtime-20261028.json`. This proves preview/idempotency, full rollback and preservation of unrelated non-YouTube lists. It does not prove import Activity portrait/landscape UI or personal-library convergence. The bounded campaign consumed 3/30 invocations and is transitioning to the separately tracked real-app E2E task Player #40; personal devices/NAS remain untouched.

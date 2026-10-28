@@ -1,0 +1,51 @@
+{
+  "date": "2026-10-28",
+  "source": "752decc6f87876402acfb58066ad27fe735972a9",
+  "sourceKind": "Player39 draft candidate; integrated main remains separate",
+  "appId": "com.drivedeck.player.test",
+  "runnerAppId": "com.drivedeck.player.test.test",
+  "runnerClass": "androidx.test.runner.AndroidJUnitRunner",
+  "aaptTarget": "com.drivedeck.player.test",
+  "abi": "x86_64",
+  "invocationCap": 30,
+  "invocations": 3,
+  "plannedRoomMethods": [
+    "previewIsReadOnlyAndRepeatedCommitKeepsOneCategoryAndSubscription",
+    "lateProjectionFailureRollsBackWholeMergeAndMappings",
+    "unrelatedNonYoutubePlaylistDoesNotBlockCategoryImport"
+  ],
+  "roomResult": {
+    "passed": 3,
+    "failed": 0,
+    "log": "room-run-1.txt"
+  },
+  "artifacts": [
+    {
+      "sha256": "f7fdd7e3a94b6001e3c588bd5b85b6969f4ca5659f54b97d0822152b6c239a2f",
+      "bytes": 69480423
+    },
+    {
+      "sha256": "d9ec1a497485060c31bb7e13a3f5e1764b04e47d70dc4e5795e2a39bc4ff299c",
+      "bytes": 652751
+    }
+  ],
+  "ownedGuest": {
+    "api": 36,
+    "tag": "AOSP default",
+    "imageRevision": 2,
+    "cores": 2,
+    "ramMiB": 2560,
+    "headless": true,
+    "snapshots": false,
+    "accounts": false,
+    "network": "guest radios disabled; private loopback-only ADB transport"
+  },
+  "personalDevicesTouched": false,
+  "nasTouched": false,
+  "logSha256": "e48d6d9f22291613486b29180646850ca5018400690330d60038baf99161c34d",
+  "remaining": [
+    "portrait/landscape import activity UI",
+    "personal-library imports and actual cross-client convergence",
+    "review/merge/release/deployment authority unchanged"
+  ]
+}
