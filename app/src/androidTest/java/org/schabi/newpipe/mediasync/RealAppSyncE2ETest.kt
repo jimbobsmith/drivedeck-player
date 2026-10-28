@@ -82,7 +82,7 @@ class RealAppSyncE2ETest {
             secrets.save(config)
         }
         val client = MediaSyncClient(db, secrets.load())
-        client.enableLibrary(); client.enableProfiles()
+        client.enableProfiles()
         val started = SystemClock.elapsedRealtime()
         val result: JSONObject
         when (phase) {
