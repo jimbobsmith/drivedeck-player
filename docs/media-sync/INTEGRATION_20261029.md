@@ -24,3 +24,5 @@ publication, NAS action or device installation is part of this integration.
 
 Final merge IDs/authoritative branch heads are recorded on the linked issues;
 implementation and test/doc ancestry are verified after GitHub merges.
+
+Combined frozen input `6c71b27adf9d9a7251de5a92cd9f7581f468f5a8` passes app and combined instrumentation builds, validates66 successful JVM test outputs, writes the195-artifact runtime audit and passes Test APK manifest/identity audit. The audit initially failed under configuration cache; rerunning the supported command with `--no-configuration-cache` passes, with no audit/project setting change. Raw failures are retained. See `integration-evidence-20261029.json`; no guest or personal device was installed or operated. Later receipt commits change documentation only.

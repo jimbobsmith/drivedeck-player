@@ -1,0 +1,50 @@
+{
+  "date": "2026-10-29",
+  "issue": 40,
+  "importPR": 39,
+  "importMerge": "bd235bd76c03b209aa6ebb46e392589e8b410017",
+  "checkedCombinedHead": "6c71b27adf9d9a7251de5a92cd9f7581f468f5a8",
+  "productionSource": "identical to reviewed merged import source; new campaign instrumentation class compiles alongside import Room class",
+  "tools": {
+    "jdk": "25.0.4.1+1",
+    "gradle": "9.5.1",
+    "androidSdk": 37
+  },
+  "checks": {
+    "testDebugUnitTest": {
+      "passed": 66,
+      "failed": 0,
+      "upToDate": "Gradle validated cached successful test outputs on rerun"
+    },
+    "assembleDebug": "PASS",
+    "assembleDebugAndroidTest": "PASS; both test classes compile, not executed",
+    "writeFoundationRuntimeAudit": {
+      "status": "PASS",
+      "artifacts": 195,
+      "sha256": "2a4b448cd29dd47eb523f6c35da85a2032d567c94f33ae304309fcff178ff19b",
+      "configurationCache": false
+    },
+    "apkManifestIdentity": "PASS Test package/label, backup disabled, no forbidden runtime components"
+  },
+  "initialFailure": "Runtime audit uses execution-time Gradle model access incompatible with configuration cache; initial failure retained, supported --no-configuration-cache rerun passes. No project setting or audit code changed.",
+  "apk": {
+    "file": "DriveDeckPlayer_0.1.0-alpha02-x86_64-debug.apk",
+    "bytes": 69308251,
+    "sha256": "1d4e7b8878d196c5280813e6076aefbebfde2dc768ff0170aa730bd3b673c5e5",
+    "package": "com.drivedeck.player.test",
+    "label": "DriveDeck Player Test",
+    "allowBackup": false,
+    "allowedAndroidAutoMetadata": [
+      "com.google.android.gms.car.application",
+      "com.google.android.gms.car.notification.SmallIcon"
+    ]
+  },
+  "logHashes": {
+    "player-combined-build.log": "fb631b59b82b246dd6f7c227d4d16263fb43ea9a9d9c19afa5d492a120be1127",
+    "player-combined-no-config-cache.log": "0af541ce230aeeb18cedbf19f2e596351eeabd96408b3c9f4c8a014bc841a9c4"
+  },
+  "runtimeClaims": "Original14 campaign rows and3 import Room methods retain their separate historical inputs; no combined-source runtime rerun or device install claimed.",
+  "noReleasePublication": true,
+  "noPersonalDeviceAction": true,
+  "noNasAction": true
+}
