@@ -81,6 +81,10 @@ public class BackupSettingsFragment extends BasePreferenceFragment {
         importExportDataPathKey = getString(R.string.import_export_data_path);
 
         addPreferencesFromResourceRegistry();
+        Objects.requireNonNull(this.<Preference>findPreference("dd_library_import")).setOnPreferenceClickListener(p -> {
+            startActivity(new Intent(requireContext(), LibraryImportActivity.class));
+            return true;
+        });
 
         final Preference importDataPreference = requirePreference(R.string.import_data);
         importDataPreference.setOnPreferenceClickListener((Preference p) -> {
