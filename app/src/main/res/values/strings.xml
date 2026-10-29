@@ -1121,7 +1121,7 @@
 <string name="player_updates_unavailable">Development build</string>
 <string name="player_updates_unavailable_summary">Automatic updates are unavailable. Install a reviewed DriveDeck Player build manually. PipePipe releases cannot update this application.</string>
     <string name="media_sync_profiles">Enable profile sync</string>
-    <string name="media_sync_profiles_confirm">Share profile names, colors and YouTube subscription subsets with your other devices? Profiles share watch history and the All Channels library, just like FreeTube. Once profile data is shared, older clients stop syncing this library until compatible profile support is installed and enabled. The current browser library editor also stops editing and syncing; browser enrollment and account tools remain available. Update the sync service first. Existing groups become profiles; non-YouTube channels stay local. Profile sync is separate from playlist and history sync.</string>
+    <string name="media_sync_profiles_confirm">Share profile names, colors and YouTube subscription subsets with your other devices? Profiles share watch history and the All Channels library, just like FreeTube. Once profile data is shared, older clients stop syncing this library until compatible profile support is installed and enabled. Older browser portals also stop editing and syncing. Use a compatible updated portal; browser enrollment and account tools remain available. Update the sync service first. Existing groups become profiles; non-YouTube channels stay local. Profile sync is separate from playlist and history sync.</string>
     <string name="media_sync_profiles_upgrade">This library uses profiles. Update this app and enable profile sync before syncing again.</string>
     <string name="media_sync_profiles_limit">Profile cannot be synced. Use a name within 160 UTF-8 bytes and canonical YouTube channels. No profile was truncated.</string>
     <string name="profile_all_channels">All Channels</string>
@@ -1131,4 +1131,12 @@
     <string name="profile_invalid_color">Enter two colors in #RRGGBB format</string>
     <string name="profile_selected">Selected profile: %1$s</string>
     <string name="profile_remove_channel">Remove from profile</string>
+    <string name="library_import_title">Import FreeTube / PipePipe library</string>
+    <string name="library_import_description">Preview and add subscriptions, categories, playlists, Watch Later, watch history and progress from export files. Files stay on this device; preferences and credentials are excluded.</string>
+    <string name="library_import_choose">Choose exports and preview</string>
+    <string name="library_import_confirm">Confirm additive merge</string>
+    <string name="library_import_merge_help">Existing items are retained. Current category names, colors and saved progress win; newer history and missing list occurrences are added. Categories are channel groups, not playlists. A different PipePipe backup creates independent categories/lists. Limits: 64 MiB, 5,000 records, 200 videos/list and 1,000 changes per merge. Sync is separate and manual.</string>
+    <string name="library_import_canceled">Import canceled. Your library is unchanged.</string>
+    <string name="library_import_failed">Import could not complete. Check the format, supported YouTube IDs and size limits. Your existing library is retained.</string>
+    <string name="library_import_done">Library merged locally. Use Sync now separately when ready.</string>
 </resources>

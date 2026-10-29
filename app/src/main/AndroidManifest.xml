@@ -583,5 +583,6 @@
             android:resource="@xml/automotive_app_desc" />
         <meta-data android:name="com.google.android.gms.car.notification.SmallIcon"
             android:resource="@mipmap/ic_launcher" />
+        <activity android:name=".settings.LibraryImportActivity" android:exported="false" />
     </application>
 </manifest>

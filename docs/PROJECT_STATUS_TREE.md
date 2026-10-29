@@ -34,3 +34,7 @@ Updated: 2026-10-18. Product line: `main`. Foundation PR #3 merged at `832a88245
 - [ ] Complete native dependency/source/notice, privacy, compatibility and release audit.
 
 See `docs/foundation/RESULTS.md` for measured outcomes and remaining gates. A checkbox for a compile or synthetic test is not a claim of product or provider completeness.
+
+## Cross-app library imports (#38)
+
+2026-10-27 review candidate: local export preview/explicit additive merge, recovery safeguards and category-capable themed portal. See [scope and gates](media-sync/IMPORTS.md). Native profiles were already integrated. This extension is not merged/released/deployed; browser UI, Android instrumentation and personal-library/NAS gates remain open. No shared devices touched.
