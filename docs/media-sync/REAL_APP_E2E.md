@@ -4,9 +4,10 @@ Refs platform #47, desktop #17, Player #40; parent DriveDeck #244.
 
 A real encrypted loopback service, an isolated real DD FreeTube Electron app, and
 an owned AOSP guest running the real DD PipePipe app completed the two-way campaign
-on 2026-10-28. The production sources are integrated main baselines; these branches
-add test drivers and evidence only. The import drafts platform46/desktop16/Player39
-are separate candidates, not silently substituted into this campaign.
+on 2026-10-28. This historical run used the exact integrated main baselines plus test-only
+drivers recorded in the receipt. It did not contain the separate import
+candidates. Later integration combines import code and test drivers; the old
+14 runtime rows do not qualify that combined source.
 
 ## Results
 
@@ -146,3 +147,14 @@ Post-run harness hardening also rejects reusing a released READY slot and attemp
 HTTP/database closure even if Electron shutdown fails. These error paths have
 focused unit coverage; the passing full data campaign was not repeated for these
 reporting/cleanup-only changes.
+
+
+## Integration and qualification
+
+The import implementation is integrated separately from this historical campaign.
+[2026-10-29 integration evidence](INTEGRATION_20261029.md) records exact inputs,
+combined-source unit/build checks and current field gates. The historical JSON
+keeps its original candidate/no-merge facts as of its measurement date. Actual
+merge commits and final heads are tracked on issues38/40. No old runtime
+row is relabelled as a new combined-source test. Future runner pins describe the
+actual checkout SHAs rather than asserting that imports are excluded.

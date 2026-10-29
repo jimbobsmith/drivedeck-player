@@ -1,7 +1,7 @@
 # Library imports and browser categories (2026-10-27 review candidate)
 
 Tracking: platform #45, desktop #15, Player #38; parent DriveDeck #244.
-Native profiles are integrated in platform PR #44, desktop PR #14 and Player PR #33. This extension is under review, not released or deployed. All field-validation issues remain open.
+Native profiles are integrated in platform PR #44, desktop PR #14 and Player PR #33. The importer is integrated by PR#39 (`bd235bd76c03`). It is not released or deployed. All field-validation issues remain open.
 
 ## Categories and appearance
 
@@ -64,3 +64,6 @@ All three new LibraryImportRoomTest methods pass on one fresh, isolated AOSP API
 
 
 Current cross-repository evidence: [portal UI PR46](https://github.com/jimbobsmith/drivedeck-platform/pull/46), [desktop import UI PR16](https://github.com/jimbobsmith/drivedeck-desktop/pull/16), [Room import runtime PR39](https://github.com/jimbobsmith/drivedeck-player/pull/39). The separate [real-app campaign PR48](https://github.com/jimbobsmith/drivedeck-platform/pull/48) uses integrated production baselines plus test-only drivers, not these import candidates:14 synthetic scenario rows passed, manual Sync only, no general settings kind. It records offline/restart/conflict and history/resume checks, with owned resource handback independently reconciled READY at24/30 attempts. Nonempty playlist/Watch Later cross-app item roundtrips and production-library qualification remain open.
+
+
+Current integration evidence: [2026-10-29 inputs and qualification](INTEGRATION_20261029.md). Earlier candidate flags in dated JSON receipts are historical, not current integration status.

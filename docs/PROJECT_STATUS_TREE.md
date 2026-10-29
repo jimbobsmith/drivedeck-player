@@ -37,4 +37,4 @@ See `docs/foundation/RESULTS.md` for measured outcomes and remaining gates. A ch
 
 ## Cross-app library imports (#38)
 
-2026-10-27 review candidate: local export preview/explicit additive merge, recovery safeguards and category-capable themed portal. See [scope and gates](media-sync/IMPORTS.md). Native profiles were already integrated. This extension is not merged/released/deployed; browser UI, Android instrumentation and personal-library/NAS gates remain open. No shared devices touched.
+Import implementation is integrated via PR39 at `bd235bd76c03`. The dated candidate receipts are historical. Three isolated Room import tests passed; browser and desktop UI evidence are separate. [Integration qualification](media-sync/INTEGRATION_20261029.md) distinguishes combined-source compile/unit checks from the original runtime campaign. Import Activity orientation, personal libraries/provider metadata, nonempty cross-app playlist/Watch Later, NAS and release gates remain open. No personal target was selected.
