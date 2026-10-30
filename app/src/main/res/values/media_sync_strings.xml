@@ -2,6 +2,19 @@
 <resources>
     <string name="media_sync_title">Personal media sync</string>
     <string name="media_sync_description">Optional manual subscription and resume sync with your self-hosted service. Playback and DD control remain local.</string>
+    <string name="media_sync_connect">Sign in with a code</string>
+    <string name="media_sync_connect_summary">In your sync portal, select Connect a device. Enter the service address and the one-time code it shows. The code works once and expires after 10 minutes.</string>
+    <string name="media_sync_address">Service address (https://…)</string>
+    <string name="media_sync_code">Connect code</string>
+    <string name="media_sync_device_name">Device name</string>
+    <string name="media_sync_device_default">DD PipePipe</string>
+    <string name="media_sync_sign_in">Sign in</string>
+    <string name="media_sync_code_rejected">That code was not accepted. It may be mistyped, used already or expired. Create a new code in the portal.</string>
+    <string name="media_sync_code_invalid">Check the code. It has 26 letters and numbers, usually shown in groups of four.</string>
+    <string name="media_sync_address_invalid">Enter the service address starting with https://, with no path after it.</string>
+    <string name="media_sync_device_name_invalid">Enter a device name of up to 96 bytes.</string>
+    <string name="media_sync_too_many_attempts">Too many sign-in attempts. Wait a minute and try again.</string>
+    <string name="media_sync_device_quota">Your account has reached its device limit. Revoke an old device in the portal first.</string>
     <string name="media_sync_import">Import protected enrollment</string>
     <string name="media_sync_import_summary">Choose the owner-created enrollment file and enter its passphrase. Keep the protected recovery copy private. No provider accounts or automatic playback.</string>
     <string name="media_sync_passphrase">Enrollment passphrase</string>
@@ -11,7 +24,7 @@
     <string name="media_sync_disconnect">Disconnect and forget enrollment</string>
     <string name="media_sync_confirm">This affects sync enrollment or resolves all current conflicts. Local playback remains available. Continue?</string>
     <string name="media_sync_disconnected">Disconnected. Your library remains local.</string>
-    <string name="media_sync_ready">Enrolled. Select Sync now to exchange subscriptions and resume positions.</string>
+    <string name="media_sync_ready">Connected. Select Sync now to exchange subscriptions and resume positions.</string>
     <string name="media_sync_synced">Sync complete.</string>
     <string name="media_sync_offline">Service unavailable. Local playback and pending changes remain available.</string>
     <string name="media_sync_pending">Local changes are waiting. Select Sync now to send them.</string>

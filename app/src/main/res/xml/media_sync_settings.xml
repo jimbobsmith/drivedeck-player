@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" android:title="@string/media_sync_title">
     <Preference android:key="media_sync_status" android:title="@string/media_sync_title" android:summary="@string/media_sync_description" android:selectable="false" />
+    <Preference android:key="media_sync_connect" android:title="@string/media_sync_connect" android:summary="@string/media_sync_connect_summary" />
     <Preference android:key="media_sync_import" android:title="@string/media_sync_import" android:summary="@string/media_sync_import_summary" />
     <Preference android:key="media_sync_library" android:title="@string/media_sync_library" />
     <Preference android:key="media_sync_profiles" android:title="@string/media_sync_profiles" />
