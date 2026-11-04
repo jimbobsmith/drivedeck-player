@@ -1,8 +1,12 @@
 package org.schabi.newpipe.mediasync
 
-import com.sun.net.httpserver.HttpServer
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.OkHttpClient
+import okhttp3.Protocol
+import okhttp3.Response
+import okhttp3.ResponseBody.Companion.toResponseBody
+import okio.Buffer
 import org.json.JSONObject
-import org.junit.After
 import org.junit.Assert.assertArrayEquals
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -10,31 +14,32 @@ import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Assert.fail
 import org.junit.Test
-import java.net.InetSocketAddress
 import java.util.UUID
 
 /** Same vector as drivedeck-platform services/media-sync/fixtures/connect-code-vector.json (#53). */
 class MediaSyncConnectTest {
     private val vector = JSONObject(javaClass.classLoader!!.getResource("media-sync-connect-code-vector.json")!!.readText())
-    private val servers = mutableListOf<HttpServer>()
-    @After fun stop() = servers.forEach { it.stop(0) }
     private fun b(v: String) = MediaSyncConnect.decode(v, 0, 4096)
     private fun failure(block: () -> Unit): String? = try { block(); null } catch (e: SyncFailure) { e.code }
     private fun keys() = JSONObject().put("encryptionKey", MediaSyncConnect.encode(MediaSyncCrypto.bytes(32))).put("routingKey", MediaSyncConnect.encode(MediaSyncCrypto.bytes(32)))
     private fun credential() = JSONObject().put("protocol", 1).put("ownerId", UUID.randomUUID().toString()).put("deviceId", UUID.randomUUID().toString())
         .put("token", MediaSyncConnect.encode(MediaSyncCrypto.bytes(32))).put("serverGeneration", UUID.randomUUID().toString())
     private class Seen { var method = ""; var path = ""; var version: String? = null; var authorization: String? = null; var body = JSONObject() }
-    private fun service(reply: (JSONObject) -> Pair<Int, JSONObject>): Pair<String, Seen> {
-        val seen = Seen(); val server = HttpServer.create(InetSocketAddress("127.0.0.1", 0), 0)
-        server.createContext("/") { exchange ->
-            seen.method = exchange.requestMethod; seen.path = exchange.requestURI.path
-            seen.version = exchange.requestHeaders.getFirst("x-dd-sync-version"); seen.authorization = exchange.requestHeaders.getFirst("Authorization")
-            seen.body = JSONObject(exchange.requestBody.readBytes().toString(Charsets.UTF_8))
-            val (status, value) = reply(seen.body); val bytes = value.toString().toByteArray()
-            exchange.responseHeaders.add("content-type", "application/json"); exchange.sendResponseHeaders(status, bytes.size.toLong()); exchange.responseBody.use { it.write(bytes) }
-        }
-        server.start(); servers += server
-        return "http://127.0.0.1:${server.address.port}" to seen
+    private val address = "http://127.0.0.1:8789"
+    // A fake sync service: an OkHttp interceptor answers in place of the network, so the test
+    // needs no server (com.sun.net.httpserver is not on Android's unit-test classpath).
+    private fun service(reply: (JSONObject) -> Pair<Int, JSONObject>): Pair<OkHttpClient, Seen> {
+        val seen = Seen()
+        val client = OkHttpClient.Builder().addInterceptor { chain ->
+            val request = chain.request()
+            seen.method = request.method; seen.path = request.url.encodedPath
+            seen.version = request.header("x-dd-sync-version"); seen.authorization = request.header("Authorization")
+            seen.body = JSONObject(Buffer().also { request.body!!.writeTo(it) }.readUtf8())
+            val (status, value) = reply(seen.body)
+            Response.Builder().request(request).protocol(Protocol.HTTP_1_1).code(status).message("fake")
+                .body(value.toString().toResponseBody("application/json".toMediaType())).build()
+        }.build()
+        return client to seen
     }
 
     @Test fun vectorDerivesAndUnwrapsExactlyLikeThePlatform() {
@@ -71,12 +76,12 @@ class MediaSyncConnectTest {
     }
     @Test fun signInSendsOnlyLookupProofAndLabelAndReturnsEnrollmentConfig() {
         val keys = keys(); val credential = credential(); val d = MediaSyncConnect.derive(vector.getString("code"))
-        val (address, seen) = service { body ->
+        val (http, seen) = service { body ->
             if (body.getString("lookupId") == d.lookupId && body.getString("proof") == d.proof)
                 200 to JSONObject().put("protocol", 1).put("credential", credential).put("wrappedKeys", MediaSyncConnect.wrapKeys(keys, d.wrapKey, ByteArray(12) { 7 }))
             else 403 to JSONObject().put("protocol", 1).put("code", "invalid_connect_code")
         }
-        val config = MediaSyncConnect.connect("$address/", vector.getString("codeLowercaseSpaced"), " DD PipePipe on phone ")
+        val config = MediaSyncConnect.connect("$address/", vector.getString("codeLowercaseSpaced"), " DD PipePipe on phone ", http)
         assertEquals(MediaSyncCrypto.SCHEMA, config.getString("schema")); assertEquals("$address/", config.getString("endpoint"))
         assertEquals(credential.toString(), config.getJSONObject("credential").toString())
         assertEquals(keys.getString("encryptionKey"), config.getJSONObject("keys").getString("encryptionKey"))
@@ -88,18 +93,18 @@ class MediaSyncConnectTest {
     @Test fun refusalsKeepSanitizedCodesAndWrongWrapsOrShapesAreRejected() {
         val code = vector.getString("code")
         val (refused, _) = service { 403 to JSONObject().put("protocol", 1).put("code", "invalid_connect_code") }
-        assertEquals("invalid_connect_code", failure { MediaSyncConnect.connect(refused, code, "Phone") })
+        assertEquals("invalid_connect_code", failure { MediaSyncConnect.connect(address, code, "Phone", refused) })
         val (odd, _) = service { 403 to JSONObject().put("protocol", 1).put("code", "<script>") }
-        assertEquals("connect_failed", failure { MediaSyncConnect.connect(odd, code, "Phone") })
+        assertEquals("connect_failed", failure { MediaSyncConnect.connect(address, code, "Phone", odd) })
         val other = MediaSyncConnect.derive("0000-0000-0000-0000-0000-0000-00")
         val (wrong, _) = service { 200 to JSONObject().put("protocol", 1).put("credential", credential()).put("wrappedKeys", MediaSyncConnect.wrapKeys(keys(), other.wrapKey, ByteArray(12))) }
-        assertEquals("authentication_failed", failure { MediaSyncConnect.connect(wrong, code, "Phone") })
+        assertEquals("authentication_failed", failure { MediaSyncConnect.connect(address, code, "Phone", wrong) })
         val d = MediaSyncConnect.derive(code)
         val (extra, _) = service { 200 to JSONObject().put("protocol", 1).put("credential", credential()).put("wrappedKeys", MediaSyncConnect.wrapKeys(keys(), d.wrapKey, ByteArray(12))).put("keys", keys()) }
-        assertEquals("invalid_response", failure { MediaSyncConnect.connect(extra, code, "Phone") })
+        assertEquals("invalid_response", failure { MediaSyncConnect.connect(address, code, "Phone", extra) })
         val (badCredential, _) = service { 200 to JSONObject().put("protocol", 1).put("credential", credential().put("token", "short")).put("wrappedKeys", MediaSyncConnect.wrapKeys(keys(), d.wrapKey, ByteArray(12))) }
-        assertEquals("invalid_response", failure { MediaSyncConnect.connect(badCredential, code, "Phone") })
+        assertEquals("invalid_response", failure { MediaSyncConnect.connect(address, code, "Phone", badCredential) })
         assertEquals("offline", failure { MediaSyncConnect.connect("http://127.0.0.1:1", code, "Phone") })
-        try { MediaSyncConnect.connect(refused, code, ""); fail() } catch (e: SyncFailure) { assertTrue(e.code == "invalid_device_label") }
+        try { MediaSyncConnect.connect(address, code, "", refused); fail() } catch (e: SyncFailure) { assertTrue(e.code == "invalid_device_label") }
     }
 }
