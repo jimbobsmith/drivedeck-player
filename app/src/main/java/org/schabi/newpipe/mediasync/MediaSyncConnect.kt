@@ -90,8 +90,10 @@ object MediaSyncConnect {
         val (status, value) = try {
             http.newCall(request).execute().use { response ->
                 if (response.code in 300..399) fail("redirect_rejected")
-                val bytes = response.body?.bytes() ?: fail("invalid_response")
-                if (bytes.size > 16384) fail("invalid_response")
+                // Read at most one byte past the limit, so an oversized body is refused without buffering it all.
+                val source = response.body?.source() ?: fail("invalid_response")
+                if (source.request(16385)) fail("invalid_response")
+                val bytes = source.buffer.readByteArray()
                 response.code to (try { JSONObject(String(bytes, UTF_8)) } catch (_: Exception) { fail("invalid_response") })
             }
         } catch (_: IOException) { fail("offline") }

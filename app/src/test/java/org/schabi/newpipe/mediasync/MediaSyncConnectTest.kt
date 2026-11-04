@@ -104,6 +104,8 @@ class MediaSyncConnectTest {
         assertEquals("invalid_response", failure { MediaSyncConnect.connect(address, code, "Phone", extra) })
         val (badCredential, _) = service { 200 to JSONObject().put("protocol", 1).put("credential", credential().put("token", "short")).put("wrappedKeys", MediaSyncConnect.wrapKeys(keys(), d.wrapKey, ByteArray(12))) }
         assertEquals("invalid_response", failure { MediaSyncConnect.connect(address, code, "Phone", badCredential) })
+        val (huge, _) = service { 200 to JSONObject().put("protocol", 1).put("padding", "x".repeat(20000)) }
+        assertEquals("invalid_response", failure { MediaSyncConnect.connect(address, code, "Phone", huge) })
         assertEquals("offline", failure { MediaSyncConnect.connect("http://127.0.0.1:1", code, "Phone") })
         try { MediaSyncConnect.connect(address, code, "", refused); fail() } catch (e: SyncFailure) { assertTrue(e.code == "invalid_device_label") }
     }
