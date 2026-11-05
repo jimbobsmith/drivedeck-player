@@ -38,6 +38,7 @@ jobs:
         with:
           cache-read-only: ${{ github.event_name == 'pull_request' }}
 
+      # compileSdk 37 is published as "android-37.0" (API levels now carry a minor version).
       - name: Install Android platform 37
         shell: bash
         run: |
@@ -45,7 +46,7 @@ jobs:
           sdkmanager="${ANDROID_HOME:?Android SDK root is required}/cmdline-tools/latest/bin/sdkmanager"
           test -x "$sdkmanager"
           yes | "$sdkmanager" --sdk_root="$ANDROID_HOME" --licenses > /dev/null || true
-          "$sdkmanager" --sdk_root="$ANDROID_HOME" "platforms;android-37"
+          "$sdkmanager" --sdk_root="$ANDROID_HOME" "platforms;android-37.0"
 
       - name: Run unit tests
         run: >-
