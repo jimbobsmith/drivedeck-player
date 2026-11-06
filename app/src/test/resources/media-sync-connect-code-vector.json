@@ -1,0 +1,15 @@
+{
+  "description": "Synthetic connect-code vector. Every client (Node, browser, Kotlin) must reproduce these values. Not a real secret.",
+  "code": "0CA2-ADJ7-B1MQ-N2WW-NPZC-ZR7H-08",
+  "codeLowercaseSpaced": "0ca2 adj7 b1mq n2ww npzc zr7h 08",
+  "lookupId": "s8jQeV_JwUbAk4SeUKSg3Q",
+  "proof": "c-xFjx_LwBZuZEsm0Q3-7dNBc_sbgTVG06mHYc8BslE",
+  "wrapKey": "Qw-tGhZfKPirL6CrQLZoOcq2gOjYki-OK-Nuq7Un7dM",
+  "keys": {
+    "encryptionKey": "AAECAwQFBgcICQoLDA0ODxAREhMUFRYXGBkaGxwdHh8",
+    "routingKey": "__79_Pv6-fj39vX08_Lx8O_u7ezr6uno5-bl5OPi4eA"
+  },
+  "nonce": "oKGio6Slpqeoqaqr",
+  "wrapAad": "media-sync.v1/key-wrap/1",
+  "wrappedKeys": "oKGio6SlpqeoqaqrroTdsTD9tOZ-jtKgKRWvgWPfLWzolgjU6CQCH5_dKbA4HyUCFx3vKF6Ju3eMMorFQoRWojRZEy-Kp5neEGCPsH-pZQ2HhrHmMFkRBzVIAyg8g2TzgQWBzuOKzssZ9Oo2inLw6kMrMFkjm1OEagCRYtZUmJbu9Az9DMU2bDhaP0RbJG5FByzvF0F4"
+}
