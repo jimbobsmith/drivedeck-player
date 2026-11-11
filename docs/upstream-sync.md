@@ -22,8 +22,8 @@ fix, or empty for the newest release. Only release targets move the extractor su
 Merging the PR still needs maintainer authority and a device playback check: CI cannot prove that
 YouTube plays. Preserve the pin file in the merge so the next run knows where it stands.
 
-One-time setup: add a fine-grained token (this repository, Contents, Pull requests, Issues and Workflows,
-the last because a merge can bring in upstream workflow files and GitHub rejects such a push without it;
-read/write) as the repository secret `UPSTREAM_SYNC_TOKEN`, enable Actions to create pull requests
-(Settings -> Actions -> General), and if the repository is a GitHub fork enable scheduled workflows
+One-time setup: add a fine-grained token as the repository secret `UPSTREAM_SYNC_TOKEN` (this repository;
+Contents, Pull requests, Issues and Workflows, all read/write; Workflows is needed because a merge can
+bring in upstream workflow files and GitHub rejects such a push without it), enable Actions to create pull
+requests (Settings -> Actions -> General), and if the repository is a GitHub fork enable scheduled workflows
 in the Actions tab.
