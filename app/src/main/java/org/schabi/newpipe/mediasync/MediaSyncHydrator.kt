@@ -30,29 +30,47 @@ object MediaSyncHydrator {
         return if (title.isEmpty()) null else title to clean(json.optString("author_name"), 200)
     }
 
+    private const val MAX_BODY = 16384
+
+    /** Reads at most MAX_BODY bytes; null for a longer body, so an oversized answer is never buffered whole. */
+    private fun readBounded(input: java.io.InputStream): String? {
+        val buffer = ByteArray(MAX_BODY + 1); var total = 0
+        while (total < buffer.size) { val n = input.read(buffer, total, buffer.size - total); if (n < 0) break; total += n }
+        return if (total > MAX_BODY) null else String(buffer, 0, total, Charsets.UTF_8)
+    }
+
     private fun fetch(id: String): Pair<String, String>? {
         val url = "https://www.youtube.com/oembed?format=json&url=" + URLEncoder.encode("https://www.youtube.com/watch?v=$id", "UTF-8")
         http.newCall(Request.Builder().url(url).header("Accept", "application/json").build()).execute().use { response ->
             if (!response.isSuccessful) return null
-            return parse(response.body?.string().orEmpty())
+            val body = response.body?.byteStream()?.use { readBounded(it) } ?: return null
+            return parse(body)
         }
     }
+
+    /** Rows that failed or were rejected during this process run. They stay eligible after a restart, but must not block later candidates. */
+    private val skipped = LinkedHashSet<Long>()
 
     /** One bounded pass; returns how many streams were updated. Only rows still holding the placeholder title change. */
     fun run(db: AppDatabase, limit: Int = 20): Int {
         val wanted = ArrayList<Triple<Long, String, String>>()
-        db.query("SELECT uid,url,title FROM streams WHERE service_id=0 AND title LIKE 'Synced %: %' LIMIT ?", arrayOf(limit)).use { c ->
+        val exclude = synchronized(skipped) { if (skipped.size > 500) skipped.clear(); skipped.joinToString(",") }
+        val skip = if (exclude.isEmpty()) "" else " AND uid NOT IN ($exclude)"
+        db.query("SELECT uid,url,title FROM streams WHERE service_id=0 AND title LIKE 'Synced %: %'$skip ORDER BY uid DESC LIMIT ?", arrayOf(limit)).use { c ->
             while (c.moveToNext()) {
                 val title = c.getString(2)
                 val id = VIDEO_ID.matchEntire(c.getString(1))?.groupValues?.get(1)
-                if (id != null && isPlaceholder(title)) wanted.add(Triple(c.getLong(0), id, title))
+                if (id != null && isPlaceholder(title)) wanted.add(Triple(c.getLong(0), id, title)) else synchronized(skipped) { skipped.add(c.getLong(0)) }
             }
         }
         var updated = 0
         for ((uid, id, placeholder) in wanted) {
-            val info = try { fetch(id) } catch (_: Exception) { null } ?: continue
-            val sql = db.openHelper.writableDatabase
-            sql.execSQL("UPDATE streams SET title=?, uploader=CASE WHEN uploader='' THEN ? ELSE uploader END WHERE uid=? AND title=?", arrayOf(info.first, info.second, uid, placeholder))
+            val info = try { fetch(id) } catch (_: Exception) { null }
+            if (info == null) { synchronized(skipped) { skipped.add(uid) }; continue }
+            // A Room transaction, so Room refreshes the Flowable queries (history, playlists) that join streams.
+            db.runInTransaction {
+                db.openHelper.writableDatabase.execSQL("UPDATE streams SET title=?, uploader=CASE WHEN uploader='' THEN ? ELSE uploader END WHERE uid=? AND title=?", arrayOf(info.first, info.second, uid, placeholder))
+            }
             updated += 1
             try { Thread.sleep(300) } catch (_: InterruptedException) { break }
         }
