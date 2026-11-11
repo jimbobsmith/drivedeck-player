@@ -141,6 +141,8 @@ public class App extends MultiDexApplication {
         StateSaver.init(this);
         initNotificationChannels();
         org.schabi.newpipe.updates.PlayerUpdateManager.get(this).reconcileSchedule();
+        // Automatic personal media sync: schedules nothing unless the user has signed in.
+        org.schabi.newpipe.mediasync.MediaSyncAuto.install(this);
 
         ServiceHelper.initServices(this);
         LocalDomPoTokenProvider.initialize(this);

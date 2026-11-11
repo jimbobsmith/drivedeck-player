@@ -6,6 +6,7 @@
     <Preference android:key="media_sync_library" android:title="@string/media_sync_library" />
     <Preference android:key="media_sync_profiles" android:title="@string/media_sync_profiles" />
     <Preference android:key="media_sync_sync" android:title="@string/media_sync_now" />
+    <Preference android:key="media_sync_auto" android:title="@string/media_sync_pause_auto" />
     <Preference android:key="media_sync_keep-local" android:title="@string/media_sync_keep_local" />
     <Preference android:key="media_sync_use-remote" android:title="@string/media_sync_use_remote" />
     <Preference android:key="media_sync_disconnect" android:title="@string/media_sync_disconnect" />
