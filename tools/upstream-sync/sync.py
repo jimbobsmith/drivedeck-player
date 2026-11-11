@@ -154,7 +154,7 @@ def main():
             git("checkout", "--ours", "--", path, check=False)
             git("add", "--", path)
         elif matches(path, cfg.get("keepOurs", [])):
-            if subprocess.run(["git", "cat-file", "-e", f"HEAD:{path}"]).returncode == 0:
+            if subprocess.run(["git", "cat-file", "-e", f"HEAD:{path}"], capture_output=True).returncode == 0:
                 git("checkout", "--ours", "--", path)
                 git("add", "--", path)
             else:
