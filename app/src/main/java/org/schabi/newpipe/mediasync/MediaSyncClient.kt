@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit
 import org.schabi.newpipe.mediasync.MediaSyncCrypto.check
 import org.schabi.newpipe.mediasync.MediaSyncCrypto.number
 
-/** Real Room adapter. No network calls inside transactions, no timers and no player commands. */
+/** Real Room adapter. No network calls inside transactions and no player commands. Scheduling lives in MediaSyncAuto. */
 class MediaSyncClient(private val db: AppDatabase, config: JSONObject) {
     private val config = MediaSyncCrypto.validateConfig(config)
     private val credential = config.getJSONObject("credential")
@@ -219,7 +219,8 @@ class MediaSyncClient(private val db: AppDatabase, config: JSONObject) {
         }
         throw SyncFailure("page_limit")
     }
-    @Synchronized fun sync(choice: String? = null): JSONObject {
+    fun sync(choice: String? = null): JSONObject = synchronized(LOCK) { syncLocked(choice) }
+    private fun syncLocked(choice: String?): JSONObject {
         check(!state.getBoolean("blocked"), "restored_service")
         check(choice == null || choice in listOf("keep-local", "use-remote"))
         syncBase = JSONObject(map("remote").toString())
@@ -246,14 +247,19 @@ class MediaSyncClient(private val db: AppDatabase, config: JSONObject) {
                 if (!flush()) return status().put("code", "offline")
             }
             if (!flush()) return status().put("code", "offline")
-            atomic { state.put("lastSyncComplete", true) }; return status()
+            atomic { state.put("lastSyncComplete", true).put("lastSyncAt", System.currentTimeMillis()) }; return status()
         } catch (_: IOException) { return status().put("code", "offline") } finally { syncBase = null }
     }
-    @Synchronized fun enableLibrary(): JSONObject { atomic { state.put("libraryEnabled", true) }; return status() }
-    @Synchronized fun enableProfiles(): JSONObject { atomic { state.put("profilesEnabled", true) }; return status() }
-    fun status(): JSONObject = JSONObject().put("enabled", true).put("libraryEnabled", state.optBoolean("libraryEnabled")).put("profilesEnabled", state.optBoolean("profilesEnabled")).put("pending", pending().length()).put("conflicts", map("conflicts").length())
+    fun enableLibrary(): JSONObject = synchronized(LOCK) { atomic { state.put("libraryEnabled", true) }; status() }
+    fun enableProfiles(): JSONObject = synchronized(LOCK) { atomic { state.put("profilesEnabled", true) }; status() }
+    /** Automatic sync is on unless the user paused it (default for new and existing enrollments). */
+    fun setAutoSync(on: Boolean): JSONObject = synchronized(LOCK) { atomic { state.put("autoSync", on) }; status() }
+    fun autoSyncAllowed() = MediaSyncAutoPolicy.shouldRun(state.optBoolean("autoSync", true), state.getBoolean("blocked"), map("conflicts").length())
+    fun status(): JSONObject = JSONObject().put("enabled", true).put("autoSync", state.optBoolean("autoSync", true)).put("lastSyncAt", state.optLong("lastSyncAt", 0)).put("libraryEnabled", state.optBoolean("libraryEnabled")).put("profilesEnabled", state.optBoolean("profilesEnabled")).put("pending", pending().length()).put("conflicts", map("conflicts").length())
         .put("code", if (state.getBoolean("blocked")) "restored_service" else if (map("conflicts").length() > 0) "conflict" else if (pending().length() > 0) "pending" else if (state.optBoolean("lastSyncComplete")) "synced" else "ready")
     companion object {
+        /** One sync at a time per process, whichever client instance (settings or the background worker) runs it. */
+        private val LOCK = Any()
         private val http = OkHttpClient.Builder().followRedirects(false).followSslRedirects(false)
             .connectTimeout(5, TimeUnit.SECONDS).readTimeout(5, TimeUnit.SECONDS).callTimeout(10, TimeUnit.SECONDS).build()
     }
