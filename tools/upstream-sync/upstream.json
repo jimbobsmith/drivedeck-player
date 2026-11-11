@@ -14,12 +14,14 @@
     "branch": "main",
     "commitSubject": "{tag}"
   },
-  "keepOurs": ["README.md"],
+  "keepOurs": [
+    "README.md"
+  ],
   "pin": {
-    "tag": "v5.4.0",
-    "commit": "c2a166f7df05e5ace4c80fb3e3fd27702cfc3e56"
+    "tag": "v5.5.0",
+    "commit": "b91f008fb4d25b470c4383dcf42e31ee7696d272"
   },
   "submodulePin": {
-    "commit": "c68e10e2e97495877832d8df6cbac55478083019"
+    "commit": "51363d95bd6a76739453cd38e674786ffbb6c789"
   }
 }

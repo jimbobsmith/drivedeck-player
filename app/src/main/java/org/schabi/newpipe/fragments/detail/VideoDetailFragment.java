@@ -45,6 +45,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.preference.PreferenceManager;
+import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -63,6 +64,7 @@ import org.schabi.newpipe.error.ReCaptchaActivity;
 import org.schabi.newpipe.error.UserAction;
 import org.schabi.newpipe.extractor.InfoItem;
 import org.schabi.newpipe.extractor.NewPipe;
+import org.schabi.newpipe.extractor.StreamingService;
 import org.schabi.newpipe.extractor.ServiceList;
 import org.schabi.newpipe.extractor.exceptions.ContentNotSupportedException;
 import org.schabi.newpipe.extractor.exceptions.ExtractionException;
@@ -95,6 +97,7 @@ import org.schabi.newpipe.player.PlayerUiModeController;
 import org.schabi.newpipe.player.event.OnKeyDownListener;
 import org.schabi.newpipe.player.event.PlayerServiceExtendedEventListener;
 import org.schabi.newpipe.player.helper.PlayerHelper;
+import org.schabi.newpipe.player.chat.ChatStore;
 import org.schabi.newpipe.player.helper.PlayerHolder;
 import org.schabi.newpipe.player.mediasession.PlayerServiceInterface;
 import org.schabi.newpipe.player.mediaitem.PlayerMediaItem;
@@ -102,6 +105,8 @@ import org.schabi.newpipe.player.playqueue.PlayQueue;
 import org.schabi.newpipe.player.playqueue.SinglePlayQueue;
 import org.schabi.newpipe.sleep.SleepTimerService;
 import org.schabi.newpipe.util.*;
+import org.schabi.newpipe.util.dearrow.DeArrowBinder;
+import org.schabi.newpipe.util.dearrow.DeArrowRow;
 import org.schabi.newpipe.util.external_communication.KoreUtils;
 import org.schabi.newpipe.util.external_communication.ShareUtils;
 
@@ -160,10 +165,12 @@ public final class VideoDetailFragment
     private static final String DESCRIPTION_TAB_TAG = "DESCRIPTION TAB";
     private static final String SPONSOR_BLOCK_TAB_TAG = "SPONSOR_BLOCK TAB";
     private static final String EMPTY_TAB_TAG = "EMPTY TAB";
+    private static final String CHAT_TAB_TAG = "CHAT TAB";
     private static final String VIDEO_TAB_COMMENTS = "comments";
     private static final String VIDEO_TAB_RELATED = "related";
     private static final String VIDEO_TAB_DESCRIPTION = "description";
     private static final String VIDEO_TAB_SPONSORBLOCK = "sponsorblock";
+    private static final String VIDEO_TAB_CHAT = "chat";
 
     private static final String PICASSO_VIDEO_DETAILS_TAG = "PICASSO_VIDEO_DETAILS_TAG";
 
@@ -173,6 +180,8 @@ public final class VideoDetailFragment
     private boolean showDescription;
     private boolean showSponsorBlock;
     private String selectedTabTag;
+    // true while tabs are changed by code; only user selections update selectedTabTag
+    private boolean tabChangeByCode = false;
     @AttrRes
     @NonNull
     final List<Integer> tabIcons = new ArrayList<>();
@@ -213,10 +222,14 @@ public final class VideoDetailFragment
     protected PlayQueue playQueue = null;
     int bottomSheetState = BottomSheetBehavior.STATE_EXPANDED;
     protected boolean autoPlayEnabled = true;
-    SponsorBlockMode currentSponsorBlockMode = null;
 
     @Nullable
     private StreamInfo currentInfo = null;
+    // URL of the stream the tabs were last successfully built for. TabAdapter silently ignores
+    // updates after onSaveInstanceState(), e.g. when the next queued video starts while the app is
+    // in background, so the tabs can be stale even though currentInfo and the title are not.
+    @Nullable
+    private String tabsBuiltForUrl = null;
     private Disposable currentWorker;
     @NonNull
     private final CompositeDisposable disposables = new CompositeDisposable();
@@ -353,7 +366,6 @@ public final class VideoDetailFragment
         outState.putString("url", url);
         outState.putInt("bottomSheetState", sanitizeBottomSheetState(bottomSheetState));
         outState.putBoolean("autoPlayEnabled", autoPlayEnabled);
-        outState.putString("currentSponsorBlockMode", currentSponsorBlockMode != null ? currentSponsorBlockMode.name() : null);
     }
 
     @Override
@@ -365,8 +377,6 @@ public final class VideoDetailFragment
         bottomSheetState = sanitizeBottomSheetState(savedInstanceState.getInt(
                 "bottomSheetState", BottomSheetBehavior.STATE_EXPANDED));
         autoPlayEnabled = savedInstanceState.getBoolean("autoPlayEnabled", true);
-        String modeStr = savedInstanceState.getString("currentSponsorBlockMode");
-        currentSponsorBlockMode = modeStr != null ? SponsorBlockMode.valueOf(modeStr) : null;
     }
 
     @Override
@@ -378,8 +388,7 @@ public final class VideoDetailFragment
         restoreDefaultBrightness();
         PreferenceManager.getDefaultSharedPreferences(requireContext())
                 .edit()
-                .putString(getString(R.string.stream_info_selected_tab_key),
-                        pageAdapter.getItemTitle(binding.viewPager.getCurrentItem()))
+                .putString(getString(R.string.stream_info_selected_tab_key), selectedTabTag)
                 .apply();
     }
 
@@ -398,7 +407,6 @@ public final class VideoDetailFragment
     @Override
     public void onResume() {
         super.onResume();
-
         activity.sendBroadcast(new Intent(ACTION_VIDEO_FRAGMENT_RESUMED));
 
         setupBrightness();
@@ -406,7 +414,8 @@ public final class VideoDetailFragment
         // Only rebuild the tabs when the tab settings actually changed. Doing it on every resume
         // recreated the related-items (and description) fragments each time, so returning from the
         // share sheet / Home reloaded the related videos. A new video goes through handleResult().
-        if (currentInfo != null && tabSettingsChanged) {
+        if (currentInfo != null
+                && (tabSettingsChanged || !currentInfo.getUrl().equals(tabsBuiltForUrl))) {
             tabSettingsChanged = false;
             initTabs();
             updateTabs(currentInfo);
@@ -736,6 +745,16 @@ public final class VideoDetailFragment
         pageAdapter = new TabAdapter(getChildFragmentManager());
         binding.viewPager.setAdapter(pageAdapter);
         binding.tabLayout.setupWithViewPager(binding.viewPager);
+        binding.viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(final int position) {
+                final String tag = pageAdapter.getItemTitle(position);
+                if (!tabChangeByCode && tag != null && !EMPTY_TAB_TAG.equals(tag)) {
+                    selectedTabTag = tag;
+                }
+            }
+        });
+        ChatStore.INSTANCE.getAvailable().observe(getViewLifecycleOwner(), v -> syncChatTab());
         updateStickyPlayerMode();
 
         binding.detailThumbnailRootLayout.requestFocus();
@@ -999,8 +1018,15 @@ public final class VideoDetailFragment
             if (activity == null) {
                 return;
             }
-            // Data can already be drawn, don't spend time twice
-            if (info.getName().equals(binding.detailVideoTitleView.getText().toString())) {
+            // Data can already be drawn, don't spend time twice. The displayed title is not
+            // always info.getName(): DeArrow may have replaced it, and treating that as "not
+            // drawn yet" would redraw the whole page on every check. The title alone is not
+            // enough though: titles can repeat across videos, and the title may be updated while
+            // the tabs failed to, so the tabs must also belong to this stream.
+            final String shown = binding.detailVideoTitleView.getText().toString();
+            if ((info.getName().equals(shown)
+                    || DeArrowBinder.isShowingTitle(activity, info, shown))
+                    && info.getUrl().equals(tabsBuiltForUrl)) {
                 return;
             }
             prepareAndHandleInfo(info, scrollToTop);
@@ -1086,9 +1112,8 @@ public final class VideoDetailFragment
     //////////////////////////////////////////////////////////////////////////*/
 
     private void initTabs() {
-        if (pageAdapter.getCount() != 0) {
-            selectedTabTag = pageAdapter.getItemTitle(binding.viewPager.getCurrentItem());
-        }
+        tabsBuiltForUrl = null;
+        markTabChangeByCode();
         pageAdapter.clearAllItems();
         tabIcons.clear();
         tabContentDescriptions.clear();
@@ -1140,11 +1165,12 @@ public final class VideoDetailFragment
             pageAdapter.addFragment(EmptyFragment.newInstance(true), EMPTY_TAB_TAG);
         }
         pageAdapter.notifyDataSetUpdate();
+        syncChatTab();
 
         if (pageAdapter.getCount() >= 2) {
             final int position = pageAdapter.getItemPositionByTitle(selectedTabTag);
             if (position != -1) {
-                binding.viewPager.setCurrentItem(position);
+                binding.viewPager.setCurrentItem(position, false);
             }
             updateTabIconsAndContentDescriptions();
         }
@@ -1169,6 +1195,8 @@ public final class VideoDetailFragment
     }
 
     private void updateTabs(@NonNull final StreamInfo info) {
+        // TabAdapter ignores every change once the state is saved; retry in onResume()
+        tabsBuiltForUrl = getChildFragmentManager().isStateSaved() ? null : info.getUrl();
         if (info.isRoundPlayStream() || (showRelatedItems && info.isSupportRelatedItems())) {
             try {
                 if (binding.relatedItemsLayout == null) { // phone
@@ -1233,10 +1261,8 @@ public final class VideoDetailFragment
 
                 pageAdapter.updateItem(SPONSOR_BLOCK_TAB_TAG, sponsorBlockFragment);
 
-                if (currentSponsorBlockMode == null) {
-                    currentSponsorBlockMode = SponsorBlockMode.ENABLED;
-                }
-                sponsorBlockFragment.setSponsorBlockMode(currentSponsorBlockMode);
+                sponsorBlockFragment.setSponsorBlockMode(
+                        SponsorBlockHelper.getSkippingMode(requireContext()));
             }
         }
 
@@ -1245,6 +1271,80 @@ public final class VideoDetailFragment
         updateTabLayoutVisibility();
         pageAdapter.notifyDataSetUpdate();
         updateTabIconsAndContentDescriptions();
+        syncChatTab();
+    }
+
+    private boolean shouldShowChat() {
+        if (currentInfo == null || !currentInfo.isSupportBulletComments()) {
+            return false;
+        }
+        try {
+            if (!NewPipe.getService(serviceId).getServiceInfo().getMediaCapabilities()
+                    .contains(StreamingService.ServiceInfo.MediaCapability.BULLET_COMMENTS)) {
+                return false;
+            }
+        } catch (final ExtractionException e) {
+            return false;
+        }
+        // loading the chat found nothing for this stream
+        if (Boolean.FALSE.equals(ChatStore.INSTANCE.getAvailable().getValue())) {
+            return false;
+        }
+        final SharedPreferences prefs =
+                PreferenceManager.getDefaultSharedPreferences(requireContext());
+        // the video tabs option only controls whether the tab is added, fullscreen chat is unaffected
+        return getVideoTabs(prefs).contains(VIDEO_TAB_CHAT)
+                && prefs.getBoolean(getString(R.string.bullet_comments_chat_mode_key), true);
+    }
+
+    /** Ignores page changes caused by tab rebuilds until the pager has laid out again. */
+    private void markTabChangeByCode() {
+        tabChangeByCode = true;
+        binding.viewPager.post(() -> tabChangeByCode = false);
+    }
+
+    /** Makes the presence of the chat tab match whether the current stream has a chat. */
+    private void syncChatTab() {
+        if (binding == null || pageAdapter == null || !isAdded()) {
+            return;
+        }
+        final boolean want = shouldShowChat();
+        markTabChangeByCode();
+        final int index = pageAdapter.getItemPositionByTitle(CHAT_TAB_TAG);
+        final String currentTag = pageAdapter.getCount() == 0 ? null
+                : pageAdapter.getItemTitle(binding.viewPager.getCurrentItem());
+        if (want && index == -1) {
+            final int emptyIndex = pageAdapter.getItemPositionByTitle(EMPTY_TAB_TAG);
+            if (emptyIndex != -1) {
+                pageAdapter.removeItem(emptyIndex);
+            }
+            pageAdapter.addFragment(new ChatFragment(), CHAT_TAB_TAG, 0);
+            tabIcons.add(0, R.drawable.ic_bullet_comment_enabled);
+            tabContentDescriptions.add(0, R.string.chat_tab_description);
+        } else if (!want && index != -1) {
+            pageAdapter.removeItem(index);
+            if (index < tabIcons.size()) {
+                tabIcons.remove(index);
+                tabContentDescriptions.remove(index);
+            }
+            if (pageAdapter.getCount() == 0) {
+                pageAdapter.addFragment(EmptyFragment.newInstance(true), EMPTY_TAB_TAG);
+            }
+        } else {
+            return;
+        }
+        pageAdapter.notifyDataSetUpdate();
+        final int chatIndex = pageAdapter.getItemPositionByTitle(CHAT_TAB_TAG);
+        if (want && CHAT_TAB_TAG.equals(selectedTabTag) && chatIndex != -1) {
+            binding.viewPager.setCurrentItem(chatIndex, false);
+        } else if (currentTag != null) {
+            final int keep = pageAdapter.getItemPositionByTitle(currentTag);
+            if (keep != -1 && keep != binding.viewPager.getCurrentItem()) {
+                binding.viewPager.setCurrentItem(keep, false);
+            }
+        }
+        updateTabIconsAndContentDescriptions();
+        updateTabLayoutVisibility();
     }
 
     private boolean shouldShowComments() {
@@ -1275,7 +1375,8 @@ public final class VideoDetailFragment
                         VIDEO_TAB_COMMENTS,
                         VIDEO_TAB_RELATED,
                         VIDEO_TAB_SPONSORBLOCK,
-                        VIDEO_TAB_DESCRIPTION
+                        VIDEO_TAB_DESCRIPTION,
+                        VIDEO_TAB_CHAT
                 )));
     }
 
@@ -1347,7 +1448,7 @@ public final class VideoDetailFragment
             openNormalBackgroundPlayer(append);
         } else {
             final AudioStream audioStream = currentInfo.getAudioStreams()
-                    .get(ListHelper.getDefaultAudioFormat(activity, currentInfo.getAudioStreams()));
+                    .get(AudioStreamSelector.getDefaultAudioFormat(activity, currentInfo.getAudioStreams()));
             startOnExternalPlayer(activity, currentInfo, audioStream);
         }
     }
@@ -1524,18 +1625,41 @@ public final class VideoDetailFragment
             return;
         }
 
+        // Fullscreen lives outside of the scrolling app bar, otherwise the detail page below
+        // could be scrolled/focused into view while the player is still in fullscreen
+        final boolean fullscreen = player.isFullscreen();
+        final ViewGroup target = fullscreen
+                ? binding.fullscreenPlayerContainer : binding.playerPlaceholder;
+
         // Check if viewHolder already contains a child
-        if (player.getRootView().getParent() != binding.playerPlaceholder) {
+        if (player.getRootView().getParent() != target) {
             playerService.removeViewFromParent();
         }
         setHeightThumbnail();
 
         // Prevent from re-adding a view multiple times
         if (player.getRootView().getParent() == null) {
-            binding.playerPlaceholder.addView(player.getRootView());
+            target.addView(player.getRootView());
             if (currentInfo != null) {
                 player.onMarkSeekbarRequested(currentInfo);
             }
+        }
+
+        binding.fullscreenPlayerContainer.setVisibility(fullscreen ? View.VISIBLE : View.GONE);
+        // Keep the DPAD focus from wandering into the hidden detail page
+        final int blockFocus = fullscreen
+                ? ViewGroup.FOCUS_BLOCK_DESCENDANTS : ViewGroup.FOCUS_AFTER_DESCENDANTS;
+        ((ViewGroup) binding.detailMainContent).setDescendantFocusability(blockFocus);
+
+        if (fullscreen && DeviceUtils.isTv(getContext())) {
+            // The focus is still on the detail page's thumbnail (drawn as a white frame) or on
+            // the overlay button, both underneath the fullscreen player. Hand it to the player.
+            binding.detailThumbnailRootLayout.clearFocus();
+            player.getRootView().post(() -> {
+                if (isPlayerAvailable() && player.isFullscreen()) {
+                    player.getBinding().playPauseButton.requestFocus();
+                }
+            });
         }
     }
 
@@ -1905,16 +2029,23 @@ public final class VideoDetailFragment
         binding.detailToggleSecondaryControlsView.setVisibility(View.VISIBLE);
         binding.detailSecondaryControlPanel.setVisibility(View.GONE);
 
-        sortedVideoStreams = ListHelper.getSortedStreamVideosList(
+        sortedVideoStreams = VideoStreamSelector.getSortedStreamVideosList(
                 activity,
                 info.getVideoStreams(),
                 info.getVideoOnlyStreams(),
                 false,
                 false);
-        selectedVideoStreamIndex = ListHelper
+        selectedVideoStreamIndex = VideoStreamSelector
                 .getDefaultResolutionIndex(activity, sortedVideoStreams);
         updateProgressInfo(info);
         initThumbnailViews(info);
+
+        // Swap in DeArrow's honest title and thumbnail, if the user opted in. This must come
+        // after initThumbnailViews, which loads the uploader's thumbnail: the original URL is
+        // deliberately not handed over, so the binder only ever paints a replacement over the
+        // top and never blanks this view.
+        DeArrowBinder.bind(DeArrowRow.fromDetail(info.getServiceId(), info.getUrl()),
+                binding.detailVideoTitleView, binding.detailThumbnailImageView);
         showMetaInfoInTextView(info.getMetaInfo(), binding.detailMetaInfoTextView,
                 binding.detailMetaInfoSeparator, disposables);
 
@@ -2160,19 +2291,10 @@ public final class VideoDetailFragment
 
     @Override
     public void onMetadataUpdate(final StreamInfo info, final PlayQueue queue) {
-        final Context context = requireContext();
-
-        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        final boolean isSponsorBlockEnabled =
-                prefs.getBoolean(getString(R.string.sponsor_block_enable_key), true);
-
-        if (player != null && isSponsorBlockEnabled) {
-            if (currentSponsorBlockMode == null) {
-                currentSponsorBlockMode = SponsorBlockMode.ENABLED;
-            }
-            player.setSponsorBlockMode(currentSponsorBlockMode);
+        if (player != null) {
+            final SponsorBlockMode mode = SponsorBlockHelper.getSkippingMode(requireContext());
             getSponsorBlockFragment().ifPresent(
-                    fragment -> fragment.setSponsorBlockMode(currentSponsorBlockMode));
+                    fragment -> fragment.setSponsorBlockMode(mode));
         }
         final StackItem item = findQueueInStack(queue);
         if (item != null) {
@@ -2244,7 +2366,6 @@ public final class VideoDetailFragment
 
         if (fullscreen) {
             hideSystemUiIfNeeded();
-            binding.overlayPlayPauseButton.requestFocus();
         } else {
             showSystemUi();
         }
@@ -2544,24 +2665,23 @@ public final class VideoDetailFragment
         final FrameLayout bottomSheetLayout = activity.findViewById(R.id.fragment_player_holder);
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetLayout);
         bottomSheetState = sanitizeBottomSheetState(bottomSheetState);
-        bottomSheetBehavior.setState(bottomSheetState);
+        final int restoredState = bottomSheetState;
+        final int peekHeight = getResources().getDimensionPixelSize(R.dimen.mini_player_height);
         // The player may already be in fullscreen when this view is (re)created
         // (e.g. after a rotation while playing fullscreen): keep the drag disabled in that case.
         updateBottomSheetDraggableForFullscreen();
-        final int peekHeight = getResources().getDimensionPixelSize(R.dimen.mini_player_height);
-        if (bottomSheetState != BottomSheetBehavior.STATE_HIDDEN) {
+        if (restoredState != BottomSheetBehavior.STATE_HIDDEN) {
             manageSpaceAtTheBottom(false);
+            // Set the peek height before the state: the collapsed offset is computed from it.
             bottomSheetBehavior.setPeekHeight(peekHeight);
-            if (bottomSheetState == BottomSheetBehavior.STATE_COLLAPSED) {
-                binding.overlayLayout.setVisibility(View.VISIBLE);
-                binding.overlayLayout.setAlpha(MAX_OVERLAY_ALPHA);
-                setOverlayElementsClickable(true);
-            } else if (bottomSheetState == BottomSheetBehavior.STATE_EXPANDED) {
-                binding.overlayLayout.setAlpha(0);
-                binding.overlayLayout.setVisibility(View.INVISIBLE);
-                setOverlayElementsClickable(false);
-            }
         }
+        bottomSheetBehavior.setState(restoredState);
+        applyOverlayForState(restoredState);
+        // BottomSheetBehavior restores its own state silently (i.e. without onStateChanged) when
+        // the activity's view hierarchy is restored, and this can happen after this method ran
+        // and leaves the mini player overlay visible over an expanded detail page. Re-apply the
+        // state saved in this fragment once the view has actually been laid out.
+        syncPlayerSheetStateAfterLayout(restoredState, peekHeight);
 
         bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
@@ -2575,6 +2695,7 @@ public final class VideoDetailFragment
 
                             bottomSheetBehavior.setPeekHeight(0);
                             cleanUp();
+                            applyOverlayForState(newState);
                             break;
                         case BottomSheetBehavior.STATE_EXPANDED:
                             moveFocusToMainFragment(false);
@@ -2583,14 +2704,13 @@ public final class VideoDetailFragment
                             bottomSheetBehavior.setPeekHeight(peekHeight);
                             // Disable click because overlay buttons located on top of buttons
                             // from the player
-                            setOverlayElementsClickable(false);
+                            applyOverlayForState(newState);
                             hideSystemUiIfNeeded();
                             if (isPlayerAvailable()
                                     && player.isPlaying()
                                     && player.videoPlayerSelected()) {
                                 player.startBCPlayer();
                             }
-                            setOverlayLook(binding.appBarLayout, behavior, 1);
                             break;
                         case BottomSheetBehavior.STATE_COLLAPSED:
                             moveFocusToMainFragment(true);
@@ -2598,13 +2718,18 @@ public final class VideoDetailFragment
 
                             bottomSheetBehavior.setPeekHeight(peekHeight);
 
-                            // Re-enable clicks
-                            setOverlayElementsClickable(true);
+                            applyOverlayForState(newState);
+                            if (isPlayerAvailable() && player.isFullscreen()) {
+                                // Minimized by swiping down inside fullscreen: the player view
+                                // must leave fullscreen too, otherwise the full-size layout is
+                                // squeezed into the mini player and can't be interacted with.
+                                // Keep the orientation: rotating back to portrait is unwanted.
+                                player.exitFullscreenLayoutOnly();
+                            }
                             if (isPlayerAvailable()) {
                                 player.closeItemsList();
                                 player.pauseBCPlayer();
                             }
-                            setOverlayLook(binding.appBarLayout, behavior, 0);
                             break;
                         case BottomSheetBehavior.STATE_DRAGGING:
                         case BottomSheetBehavior.STATE_SETTLING:
@@ -2712,6 +2837,93 @@ public final class VideoDetailFragment
         }
     }
 
+    /**
+     * Shows or hides the mini player overlay (and moves the detail AppBar) so that it matches the
+     * given bottom sheet state.
+     *
+     * <p>This must not rely on {@link BottomSheetBehavior.BottomSheetCallback#onStateChanged}
+     * having been called for the state: {@link BottomSheetBehavior} restores its own state without
+     * dispatching that callback, and this fragment restores its state separately.
+     */
+    private void applyOverlayForState(final int state) {
+        if (binding == null) {
+            return;
+        }
+        final AppBarLayout.Behavior appBarBehavior = getAppBarBehavior();
+        switch (state) {
+            case BottomSheetBehavior.STATE_COLLAPSED:
+                binding.overlayLayout.setVisibility(View.VISIBLE);
+                binding.overlayLayout.setAlpha(MAX_OVERLAY_ALPHA);
+                setOverlayElementsClickable(true);
+                setOverlayLook(binding.appBarLayout, appBarBehavior, 0);
+                break;
+            case BottomSheetBehavior.STATE_EXPANDED:
+                binding.overlayLayout.setAlpha(0);
+                binding.overlayLayout.setVisibility(View.INVISIBLE);
+                setOverlayElementsClickable(false);
+                setOverlayLook(binding.appBarLayout, appBarBehavior, 1);
+                break;
+            case BottomSheetBehavior.STATE_HIDDEN:
+            case BottomSheetBehavior.STATE_HALF_EXPANDED:
+            default:
+                // Don't leave the translucent overlay over the detail page for states which don't
+                // show the mini player bar.
+                binding.overlayLayout.setAlpha(0);
+                binding.overlayLayout.setVisibility(View.INVISIBLE);
+                setOverlayElementsClickable(false);
+                setOverlayLook(binding.appBarLayout, appBarBehavior, 1);
+                break;
+        }
+    }
+
+    @Nullable
+    private AppBarLayout.Behavior getAppBarBehavior() {
+        if (binding == null) {
+            return null;
+        }
+        final CoordinatorLayout.LayoutParams params =
+                (CoordinatorLayout.LayoutParams) binding.appBarLayout.getLayoutParams();
+        final CoordinatorLayout.Behavior<?> appBarBehavior = params.getBehavior();
+        return appBarBehavior instanceof AppBarLayout.Behavior
+                ? (AppBarLayout.Behavior) appBarBehavior
+                : null;
+    }
+
+    /**
+     * Re-applies the state saved in this fragment after the first layout pass, once the activity's
+     * view hierarchy (and therefore the bottom sheet) has been restored. The behavior's own state
+     * restoration does not call {@link BottomSheetBehavior.BottomSheetCallback#onStateChanged}, so
+     * without this the overlay could stay visible while the sheet is expanded.
+     */
+    private void syncPlayerSheetStateAfterLayout(final int state, final int peekHeight) {
+        if (binding == null) {
+            return;
+        }
+        final View root = binding.getRoot();
+        root.getViewTreeObserver().addOnGlobalLayoutListener(
+                new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        if (!root.getViewTreeObserver().isAlive()) {
+                            return;
+                        }
+                        root.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                        if (binding == null || bottomSheetBehavior == null) {
+                            return;
+                        }
+                        bottomSheetState = state;
+                        if (state != BottomSheetBehavior.STATE_HIDDEN) {
+                            manageSpaceAtTheBottom(false);
+                            bottomSheetBehavior.setPeekHeight(peekHeight);
+                        }
+                        // Force the sheet to the saved state: the behavior may already claim to be
+                        // in that state while its view is still laid out at the opposite offset.
+                        bottomSheetBehavior.setState(state);
+                        applyOverlayForState(state);
+                    }
+                });
+    }
+
     private void setOverlayElementsClickable(final boolean enable) {
         binding.overlayLayout.setDescendantFocusability(enable
                 ? ViewGroup.FOCUS_AFTER_DESCENDANTS
@@ -2764,11 +2976,9 @@ public final class VideoDetailFragment
             return;
         }
 
-        currentSponsorBlockMode = newValue
+        player.setSponsorBlockMode(newValue
                 ? SponsorBlockMode.ENABLED
-                : SponsorBlockMode.DISABLED;
-
-        player.setSponsorBlockMode(currentSponsorBlockMode);
+                : SponsorBlockMode.DISABLED);
     }
 
     @Override
