@@ -116,6 +116,9 @@ def main():
     git("remote", "remove", REMOTE, check=False)
     git("remote", "add", REMOTE, up["url"])
     git("fetch", "--quiet", "--tags", REMOTE, up["branch"])
+    if args.target and not re.match(r"^[0-9a-f]{7,40}$", args.target) and args.target != up["branch"]:
+        # A branch other than the reference branch (a tag arrives with --tags): fetch it so it can resolve.
+        git("fetch", "--quiet", REMOTE, f"+refs/heads/{args.target}:refs/remotes/{REMOTE}/{args.target}", check=False)
 
     release_url = up.get("releaseTagsUrl", up["url"])
     if args.target:
@@ -141,7 +144,10 @@ def main():
         f"- Newest target: `{label}` (`{commit[:8]}`)",
         f"- Upstream `{up['branch']}` is {ahead_dev} commits ahead of the pin",
     ]
-    if subprocess.run(["git", "merge-base", "--is-ancestor", commit, "HEAD"]).returncode == 0:
+    # Compare with the base branch, not whatever ref a manual run happened to check out.
+    have_origin = subprocess.run(["git", "rev-parse", "--verify", "-q", f"origin/{base}"], capture_output=True).returncode == 0
+    base_ref = f"origin/{base}" if have_origin else base
+    if subprocess.run(["git", "merge-base", "--is-ancestor", commit, base_ref]).returncode == 0:
         summary("\n".join(lines + ["- Up to date. Nothing to do."]))
         return
 
@@ -163,8 +169,7 @@ def main():
         open_pr(branch, base, label, commit, pin, changelog, sub_note, up["name"])
         return
 
-    have_origin = subprocess.run(["git", "rev-parse", "--verify", "-q", f"origin/{base}"], capture_output=True).returncode == 0
-    git("checkout", "-q", "-B", branch, f"origin/{base}" if have_origin else base)
+    git("checkout", "-q", "-B", branch, base_ref)
     merge = subprocess.run(["git", "merge", "--no-ff", "--no-commit", commit], text=True, capture_output=True)
 
     STATE.update(started=True, base=base)
