@@ -65,7 +65,9 @@ class PublicYouTubeBrowserService : MediaBrowserServiceCompat() {
         work.add(slot)
         slot.set(Single.fromCallable {
             if (parentId.startsWith("page:")) {
-                cursors.get(parentId, uid)
+                // Library continuations, cached or not, follow the owner's current choice.
+                if (cursors.isPrivate(parentId) && !sharing()) { cursors.dropPrivate(); status(PlayerLibraryPolicy.DENIED) }
+                else cursors.get(parentId, uid)
             } else if (PlayerLibraryPolicy.isLibrary(parentId)) {
                 library(parentId, uid)
             } else {
@@ -98,8 +100,7 @@ class PublicYouTubeBrowserService : MediaBrowserServiceCompat() {
     }
     private fun library(parent: String, uid: Int): List<MediaBrowserCompat.MediaItem> {
         val page = PlayerLibraryPolicy.page(parent) ?: return status("This library page is unavailable. Return Home.")
-        if (!PreferenceManager.getDefaultSharedPreferences(this).getBoolean(PlayerLibraryPolicy.CONSENT_KEY, false))
-            return status(PlayerLibraryPolicy.DENIED)
+        if (!sharing()) { cursors.dropPrivate(); return status(PlayerLibraryPolicy.DENIED) }
         val db = NewPipeDatabase.getInstance(this)
         val items = when (page) {
             PlayerLibraryPolicy.Page.Subscriptions -> videos(db.feedDAO().getAllStreams().blockingGet(emptyList()).map { it.stream })
@@ -113,14 +114,16 @@ class PublicYouTubeBrowserService : MediaBrowserServiceCompat() {
                         .setIconUri(PublicYouTubePolicy.thumbnail(playlist.thumbnailUrl)?.let(android.net.Uri::parse)).build(),
                         MediaBrowserCompat.MediaItem.FLAG_BROWSABLE)
                 }
+            // A playlist keeps repeated videos in their order; feeds show each video once.
             is PlayerLibraryPolicy.Page.Playlist -> videos(db.playlistStreamDAO().getOrderedStreamsOf(page.id)
-                .blockingFirst(emptyList()).map { it.streamEntity })
+                .blockingFirst(emptyList()).map { it.streamEntity }, distinct = false)
         }
         if (items.isEmpty()) return status(PlayerLibraryPolicy.emptyMessage(page))
         return paged(items, uid)
     }
     /** Only canonical YouTube videos leave the app; other services and malformed rows are skipped. */
-    private fun videos(streams: List<StreamEntity>) = streams.asSequence().mapNotNull { stream ->
+    private fun sharing() = PreferenceManager.getDefaultSharedPreferences(this).getBoolean(PlayerLibraryPolicy.CONSENT_KEY, false)
+    private fun videos(streams: List<StreamEntity>, distinct: Boolean = true) = streams.asSequence().mapNotNull { stream ->
         if (stream.serviceId != ServiceList.YouTube.serviceId) return@mapNotNull null
         val id = runCatching { ServiceList.YouTube.streamLHFactory.getId(stream.url) }.getOrNull()
         if (id == null || !PublicYouTubePolicy.videoId(id)) return@mapNotNull null
@@ -128,15 +131,15 @@ class PublicYouTubeBrowserService : MediaBrowserServiceCompat() {
         MediaBrowserCompat.MediaItem(MediaDescriptionCompat.Builder().setMediaId("yt:$id")
             .setTitle(title).setSubtitle(PublicYouTubePolicy.text(stream.uploader))
             .setIconUri(PublicYouTubePolicy.thumbnail(stream.thumbnailUrl)?.let(android.net.Uri::parse)).build(), 0)
-    }.distinctBy { it.mediaId }.take(PlayerLibraryPolicy.MAX_ITEMS).toList()
+    }.let { rows -> if (distinct) rows.distinctBy { it.mediaId } else rows }.take(PlayerLibraryPolicy.MAX_ITEMS).toList()
     private fun paged(items: List<MediaBrowserCompat.MediaItem>, uid: Int): List<MediaBrowserCompat.MediaItem> {
         val rest = items.drop(PublicYouTubePolicy.PAGE_SIZE)
         val page = items.take(PublicYouTubePolicy.PAGE_SIZE).toMutableList()
-        if (rest.isNotEmpty()) page += more(uid) { paged(rest, uid) }
+        if (rest.isNotEmpty()) page += more(uid, library = true) { paged(rest, uid) }
         return page
     }
-    private fun more(uid: Int, load: () -> List<MediaBrowserCompat.MediaItem>): MediaBrowserCompat.MediaItem {
-        val id = cursors.add(uid, load)
+    private fun more(uid: Int, library: Boolean = false, load: () -> List<MediaBrowserCompat.MediaItem>): MediaBrowserCompat.MediaItem {
+        val id = cursors.add(uid, library, load)
         return MediaBrowserCompat.MediaItem(MediaDescriptionCompat.Builder().setMediaId(id).setTitle("More videos").build(), MediaBrowserCompat.MediaItem.FLAG_BROWSABLE)
     }
     private fun home(): Raw {

@@ -43,4 +43,16 @@ class PublicBrowsePagesTest {
         val id = pages.add(1) { pages.close(); "late page" }
         assertTrue(runCatching { pages.get(id, 1) }.isFailure)
     }
+    @Test fun droppingPrivatePagesRevokesLoadedLibraryContinuationsOnly() {
+        val pages = PublicBrowsePages<String>({ 0 })
+        val feed = pages.add(1) { "public" }
+        val library = pages.add(1, library = true) { "history" }
+        assertEquals("history", pages.get(library, 1))
+        assertTrue(pages.isPrivate(library))
+        assertFalse(pages.isPrivate(feed))
+        pages.dropPrivate()
+        assertFalse(pages.isPrivate(library))
+        assertTrue(runCatching { pages.get(library, 1) }.isFailure)
+        assertEquals("public", pages.get(feed, 1))
+    }
 }
