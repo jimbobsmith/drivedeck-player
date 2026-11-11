@@ -66,7 +66,7 @@ class MediaSyncSettingsFragment : BasePreferenceFragment() {
                         if (action == "disconnect") { MediaSyncAuto.cancel(requireContext()); MediaSyncClient.exclusive { db.runInTransaction { db.mediaSyncStateDAO().clear() }; secrets.delete() }; JSONObject().put("enabled", false).put("code", "disconnected") }
                         else if (action == "library") MediaSyncClient(db, secrets.load()).enableLibrary()
                         else if (action == "profiles") MediaSyncClient(db, secrets.load()).enableProfiles()
-                        else MediaSyncClient(db, secrets.load()).sync(if (action == "sync") null else action)
+                        else MediaSyncClient(db, secrets.load()).sync(if (action == "sync") null else action).also { if (it.optString("code") != "offline") try { org.schabi.newpipe.mediasync.MediaSyncHydrator.run(db) } catch (_: Exception) { } }
                     }
                 }
                 if (action == "sync") run()
