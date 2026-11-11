@@ -15,7 +15,10 @@ import io.reactivex.rxjava3.disposables.SerialDisposable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
+import androidx.preference.PreferenceManager
 import org.schabi.newpipe.BuildConfig
+import org.schabi.newpipe.NewPipeDatabase
+import org.schabi.newpipe.database.stream.model.StreamEntity
 import org.schabi.newpipe.extractor.Page
 import org.schabi.newpipe.extractor.ServiceList
 import org.schabi.newpipe.extractor.search.filter.FilterItem
@@ -24,7 +27,10 @@ import org.schabi.newpipe.util.ExtractorHelper
 import java.security.MessageDigest
 import java.util.concurrent.atomic.AtomicInteger
 
-/** Browse only: independent of the decoder, PlayerServiceForAuto and Room. */
+/**
+ * Browse only: independent of the decoder and PlayerServiceForAuto. Public pages never read
+ * Room; `lib:` pages read it (never write) only while the owner shares the library.
+ */
 class PublicYouTubeBrowserService : MediaBrowserServiceCompat() {
     private lateinit var token: MediaSessionCompat
     private val work = CompositeDisposable()
@@ -44,6 +50,7 @@ class PublicYouTubeBrowserService : MediaBrowserServiceCompat() {
         if (!allowed(pkg, uid)) return null
         return BrowserRoot(PublicYouTubePolicy.HOME, Bundle().apply {
             putString("com.drivedeck.media.presentation", PublicYouTubePolicy.PRESENTATION)
+            putString(PlayerLibraryPolicy.CAPABILITY, PlayerLibraryPolicy.VERSION)
         })
     }
     override fun onLoadChildren(parentId: String, result: Result<MutableList<MediaBrowserCompat.MediaItem>>) {
@@ -59,6 +66,8 @@ class PublicYouTubeBrowserService : MediaBrowserServiceCompat() {
         slot.set(Single.fromCallable {
             if (parentId.startsWith("page:")) {
                 cursors.get(parentId, uid)
+            } else if (PlayerLibraryPolicy.isLibrary(parentId)) {
+                library(parentId, uid)
             } else {
                 val query = PublicYouTubePolicy.query(parentId)
                 project(if (query == null) home() else search(query), uid)
@@ -86,6 +95,45 @@ class PublicYouTubeBrowserService : MediaBrowserServiceCompat() {
         }.distinctBy { it.mediaId }.toMutableList()
         if (next != null) videos += more(uid) { project(next(), uid) }
         return videos
+    }
+    private fun library(parent: String, uid: Int): List<MediaBrowserCompat.MediaItem> {
+        val page = PlayerLibraryPolicy.page(parent) ?: return status("This library page is unavailable. Return Home.")
+        if (!PreferenceManager.getDefaultSharedPreferences(this).getBoolean(PlayerLibraryPolicy.CONSENT_KEY, false))
+            return status(PlayerLibraryPolicy.DENIED)
+        val db = NewPipeDatabase.getInstance(this)
+        val items = when (page) {
+            PlayerLibraryPolicy.Page.Subscriptions -> videos(db.feedDAO().getAllStreams().blockingGet(emptyList()).map { it.stream })
+            PlayerLibraryPolicy.Page.History -> videos(db.streamHistoryDAO().history.blockingFirst(emptyList()).map { it.streamEntity })
+            PlayerLibraryPolicy.Page.Playlists -> db.playlistStreamDAO().playlistMetadata.blockingFirst(emptyList())
+                .take(PlayerLibraryPolicy.MAX_ITEMS).mapNotNull { playlist ->
+                    val title = PublicYouTubePolicy.text(playlist.name).ifEmpty { return@mapNotNull null }
+                    MediaBrowserCompat.MediaItem(MediaDescriptionCompat.Builder()
+                        .setMediaId(PlayerLibraryPolicy.playlistId(playlist.uid)).setTitle(title)
+                        .setSubtitle(PlayerLibraryPolicy.countLabel(playlist.streamCount))
+                        .setIconUri(PublicYouTubePolicy.thumbnail(playlist.thumbnailUrl)?.let(android.net.Uri::parse)).build(),
+                        MediaBrowserCompat.MediaItem.FLAG_BROWSABLE)
+                }
+            is PlayerLibraryPolicy.Page.Playlist -> videos(db.playlistStreamDAO().getOrderedStreamsOf(page.id)
+                .blockingFirst(emptyList()).map { it.streamEntity })
+        }
+        if (items.isEmpty()) return status(PlayerLibraryPolicy.emptyMessage(page))
+        return paged(items, uid)
+    }
+    /** Only canonical YouTube videos leave the app; other services and malformed rows are skipped. */
+    private fun videos(streams: List<StreamEntity>) = streams.asSequence().mapNotNull { stream ->
+        if (stream.serviceId != ServiceList.YouTube.serviceId) return@mapNotNull null
+        val id = runCatching { ServiceList.YouTube.streamLHFactory.getId(stream.url) }.getOrNull()
+        if (id == null || !PublicYouTubePolicy.videoId(id)) return@mapNotNull null
+        val title = PublicYouTubePolicy.text(stream.title).ifEmpty { return@mapNotNull null }
+        MediaBrowserCompat.MediaItem(MediaDescriptionCompat.Builder().setMediaId("yt:$id")
+            .setTitle(title).setSubtitle(PublicYouTubePolicy.text(stream.uploader))
+            .setIconUri(PublicYouTubePolicy.thumbnail(stream.thumbnailUrl)?.let(android.net.Uri::parse)).build(), 0)
+    }.distinctBy { it.mediaId }.take(PlayerLibraryPolicy.MAX_ITEMS).toList()
+    private fun paged(items: List<MediaBrowserCompat.MediaItem>, uid: Int): List<MediaBrowserCompat.MediaItem> {
+        val rest = items.drop(PublicYouTubePolicy.PAGE_SIZE)
+        val page = items.take(PublicYouTubePolicy.PAGE_SIZE).toMutableList()
+        if (rest.isNotEmpty()) page += more(uid) { paged(rest, uid) }
+        return page
     }
     private fun more(uid: Int, load: () -> List<MediaBrowserCompat.MediaItem>): MediaBrowserCompat.MediaItem {
         val id = cursors.add(uid, load)
