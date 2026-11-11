@@ -1,0 +1,25 @@
+{
+  "baseBranch": "main",
+  "upstream": {
+    "name": "PipePipe",
+    "url": "https://github.com/InfinityLoop1308/PipePipeClient.git",
+    "branch": "dev",
+    "releaseTagsUrl": "https://github.com/InfinityLoop1308/PipePipe.git",
+    "tagPattern": "^v(\\d+)\\.(\\d+)\\.(\\d+)$",
+    "commitSubject": "{tag}"
+  },
+  "submodule": {
+    "path": "vendor/PipePipeExtractor",
+    "url": "https://github.com/InfinityLoop1308/PipePipeExtractor.git",
+    "branch": "main",
+    "commitSubject": "{tag}"
+  },
+  "keepOurs": ["README.md"],
+  "pin": {
+    "tag": "v5.4.0",
+    "commit": "c2a166f7df05e5ace4c80fb3e3fd27702cfc3e56"
+  },
+  "submodulePin": {
+    "commit": "c68e10e2e97495877832d8df6cbac55478083019"
+  }
+}
