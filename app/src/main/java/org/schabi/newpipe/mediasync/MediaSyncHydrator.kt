@@ -13,12 +13,12 @@ import java.util.concurrent.TimeUnit
  * is sent to the sync service. Channel names and pictures are filled in by the normal feed refresh.
  */
 object MediaSyncHydrator {
-    private val PLACEHOLDER = Regex("^Synced (?:video|resume): ")
     private val VIDEO_ID = Regex("https://www\\.youtube\\.com/watch\\?v=([A-Za-z0-9_-]{11})")
     private val http = OkHttpClient.Builder().followRedirects(false).followSslRedirects(false)
         .connectTimeout(5, TimeUnit.SECONDS).readTimeout(5, TimeUnit.SECONDS).callTimeout(8, TimeUnit.SECONDS).build()
 
-    fun isPlaceholder(title: String) = PLACEHOLDER.containsMatchIn(title)
+    /** Only the exact generated titles count, so a title the user edited (even one that starts the same way) is never replaced. */
+    fun isPlaceholder(title: String, id: String) = title == "Synced video: $id" || title == "Synced resume: $id"
 
     private fun clean(value: String, max: Int) = value.map { if (it.code < 32 || it.code == 127) ' ' else it }.joinToString("").trim().take(max)
 
@@ -60,7 +60,7 @@ object MediaSyncHydrator {
             while (c.moveToNext()) {
                 val title = c.getString(2)
                 val id = VIDEO_ID.matchEntire(c.getString(1))?.groupValues?.get(1)
-                if (id != null && isPlaceholder(title)) wanted.add(Triple(c.getLong(0), id, title)) else synchronized(skipped) { skipped.add(c.getLong(0)) }
+                if (id != null && isPlaceholder(title, id)) wanted.add(Triple(c.getLong(0), id, title)) else synchronized(skipped) { skipped.add(c.getLong(0)) }
             }
         }
         var updated = 0

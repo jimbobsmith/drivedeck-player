@@ -7,11 +7,12 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class MediaSyncHydratorTest {
-    @Test fun recognisesOnlyPlaceholderTitles() {
-        assertTrue(MediaSyncHydrator.isPlaceholder("Synced video: aBcDeFgH123"))
-        assertTrue(MediaSyncHydrator.isPlaceholder("Synced resume: aBcDeFgH123"))
-        assertFalse(MediaSyncHydrator.isPlaceholder("My synced video: not a placeholder"))
-        assertFalse(MediaSyncHydrator.isPlaceholder("A real title"))
+    @Test fun recognisesOnlyExactPlaceholderTitles() {
+        assertTrue(MediaSyncHydrator.isPlaceholder("Synced video: aBcDeFgH123", "aBcDeFgH123"))
+        assertTrue(MediaSyncHydrator.isPlaceholder("Synced resume: aBcDeFgH123", "aBcDeFgH123"))
+        assertFalse(MediaSyncHydrator.isPlaceholder("Synced video: aBcDeFgH123 (my note)", "aBcDeFgH123"))
+        assertFalse(MediaSyncHydrator.isPlaceholder("Synced video: zzzzzzzzzzz", "aBcDeFgH123"))
+        assertFalse(MediaSyncHydrator.isPlaceholder("A real title", "aBcDeFgH123"))
     }
 
     @Test fun parsesTitleAndAuthorAndCleansControlCharacters() {
