@@ -63,7 +63,7 @@ class MediaSyncSettingsFragment : BasePreferenceFragment() {
                 val run = {
                     perform {
                         val db = NewPipeDatabase.getInstance(requireContext()); val secrets = MediaSyncSecrets(requireContext())
-                        if (action == "disconnect") { MediaSyncAuto.cancel(requireContext()); db.runInTransaction { db.mediaSyncStateDAO().clear() }; secrets.delete(); JSONObject().put("enabled", false).put("code", "disconnected") }
+                        if (action == "disconnect") { MediaSyncAuto.cancel(requireContext()); MediaSyncClient.exclusive { db.runInTransaction { db.mediaSyncStateDAO().clear() }; secrets.delete() }; JSONObject().put("enabled", false).put("code", "disconnected") }
                         else if (action == "library") MediaSyncClient(db, secrets.load()).enableLibrary()
                         else if (action == "profiles") MediaSyncClient(db, secrets.load()).enableProfiles()
                         else MediaSyncClient(db, secrets.load()).sync(if (action == "sync") null else action)
@@ -109,7 +109,10 @@ class MediaSyncSettingsFragment : BasePreferenceFragment() {
         busy = true; for (key in listOf("connect", "import", "sync", "auto", "keep-local", "use-remote", "disconnect", "library", "profiles")) findPreference<Preference>("media_sync_$key")!!.isEnabled = false
         val application = requireActivity().application
         executor.execute {
-            val result = try { operation() } catch (e: Exception) { JSONObject().put("enabled", MediaSyncSecrets(application).exists()).put("code", if (e is org.schabi.newpipe.mediasync.SyncFailure && e.code in listOf("invalid_connect_code", "invalid_code", "invalid_service_address", "verified_transport_required", "invalid_device_label", "rate_limited", "device_quota", "offline", "restored_service", "library_upgrade_required", "profiles_upgrade_required", "profile_not_portable", "playlist_not_portable", "invalid_playlist_name")) e.code else "failed") }
+            val result = try { operation() } catch (e: Exception) { JSONObject().put("enabled", MediaSyncSecrets(application).exists()).put("code", if (e is org.schabi.newpipe.mediasync.SyncFailure && e.code in listOf("invalid_connect_code", "invalid_code", "invalid_service_address", "verified_transport_required", "invalid_device_label", "rate_limited", "device_quota", "offline", "restored_service", "library_upgrade_required", "profiles_upgrade_required", "profile_not_portable", "playlist_not_portable", "invalid_playlist_name")) e.code else "failed").also { r ->
+                // Keep the saved automatic-sync switch and last sync time so a failed action does not change the controls.
+                try { val (auto, last) = MediaSyncClient.savedAuto(NewPipeDatabase.getInstance(application)); r.put("autoSync", auto).put("lastSyncAt", last) } catch (_: Exception) { }
+            } }
             activity?.runOnUiThread {
                 if (!isAdded) return@runOnUiThread
                 busy = false

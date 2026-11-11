@@ -45,6 +45,8 @@ object MediaSyncAuto {
         if (!MediaSyncSecrets(app).exists()) { cancel(app); return }
         io.execute {
             try {
+                // A paused enrollment keeps nothing scheduled and no database observer.
+                if (!MediaSyncClient.savedAuto(NewPipeDatabase.getInstance(app)).first) { cancel(app); return@execute }
                 val work = WorkManager.getInstance(app)
                 work.enqueueUniquePeriodicWork(PERIODIC, ExistingPeriodicWorkPolicy.UPDATE,
                     PeriodicWorkRequestBuilder<MediaSyncWorker>(15, TimeUnit.MINUTES).setConstraints(network)
@@ -86,13 +88,17 @@ object MediaSyncAuto {
 class MediaSyncWorker(context: Context, params: WorkerParameters) : Worker(context, params) {
     override fun doWork(): Result {
         val secrets = MediaSyncSecrets(applicationContext)
-        if (!secrets.exists()) return Result.success()
         return try {
-            val client = MediaSyncClient(NewPipeDatabase.getInstance(applicationContext), secrets.load())
-            if (!client.autoSyncAllowed()) return Result.success()
-            if (MediaSyncAutoPolicy.retry(client.sync().optString("code"))) Result.retry() else Result.success()
+            // Enrollment is checked and used under the same lock that disconnect takes, so a worker waiting
+            // behind a disconnect finds no enrollment and stops instead of recreating the cleared state.
+            val result = MediaSyncClient.exclusive {
+                if (!secrets.exists()) null
+                else MediaSyncClient(NewPipeDatabase.getInstance(applicationContext), secrets.load()).syncIfAllowed()
+            }
+            if (result != null && MediaSyncAutoPolicy.retry(result.optString("code"))) Result.retry() else Result.success()
         } catch (_: SyncFailure) {
-            // Needs the user (upgrade, restore, rejected credentials): stop retrying until they open settings.
+            // Needs the user (upgrade, restore, rejected credentials). It is recorded in the sync state, so
+            // no further automatic run contacts the service until the user acts in settings.
             Result.success()
         } catch (_: Exception) {
             Result.retry()
