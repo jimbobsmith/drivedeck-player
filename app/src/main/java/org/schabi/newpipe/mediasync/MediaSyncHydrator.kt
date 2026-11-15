@@ -69,7 +69,7 @@ object MediaSyncHydrator {
             if (info == null) { synchronized(skipped) { skipped.add(uid) }; continue }
             // A Room transaction, so Room refreshes the Flowable queries (history, playlists) that join streams.
             db.runInTransaction {
-                db.openHelper.writableDatabase.execSQL("UPDATE streams SET title=?, uploader=CASE WHEN uploader='' THEN ? ELSE uploader END WHERE uid=? AND title=?", arrayOf(info.first, info.second, uid, placeholder))
+                db.openHelper.writableDatabase.execSQL("UPDATE streams SET title=?, uploader=CASE WHEN uploader='' THEN ? ELSE uploader END WHERE uid=? AND title=?", arrayOf<Any?>(info.first, info.second, uid, placeholder))
             }
             updated += 1
             try { Thread.sleep(300) } catch (_: InterruptedException) { break }
