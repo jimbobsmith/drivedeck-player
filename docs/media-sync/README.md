@@ -86,3 +86,7 @@ playlist/Watch Later item roundtrips and NAS/personal-library field gates remain
 ## Automatic sync
 
 `MediaSyncAuto` (with `MediaSyncWorker`) runs the same `MediaSyncClient.sync()` as Sync now through WorkManager: a periodic job about every 15 minutes with a network connection, one job 10 seconds after app start, and one job 30 seconds after the last local change to the synced Room tables (the delay restarts on each change). Unreachable service results in WorkManager back-off. A conflict, a restored service or an upgrade-required error stops it until the user acts in settings. Settings shows one **Pause automatic sync** / **Resume automatic sync** entry and the last sync time. The setting is stored per enrollment in the existing `dd_media_sync` state (no Room schema change) and defaults to on. A process-wide lock serialises settings and background syncs. Nothing is scheduled without an enrollment, and sync never starts playback.
+
+## Titles for synced items
+
+Synced videos arrive as bare IDs and are stored as `Synced video: <id>` (or `Synced resume: <id>`). `MediaSyncHydrator` fills in up to 20 such titles (and the channel name when empty) per pass from YouTube's public oEmbed endpoint, after each completed sync (background or Sync now). Only rows that still hold their placeholder title change. Nothing is added to the sync protocol or sent to the sync service. Failures are ignored and retried on a later pass. Channel names and pictures for synced subscriptions are filled in by the normal feed refresh.

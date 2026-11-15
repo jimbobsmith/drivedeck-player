@@ -95,6 +95,10 @@ class MediaSyncWorker(context: Context, params: WorkerParameters) : Worker(conte
                 if (!secrets.exists()) null
                 else MediaSyncClient(NewPipeDatabase.getInstance(applicationContext), secrets.load()).syncIfAllowed()
             }
+            if (result != null && !MediaSyncAutoPolicy.retry(result.optString("code"))) {
+                // Cosmetic and outside the sync lock: titles for videos that arrived as bare IDs.
+                try { MediaSyncHydrator.run(NewPipeDatabase.getInstance(applicationContext)) } catch (_: Exception) { }
+            }
             if (result != null && MediaSyncAutoPolicy.retry(result.optString("code"))) Result.retry() else Result.success()
         } catch (_: SyncFailure) {
             // Needs the user (upgrade, restore, rejected credentials). It is recorded in the sync state, so
