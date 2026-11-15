@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="drivedeck_share_library_key" translatable="false">drivedeck_share_library</string>
+    <string name="drivedeck_share_library_title">Share library with DriveDeck</string>
+    <string name="drivedeck_share_library_summary">Let DriveDeck show your subscription videos, watch history and playlists. DriveDeck can only read them, never change them.</string>
+</resources>
