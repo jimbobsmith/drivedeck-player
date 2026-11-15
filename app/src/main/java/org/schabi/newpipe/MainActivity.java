@@ -75,6 +75,7 @@ import org.schabi.newpipe.player.PlayerIntentConstants;
 import org.schabi.newpipe.player.event.OnKeyDownListener;
 import org.schabi.newpipe.player.helper.PlayerHolder;
 import org.schabi.newpipe.player.playqueue.PlayQueue;
+import org.schabi.newpipe.util.selection.SelectionToolbar;
 import org.schabi.newpipe.util.*;
 import org.schabi.newpipe.util.external_communication.ShareUtils;
 import org.schabi.newpipe.views.FocusOverlayView;
@@ -180,11 +181,6 @@ public class MainActivity extends AppCompatActivity {
         final App app = App.getApp();
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(app);
 
-        String audioLang = prefs.getString(getString(R.string.preferred_audio_language_key), "original");
-        if (!Arrays.asList("original", "en", "fr", "de", "es", "pt", "ru", "tr", "zh", "ja", "hi", "ko", "th", "vi", "bn", "id", "ar").contains(audioLang)) {
-            prefs.edit().putString(getString(R.string.preferred_audio_language_key), "original").apply();
-        } // remove this after sometime
-
         if (prefs.getBoolean(app.getString(R.string.update_app_key), false)) {
             // Start the worker which is checking all conditions
             // and eventually searching for a new version.
@@ -217,7 +213,7 @@ public class MainActivity extends AppCompatActivity {
             dialog1.setOnDismissListener(new DialogInterface.OnDismissListener() {
                 @Override
                 public void onDismiss(DialogInterface dialog) {
-                    if((storedVersionCode / 100 < 1109 && currentTime - lastShowDonationTime > 14 * 24 * 60 * 60 * 1000)
+                    if((storedVersionCode / 100 < 1110 && currentTime - lastShowDonationTime > 14 * 24 * 60 * 60 * 1000)
                             || currentTime - lastShowDonationTime > 30L * 24 * 60 * 60 * 1000) {
                         prefs.edit().putLong("last_show_donation_time", currentTime).apply();
                         dialog2.show();
@@ -638,6 +634,10 @@ public class MainActivity extends AppCompatActivity {
         // interacts with a fragment inside fragment_holder so all back presses should be
         // handled by it
         if (bottomSheetHiddenOrCollapsed()) {
+            // a list in multi-selection mode leaves it first
+            if (SelectionToolbar.onBackPressed()) {
+                return;
+            }
             final Fragment fragment = getSupportFragmentManager()
                     .findFragmentById(R.id.fragment_holder);
             // If current fragment implements BackPressable (i.e. can/wanna handle back press)

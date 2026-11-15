@@ -30,6 +30,9 @@ class PlayerGestureController(private val player: Player) {
     companion object {
         /** The gesture length, as a factor of the smaller screen dimension. */
         private const val MAX_GESTURE_LENGTH = 0.75f
+
+        /** Releasing a pinch below this scale snaps back to 1.0. */
+        private const val PINCH_MAGNET_SCALE = 1.05f
     }
 
     /** True if the up/down swipe to toggle fullscreen is enabled in the preferences. */
@@ -183,6 +186,18 @@ class PlayerGestureController(private val player: Player) {
 
             KeyEvent.KEYCODE_DPAD_UP, KeyEvent.KEYCODE_DPAD_LEFT, KeyEvent.KEYCODE_DPAD_DOWN,
             KeyEvent.KEYCODE_DPAD_RIGHT, KeyEvent.KEYCODE_DPAD_CENTER -> {
+                if (binding.chatPanel.hasFocus()) {
+                    // The chat list swallows the keys it can't use itself, which traps the focus
+                    // there: LEFT/RIGHT/CENTER leave the panel, UP/DOWN keep scrolling the list.
+                    if (keyCode == KeyEvent.KEYCODE_DPAD_UP || keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
+                        return false
+                    }
+                    player.showControlsThenHide()
+                    player.showSystemUIPartially()
+                    binding.playPauseButton.requestFocus()
+                    return true
+                }
+
                 if ((binding.root.hasFocus() && !binding.playbackControlRoot.hasFocus())
                     || player.isQueueVisible
                 ) {
@@ -226,7 +241,6 @@ class PlayerGestureController(private val player: Player) {
 
     fun onPinchZoomStart(focusX: Float, focusY: Float) {
         val binding = player.binding
-        player.menuController.onPinchZoomStart()
         binding.surfaceView.beginPinchGesture(
             focusX - binding.surfaceView.left,
             focusY - binding.surfaceView.top
@@ -252,11 +266,40 @@ class PlayerGestureController(private val player: Player) {
             String.format(Locale.US, "%.1f×", binding.surfaceView.pinchScale)
     }
 
+    /** True while the video is zoomed in; single-finger gestures then pan instead. */
+    val isZoomed: Boolean
+        get() = player.binding.surfaceView.isPinchZoomed
+
     fun onPinchZoomEnd() {
+        val surfaceView = player.binding.surfaceView
+        // Magnet: a release at (or just above) the base state springs back to exactly 1.0.
+        if (surfaceView.pinchScale < PINCH_MAGNET_SCALE) {
+            surfaceView.animatePinchReset()
+            player.binding.pinchZoomIndicator.text = String.format(Locale.US, "%.1f×", 1.0f)
+        }
+        fadeOutPinchIndicator()
+    }
+
+    /** Double-tap while zoomed: animate back to the base state. */
+    fun animateResetZoom() {
         val binding = player.binding
+        binding.surfaceView.animatePinchReset()
         binding.pinchZoomIndicator.animate().cancel()
-        binding.pinchZoomIndicator.animate().alpha(0.0f).setStartDelay(250L).setDuration(180L)
-            .withEndAction { binding.pinchZoomIndicator.visibility = View.GONE }.start()
+        binding.pinchZoomIndicator.alpha = 1.0f
+        binding.pinchZoomIndicator.text = String.format(Locale.US, "%.1f×", 1.0f)
+        binding.pinchZoomIndicator.visibility = View.VISIBLE
+        fadeOutPinchIndicator()
+    }
+
+    fun panZoomedVideo(dx: Float, dy: Float) {
+        player.binding.surfaceView.panBy(dx, dy)
+    }
+
+    private fun fadeOutPinchIndicator() {
+        val indicator = player.binding.pinchZoomIndicator
+        indicator.animate().cancel()
+        indicator.animate().alpha(0.0f).setStartDelay(250L).setDuration(180L)
+            .withEndAction { indicator.visibility = View.GONE }.start()
     }
 
     //endregion
