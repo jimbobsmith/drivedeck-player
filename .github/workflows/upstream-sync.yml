@@ -1,0 +1,43 @@
+name: Upstream sync
+
+# Weekly check for a new upstream PipePipe release. When one exists this merges it into a
+# branch and opens a DRAFT pull request; it never touches main. Conflicts that policy cannot
+# resolve open an issue instead. See docs/upstream-sync.md.
+on:
+  schedule:
+    - cron: "17 6 * * 1" # Mondays 06:17 UTC
+  workflow_dispatch:
+    inputs:
+      target:
+        description: "Upstream tag, branch or commit to merge (empty = newest release)"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+concurrency:
+  group: upstream-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      # UPSTREAM_SYNC_TOKEN is a fine-grained PAT. Pull requests opened with the default token
+      # do not start other workflows, so without it the PR would have no CI checks.
+      GH_TOKEN: ${{ secrets.UPSTREAM_SYNC_TOKEN || github.token }}
+      TARGET: ${{ inputs.target }}
+    steps:
+      - name: Check out full history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: false
+          token: ${{ secrets.UPSTREAM_SYNC_TOKEN || github.token }}
+
+      - name: Merge newest upstream release
+        run: python3 tools/upstream-sync/sync.py ${TARGET:+--target "$TARGET"}

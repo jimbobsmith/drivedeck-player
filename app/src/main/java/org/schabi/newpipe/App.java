@@ -28,6 +28,7 @@ import org.schabi.newpipe.extractor.services.youtube.YoutubeApiDecoder;
 import org.schabi.newpipe.ktx.ExceptionUtils;
 import org.schabi.newpipe.settings.NewPipeSettings;
 import org.schabi.newpipe.util.*;
+import org.schabi.newpipe.util.dearrow.DeArrowImages;
 import org.schabi.newpipe.youtube.LocalDomPoTokenProvider;
 
 import java.io.IOException;
@@ -141,6 +142,8 @@ public class App extends MultiDexApplication {
         StateSaver.init(this);
         initNotificationChannels();
         org.schabi.newpipe.updates.PlayerUpdateManager.get(this).reconcileSchedule();
+        // Automatic personal media sync: schedules nothing unless the user has signed in.
+        org.schabi.newpipe.mediasync.MediaSyncAuto.install(this);
 
         ServiceHelper.initServices(this);
         LocalDomPoTokenProvider.initialize(this);
@@ -150,6 +153,9 @@ public class App extends MultiDexApplication {
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         reconcileYoutubePlayerClient(this);
         PicassoHelper.init(this);
+        // Lets the system reclaim DeArrow's decoded images under pressure; without it they are
+        // process-lifetime and the only way to get the memory back is to kill the app.
+        DeArrowImages.registerTrimCallback(this);
         PicassoHelper.setShouldLoadImages(
                 prefs.getBoolean(getString(R.string.download_thumbnail_key), true));
         PicassoHelper.setIndicatorsEnabled(DEBUG
@@ -168,7 +174,8 @@ public class App extends MultiDexApplication {
         final boolean allowed = loggedIn
                 ? "mweb".equals(selectedClient)
                 : "mweb".equals(selectedClient)
-                        || "visionos".equals(selectedClient);
+                        || "visionos".equals(selectedClient)
+                        || "tv_samsung".equals(selectedClient);
         final String reconciledClient = allowed ? selectedClient : defaultClient;
 
         if (!reconciledClient.equals(selectedClient)) {
