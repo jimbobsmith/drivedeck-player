@@ -11,6 +11,7 @@ import androidx.preference.Preference
 import org.json.JSONObject
 import org.schabi.newpipe.NewPipeDatabase
 import org.schabi.newpipe.R
+import org.schabi.newpipe.mediasync.MediaSyncAuto
 import org.schabi.newpipe.mediasync.MediaSyncClient
 import org.schabi.newpipe.mediasync.MediaSyncConnect
 import org.schabi.newpipe.mediasync.MediaSyncEnrollmentInput
@@ -18,9 +19,10 @@ import org.schabi.newpipe.mediasync.MediaSyncCrypto
 import org.schabi.newpipe.mediasync.MediaSyncSecrets
 import java.util.concurrent.Executors
 
-/** Explicit user-initiated sync only; no worker/service or automatic playback. */
+/** Sign-in, Sync now and Pause/Resume of automatic sync (see MediaSyncAuto). Sync never starts playback. */
 class MediaSyncSettingsFragment : BasePreferenceFragment() {
     private var busy = false
+    private var autoOn = true
     private val picker = registerForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
         if (uri != null) {
             val field = EditText(requireContext()).apply { inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD; isSaveEnabled = false; maxLines = 1; hint = getString(R.string.media_sync_passphrase) }
@@ -34,7 +36,7 @@ class MediaSyncSettingsFragment : BasePreferenceFragment() {
                         val config = MediaSyncCrypto.unprotect(JSONObject(text), passphrase)
                         val secrets = MediaSyncSecrets(requireContext()); MediaSyncCrypto.check(!secrets.exists(), "disconnect_before_enrollment")
                         val db = NewPipeDatabase.getInstance(requireContext()); MediaSyncCrypto.check(db.mediaSyncStateDAO().read() == null, "disconnect_before_enrollment")
-                        secrets.save(config); MediaSyncClient(db, config).status()
+                        secrets.save(config); MediaSyncClient(db, config).status().also { MediaSyncAuto.install(requireContext()) }
                     }
                 }.show()
         }
@@ -47,12 +49,21 @@ class MediaSyncSettingsFragment : BasePreferenceFragment() {
         findPreference<Preference>("media_sync_import")!!.setOnPreferenceClickListener {
             if (!busy) picker.launch(arrayOf("application/json", "text/plain", "application/octet-stream")); true
         }
+        findPreference<Preference>("media_sync_auto")!!.setOnPreferenceClickListener {
+            if (!busy) perform {
+                val db = NewPipeDatabase.getInstance(requireContext())
+                val result = MediaSyncClient(db, MediaSyncSecrets(requireContext()).load()).setAutoSync(!autoOn)
+                if (result.optBoolean("autoSync")) MediaSyncAuto.install(requireContext()) else MediaSyncAuto.cancel(requireContext())
+                result
+            }
+            true
+        }
         for (action in listOf("sync", "keep-local", "use-remote", "disconnect", "library", "profiles")) {
             findPreference<Preference>("media_sync_$action")!!.setOnPreferenceClickListener {
                 val run = {
                     perform {
                         val db = NewPipeDatabase.getInstance(requireContext()); val secrets = MediaSyncSecrets(requireContext())
-                        if (action == "disconnect") { db.runInTransaction { db.mediaSyncStateDAO().clear() }; secrets.delete(); JSONObject().put("enabled", false).put("code", "disconnected") }
+                        if (action == "disconnect") { MediaSyncAuto.cancel(requireContext()); MediaSyncClient.exclusive { db.runInTransaction { db.mediaSyncStateDAO().clear() }; secrets.delete() }; JSONObject().put("enabled", false).put("code", "disconnected") }
                         else if (action == "library") MediaSyncClient(db, secrets.load()).enableLibrary()
                         else if (action == "profiles") MediaSyncClient(db, secrets.load()).enableProfiles()
                         else MediaSyncClient(db, secrets.load()).sync(if (action == "sync") null else action)
@@ -85,17 +96,23 @@ class MediaSyncSettingsFragment : BasePreferenceFragment() {
                     val secrets = MediaSyncSecrets(requireContext()); MediaSyncCrypto.check(!secrets.exists(), "disconnect_before_enrollment")
                     val db = NewPipeDatabase.getInstance(requireContext()); MediaSyncCrypto.check(db.mediaSyncStateDAO().read() == null, "disconnect_before_enrollment")
                     val config = MediaSyncConnect.connect(input.first, input.second, input.third)
-                    secrets.save(config); MediaSyncClient(db, config).status()
+                    secrets.save(config)
+                    // Signing in with a code is the consent to sync everything the portal manages; no further switches.
+                    val client = MediaSyncClient(db, config); client.enableLibrary(); client.enableProfiles()
+                    client.status().also { MediaSyncAuto.install(requireContext()) }
                 }
             }.show()
     }
     private fun perform(operation: () -> JSONObject) {
         if (busy) return
         if (Build.VERSION.SDK_INT < 26) { findPreference<Preference>("media_sync_status")!!.setSummary(R.string.media_sync_requires_android); return }
-        busy = true; for (key in listOf("connect", "import", "sync", "keep-local", "use-remote", "disconnect", "library", "profiles")) findPreference<Preference>("media_sync_$key")!!.isEnabled = false
+        busy = true; for (key in listOf("connect", "import", "sync", "auto", "keep-local", "use-remote", "disconnect", "library", "profiles")) findPreference<Preference>("media_sync_$key")!!.isEnabled = false
         val application = requireActivity().application
         executor.execute {
-            val result = try { operation() } catch (e: Exception) { JSONObject().put("enabled", MediaSyncSecrets(application).exists()).put("code", if (e is org.schabi.newpipe.mediasync.SyncFailure && e.code in listOf("invalid_connect_code", "invalid_code", "invalid_service_address", "verified_transport_required", "invalid_device_label", "rate_limited", "device_quota", "offline", "restored_service", "library_upgrade_required", "profiles_upgrade_required", "profile_not_portable", "playlist_not_portable", "invalid_playlist_name")) e.code else "failed") }
+            val result = try { operation() } catch (e: Exception) { JSONObject().put("enabled", MediaSyncSecrets(application).exists()).put("code", if (e is org.schabi.newpipe.mediasync.SyncFailure && e.code in listOf("invalid_connect_code", "invalid_code", "invalid_service_address", "verified_transport_required", "invalid_device_label", "rate_limited", "device_quota", "offline", "restored_service", "library_upgrade_required", "profiles_upgrade_required", "profile_not_portable", "playlist_not_portable", "invalid_playlist_name")) e.code else "failed").also { r ->
+                // Keep the saved automatic-sync switch and last sync time so a failed action does not change the controls.
+                try { val (auto, last) = MediaSyncClient.savedAuto(NewPipeDatabase.getInstance(application)); r.put("autoSync", auto).put("lastSyncAt", last) } catch (_: Exception) { }
+            } }
             activity?.runOnUiThread {
                 if (!isAdded) return@runOnUiThread
                 busy = false
@@ -120,7 +137,15 @@ class MediaSyncSettingsFragment : BasePreferenceFragment() {
                     "device_quota" -> R.string.media_sync_device_quota
                     else -> R.string.media_sync_failed
                 }
-                findPreference<Preference>("media_sync_status")!!.setSummary(text)
+                autoOn = result.optBoolean("autoSync", true)
+                val last = result.optLong("lastSyncAt", 0)
+                val summary = StringBuilder(getString(text))
+                if (enabled) {
+                    if (last > 0) summary.append(' ').append(getString(R.string.media_sync_last_synced, java.text.DateFormat.getDateTimeInstance().format(java.util.Date(last))))
+                    summary.append(' ').append(getString(if (autoOn) R.string.media_sync_auto_on else R.string.media_sync_auto_off))
+                }
+                findPreference<Preference>("media_sync_status")!!.summary = summary.toString()
+                findPreference<Preference>("media_sync_auto")!!.apply { setTitle(if (autoOn) R.string.media_sync_pause_auto else R.string.media_sync_resume_auto); isEnabled = enabled }
                 findPreference<Preference>("media_sync_import")!!.isEnabled = !enabled
                 findPreference<Preference>("media_sync_connect")!!.isEnabled = !enabled
                 findPreference<Preference>("media_sync_library")!!.isEnabled = enabled && !result.optBoolean("libraryEnabled")
