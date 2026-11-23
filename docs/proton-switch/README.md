@@ -6,7 +6,7 @@ DD PipePipe never chooses a server, holds Proton credentials, or changes Proton 
 
 ## Setting
 
-**Settings → Video and audio → When YouTube blocks the video**
+**Settings → Player → When YouTube blocks the video**
 
 | Choice | What happens |
 | --- | --- |
@@ -51,7 +51,7 @@ adb shell am broadcast -n com.drivedeck.protonmock/.ControlReceiver \
 adb logcat -s ProtonMock ProtonQuickSwitch
 ```
 
-Then open **Settings → Video and audio** and choose **Switch server now**. The stand-in logs the request, and the summary shows the answer ("Switched. CA#202", the failure message, or nothing yet for `never`).
+Then open **Settings → Player** and choose **Switch server now**. The stand-in logs the request, and the summary shows the answer ("Switched. CA#202", the failure message, or for `never` "Proton VPN is switching…" until the 10-minute wait ends with "did not answer").
 
 ## What is not proven yet
 
