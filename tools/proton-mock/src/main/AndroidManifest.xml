@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- The same request and permission as the Proton API client for Fire TV
+         (protonvpn-linux-ui: firetv/app/src/main/AndroidManifest.xml). -->
+    <permission
+        android:name="com.jimbobsmith.protonapi.firetv.permission.QUICK_SWITCH"
+        android:protectionLevel="normal" />
+    <uses-permission android:name="com.jimbobsmith.protonapi.firetv.permission.QUICK_SWITCH" />
+
+    <application android:label="Proton stand-in (DD test)" android:allowBackup="false">
+        <receiver
+            android:name=".QuickSwitchReceiver"
+            android:exported="true"
+            android:permission="com.jimbobsmith.protonapi.firetv.permission.QUICK_SWITCH">
+            <intent-filter>
+                <action android:name="com.jimbobsmith.protonapi.firetv.QUICK_SWITCH" />
+            </intent-filter>
+        </receiver>
+
+        <!-- adb shell am broadcast -n com.drivedeck.protonmock/.ControlReceiver
+               -a com.drivedeck.protonmock.SET -\-es scenario ok|fail|no-favorites|never -\-ei delay 3000 -->
+        <receiver
+            android:name=".ControlReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.drivedeck.protonmock.SET" />
+            </intent-filter>
+        </receiver>
+    </application>
+</manifest>

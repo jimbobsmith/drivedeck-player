@@ -14,7 +14,10 @@ import androidx.preference.Preference;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.schabi.newpipe.R;
+import org.schabi.newpipe.drivedeck.ProtonQuickSwitch;
 import org.schabi.newpipe.util.PermissionHelper;
+
+import kotlin.Unit;
 
 public class VideoAudioSettingsFragment extends BasePreferenceFragment {
     private SharedPreferences.OnSharedPreferenceChangeListener listener;
@@ -59,8 +62,74 @@ public class VideoAudioSettingsFragment extends BasePreferenceFragment {
     @Override
     public void onResume() {
         super.onResume();
+        showProtonStatus();
         getPreferenceManager().getSharedPreferences()
                 .registerOnSharedPreferenceChangeListener(listener);
+    }
+
+    /** DD: say whether the Proton app can be asked to switch, every time this screen shows. */
+    private void showProtonStatus() {
+        final Preference status = findPreference(getString(R.string.drivedeck_proton_switch_status_key));
+        if (status == null) {
+            return;
+        }
+        final ProtonQuickSwitch.Status found = ProtonQuickSwitch.INSTANCE.status(requireContext());
+        if (found instanceof ProtonQuickSwitch.Status.Ready) {
+            final boolean mock = ProtonQuickSwitch.MOCK_PACKAGE.equals(
+                    ((ProtonQuickSwitch.Status.Ready) found).getPackageName());
+            status.setSummary(mock ? R.string.drivedeck_proton_switch_status_mock
+                    : R.string.drivedeck_proton_switch_status_ready);
+        } else if (found == ProtonQuickSwitch.Status.NoPermission.INSTANCE) {
+            status.setSummary(R.string.drivedeck_proton_switch_no_permission);
+        } else {
+            status.setSummary(R.string.drivedeck_proton_switch_status_missing);
+        }
+        showSwitchNow(found instanceof ProtonQuickSwitch.Status.Ready);
+    }
+
+    /** DD: offer "Switch server now" only while the Proton app can be asked. */
+    private void showSwitchNow(final boolean ready) {
+        final Preference switchNow = findPreference(getString(R.string.drivedeck_proton_switch_now_key));
+        if (switchNow == null) {
+            return;
+        }
+        switchNow.setVisible(ready);
+        if (!ready) {
+            return;
+        }
+        final boolean running = ProtonQuickSwitch.INSTANCE.isSwitching();
+        switchNow.setEnabled(!running);
+        if (running) {
+            switchNow.setSummary(R.string.drivedeck_proton_switch_now_running);
+        }
+        switchNow.setOnPreferenceClickListener(preference -> {
+            preference.setEnabled(false);
+            preference.setSummary(R.string.drivedeck_proton_switch_now_running);
+            ProtonQuickSwitch.INSTANCE.requestSwitch(requireContext(), result -> {
+                if (isAdded()) {
+                    preference.setEnabled(true);
+                    preference.setSummary(describe(result));
+                }
+                return Unit.INSTANCE;
+            });
+            return true;
+        });
+    }
+
+    private String describe(final ProtonQuickSwitch.Result result) {
+        if (result instanceof ProtonQuickSwitch.Result.Switched) {
+            return getString(R.string.drivedeck_proton_switch_now_done,
+                    ((ProtonQuickSwitch.Result.Switched) result).getMessage());
+        } else if (result instanceof ProtonQuickSwitch.Result.Failed) {
+            final String reason = ((ProtonQuickSwitch.Result.Failed) result).getMessage();
+            return getString(R.string.drivedeck_proton_switch_failed, reason.isEmpty()
+                    ? getString(R.string.drivedeck_proton_switch_no_reason) : reason);
+        } else if (result == ProtonQuickSwitch.Result.NoAnswer.INSTANCE) {
+            return getString(R.string.drivedeck_proton_switch_no_answer);
+        } else if (result == ProtonQuickSwitch.Result.NoPermission.INSTANCE) {
+            return getString(R.string.drivedeck_proton_switch_no_permission);
+        }
+        return getString(R.string.drivedeck_proton_switch_status_missing);
     }
 
     @Override

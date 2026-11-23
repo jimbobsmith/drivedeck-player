@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="drivedeck_proton_switch_key" translatable="false">drivedeck_proton_switch</string>
+    <string name="drivedeck_proton_switch_status_key" translatable="false">drivedeck_proton_switch_status</string>
+    <string name="drivedeck_proton_switch_now_key" translatable="false">drivedeck_proton_switch_now</string>
+    <string name="drivedeck_proton_switch_default" translatable="false">automatic</string>
+    <string-array name="drivedeck_proton_switch_values" translatable="false">
+        <item>automatic</item>
+        <item>ask</item>
+        <item>off</item>
+    </string-array>
+    <string-array name="drivedeck_proton_switch_entries">
+        <item>Switch automatically</item>
+        <item>Ask me first</item>
+        <item>Do nothing</item>
+    </string-array>
+    <string name="drivedeck_proton_switch_title">When YouTube blocks the video</string>
+    <string name="drivedeck_proton_switch_status_title">Proton VPN app</string>
+    <string name="drivedeck_proton_switch_status_ready">Found. When YouTube blocks the address, DD PipePipe can ask it to switch to another favorite server and continue the video.</string>
+    <string name="drivedeck_proton_switch_status_mock">Found the Proton test stand-in (Test builds only).</string>
+    <string name="drivedeck_proton_switch_status_missing">Not installed on this device, so DD PipePipe cannot change the address.</string>
+    <string name="drivedeck_proton_switch_no_permission">The Proton VPN app was installed after DD PipePipe, so Android has not let DD PipePipe ask it to switch. Reinstall or update DD PipePipe once.</string>
+    <string name="drivedeck_proton_switch_blocked">YouTube blocked this video stream from the current VPN address.</string>
+    <string name="drivedeck_proton_switch_ask_title">YouTube blocked this video</string>
+    <string name="drivedeck_proton_switch_ask_message">YouTube blocked the video stream from the current VPN address. Switch to another favorite Proton VPN server and continue the video?</string>
+    <string name="drivedeck_proton_switch_ask_yes">Switch and continue</string>
+    <string name="drivedeck_proton_switch_ask_no">Not now</string>
+    <string name="drivedeck_proton_switch_switching">YouTube blocked this address. Proton VPN is switching to another favorite server. The video continues when the new connection is up.</string>
+    <string name="drivedeck_proton_switch_continuing">Connected to a new server. Continuing the video…</string>
+    <string name="drivedeck_proton_switch_failed">Proton VPN could not switch: %1$s</string>
+    <string name="drivedeck_proton_switch_no_reason">no reason was given.</string>
+    <string name="drivedeck_proton_switch_no_answer">Proton VPN did not answer within 10 minutes. The switch may still finish.</string>
+    <string name="drivedeck_proton_switch_paused">Automatic Proton VPN switching is paused after %1$d switches in 15 minutes.</string>
+    <string name="drivedeck_proton_switch_retry">Switch server and retry</string>
+    <string name="drivedeck_proton_switch_now_title">Switch server now</string>
+    <string name="drivedeck_proton_switch_now_summary">Ask Proton VPN for another favorite server.</string>
+    <string name="drivedeck_proton_switch_now_running">Proton VPN is switching to another favorite server…</string>
+    <string name="drivedeck_proton_switch_now_done">Switched. %1$s</string>
+</resources>

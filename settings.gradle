@@ -35,6 +35,9 @@ rootProject.name = "DriveDeckPlayer"
 
 include ':app'
 include ':ffmpeg'
+// DD: test stand-in for the Proton API client (emulator tests only)
+include ':proton-mock'
+project(':proton-mock').projectDir = file('tools/proton-mock')
 
 includeBuild('vendor/PipePipeExtractor')
 

@@ -4,6 +4,32 @@
     android:title="@string/settings_category_player_title">
 
     <ListPreference
+        android:defaultValue="@string/drivedeck_proton_switch_default"
+        android:entries="@array/drivedeck_proton_switch_entries"
+        android:entryValues="@array/drivedeck_proton_switch_values"
+        android:key="@string/drivedeck_proton_switch_key"
+        android:summary="%s"
+        android:title="@string/drivedeck_proton_switch_title"
+        app:singleLineTitle="false"
+        app:iconSpaceReserved="false" />
+
+    <Preference
+        android:key="@string/drivedeck_proton_switch_status_key"
+        android:selectable="false"
+        android:title="@string/drivedeck_proton_switch_status_title"
+        app:singleLineTitle="false"
+        app:iconSpaceReserved="false" />
+
+    <Preference
+        android:key="@string/drivedeck_proton_switch_now_key"
+        android:persistent="false"
+        android:summary="@string/drivedeck_proton_switch_now_summary"
+        android:title="@string/drivedeck_proton_switch_now_title"
+        app:isPreferenceVisible="false"
+        app:singleLineTitle="false"
+        app:iconSpaceReserved="false" />
+
+    <ListPreference
         android:defaultValue="@string/default_resolution_value"
         android:entries="@array/resolution_list_description"
         android:entryValues="@array/resolution_list_values"

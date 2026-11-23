@@ -10,11 +10,15 @@ import androidx.annotation.Nullable
 import androidx.annotation.StringRes
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.preference.PreferenceManager
 import com.jakewharton.rxbinding4.view.clicks
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.Disposable
 import org.schabi.newpipe.MainActivity
 import org.schabi.newpipe.R
+import org.schabi.newpipe.drivedeck.ProtonBlockPolicy
+import org.schabi.newpipe.drivedeck.ProtonQuickSwitch
+import org.schabi.newpipe.util.InfoCache
 import org.schabi.newpipe.extractor.NewPipe
 import org.schabi.newpipe.extractor.exceptions.AccountTerminatedException
 import org.schabi.newpipe.extractor.exceptions.AgeRestrictedContentException
@@ -40,7 +44,7 @@ import java.util.concurrent.TimeUnit
 class ErrorPanelHelper(
     private val fragment: Fragment,
     private val rootView: View,
-    onRetry: Runnable
+    private val onRetry: Runnable
 ) {
     private val context: Context = rootView.context!!
 
@@ -143,9 +147,74 @@ class ErrorPanelHelper(
                 // show retry button only for content which is not unavailable or unsupported
                 errorRetryButton.isVisible = true
             }
+            if (ProtonBlockPolicy.classify(throwable) == ProtonBlockPolicy.Block.IP_BLOCK) {
+                offerProtonSwitch(errorInfo.request)
+            }
         }
 
         setRootVisible()
+    }
+
+    /**
+     * DD: YouTube's bot check blocked this address. When the Proton app on this device can be
+     * asked, offer (or, in automatic mode, start) a switch to another favorite server and retry.
+     */
+    private fun offerProtonSwitch(request: String) {
+        val mode = ProtonBlockPolicy.Mode.of(
+            PreferenceManager.getDefaultSharedPreferences(context)
+                .getString(context.getString(R.string.drivedeck_proton_switch_key), null)
+        )
+        if (mode == ProtonBlockPolicy.Mode.OFF ||
+            ProtonQuickSwitch.status(context) !is ProtonQuickSwitch.Status.Ready
+        ) {
+            return
+        }
+        showAndSetErrorButtonAction(R.string.drivedeck_proton_switch_retry) {
+            startProtonSwitch(request, automatic = false)
+        }
+        val budget = ProtonQuickSwitch.automaticBudget
+        if (mode == ProtonBlockPolicy.Mode.AUTOMATIC &&
+            (ProtonQuickSwitch.isSwitching() || budget.allows(request))
+        ) {
+            startProtonSwitch(request, automatic = true)
+        }
+    }
+
+    private fun startProtonSwitch(request: String, automatic: Boolean) {
+        if (automatic && !ProtonQuickSwitch.isSwitching()) {
+            ProtonQuickSwitch.automaticBudget.record(request)
+        }
+        // Only the status while it runs: nothing else can be done until it answers.
+        errorActionButton.isVisible = false
+        errorRetryButton.isVisible = false
+        errorServiceExplanationTextView.setText(R.string.drivedeck_proton_switch_switching)
+        errorServiceExplanationTextView.isVisible = true
+        ProtonQuickSwitch.requestSwitch(context) { result ->
+            if (errorDisposable?.isDisposed != false) return@requestSwitch
+            when (result) {
+                is ProtonQuickSwitch.Result.Switched -> {
+                    errorServiceExplanationTextView.setText(R.string.drivedeck_proton_switch_continuing)
+                    // Resolved stream URLs belong to the old address.
+                    InfoCache.getInstance().clearCache()
+                    onRetry.run()
+                }
+                else -> {
+                    errorServiceExplanationTextView.text = when (result) {
+                        is ProtonQuickSwitch.Result.Failed -> context.getString(
+                            R.string.drivedeck_proton_switch_failed,
+                            result.message.ifBlank { context.getString(R.string.drivedeck_proton_switch_no_reason) },
+                        )
+                        ProtonQuickSwitch.Result.NoAnswer ->
+                            context.getString(R.string.drivedeck_proton_switch_no_answer)
+                        else -> context.getString(R.string.drivedeck_proton_switch_status_missing)
+                    }
+                    showAndSetErrorButtonAction(R.string.drivedeck_proton_switch_retry) {
+                        startProtonSwitch(request, automatic = false)
+                    }
+                    errorRetryButton.isVisible = true
+                }
+            }
+        }
     }
 
     /**
