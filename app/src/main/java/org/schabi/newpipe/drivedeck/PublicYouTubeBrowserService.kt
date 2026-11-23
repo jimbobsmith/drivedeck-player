@@ -51,6 +51,7 @@ class PublicYouTubeBrowserService : MediaBrowserServiceCompat() {
         return BrowserRoot(PublicYouTubePolicy.HOME, Bundle().apply {
             putString("com.drivedeck.media.presentation", PublicYouTubePolicy.PRESENTATION)
             putString(PlayerLibraryPolicy.CAPABILITY, PlayerLibraryPolicy.VERSION)
+            putString(PlayerLibraryPolicy.CONTINUE_CAPABILITY, PlayerLibraryPolicy.CONTINUE_VERSION)
         })
     }
     override fun onLoadChildren(parentId: String, result: Result<MutableList<MediaBrowserCompat.MediaItem>>) {
@@ -117,8 +118,9 @@ class PublicYouTubeBrowserService : MediaBrowserServiceCompat() {
             // A playlist keeps repeated videos in their order; feeds show each video once.
             is PlayerLibraryPolicy.Page.Playlist -> videos(db.playlistStreamDAO().getOrderedStreamsOf(page.id)
                 .blockingFirst(emptyList()).map { it.streamEntity }, distinct = false)
+            PlayerLibraryPolicy.Page.Continue -> continueWatching(db)
         }
-        if (items.isEmpty()) return status(PlayerLibraryPolicy.emptyMessage(page))
+        if (items.isEmpty()) return empty(PlayerLibraryPolicy.emptyMessage(page))
         return paged(items, uid)
     }
     /** Only canonical YouTube videos leave the app; other services and malformed rows are skipped. */
@@ -132,6 +134,31 @@ class PublicYouTubeBrowserService : MediaBrowserServiceCompat() {
             .setTitle(title).setSubtitle(PublicYouTubePolicy.text(stream.uploader))
             .setIconUri(PublicYouTubePolicy.thumbnail(stream.thumbnailUrl)?.let(android.net.Uri::parse)).build(), 0)
     }.let { rows -> if (distinct) rows.distinctBy { it.mediaId } else rows }.take(PlayerLibraryPolicy.MAX_ITEMS).toList()
+    /** Unfinished videos with their saved position, read straight from Room; resume positions synced from other devices count too. */
+    private fun continueWatching(db: org.schabi.newpipe.database.AppDatabase): List<MediaBrowserCompat.MediaItem> {
+        val rows = ArrayList<MediaBrowserCompat.MediaItem>()
+        db.query(PlayerLibraryPolicy.CONTINUE_QUERY, null).use { c ->
+            while (c.moveToNext() && rows.size < PlayerLibraryPolicy.MAX_ITEMS) {
+                val progress = c.getLong(5); val duration = if (c.isNull(4)) 0L else c.getLong(4)
+                if (!PlayerLibraryPolicy.unfinished(progress, duration)) continue
+                val id = runCatching { ServiceList.YouTube.streamLHFactory.getId(c.getString(0)) }.getOrNull()
+                if (id == null || !PublicYouTubePolicy.videoId(id)) continue
+                val title = PublicYouTubePolicy.text(c.getString(1))
+                if (title.isEmpty()) continue
+                val uploader = PublicYouTubePolicy.text(c.getString(2))
+                rows += MediaBrowserCompat.MediaItem(MediaDescriptionCompat.Builder().setMediaId("yt:$id").setTitle(title)
+                    .setSubtitle(PublicYouTubePolicy.text(PlayerLibraryPolicy.resumeLabel(uploader, progress, duration)))
+                    .setIconUri(PublicYouTubePolicy.thumbnail(c.getString(3))?.let(android.net.Uri::parse))
+                    .setExtras(Bundle().apply {
+                        putLong(PlayerLibraryPolicy.EXTRA_PROGRESS_MS, progress)
+                        if (duration > 0) putLong(PlayerLibraryPolicy.EXTRA_DURATION_MS, duration * 1000)
+                    }).build(), 0)
+            }
+        }
+        return rows.distinctBy { it.mediaId }
+    }
+    private fun empty(message: String) = mutableListOf(MediaBrowserCompat.MediaItem(
+        MediaDescriptionCompat.Builder().setMediaId(PlayerLibraryPolicy.EMPTY_ID).setTitle(message).build(), 0))
     private fun paged(items: List<MediaBrowserCompat.MediaItem>, uid: Int): List<MediaBrowserCompat.MediaItem> {
         val rest = items.drop(PublicYouTubePolicy.PAGE_SIZE)
         val page = items.take(PublicYouTubePolicy.PAGE_SIZE).toMutableList()

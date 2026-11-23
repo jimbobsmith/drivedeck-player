@@ -95,8 +95,8 @@ class MediaSyncPhoneValidationTest {
             }
             "conflict" -> {
                 db.runInTransaction { db.streamStateDAO().upsert(StreamStateEntity(uid(db, videoA), 7000)) }
-                assertEquals("conflict", client.sync().getString("code")); assertEquals(7000L, position(db, videoA))
-                assertEquals("synced", client.sync("keep-local").getString("code")); assertEquals(7000L, position(db, videoA))
+                // A resume conflict resolves itself in the same sync (drivedeck-player #54): this device's newer checkpoint wins.
+                val result = client.sync(); assertEquals("synced", result.getString("code")); assertEquals(0, result.getInt("conflicts")); assertEquals(7000L, position(db, videoA))
             }
             "retry" -> { assertEquals("synced", client.sync().getString("code")); assertEquals(8000L, position(db, videoB)); assertEquals(0, client.status().getInt("pending")) }
             else -> fail("Unknown test phase")
