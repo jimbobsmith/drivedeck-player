@@ -256,15 +256,41 @@ class MediaSyncClient(private val db: AppDatabase, config: JSONObject) {
                 }
                 if (!flush()) return status().put("code", "offline")
             }
+            if (choice == null && resolveResumeConflicts() > 0 && !flush()) return status().put("code", "offline")
             if (!flush()) return status().put("code", "offline")
             atomic { state.put("lastSyncComplete", true).put("lastSyncAt", System.currentTimeMillis()) }; return status()
         } catch (_: IOException) { return status().put("code", "offline") } finally { syncBase = null }
+    }
+    /**
+     * A resume conflict means two devices played the same video between syncs. The checkpoint made on
+     * this device is re-sent on top of the newer remote revision (the device used last wins), so automatic
+     * sync never stops for a playback position. Only conflicts whose remote revision has been pulled are
+     * resolved; other kinds still wait for the user.
+     */
+    private fun resolveResumeConflicts(): Int {
+        var resolved = 0
+        atomic {
+            for (k in map("conflicts").keys().asSequence().toList()) {
+                val local = map("local").optJSONObject(k) ?: continue
+                if (local.getJSONObject("payload").getString("kind") != "resume") continue
+                val remote = map("remote").optJSONObject(k) ?: continue
+                if (number(remote, "revision") < map("conflicts").getJSONObject(k).getLong("revision")) continue
+                state.put("pending", JSONArray(list(pending()).filter { key(it.getJSONObject("payload")) != k })); map("conflicts").remove(k)
+                enqueue(local.getJSONObject("payload"), local.getString("operation"), number(remote, "revision"))
+                resolved += 1
+            }
+        }
+        return resolved
+    }
+    /** Conflicts that need the user: resume conflicts resolve themselves during a sync. */
+    private fun blockingConflicts() = map("conflicts").keys().asSequence().count { k ->
+        map("local").optJSONObject(k)?.optJSONObject("payload")?.optString("kind") != "resume"
     }
     fun enableLibrary(): JSONObject = synchronized(LOCK) { reload(); atomic { state.put("libraryEnabled", true) }; status() }
     fun enableProfiles(): JSONObject = synchronized(LOCK) { reload(); atomic { state.put("profilesEnabled", true) }; status() }
     /** Automatic sync is on unless the user paused it (default for new and existing enrollments). */
     fun setAutoSync(on: Boolean): JSONObject = synchronized(LOCK) { reload(); atomic { state.put("autoSync", on); state.remove("needsUser") }; status() }
-    fun autoSyncAllowed() = MediaSyncAutoPolicy.shouldRun(state.optBoolean("autoSync", true), state.getBoolean("blocked"), map("conflicts").length()) && !state.has("needsUser")
+    fun autoSyncAllowed() = MediaSyncAutoPolicy.shouldRun(state.optBoolean("autoSync", true), state.getBoolean("blocked"), blockingConflicts()) && !state.has("needsUser")
     fun status(): JSONObject = JSONObject().put("enabled", true).put("autoSync", state.optBoolean("autoSync", true)).put("lastSyncAt", state.optLong("lastSyncAt", 0)).put("libraryEnabled", state.optBoolean("libraryEnabled")).put("profilesEnabled", state.optBoolean("profilesEnabled")).put("pending", pending().length()).put("conflicts", map("conflicts").length())
         .put("code", if (state.getBoolean("blocked")) "restored_service" else if (map("conflicts").length() > 0) "conflict" else if (state.has("needsUser")) state.getString("needsUser") else if (pending().length() > 0) "pending" else if (state.optBoolean("lastSyncComplete")) "synced" else "ready")
     companion object {

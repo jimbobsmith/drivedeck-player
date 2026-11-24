@@ -144,6 +144,8 @@ public class App extends MultiDexApplication {
         org.schabi.newpipe.updates.PlayerUpdateManager.get(this).reconcileSchedule();
         // Automatic personal media sync: schedules nothing unless the user has signed in.
         org.schabi.newpipe.mediasync.MediaSyncAuto.install(this);
+        // Coming back to the app pulls soon, so a video stopped on another device can be continued here.
+        org.schabi.newpipe.mediasync.MediaSyncAuto.watchForeground(this);
 
         ServiceHelper.initServices(this);
         LocalDomPoTokenProvider.initialize(this);
