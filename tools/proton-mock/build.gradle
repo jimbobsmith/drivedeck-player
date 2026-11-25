@@ -1,0 +1,24 @@
+// A stand-in for the Proton API client for Fire TV, for emulator tests of DD PipePipe's
+// "switch Proton VPN server on a YouTube block" without a VPN. Never install it beside the
+// real Proton app: both define the same permission. See docs/drivedeck/proton-switch.md.
+plugins {
+    id "com.android.application"
+}
+
+android {
+    namespace "com.drivedeck.protonmock"
+    compileSdk 37
+
+    defaultConfig {
+        applicationId "com.drivedeck.protonmock"
+        minSdk 23
+        targetSdk 36
+        versionCode 1
+        versionName "1"
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}

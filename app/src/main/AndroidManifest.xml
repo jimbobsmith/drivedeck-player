@@ -4,6 +4,9 @@
           android:installLocation="auto">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- DD: ask the Proton API client on this device for a Quick switch when YouTube blocks
+         the address (see docs/proton-switch/README.md). -->
+    <uses-permission android:name="com.jimbobsmith.protonapi.firetv.permission.QUICK_SWITCH" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -30,6 +33,9 @@
 
 
     <queries>
+        <!-- DD: the Proton API client for Fire TV, and its test stand-in (Test builds only use it) -->
+        <package android:name="com.jimbobsmith.protonapi.firetv" />
+        <package android:name="com.drivedeck.protonmock" />
         <intent>
             <action android:name="android.intent.action.VIEW" />
             <category android:name="android.intent.category.BROWSABLE" />

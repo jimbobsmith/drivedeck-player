@@ -138,6 +138,7 @@ public final class Player {
     @NonNull private final PlayerThumbnailController thumbnailController;
     @NonNull private final PlayerSurfaceController surfaceController;
     @NonNull private final PlayerSabrBackoffCountdown sabrBackoffCountdown;
+    @NonNull private final PlayerProtonSwitch protonSwitch;
     @NonNull private final PlayerBroadcastReceiver broadcastReceiverController;
     @NonNull private final PlayerListeners listeners;
     @NonNull private final PlayerPlaybackStateController playbackStateController;
@@ -261,6 +262,7 @@ public final class Player {
         thumbnailController = new PlayerThumbnailController(this);
         surfaceController = new PlayerSurfaceController(this);
         sabrBackoffCountdown = new PlayerSabrBackoffCountdown(this);
+        protonSwitch = new PlayerProtonSwitch(this);
         broadcastReceiverController = new PlayerBroadcastReceiver(this);
 
         broadcastReceiverController.setup();
@@ -845,6 +847,11 @@ public final class Player {
 
     void stopSabrBackoffCountdown() {
         sabrBackoffCountdown.stop();
+    }
+
+    @NonNull
+    PlayerProtonSwitch getProtonSwitch() {
+        return protonSwitch;
     }
 
     void clearCurrentMediaItems() {

@@ -89,6 +89,17 @@ class PlayerErrorHandler(private val player: Player) {
         if (error.errorCode != ERROR_CODE_BEHIND_LIVE_WINDOW) {
             player.saveStreamProgressState()
         }
+
+        // DD: YouTube blocked this address. Ask the Proton app for a new one first; its own
+        // handling below runs only when no switch happens.
+        if (player.protonSwitch.handle(error) { handleError(error) }) {
+            player.listeners.onPlayerError(toPlayerError(error), true)
+            return
+        }
+        handleError(error)
+    }
+
+    private fun handleError(error: PlaybackException) {
         var isCatchableException = false
 
         if (containsTerminalSabrException(error)) {
