@@ -1,7 +1,7 @@
 # Keeping up with upstream PipePipe
 
 `main` is the integrated fork line and upstream is a reference, so nothing here merges by itself.
-The `Upstream sync` workflow (`.github/workflows/upstream-sync.yml`) checks every Monday 06:17 UTC,
+The `Upstream sync` workflow (`.github/workflows/upstream-sync.yml`) checks every day at 06:17 UTC,
 and on demand from the Actions tab, for a newer upstream **release** than the pin in
 `tools/upstream-sync/upstream.json`.
 
