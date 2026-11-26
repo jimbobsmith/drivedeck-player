@@ -15,8 +15,6 @@
     <string name="download_path_audio_dialog_title">Zvolte adresář pro stažené audio soubory</string>
     <string name="download_path_audio_title">Adresář pro stažené audio</string>
     <string name="default_resolution_title">Výchozí rozlišení</string>
-    <string name="play_with_kodi_title">Přehrát pomocí Kodi</string>
-    <string name="kore_not_found">Nainstalovat chybějící aplikaci Kore\?</string>
     <string name="download_path_title">Adresář pro stažená videa</string>
     <string name="download_path_summary">Stažená videa jsou uložena tady</string>
     <string name="download_path_dialog_title">Zvolte adresář pro stažená videa</string>
@@ -69,7 +67,6 @@
     <string name="your_comment">Vaše poznámky (anglicky):</string>
     <string name="ok">OK</string>
     <string name="title_activity_recaptcha">Výzva reCAPTCHA</string>
-    <string name="recaptcha_request_toast">Požadována výzva reCAPTCHA</string>
     <string name="black_theme_title">Černé</string>
     <string name="checksum">Kontrolní součet</string>
     <string name="no_available_dir">Určete prosím složku pro stahování později v nastavení</string>
@@ -133,14 +130,11 @@
     <string name="charset_letters_and_digits">Písmena a číslice</string>
     <string name="charset_most_special_characters">Většina speciálních znaků</string>
     <string name="title_activity_about">O NewPipe</string>
-    <string name="title_licenses">Licence třetích stran</string>
-    <string name="copyright" formatted="true">© %1$s od %2$s pod %3$s</string>
     <string name="tab_about">O aplikaci</string>
     <string name="app_description">Svobodné a nenáročné streamování v Androidu.</string>
     <string name="view_on_github">Zobraz na GitHubu</string>
     <string name="app_license_title">Licence NewPipe</string>
     <string name="contribution_encouragement">Pokud máte nápady na zlepšení jako; překlad, změny designu, vylepšování kódu nebo opravdu velké změny kódu - pomoc je vždy vítána. Čím více se udělá, tím lepší to bude!</string>
-    <string name="read_full_license">Přečíst licenci</string>
     <string name="contribution_title">Podílet se</string>
     <string name="title_activity_history">Historie</string>
     <string name="action_history">Historie</string>
@@ -290,7 +284,6 @@
     <string name="delete_search_history_alert">Vymazat celkovou historii vyhledávání\?</string>
     <string name="search_history_deleted">Historie vyhledávání smazána</string>
     <string name="one_item_deleted">Jedna položka smazána.</string>
-    <string name="app_license">NewPipe je svobodný software s copyleft licencí: Můžete jej libovolně používat, studovat, sdílet a vylepšovat. Konkrétně jej můžete šířit a/nebo upravovat za podmínek Obecné veřejné licence GNU (GNU GPL) vydané nadací Free Software Foundation, a to buď za podmínek Licence verze 3 nebo (dle vaší volby) jakékoli pozdější verze.</string>
     <string name="channels">kanály</string>
     <string name="playlists">Playlisty</string>
     <string name="tracks">Stopy</string>
@@ -573,13 +566,11 @@
     <string name="soundcloud_go_plus_content">Toto je stopa SoundCloud Go+, přinejmenším ve Vaší zemi, a tak ji NewPipe nemůže stáhnout ani přehrát.</string>
     <string name="georestricted_content">Tento obsah není ve vaší zemi dostupný.</string>
     <string name="show_channel_details">Zobrazit podrobnosti kanálu</string>
-    <string name="recaptcha_solve">Vyřešit</string>
     <string name="restricted_video_no_stream">Toto video je věkově omezeno.
 \nKvůli novým pravidlům YouTube ohledně věkově omezených videí nemůže NewPipe získat přístup na streamy videa, a tak je nemůže přehrát.</string>
     <string name="night_theme_title">Noční motiv</string>
     <string name="disable_media_tunneling_summary">Vypněte media-tunelling, pokud zaznamenáte temnou obrazovku nebo zadrhávání během playbacku</string>
     <string name="disable_media_tunneling_title">Vypnout media-tunelling</string>
-    <string name="open_website_license">Přejít na website</string>
     <string name="metadata_privacy_internal">Interní</string>
     <string name="metadata_privacy_private">Soukromé</string>
     <string name="metadata_privacy_unlisted">Neuvedeno v seznamu</string>

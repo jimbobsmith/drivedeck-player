@@ -18,10 +18,10 @@
     "README.md"
   ],
   "pin": {
-    "tag": "v5.5.0",
-    "commit": "b91f008fb4d25b470c4383dcf42e31ee7696d272"
+    "tag": "v5.6.0",
+    "commit": "43ef494c1a1792a774c223e1982ff1e794c49017"
   },
   "submodulePin": {
-    "commit": "51363d95bd6a76739453cd38e674786ffbb6c789"
+    "commit": "e9818f8ef16d3720107c51f6ee157aecb1da2b70"
   }
 }

@@ -37,7 +37,7 @@ object LibraryBackupReader {
     private fun read(source: File): LibraryImportRules.Parsed {
         val db = SQLiteDatabase.openDatabase(source.path, null, SQLiteDatabase.OPEN_READONLY or SQLiteDatabase.NO_LOCALIZED_COLLATORS)
         try {
-            require(db.version in 1..903) { "unsupported_import_database_version" }
+            require(db.version in 1..904) { "unsupported_import_database_version" }
             db.execSQL("PRAGMA query_only=ON"); db.execSQL("PRAGMA trusted_schema=OFF")
             val tables = mutableMapOf<String, List<JSONObject>>()
             val present = mutableSetOf<String>()

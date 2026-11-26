@@ -20,6 +20,7 @@
 package org.schabi.newpipe.local.feed
 
 import android.annotation.SuppressLint
+import org.schabi.newpipe.plugin.MissingPluginHelper
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -79,7 +80,6 @@ import org.schabi.newpipe.ktx.slideUp
 import org.schabi.newpipe.local.feed.item.StreamItem
 import org.schabi.newpipe.local.feed.service.FeedLoadService
 import org.schabi.newpipe.local.subscription.SubscriptionManager
-import org.schabi.newpipe.player.PlayerService
 import org.schabi.newpipe.player.playqueue.PlayQueue
 import org.schabi.newpipe.player.playqueue.SinglePlayQueue
 import org.schabi.newpipe.util.DeviceUtils
@@ -354,23 +354,6 @@ class FeedFragment : BaseStateFragment<FeedState>(), BackPressable {
                         NavigationHelper.playOnBackgroundPlayer(activity, playQueue, false)
                     }
                 }
-            }
-
-            // Long click listeners for enqueue functionality
-            binding.playlistCtrlPlayPopupButton.setOnLongClickListener {
-                val playQueue = getPlayQueue()
-                if (playQueue.streams.isNotEmpty()) {
-                    NavigationHelper.enqueueOnPlayer(activity, playQueue, PlayerService.PlayerType.POPUP)
-                }
-                true
-            }
-
-            binding.playlistCtrlPlayBgButton.setOnLongClickListener {
-                val playQueue = getPlayQueue()
-                if (playQueue.streams.isNotEmpty()) {
-                    NavigationHelper.enqueueOnPlayer(activity, playQueue, PlayerService.PlayerType.AUDIO)
-                }
-                true
             }
         }
     }
@@ -906,6 +889,7 @@ class FeedFragment : BaseStateFragment<FeedState>(), BackPressable {
                 Single.fromCallable {
                     NewPipeDatabase.getInstance(requireContext()).subscriptionDAO()
                         .getSubscription(t.subscriptionId)
+                        ?: throw IllegalStateException("Subscription not found: ${t.subscriptionId}")
                 }.subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
@@ -916,7 +900,10 @@ class FeedFragment : BaseStateFragment<FeedState>(), BackPressable {
                                 errors.subList(i + 1, errors.size)
                             )
                         },
-                        { throwable -> Log.e(TAG, "Unable to process", throwable) }
+                        { throwable ->
+                            Log.e(TAG, "Unable to process", throwable)
+                            handleItemsErrors(errors.subList(i + 1, errors.size))
+                        }
                     )
                 return // this will be called on the remaining errors by handleFeedNotAvailable()
             }
@@ -955,6 +942,9 @@ class FeedFragment : BaseStateFragment<FeedState>(), BackPressable {
                                 subscriptions.map { it.name ?: it.url.orEmpty() }.toTypedArray()
                             ) { _, index ->
                                 val subscription = subscriptions[index]
+                                if (MissingPluginHelper.interceptIfMissing(requireActivity(), subscription.serviceId)) {
+                                    return@setItems
+                                }
                                 subscription.url?.let { url ->
                                     NavigationHelper.openChannelFragment(
                                         fm,

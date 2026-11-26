@@ -1,6 +1,5 @@
 package org.schabi.newpipe.util;
 
-import static org.schabi.newpipe.util.external_communication.ShareUtils.installApp;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -52,9 +51,9 @@ import org.schabi.newpipe.local.subscription.SubscriptionListFragment;
 import org.schabi.newpipe.local.subscription.SubscriptionsImportFragment;
 import org.schabi.newpipe.player.PlayerIntentConstants;
 import org.schabi.newpipe.player.PlayerService;
-import org.schabi.newpipe.player.PlayerService.PlayerType;
 import org.schabi.newpipe.player.PlayQueueActivity;
 import org.schabi.newpipe.player.Player;
+import org.schabi.newpipe.player.event.DetailPlayerEvents;
 import org.schabi.newpipe.player.helper.PlayerHelper;
 import org.schabi.newpipe.player.helper.PlayerHolder;
 import org.schabi.newpipe.player.mediaitem.PlayerMediaItem;
@@ -145,11 +144,18 @@ public final class NavigationHelper {
     public static void playOnMainPlayer(final Context context,
                                         @NonNull final PlayQueue playQueue,
                                         final boolean switchingPlayers) {
+        playOnMainPlayer(context, playQueue, switchingPlayers, false);
+    }
+
+    public static void playOnMainPlayer(final Context context,
+                                        @NonNull final PlayQueue playQueue,
+                                        final boolean switchingPlayers,
+                                        final boolean forcePlayFullscreen) {
         final PlayerMediaItem item = playQueue.getItem();
         if (item != null) {
             openVideoDetail(context,
                     item.getServiceId(), item.getUrl(), item.getTitle(), playQueue,
-                    switchingPlayers);
+                    switchingPlayers, forcePlayFullscreen);
         }
     }
 
@@ -193,43 +199,42 @@ public final class NavigationHelper {
     }
 
     /* ENQUEUE */
-    public static void enqueueOnPlayer(final Context context,
-                                       final PlayQueue queue,
-                                       final PlayerType playerType) {
-        if ((playerType == PlayerType.POPUP) && !PermissionHelper.isPopupEnabled(context)) {
-            PermissionHelper.showPopupEnablementToast(context);
-            return;
-        }
-
-        Toast.makeText(context, R.string.enqueued, Toast.LENGTH_SHORT).show();
-        final Intent intent = getPlayerEnqueueIntent(context, DeviceUtils.getPlayerServiceClass(), queue);
-
-        intent.putExtra(PlayerIntentConstants.PLAYER_TYPE, playerType.ordinal());
-        ContextCompat.startForegroundService(context, intent);
-    }
-
     public static void enqueueOnPlayer(final Context context, final PlayQueue queue) {
-        PlayerType playerType = PlayerHolder.getInstance().getType();
-        if (!PlayerHolder.getInstance().isPlayerOpen()) {
-            Log.e(TAG, "Enqueueing but no player is open; defaulting to background player");
-            playerType = PlayerService.PlayerType.AUDIO;
-        }
-
-        enqueueOnPlayer(context, queue, playerType);
+        Toast.makeText(context, R.string.enqueued, Toast.LENGTH_SHORT).show();
+        startEnqueueIntent(context,
+                getPlayerEnqueueIntent(context, DeviceUtils.getPlayerServiceClass(), queue));
     }
 
     /* ENQUEUE NEXT */
     public static void enqueueNextOnPlayer(final Context context, final PlayQueue queue) {
-        PlayerType playerType = PlayerHolder.getInstance().getType();
-        if (!PlayerHolder.getInstance().isPlayerOpen()) {
-            Log.e(TAG, "Enqueueing next but no player is open; defaulting to background player");
-            playerType = PlayerService.PlayerType.AUDIO;
-        }
         Toast.makeText(context, R.string.enqueued_next, Toast.LENGTH_SHORT).show();
-        final Intent intent = getPlayerEnqueueNextIntent(context, DeviceUtils.getPlayerServiceClass(), queue);
+        startEnqueueIntent(context,
+                getPlayerEnqueueNextIntent(context, DeviceUtils.getPlayerServiceClass(), queue));
+    }
 
-        intent.putExtra(PlayerIntentConstants.PLAYER_TYPE, playerType.ordinal());
+    private static void startEnqueueIntent(@NonNull final Context context,
+                                           @NonNull final Intent intent) {
+        intent.putExtra(PlayerIntentConstants.PLAYER_TYPE, playerTypeForEnqueue().ordinal());
         ContextCompat.startForegroundService(context, intent);
+    }
+
+    /**
+     * The player type an enqueue intent carries.
+     *
+     * <p>Enqueueing nothing but appends to the queue of the player which is already running, so
+     * its own player type is used and the player stays in the mode it is in. When nothing is
+     * running, an enqueue intent starts a session: start that session in the background player,
+     * since the user is not looking at a player.</p>
+     */
+    @NonNull
+    private static PlayerService.PlayerType playerTypeForEnqueue() {
+        final PlayerService.PlayerType playerType = PlayerHolder.getInstance().getType();
+        if (playerType != null) {
+            return playerType;
+        }
+
+        Log.e(TAG, "Enqueueing but no player is open; defaulting to background player");
+        return PlayerService.PlayerType.AUDIO;
     }
 
     /*//////////////////////////////////////////////////////////////////////////
@@ -358,19 +363,19 @@ public final class NavigationHelper {
                 .commit();
     }
 
-    public static void expandMainPlayer(final Context context) {
-        context.sendBroadcast(new Intent(VideoDetailFragment.ACTION_SHOW_MAIN_PLAYER));
+    public static void expandMainPlayer() {
+        DetailPlayerEvents.showMainPlayer();
     }
 
-    public static void sendPlayerStartedEvent(final Context context) {
-        context.sendBroadcast(new Intent(VideoDetailFragment.ACTION_PLAYER_STARTED));
+    public static void sendPlayerStartedEvent() {
+        DetailPlayerEvents.playerStarted();
     }
 
     public static void showMiniPlayer(final FragmentManager fragmentManager) {
         final VideoDetailFragment instance = VideoDetailFragment.getInstanceInCollapsedState();
         defaultTransaction(fragmentManager)
                 .replace(R.id.fragment_player_holder, instance)
-                .runOnCommit(() -> sendPlayerStartedEvent(instance.requireActivity()))
+                .runOnCommit(NavigationHelper::sendPlayerStartedEvent)
                 .commitAllowingStateLoss();
     }
 
@@ -385,6 +390,18 @@ public final class NavigationHelper {
                                                @NonNull final String title,
                                                @Nullable final PlayQueue playQueue,
                                                final boolean switchingPlayers) {
+        openVideoDetailFragment(context, fragmentManager, serviceId, url, title, playQueue,
+                switchingPlayers, false);
+    }
+
+    public static void openVideoDetailFragment(@NonNull final Context context,
+                                               @NonNull final FragmentManager fragmentManager,
+                                               final int serviceId,
+                                               @Nullable final String url,
+                                               @NonNull final String title,
+                                               @Nullable final PlayQueue playQueue,
+                                               final boolean switchingPlayers,
+                                               final boolean forcePlayFullscreen) {
 
         final boolean autoPlay;
         @Nullable final PlayerService.PlayerType playerType = PlayerHolder.getInstance().getType();
@@ -404,8 +421,9 @@ public final class NavigationHelper {
 
         final RunnableWithVideoDetailFragment onVideoDetailFragmentReady = (detailFragment,
                                                                             loadVideo) -> {
-            expandMainPlayer(detailFragment.requireActivity());
-            detailFragment.setAutoPlay(autoPlay);
+            expandMainPlayer();
+            detailFragment.setAutoPlay(autoPlay || forcePlayFullscreen);
+            detailFragment.setForceFullscreen(forcePlayFullscreen);
             if (switchingPlayers) {
                 // Situation when user switches from players to main player. All needed data is
                 // here, we can start watching (assuming newQueue equals playQueue).
@@ -424,7 +442,8 @@ public final class NavigationHelper {
         } else {
             final VideoDetailFragment instance = VideoDetailFragment
                     .getInstance(serviceId, url, title, playQueue);
-            instance.setAutoPlay(autoPlay);
+            instance.setAutoPlay(autoPlay || forcePlayFullscreen);
+            instance.setForceFullscreen(forcePlayFullscreen);
 
             defaultTransaction(fragmentManager)
                     .replace(R.id.fragment_player_holder, instance)
@@ -560,12 +579,23 @@ public final class NavigationHelper {
                                        @NonNull final String title,
                                        @Nullable final PlayQueue playQueue,
                                        final boolean switchingPlayers) {
+        openVideoDetail(context, serviceId, url, title, playQueue, switchingPlayers, false);
+    }
+
+    public static void openVideoDetail(final Context context,
+                                       final int serviceId,
+                                       final String url,
+                                       @NonNull final String title,
+                                       @Nullable final PlayQueue playQueue,
+                                       final boolean switchingPlayers,
+                                       final boolean forcePlayFullscreen) {
 
         final Intent intent = getOpenIntent(context, url, serviceId,
                 StreamingService.LinkType.STREAM);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra(Constants.KEY_TITLE, title);
         intent.putExtra(VideoDetailFragment.KEY_SWITCHING_PLAYERS, switchingPlayers);
+        intent.putExtra(VideoDetailFragment.KEY_FORCE_PLAY_FULLSCREEN, forcePlayFullscreen);
 
         if (playQueue != null) {
             final String cacheKey = SerializedCache.getInstance().put(playQueue, PlayQueue.class);
@@ -671,34 +701,6 @@ public final class NavigationHelper {
                                           final int serviceId,
                                           final String url) {
         return getOpenIntent(context, url, serviceId, StreamingService.LinkType.CHANNEL);
-    }
-
-    /**
-     * Start an activity to install Kore.
-     *
-     * @param context the context
-     */
-    public static void installKore(final Context context) {
-        installApp(context, context.getString(R.string.kore_package));
-    }
-
-    /**
-     * Start Kore app to show a video on Kodi.
-     * <p>
-     * For a list of supported urls see the
-     * <a href="https://github.com/xbmc/Kore/blob/master/app/src/main/AndroidManifest.xml">
-     * Kore source code
-     * </a>.
-     *
-     * @param context  the context to use
-     * @param videoURL the url to the video
-     */
-    public static void playWithKore(final Context context, final Uri videoURL) {
-        final Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setPackage(context.getString(R.string.kore_package));
-        intent.setData(videoURL);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
     }
 
     /**

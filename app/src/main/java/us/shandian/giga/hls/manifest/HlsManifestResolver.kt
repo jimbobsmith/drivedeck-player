@@ -9,8 +9,9 @@ import java.io.IOException
 
 class HlsManifestResolver(
     config: HttpTransferConfig = HttpTransferConfig(),
+    requestHeaders: Map<String, String>? = null,
 ) {
-    private val connectionFactory = HttpTransferConnectionFactory(config)
+    private val connectionFactory = HttpTransferConnectionFactory(config, requestHeaders)
     private val parser = HlsPlaylistParser()
 
     @Throws(IOException::class)
@@ -48,6 +49,6 @@ class HlsManifestResolver(
 
     private companion object {
         const val BUFFER_SIZE = 16 * 1024
-        const val MAX_MANIFEST_BYTES = 2 * 1024 * 1024
+        const val MAX_MANIFEST_BYTES = 32 * 1024 * 1024
     }
 }

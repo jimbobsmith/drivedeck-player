@@ -77,7 +77,7 @@ public class VideoPlaybackResolver implements PlaybackResolver {
     @Nullable
     public MediaSource resolve(@NonNull final StreamInfo info, final long initialPositionMs) {
         final long normalizedInitialPositionMs = Math.max(0, initialPositionMs);
-        final MediaSource liveSource = PlaybackResolver.maybeBuildLiveMediaSource(dataSource, info);
+        final MediaSource liveSource = MediaSourceBuilder.buildLive(dataSource, info);
         if (liveSource != null) {
             streamSourceType = SourceType.LIVE_STREAM;
             return liveSource;
@@ -90,11 +90,24 @@ public class VideoPlaybackResolver implements PlaybackResolver {
         removeTorrentStreams(videoStreams);
         removeTorrentStreams(videoOnlyStreams);
 
-        if (info.getStreamType() == StreamType.POST_LIVE_STREAM
-                && videoStreams.stream()
-                .anyMatch(stream -> stream.getDeliveryMethod() == DeliveryMethod.HLS)) {
-            videoStreams.removeIf(stream -> stream.getDeliveryMethod() != DeliveryMethod.HLS);
-            videoOnlyStreams.clear();
+        if (info.getStreamType() == StreamType.POST_LIVE_STREAM) {
+            final boolean hasSabr = videoStreams.stream()
+                    .anyMatch(stream -> stream.getDeliveryMethod() == DeliveryMethod.SABR)
+                    || videoOnlyStreams.stream()
+                    .anyMatch(stream -> stream.getDeliveryMethod() == DeliveryMethod.SABR);
+            if (hasSabr) {
+                // The SABR session exposes the exact DVR window, so it is preferable to the
+                // finite HLS manifest of an ended livestream.
+                videoStreams.removeIf(stream ->
+                        stream.getDeliveryMethod() != DeliveryMethod.SABR);
+                videoOnlyStreams.removeIf(stream ->
+                        stream.getDeliveryMethod() != DeliveryMethod.SABR);
+            } else if (videoStreams.stream()
+                    .anyMatch(stream -> stream.getDeliveryMethod() == DeliveryMethod.HLS)) {
+                videoStreams.removeIf(stream ->
+                        stream.getDeliveryMethod() != DeliveryMethod.HLS);
+                videoOnlyStreams.clear();
+            }
         }
 
         // Create video stream source
@@ -151,7 +164,7 @@ public class VideoPlaybackResolver implements PlaybackResolver {
 
         if (video != null) {
             try {
-                final MediaSource streamSource = PlaybackResolver.buildMediaSource(
+                final MediaSource streamSource = MediaSourceBuilder.build(
                         dataSource, video, info, PlayerHelper.cacheKeyOf(info, video), tag,
                         normalizedInitialPositionMs);
                 mediaSources.add(streamSource);
@@ -184,7 +197,7 @@ public class VideoPlaybackResolver implements PlaybackResolver {
         if (audio != null && !videoHasMatchingAudio && !videoIsSabr
                 && (video == null || video.isVideoOnly() || audioTrack != null)) {
             try {
-                final MediaSource audioSource = PlaybackResolver.buildMediaSource(
+                final MediaSource audioSource = MediaSourceBuilder.build(
                         dataSource, audio, info, PlayerHelper.cacheKeyOf(info, audio), tag);
                 mediaSources.add(audioSource);
                 streamSourceType = SourceType.VIDEO_WITH_SEPARATED_AUDIO;
@@ -234,8 +247,8 @@ public class VideoPlaybackResolver implements PlaybackResolver {
                                     .setRoleFlags(textRoleFlag)
                                     .setLanguage(PlayerHelper.captionLanguageOf(context, subtitle))
                                     .build();
-                    final MediaSource textSource = dataSource.getSingleSampleMediaSourceFactory()
-                            .createMediaSource(textMediaItem, TIME_UNSET);
+                    final MediaSource textSource = MediaSourceBuilder.buildSubtitle(
+                            dataSource, info, subtitle, textMediaItem);
                     mediaSources.add(textSource);
                 }
             }

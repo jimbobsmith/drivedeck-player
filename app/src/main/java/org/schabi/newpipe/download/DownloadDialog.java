@@ -49,7 +49,6 @@ import org.schabi.newpipe.extractor.MediaFormat;
 import org.schabi.newpipe.extractor.NewPipe;
 import org.schabi.newpipe.extractor.ServiceList;
 import org.schabi.newpipe.extractor.exceptions.ParsingException;
-import org.schabi.newpipe.extractor.exceptions.ReCaptchaException;
 import org.schabi.newpipe.extractor.localization.Localization;
 import org.schabi.newpipe.extractor.stream.AudioStream;
 import org.schabi.newpipe.extractor.stream.Stream;
@@ -79,6 +78,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -1148,6 +1148,8 @@ public class DownloadDialog extends DialogFragment
                 .buildResourceManifestUrls(selectedStream, secondaryStream);
         resourceIsUrls = HlsDownloadStreamHelper
                 .buildResourceIsUrls(selectedStream, secondaryStream);
+        final HashMap<String, String>[] resourceRequestHeaders = HlsDownloadStreamHelper
+                .buildResourceRequestHeaders(selectedStream, secondaryStream);
         if (HlsDownloadStreamHelper.containsHlsResource(resourceDeliveryMethods,
                 resourceManifestUrls, urls)
                 || SabrDownloadStreamHelper.containsSabrStream(selectedStream, secondaryStream)) {
@@ -1157,7 +1159,8 @@ public class DownloadDialog extends DialogFragment
 
         DownloadManagerService.startMission(context, urls, storage, kind, threads,
                 currentInfo.getUrl(), psName, psArgs, nearLength, recoveryInfo,
-                resourceDeliveryMethods, resourceManifestUrls, resourceIsUrls);
+                resourceDeliveryMethods, resourceManifestUrls, resourceIsUrls,
+                resourceRequestHeaders);
 
         Toast.makeText(context, getString(R.string.download_has_started),
                 Toast.LENGTH_SHORT).show();

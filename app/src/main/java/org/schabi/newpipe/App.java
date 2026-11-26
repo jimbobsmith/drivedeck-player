@@ -21,12 +21,15 @@ import com.jakewharton.processphoenix.ProcessPhoenix;
 
 import org.acra.ACRA;
 import org.acra.config.CoreConfigurationBuilder;
-import org.schabi.newpipe.error.ReCaptchaActivity;
+import org.schabi.newpipe.error.ChallengeCookies;
 import org.schabi.newpipe.extractor.NewPipe;
 import org.schabi.newpipe.extractor.downloader.Downloader;
 import org.schabi.newpipe.extractor.services.youtube.YoutubeApiDecoder;
 import org.schabi.newpipe.ktx.ExceptionUtils;
+import org.schabi.newpipe.plugin.PluginManager;
 import org.schabi.newpipe.settings.NewPipeSettings;
+import org.schabi.newpipe.settings.ScheduledBackupWorker;
+import org.schabi.newpipe.sync.DebugSync;
 import org.schabi.newpipe.util.*;
 import org.schabi.newpipe.util.dearrow.DeArrowImages;
 import org.schabi.newpipe.youtube.LocalDomPoTokenProvider;
@@ -147,6 +150,8 @@ public class App extends MultiDexApplication {
         // Coming back to the app pulls soon, so a video stopped on another device can be continued here.
         org.schabi.newpipe.mediasync.MediaSyncAuto.watchForeground(this);
 
+        // register plugin services before anything reads the service list
+        PluginManager.loadInstalledPlugins(this);
         ServiceHelper.initServices(this);
         LocalDomPoTokenProvider.initialize(this);
         NewPipe.setYoutubePoTokenResolver(LocalDomPoTokenProvider.INSTANCE::getPlayerPoToken);
@@ -164,6 +169,11 @@ public class App extends MultiDexApplication {
                 && prefs.getBoolean(getString(R.string.show_image_indicators_key), false));
 
         configureRxJavaErrorHandler();
+
+        ScheduledBackupWorker.schedule(this);
+        LoginSessions.scheduleRefresh(this);
+        // not gated on DEBUG: only the settings entry is debug-only
+        DebugSync.schedule(this, false);
     }
 
     public static void reconcileYoutubePlayerClient(@NonNull final Context context) {
@@ -262,10 +272,7 @@ public class App extends MultiDexApplication {
     }
 
     protected void setCookiesToDownloader(final DownloaderImpl downloader) {
-        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
-                getApplicationContext());
-        final String key = getApplicationContext().getString(R.string.recaptcha_cookies_key);
-        downloader.setCookie(ReCaptchaActivity.RECAPTCHA_COOKIES_KEY, prefs.getString(key, null));
+        ChallengeCookies.init(getApplicationContext());
         downloader.updateYoutubeRestrictedModeCookies(getApplicationContext());
     }
 

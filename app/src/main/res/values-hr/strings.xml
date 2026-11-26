@@ -30,8 +30,6 @@
     <string name="download_path_audio_dialog_title">Odaberi mapu za preuzimanje audio-datoteka</string>
     <string name="default_resolution_title">Standardna rezolucija</string>
     <string name="default_popup_resolution_title">Standardna rezolucija skočnog prozora</string>
-    <string name="play_with_kodi_title">Reproduciraj s Kodijem</string>
-    <string name="kore_not_found">Instalirati nedostajući Kore program\?</string>
     <string name="play_audio">Zvuk</string>
     <string name="theme_title">Tema</string>
     <string name="light_theme_title">Svijetla</string>
@@ -102,20 +100,16 @@
     <string name="msg_popup_permission">Ova dozvola je potrebna za
 \notvaranje skočnog prozora</string>
     <string name="title_activity_recaptcha">reCAPTCHA zadatak</string>
-    <string name="recaptcha_request_toast">Traži se reCAPTCHA zadatak</string>
     <string name="settings_category_downloads_title">Preuzimanja</string>
     <string name="settings_file_charset_title">Dozvoljeni znakovi u nazivima datoteka</string>
     <string name="charset_letters_and_digits">Slova i brojevi</string>
     <string name="charset_most_special_characters">Posebni znakovi</string>
     <string name="title_activity_about">O NewPipeu</string>
-    <string name="title_licenses">Licence treće strane</string>
-    <string name="copyright" formatted="true">© %1$s od %2$s pod %3$s</string>
     <string name="tab_about">O aplikaciji</string>
     <string name="app_description">Slobodan i mali YouTube program za Android.</string>
     <string name="view_on_github">Pogledaj na GitHubu</string>
     <string name="app_license_title">Licenca za NewPipe</string>
     <string name="contribution_encouragement">Ako imate ideja za prijevod, promjene u dizajnu, čišćenje koda ili neke veće promjene u kodu, pomoć je uvijek dobro došla. Što više radimo, to bolji postajemo!</string>
-    <string name="read_full_license">Pročitaj licencu</string>
     <string name="contribution_title">Doprinos</string>
     <string name="title_activity_history">Povijest</string>
     <string name="action_history">Povijest</string>
@@ -365,7 +359,6 @@
     <string name="no_comments">Nema komentara</string>
     <string name="error_unable_to_load_comments">Komentare nije moguće učitati</string>
     <string name="close">Zatvori</string>
-    <string name="app_license">NewPipe je copyleft libre software: Može se koristiti, proučavati i poboljšavati po volji. Konkretno, može se redistribuirati i / ili modificirati pod uvjetima GNU opće javne licence koju je objavila Free Software Foundation, bilo licence verzije 3, ili (po vlastitom izboru) bilo koje kasnije verzije.</string>
     <string name="privacy_policy_encouragement">Projekt NewPipe ozbiljno shvaća tvou privatnost. Stoga program ne prikuplja nikakve podatke bez tvog pristanka.
 \nNewPipe pravila o privatnosti detaljno objašnjavaju koji se podaci šalju i spremaju kad šalješ izvještaje o prekidu rada programa.</string>
     <string name="start_accept_privacy_policy">Kako bismo se uskladili s Europskom općom uredbom o zaštiti podataka (GDPR), upozoravamo vas na politiku privatnosti tvrtke NewPipe. Pažljivo ga pročitajte.
@@ -574,7 +567,6 @@
     <string name="private_content">Ovaj sadržaj je privatan, stoga ga NewPipe ne može emitirati ili preuzeti.</string>
     <string name="georestricted_content">Ovaj sadržaj nije dostupan u tvojoj zemlji.</string>
     <string name="crash_the_app">Prekini program</string>
-    <string name="recaptcha_solve">Riješi</string>
     <string name="night_theme_title">Noćna tema</string>
     <string name="show_channel_details">Prikaži detalje kanala</string>
     <string name="disable_media_tunneling_summary">Isključi tuneliranje medija ako doživiš crni ekran ili isprekidanu reprodukciju videa</string>
@@ -582,7 +574,6 @@
     <string name="off">Isklj.</string>
     <string name="on">Uklj.</string>
     <string name="tablet_mode_title">Način rada na tabletu</string>
-    <string name="open_website_license">Otvori stranicu</string>
     <string name="detail_heart_img_view_description">Srce autora</string>
     <string name="metadata_privacy_private">Privatno</string>
     <string name="metadata_privacy_unlisted">Nenavedeno</string>

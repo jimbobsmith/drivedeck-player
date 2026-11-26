@@ -16,6 +16,7 @@ import org.schabi.newpipe.database.feed.model.FeedGroupEntity
 import org.schabi.newpipe.database.subscription.NotificationMode
 import org.schabi.newpipe.extractor.Info
 import org.schabi.newpipe.extractor.NewPipe
+import org.schabi.newpipe.extractor.ServiceList
 import org.schabi.newpipe.extractor.feed.FeedInfo
 import org.schabi.newpipe.extractor.ListInfo
 import org.schabi.newpipe.extractor.exceptions.ContentNotAvailableException
@@ -71,7 +72,7 @@ class FeedLoadManager(private val context: Context) {
     fun startLoading(
         groupId: Long = FeedGroupEntity.GROUP_ALL_ID,
         ignoreOutdatedThreshold: Boolean = false,
-    ): Single<List<Notification<FeedUpdateInfo>>> {
+    ): Single<List<FeedUpdateInfo>> {
         val defaultSharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
         val useFeedExtractor = defaultSharedPreferences.getBoolean(
             context.getString(R.string.feed_use_dedicated_fetch_method_key),
@@ -110,6 +111,8 @@ class FeedLoadManager(private val context: Context) {
 
         return outdatedSubscriptions
             .take(1)
+            // services whose plugin is missing cannot be fetched, the user is guided elsewhere
+            .map { list -> list.filter { ServiceList.getById(it.serviceId) != null } }
             .doOnNext {
                 currentProgress.set(0)
                 maxProgress.set(it.size)
@@ -261,6 +264,13 @@ class FeedLoadManager(private val context: Context) {
             .observeOn(Schedulers.io())
             .buffer(BUFFER_COUNT_BEFORE_INSERT)
             .doOnNext(DatabaseConsumer())
+            // the full results are in the database now, only keep what the new streams
+            // notifications need, so that memory doesn't grow with the number of subscriptions
+            .map { list ->
+                list.mapNotNull { notification ->
+                    notification.value?.takeIf { it.hasNewStreams }?.forNotification()
+                }
+            }
             .subscribeOn(Schedulers.io())
             .toList()
             .flatMap { x -> postProcessFeed().toSingleDefault(x.flatten()) }
@@ -320,10 +330,12 @@ class FeedLoadManager(private val context: Context) {
                                 it is ContentNotSupportedException
                             }
 
+                            // skip channels unsubscribed while the feed was updating
+                            if (!subscriptionManager.updateFromInfo(info)) continue
+
                             notification.value!!.newStreams = filterNewStreams(info.streams)
 
                             feedDatabaseManager.upsertAll(info.uid, info.streams)
-                            subscriptionManager.updateFromInfo(info)
 
                             if (reportableErrors.isNotEmpty()) {
                                 // Log errors for this specific channel
