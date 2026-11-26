@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- DD: no cleartext except loopback. Upstream PipePipe 5.6.0: Android 7.0 lacks ISRG Root X1
+     (added in 7.1.1), which *.githubusercontent.com chains to, so plugin repositories need it. -->
 <network-security-config>
-    <base-config cleartextTrafficPermitted="false" />
+    <base-config cleartextTrafficPermitted="false">
+        <trust-anchors>
+            <certificates src="system" />
+            <certificates src="@raw/isrg_root_x1" />
+        </trust-anchors>
+    </base-config>
     <domain-config cleartextTrafficPermitted="true">
         <domain>127.0.0.1</domain>
     </domain-config>
