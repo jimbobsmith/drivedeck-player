@@ -32,6 +32,7 @@ public final class Migrations {
 
     public static final int DB_VER_902 = 902;
     public static final int DB_VER_903 = 903;
+    public static final int DB_VER_904 = 904;
     public static final Migration MIGRATION_902_903 = new Migration(DB_VER_902, DB_VER_903) {
         @Override
         public void migrate(@NonNull final SupportSQLiteDatabase database) {
@@ -440,6 +441,19 @@ public final class Migrations {
         @Override
         public void migrate(@NonNull final SupportSQLiteDatabase database) {
             database.execSQL("ALTER TABLE streams ADD COLUMN is_paid INTEGER NOT NULL DEFAULT 0");
+        }
+    };
+
+    // Upstream PipePipe 5.6.0 added `plugin_services` as its database version 902. DriveDeck
+    // Player already used 902 (dd_media_sync) and 903 (profile colours), so the same change is
+    // applied here as 904 to keep every existing DriveDeck Player database upgradable.
+    public static final Migration MIGRATION_903_904 = new Migration(DB_VER_903, DB_VER_904) {
+        @Override
+        public void migrate(@NonNull final SupportSQLiteDatabase database) {
+            database.execSQL("CREATE TABLE IF NOT EXISTS `plugin_services` ("
+                    + "`service_id` INTEGER NOT NULL, `plugin_id` TEXT NOT NULL, "
+                    + "`name` TEXT NOT NULL, `repository_url` TEXT NOT NULL, "
+                    + "PRIMARY KEY(`service_id`))");
         }
     };
 

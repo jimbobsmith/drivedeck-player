@@ -4,7 +4,7 @@ An experimental standalone YouTube player forked from PipePipe, with planned Dri
 
 This foundation uses the working name **DriveDeck Player**. Debug builds are visibly named **DriveDeck Player Test** and install as `com.drivedeck.player.test`. They coexist with PipePipe and DriveDeck; their data and signing identities are independent. This is not an update to either application.
 
-The pinned upstream client is PipePipe v5.4.0 (`c2a166f7df05e5ace4c80fb3e3fd27702cfc3e56`). The extractor is a source submodule at `c68e10e2e97495877832d8df6cbac55478083019`. Original source namespaces and copyright/licence notices are retained to keep upstream changes reviewable. The original PipePipe/NewPipe code and FFmpeg notices remain applicable; see [LICENSE](LICENSE) and [the foundation record](docs/foundation/README.md).
+The pinned upstream client is PipePipe v5.6.0 (`43ef494c1a1792a774c223e1982ff1e794c49017`). The extractor is a source submodule at `e9818f8ef16d3720107c51f6ee157aecb1da2b70`. Original source namespaces and copyright/licence notices are retained to keep upstream changes reviewable. The original PipePipe/NewPipe code and FFmpeg notices remain applicable; see [LICENSE](LICENSE) and [the foundation record](docs/foundation/README.md).
 
 ```powershell
 git clone --recurse-submodules https://github.com/jimbobsmith/drivedeck-player.git

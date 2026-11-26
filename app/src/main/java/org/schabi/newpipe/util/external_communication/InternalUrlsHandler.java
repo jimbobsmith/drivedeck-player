@@ -9,13 +9,16 @@ import androidx.appcompat.app.AlertDialog;
 
 import org.schabi.newpipe.MainActivity;
 import org.schabi.newpipe.R;
+import org.schabi.newpipe.error.AntiBotHints;
 import org.schabi.newpipe.error.ErrorPanelHelper;
 import org.schabi.newpipe.extractor.NewPipe;
 import org.schabi.newpipe.extractor.StreamingService;
+import org.schabi.newpipe.extractor.exceptions.AntiBotException;
 import org.schabi.newpipe.extractor.exceptions.ExtractionException;
 import org.schabi.newpipe.extractor.exceptions.ParsingException;
 import org.schabi.newpipe.extractor.linkhandler.LinkHandlerFactory;
 import org.schabi.newpipe.extractor.stream.StreamInfo;
+import org.schabi.newpipe.player.event.DetailPlayerEvents;
 import org.schabi.newpipe.player.playqueue.PlayQueue;
 import org.schabi.newpipe.player.playqueue.SinglePlayQueue;
 import org.schabi.newpipe.util.ExtractorHelper;
@@ -29,7 +32,6 @@ import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
-import static org.schabi.newpipe.fragments.detail.VideoDetailFragment.ACTION_SEEK_TO;
 
 public final class InternalUrlsHandler {
     private static final String TAG = InternalUrlsHandler.class.getSimpleName();
@@ -100,9 +102,7 @@ public final class InternalUrlsHandler {
                                               @NonNull final Pattern pattern,
                                               @NonNull final CompositeDisposable disposables) {
         if(url.contains("internal://timestamp/")) {
-            Intent intent = new Intent(ACTION_SEEK_TO);
-            intent.putExtra("Timestamp", Integer.parseInt(url.split("internal://timestamp/")[1]));
-            context.sendBroadcast(intent);
+            DetailPlayerEvents.seekTo(Integer.parseInt(url.split("internal://timestamp/")[1]));
             return true;
         }
         final Matcher matcher = pattern.matcher(url);
@@ -191,12 +191,7 @@ public final class InternalUrlsHandler {
                     if (DEBUG) {
                         Log.e(TAG, "Could not play on popup: " + url, throwable);
                     }
-                    new AlertDialog.Builder(context)
-                            .setTitle(R.string.player_stream_failure)
-                            .setMessage(
-                                    ErrorPanelHelper.Companion.getExceptionDescription(throwable))
-                            .setPositiveButton(R.string.ok, (v, b) -> { })
-                            .show();
+                    showPlayFailureDialog(context, throwable);
                 }));
         return true;
     }
@@ -227,13 +222,25 @@ public final class InternalUrlsHandler {
                     if (DEBUG) {
                         Log.e(TAG, "Could not play on popup: " + url, throwable);
                     }
-                    new AlertDialog.Builder(context)
-                            .setTitle(R.string.player_stream_failure)
-                            .setMessage(
-                                    ErrorPanelHelper.Companion.getExceptionDescription(throwable))
-                            .setPositiveButton(R.string.ok, (v, b) -> { })
-                            .show();
+                    showPlayFailureDialog(context, throwable);
                 }));
         return true;
+    }
+
+    private static void showPlayFailureDialog(final Context context, final Throwable throwable) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(context)
+                .setTitle(R.string.player_stream_failure)
+                .setMessage(ErrorPanelHelper.getExceptionMessage(context, throwable));
+        final AntiBotException antiBot = AntiBotHints.find(throwable);
+        final Intent actionIntent = antiBot == null
+                ? null : AntiBotHints.actionIntent(context, antiBot);
+        if (actionIntent != null) {
+            builder.setPositiveButton(AntiBotHints.actionRes(antiBot),
+                            (v, b) -> context.startActivity(actionIntent))
+                    .setNegativeButton(R.string.cancel, (v, b) -> { });
+        } else {
+            builder.setPositiveButton(R.string.ok, (v, b) -> { });
+        }
+        builder.show();
     }
 }

@@ -37,8 +37,6 @@
     <string name="download_path_audio_dialog_title">Angiv downloadmappe for lydfiler</string>
     <string name="default_resolution_title">Standardopløsning</string>
     <string name="default_popup_resolution_title">Standardopløsning for pop op</string>
-    <string name="play_with_kodi_title">Afspil med Kodi</string>
-    <string name="kore_not_found">Kore-appen ikke fundet. Installer den\?</string>
     <string name="play_audio">Lyd</string>
     <string name="theme_title">Tema</string>
     <string name="light_theme_title">Lyst</string>
@@ -187,15 +185,12 @@
     <string name="msg_popup_permission">Denne tilladelse er nødvendig for at kunne åbne i pop op-tilstand</string>
     <string name="one_item_deleted">1 element slettet.</string>
     <string name="title_activity_recaptcha">reCAPTCHA-udfordring</string>
-    <string name="recaptcha_request_toast">Der blev anmodet om en reCAPTCHA-udfordring</string>
     <string name="settings_category_downloads_title">Download</string>
     <string name="settings_file_charset_title">Tilladte tegn i filnavne</string>
     <string name="charset_letters_and_digits">Bogstaver og cifre</string>
     <string name="charset_most_special_characters">De fleste specialtegn</string>
     <string name="toast_no_player">Der ingen app installeret der kan afspille denne fil</string>
     <string name="title_activity_about">Om NewPipe</string>
-    <string name="title_licenses">Tredjepartslicenser</string>
-    <string name="copyright" formatted="true">© %1$s af %2$s under %3$s</string>
     <string name="tab_about">Om</string>
     <string name="app_description">Åben letvægtsstreaming på Android.</string>
     <string name="contribution_title">Bidrag til projektet</string>
@@ -207,8 +202,6 @@
     <string name="website_encouragement">Besøg NewPipes websted for mere information og nyheder.</string>
     <string name="privacy_policy_title">NewPipes fortrolighedspolitik</string>
     <string name="app_license_title">NewPipes licens</string>
-    <string name="app_license">NewPipe er copyleft, fri software: Du kan bruge, studere, dele og forbedre den som du vil. Specifikt kan du redistribuere og/eller ændre den under betingelserne i GNU General Public License som udgivet af Free Software Foundation, enten version 3 af licensen eller (efter dit ønske) en vilkårlig senere version.</string>
-    <string name="read_full_license">Læs licens</string>
     <string name="title_activity_history">Historik</string>
     <string name="action_history">Historik</string>
     <string name="delete_item_search_history">Vil du slette dette element fra søgehistorikken\?</string>

@@ -6,6 +6,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import org.schabi.newpipe.App;
 import org.schabi.newpipe.R;
+import org.schabi.newpipe.util.LoginSessions;
 import org.schabi.newpipe.extractor.services.youtube.YoutubeParsingHelper;
 import org.schabi.newpipe.views.YouTubeLoginWebViewActivity;
 import org.schabi.newpipe.youtube.LocalDomPoTokenProvider;
@@ -55,13 +56,11 @@ public class YouTubeAccountSettingsFragment extends BaseAccountSettingsFragment 
     @Override
     protected void handleLoginResult(Intent data) {
         String cookies = data.getStringExtra("cookies");
-        String pot = data.getStringExtra("pot");
 
         try {
             YoutubeParsingHelper.getAuthorizationHeader(cookies);
             defaultPreferences.edit()
                     .putString(getCookiesKey(), cookies)
-                    .putString(getString(R.string.youtube_po_token_key), pot)
                     .apply();
             LocalDomPoTokenProvider.INSTANCE.invalidate();
             onLoginSuccess();
@@ -74,9 +73,9 @@ public class YouTubeAccountSettingsFragment extends BaseAccountSettingsFragment 
     protected void performLogout() {
         defaultPreferences.edit()
                 .putString(getCookiesKey(), "")
-                .putString(getString(R.string.youtube_po_token_key), "")
                 .apply();
         LocalDomPoTokenProvider.INSTANCE.invalidate();
+        LoginSessions.onLogout(requireContext(), LoginSessions.youtube(requireContext()));
         onLogoutSuccess();
     }
 

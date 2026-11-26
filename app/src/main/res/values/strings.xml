@@ -45,8 +45,6 @@
 <string name="download_path_audio_dialog_title">Choose download folder for audio files</string>
 <string name="default_resolution_title">Default resolution</string>
 <string name="default_popup_resolution_title">Default popup resolution</string>
-<string name="play_with_kodi_title">Play with Kodi</string>
-<string name="kore_not_found">Install missing Kore app?</string>
 <string name="crash_the_player">Crash the player</string>
 <string name="notification_scale_to_square_image_title">Crop thumbnail to 1:1 aspect ratio</string>
 <string name="notification_scale_to_square_image_summary">Crop the video thumbnail shown in the notification from 16:9 to 1:1 aspect ratio</string>
@@ -72,7 +70,7 @@
 <string name="use_inexact_seek_title">Use fast inexact seek</string>
 <string name="use_inexact_seek_summary">Inexact seek allows the player to seek to positions faster with reduced precision. Seeking for 5, 15 or 25 seconds doesn\'t work with this</string>
 <string name="disable_android_auto_title">Disable Android Auto</string>
-<string name="disable_android_auto_summary">Disable Android Auto connection to avoid notification issues on on Android 12 and older.\n\nAfter re-enabling this option, you must restart the app and reconnect to the car for the change to take effect.</string>
+<string name="disable_android_auto_summary">Disable Android Auto connection to avoid notification issues on Android 12 and older.\n\nAfter re-enabling this option, you must restart the app and reconnect to the car for the change to take effect.</string>
 <string name="seek_duration_title">Fast-forward/-rewind seek duration</string>
 <string name="seek_on_media_button_events_title">Rewind/fast-forward instead of previous/next</string>
 <string name="seek_on_media_button_events_summary">Show rewind/fast-forward buttons in the notification (Android 13+) and make the previous/next keys of Bluetooth devices and headsets seek instead of skipping tracks. The seek step is set by “Fast-forward/-rewind seek duration” in gesture settings.</string>
@@ -321,8 +319,6 @@
 <!-- reCAPTCHA -->
 <string name="title_activity_recaptcha">reCAPTCHA challenge</string>
 <string name="subtitle_activity_recaptcha">Press \"Done\" when solved</string>
-<string name="recaptcha_request_toast">reCAPTCHA challenge requested</string>
-<string name="recaptcha_solve">Solve</string>
 <string name="recaptcha_done_button">Done</string>
 <!-- Downloads -->
 <string name="settings_category_downloads_title">Download</string>
@@ -332,16 +328,11 @@
 <string name="toast_no_player">No app installed to play this file</string>
 <!-- About -->
 <string name="title_activity_about_new">About PipePipe</string>
-<string name="title_licenses">Third-party Licenses</string>
-<string name="copyright">© %1$s by %2$s under %3$s</string>
 <string name="tab_about">About</string>
 <string name="app_description_new">A FLOSS Android app to let you browse YouTube, NicoNico and BiliBili freely </string>
 <string name="contribution_title">Contribute</string>
 <string name="contribution_encouragement">Whether you have ideas of; translation, design changes, code cleaning, or real heavy code changes—help is always welcome. The more is done the better it gets!</string>
 <string name="donation_title">Donate</string>
-<string name="app_license_title_new">NewPipe\'s License (Upstream)</string>
-<string name="app_license">NewPipe is copyleft libre software: You can use, study, share, and improve it at will. Specifically you can redistribute and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</string>
-<string name="read_full_license">Read license</string>
 <!-- History -->
 <string name="title_activity_history">History</string>
 <string name="action_history">History</string>
@@ -805,12 +796,17 @@
 <string name="metadata_subscribers">Subscribers</string>
 <string name="detail_pinned_comment_view_description">Pinned comment</string>
 <string name="detail_heart_img_view_description">Hearted by creator</string>
-<string name="open_website_license">Open website</string>
 <string name="tablet_mode_title">Tablet mode</string>
 <string name="on">On</string>
 <string name="off">Off</string>
 <!-- Progressive Load Interval -->
 <string name="progressive_load_interval_exoplayer_default">ExoPlayer default</string>
+<string name="early_buffer_title">Buffer after starting or seeking</string>
+<string name="early_buffer_summary">How far ahead to load until 30 seconds have been played in a row (currently %s). A lower value saves data when you seek or leave a video early, the whole buffer protects more against a bad connection. Changes require a player restart</string>
+<string name="early_buffer_full">Whole buffer</string>
+<string name="early_buffer_10_seconds">10 seconds</string>
+<string name="early_buffer_20_seconds">20 seconds</string>
+<string name="early_buffer_30_seconds">30 seconds</string>
 <!-- New streams notifications -->
 <string name="notifications_disabled">Notifications are disabled</string>
 <string name="get_notified">Get notified</string>
@@ -928,7 +924,7 @@
 <string name="sponsor_promote">Become a supporter</string>
 <string name="random_play_order_title">Random Order</string>
 <string name="random_play_order_summary">Automatically shuffle your local playlists when playing in the background</string>
-<string name="update_log">### New Features\n\n- Added multi-select functionality to list pages\n- Added a screen lock button during fullscreen playback\n- Optimized pinch-to-zoom logic and enabled it by default\n- Added support for changing the previous/next track control buttons to fast-forward/rewind\n- Added support for YouTube-style live chat, toggleable with danmaku\n- Added support for more sorting options\n- Added an option to configure whether to show the playback UI on list pages\n- Regular expressions (Regex) are now supported for all keyword filters\n- Added support for comment filtering by keywords, usernames, or like counts\n- Added support for selecting preferred audio quality\n- Added DeArrow support\n\n### Bug Fixes\n\n- Fixed an issue where playback failed to start under certain circumstances (YouTube)\n- Fixed an issue where playback unexpectedly stopped under certain circumstances (YouTube)\n- Fixed an issue where search results were fewer than expected under certain circumstances (YouTube)\n- Fixed an issue where some tracks could not be played (SoundCloud)\n- Fixed an issue where video details did not refresh when returning to the foreground from background playback\n- Fixed UI layout errors under certain circumstances\n- Fixed crashes that occurred under certain circumstances\n- Fixed an issue where importing a playlist via URL failed after leaving the page\n- Fixed an issue where SponsorBlock was incorrectly disabled globally under certain circumstances\n- Fixed an issue where WebView failed to load under certain circumstances\n\n### Others\n\n- Optimized the UI display for content filtering\n- Optimized the in-list search function and unified the icon to a funnel\n- Channels can now be blocked by channel ID\n- SponsorBlock now supports manually entering start/end times\n- Added support for the \"Releases\" tab on YouTube\n- Name sorting can now be switched based on preference (EN/C/J/K)</string>
+<string name="update_log">### New Features\n\n- Support casting videos to another device running PipePipe with remote control capabilities\n- Added scheduled backups to periodically export the entire database to a specified folder\n- Added support for importing, exporting, and resetting settings individually\n- Improved the login system to automatically log out and notify the user when a session expires\n- Improved UI prompts when rate-limited or blocked by service risk control\n- Support sorting watch history by name, earliest played, and least played\n- Support filtering watch history by date range\n- Added support for the \"Courses\" tab on channels (YouTube)\n- Support displaying attached images in comments (YouTube)\n- Added support for displaying the current video\'s collection/season (BiliBili)\n\n### Bug Fixes\n\n- Fixed recent playback instability issues with the mweb (SABR) endpoint (YouTube)\n- Fixed an issue where playback stopped after one minute under certain network environments when using the mweb (SABR) endpoint (YouTube)\n- Fixed an issue where some recently ended livestreams could not be played or downloaded properly under the mweb (SABR) endpoint (YouTube)\n- Fixed an issue where Shorts were not properly blocked (YouTube)\n- Fixed an issue where paid upcoming livestreams were not parsed as paid and failed to extract the start time (YouTube)\n- Fixed an issue where certain errors were displayed in Zulu (YouTube)\n- Fixed an issue where videos failed to load for non-Chinese IPs under certain conditions (BiliBili)\n- Fixed a crash that occurred when updating Feeds under certain conditions\n- Fixed a crash during background video playback on specific devices\n- Fixed an issue where the mini-player occasionally became abnormally tall\n- Fixed an issue where DeArrow did not work in local playlists\n- Fixed unexpected behavior during long-distance drag-and-drop in the play queue\n- Fixed abnormal scroll position jumps when performing multiple searches\n- Fixed an issue where the keyboard did not pop up automatically for in-page search\n- Fixed an issue on TV devices where an abnormal white rectangle appeared under certain conditions\n- Fixed crashes on TV devices under certain conditions\n- Fixed navigation/control issues on TV devices under certain conditions\n\n### Performance\n\n- Slightly improved the loading speed of YouTube livestreams\n- Optimized memory usage during Feed updates\n- Added a \"Buffer less after starting playback or seeking\" player option in Advanced Settings\n\n### Behavior Changes\n\n- Legacy built-in NewPipe services (SoundCloud, Bandcamp, PeerTube, media.ccc.de) are now provided as plugins\n- The blocked items count is now only displayed when there are no more results or when all results have been filtered out\n- The channel name for Shorts in search results is now displayed as \"YouTube Shorts\" (YouTube)</string>
 <string name="speeding_playback_title">Long-press to speeding the playback</string>
 <string name="view_on_github">View on GitHub</string>
 <string name="donation_dialog_title">Support the Project</string>
@@ -943,7 +939,6 @@
 <string name="settings_category_bullet_comments_summary">Danmaku Settings</string>
 <string name="settings_category_backup_title">Backup</string>
 <string name="settings_category_advanced_title">Advanced</string>
-<string name="anti_bot_youtube_hint">Your IP is blocked by YouTube. Try using a VPN or logging in through Settings to continue.</string>
 <string name="advanced_formats_summary">If your device has support, enabling advanced formats can reduce data consumption and provide higher resolutions. \nWEBM or AV1 must be enabled to show 2k/4k contents on YouTube. \nUse a format that your device doesn\'t support will result in a black screen or crash.</string>
 <string name="advanced_formats_title">Enable advanced formats</string>
 <string name="preferred_audio_language_title">Preferred audio language</string>
@@ -1019,9 +1014,9 @@
 <string name="pull_to_refresh_title">Pull to refresh</string>
 <string name="pull_to_refresh_summary">Enable pull-to-refresh gesture in feed</string>
 <string name="select_groups">Select Groups</string>
-<string name="clear_webview_cookies">Clear WebView cookies</string>
-<string name="clear_webview_cookies_summary">Clear all cookies stored by WebView components so you can use a new account</string>
-<string name="webview_cookies_cleared">WebView cookies have been cleared</string>
+<string name="clear_webview_cookies">Clear WebView cookies and log out</string>
+<string name="clear_webview_cookies_summary">Log out of all accounts and clear all cookies stored by WebView components, so you can use a new account</string>
+<string name="webview_cookies_cleared">Logged out and WebView cookies cleared</string>
 <string name="remove_from_playlist_confirmation">Remove this item from playlist?</string>
 <string name="local_playlist_swipe_action_title">Right swipe action in local playlists</string>
 <string name="youtube_login_warning_title">Log in only when needed</string>
@@ -1037,6 +1032,7 @@
 <string name="grid_columns_title">Grid columns</string>
 <string name="grid_columns_landscape_title">Grid columns (landscape)</string>
 <string name="channel_tab_podcasts">Podcasts</string>
+<string name="channel_tab_courses">Courses</string>
 <string name="video_tabs_title">Video Tabs</string>
 <string name="video_tabs_summary">Configure which tabs to show on video detail screen</string>
 <string name="filter_future_items_title">Filter upcoming items</string>
@@ -1227,4 +1223,111 @@
     <string name="library_import_canceled">Import canceled. Your library is unchanged.</string>
     <string name="library_import_failed">Import could not complete. Check the format, supported YouTube IDs and size limits. Your existing library is retained.</string>
     <string name="library_import_done">Library merged locally. Use Sync now separately when ready.</string>
+<string name="history_filter_by_date">Filter by date</string>
+<string name="history_clear_date_filter">Clear filter</string>
+<string name="history_filter_start_date">Start date</string>
+<string name="history_filter_end_date">End date</string>
+<string name="history_filter_invalid_date">Not a valid date</string>
+<string name="title_last_played_ascending">Last Played (oldest first)</string>
+<string name="title_most_played_ascending">Most Played (fewest first)</string>
+<string name="plugins">Plugins</string>
+<string name="plugins_enable_title">Allow plugins</string>
+<string name="plugins_enable_summary">Plugins are downloaded from third party repositories and run with the same permissions as PipePipe</string>
+<string name="plugins_warning_title">Enable plugins?</string>
+<string name="plugins_warning_message">Plugins are code downloaded from the repositories you add. They are not reviewed by PipePipe or by the store you installed PipePipe from (such as F-Droid), and run with the same permissions and data access as PipePipe, including your logins.
+
+Only add repositories you trust.</string>
+<string name="plugins_warning_accept">Enable</string>
+<string name="plugins_repositories">Repositories</string>
+<string name="plugins_add_repository">Add repository</string>
+<string name="plugins_repository_url_hint">Repository URL (index.json)</string>
+<string name="plugins_repository_https_only">Only HTTPS repositories are supported</string>
+<string name="plugins_remove_repository">Remove repository</string>
+<string name="plugins_no_repositories">No repositories. Add one to browse plugins.</string>
+<string name="plugins_installed">Installed</string>
+<string name="plugins_available">Available</string>
+<string name="plugins_none_installed">No plugins installed</string>
+<string name="plugin_update">Update</string>
+<string name="plugin_uninstall">Uninstall</string>
+<string name="plugin_installing">Installing %s…</string>
+<string name="plugin_install_failed">Could not install %1$s: %2$s</string>
+<string name="plugin_repository_failed">Could not load %1$s: %2$s</string>
+<string name="plugin_restart_required">Restart PipePipe to apply plugin changes</string>
+<string name="plugin_restart">Restart</string>
+<string name="plugin_status_loaded">Version %s</string>
+<string name="plugin_status_pending">Version %s, active after restart</string>
+<string name="plugin_status_error">Version %1$s, failed to load: %2$s</string>
+<string name="plugin_incompatible">Requires a newer PipePipe</string>
+<string name="plugin_key_changed">The plugin is now signed with a different key. Uninstall it first if you trust the new publisher.</string>
+<string name="plugin_settings_title">%s settings</string>
+<string name="plugin_uninstall_confirm">Uninstall %s? Your subscriptions and history for it are kept.</string>
+<string name="plugin_install_from">Install %1$s from %2$s?</string>
+<string name="plugin_author">by %s</string>
+<string name="service_instances_title">%s instances</string>
+<string name="service_instances_summary">Select the instances you use</string>
+<string name="plugins_add_awesome_repository">Add awesome-pipepipe-plugins</string>
+<string name="plugins_add_awesome_repository_summary">Community-curated plugin repository</string>
+<string name="plugins_show_nsfw_title">Show NSFW plugins</string>
+<string name="plugins_show_nsfw_summary">List plugins marked as NSFW in the available plugins</string>
+<string name="plugin_installed_other_publisher">Published by someone else. Uninstall %1$s first to install this one.</string>
+<string name="cast_to_pipepipe">Cast to PipePipe</string>
+<string name="cast_searching">Searching for PipePipe devices on this network…</string>
+<string name="cast_enter_pin">Enter the code shown on %1$s</string>
+<string name="cast_wrong_pin">Wrong code</string>
+<string name="cast_locked">Too many wrong codes. Restart PipePipe on the receiving device to try again.</string>
+<string name="cast_disconnect">Disconnect</string>
+<string name="cast_pairing_code_toast">%1$s wants to cast here. Pairing code: %2$s</string>
+<string name="cast_receiver_title">Receive casts from other PipePipe devices</string>
+<string name="cast_receiver_summary">Keeps a local network listener running while PipePipe is open, which uses some battery. Enabled by default on TVs.</string>
+<string name="cast_plugin_missing">%2$s does not have the %1$s plugin installed, so it cannot play this video.</string>
+<string name="cast_service_unsupported">%1$s does not support this video\'s service.</string>
+<string name="cast_play_failed">%1$s could not load this video.</string>
+<string name="cast_remote_menu">PipePipe remote control</string>
+<string name="cast_reconnect">Reconnect</string>
+<string name="cast_reconnecting">Reconnecting…</string>
+<string name="cast_disconnected">Disconnected</string>
+<string name="cast_resume_device">Continue controlling %1$s</string>
+<string name="cast_connect_failed">Could not connect to %1$s.</string>
+<string name="scheduled_backup_title">Scheduled backup</string>
+<string name="scheduled_backup_summary">Periodically write a full database export to the chosen folder. Old backups are never deleted.</string>
+<string name="scheduled_backup_path_title">Scheduled backup folder</string>
+<string name="scheduled_backup_interval_title">Scheduled backup interval</string>
+<string name="scheduled_backup_failed">Scheduled backup failed</string>
+<string name="settings_only_category_title">Settings</string>
+<string name="import_settings_only_title">Import settings</string>
+<string name="import_settings_only_summary">Import settings from a file. Current settings will be overridden; history and subscriptions are untouched.</string>
+<string name="export_settings_only_title">Export settings</string>
+<string name="export_settings_only_summary">Export only settings to a file, without history and subscriptions</string>
+<string name="reset_settings_title">Reset settings</string>
+<string name="reset_settings_summary">Restore all settings to default. History and subscriptions are untouched.</string>
+<string name="reset_settings_confirmation">All settings will be restored to default and the app will restart. Continue?</string>
+<string name="invalid_settings_file">Not a valid settings file</string>
+<string name="missing_plugin_title">Plugins needed</string>
+<string name="missing_plugin_message">Some of your data belongs to services that are now provided by plugins, which are not installed or not loaded:</string>
+<string name="missing_plugin_unknown">Unknown plugin (service %d)</string>
+<string name="missing_plugin_manual">Some of them cannot be installed automatically. Check the plugin settings.</string>
+<string name="missing_plugin_ignore">Don\'t show again</string>
+<string name="missing_plugin_not_found">Not found in its repository</string>
+<plurals name="missing_plugin_subscriptions">
+<item quantity="one">%d subscription</item>
+<item quantity="other">%d subscriptions</item>
+</plurals>
+<plurals name="missing_plugin_playlists">
+<item quantity="one">%d playlist</item>
+<item quantity="other">%d playlists</item>
+</plurals>
+<string name="logout_keep_webview_session_title">Keep web session on logout</string>
+<string name="logout_keep_webview_session_summary">Logging out only removes the account from PipePipe and keeps the website session, so logging in again is faster</string>
+<string name="login_expired_toast">%1$s login has expired, you have been logged out</string>
+<string name="error_report_plugin_button">Report to plugin author</string>
+<string name="error_report_plugin_title">Plugin failure</string>
+<string name="error_report_plugin_message">This failure comes from the %1$s plugin, so it is not a PipePipe issue. Report it at %2$s</string>
+<string name="error_report_plugin_no_tracker">This failure comes from the %1$s plugin, so it is not a PipePipe issue. The plugin declares no issue tracker, so copy the report and send it to its author, %2$s.</string>
+<string name="error_report_plugin_open">Open tracker</string>
+<string name="anti_bot_hint">%1$s is limiting requests from your network. Try again later or switch to a different network.</string>
+<string name="anti_bot_login_hint">%1$s flagged requests from your network as unusual. Log in to continue, or try again later.</string>
+<string name="anti_bot_login_action">Log in</string>
+<string name="anti_bot_captcha_hint">%1$s wants to verify you are not a bot.</string>
+<string name="anti_bot_captcha_action">Verify</string>
+<string name="anti_bot_unknown_service">This service</string>
 </resources>
